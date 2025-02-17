@@ -1,0 +1,513 @@
+[gd_scene load_steps=25 format=3 uid="uid://m3pn8jhjp016"]
+
+[ext_resource type="Script" path="res://objects/fishes/fish.gd" id="1_vollg"]
+[ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_jvsmo"]
+[ext_resource type="Script" path="res://assets/resources/fish_data.gd" id="2_stxx7"]
+[ext_resource type="Texture2D" uid="uid://dcn7r3k70kt6d" path="res://assets/sprites/icons/eat.png" id="4_0toll"]
+[ext_resource type="Texture2D" uid="uid://c0uy6y2kg7m1d" path="res://assets/sprites/bubbles.png" id="4_iq1b3"]
+[ext_resource type="PackedScene" uid="uid://bs87v6choh3co" path="res://objects/components/chase_component.tscn" id="4_lqw0p"]
+[ext_resource type="Texture2D" uid="uid://dgrf542moayew" path="res://assets/sprites/icons/alert.png" id="5_68dg6"]
+[ext_resource type="PackedScene" uid="uid://67yxn7oqday8" path="res://objects/components/eat_component.tscn" id="7_k1r8r"]
+
+[sub_resource type="Resource" id="Resource_m62sw"]
+script = ExtResource("2_stxx7")
+fish_name = ""
+fish_gold = 0
+fish_experience = 1.0
+fish_color = Color(0, 0, 0, 1)
+fish_stars = 1
+
+[sub_resource type="Curve" id="Curve_xcebo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.792135, 0), -3.39048, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_s4lc3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.29153, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_jj0a6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.0698132]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visual/Bubbles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("IconPivot/AlertIcon:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("IconPivot/AlertIcon:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.279253]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("IconPivot/EatIcon:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("IconPivot/EatIcon:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Visual:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Visual/Eated:emitting")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_i6cgv"]
+resource_name = "chase"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IconPivot/AlertIcon:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("IconPivot/AlertIcon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.279253, 0.279253]
+}
+
+[sub_resource type="Animation" id="Animation_vc5nm"]
+resource_name = "collect"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_collect"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visual/Bubbles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_7id04"]
+resource_name = "eat"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("IconPivot/EatIcon:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("IconPivot/EatIcon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(3.4, 3.4)]
+}
+
+[sub_resource type="Animation" id="Animation_x8n03"]
+resource_name = "eated"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_2lm01"]
+resource_name = "hook"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.6, 0.6), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tl176"]
+resource_name = "move"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [-0.139626, 0.139626]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_v75j8"]
+resource_name = "start_eated"
+length = 1.1
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual/Eated:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, true]
+}
+
+[sub_resource type="Animation" id="Animation_yuapq"]
+resource_name = "stop_eated"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6xegg"]
+_data = {
+"RESET": SubResource("Animation_jj0a6"),
+"chase": SubResource("Animation_i6cgv"),
+"collect": SubResource("Animation_vc5nm"),
+"eat": SubResource("Animation_7id04"),
+"eated": SubResource("Animation_x8n03"),
+"hook": SubResource("Animation_2lm01"),
+"move": SubResource("Animation_tl176"),
+"start_eated": SubResource("Animation_v75j8"),
+"stop_eated": SubResource("Animation_yuapq")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5f76"]
+atlas = ExtResource("4_0toll")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfvey"]
+atlas = ExtResource("4_0toll")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fpnb8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5f76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfvey")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Fish" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_vollg")
+fish_data = SubResource("Resource_m62sw")
+respawn_time = 40.0
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+rotation = -0.0698132
+scale = Vector2(3, 3)
+texture = ExtResource("2_jvsmo")
+
+[node name="Bubbles" type="CPUParticles2D" parent="Visual"]
+position = Vector2(50, -7)
+amount = 4
+lifetime = 2.0
+lifetime_randomness = 0.5
+texture = ExtResource("4_iq1b3")
+direction = Vector2(0, -1)
+spread = 100.0
+gravity = Vector2(0, -100)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+angular_velocity_min = -100.0
+angular_velocity_max = 100.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_xcebo")
+
+[node name="Eated" type="CPUParticles2D" parent="Visual"]
+emitting = false
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.88
+lifetime_randomness = 0.5
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 300.0
+scale_amount_min = 6.0
+scale_amount_max = 10.0
+scale_amount_curve = SubResource("Curve_s4lc3")
+
+[node name="MovementTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6xegg")
+}
+autoplay = "move"
+
+[node name="RespawnTimer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[node name="ChaseComponent" parent="." instance=ExtResource("4_lqw0p")]
+
+[node name="EatComponent" parent="." instance=ExtResource("7_k1r8r")]
+position = Vector2(60, -3)
+
+[node name="Debug" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="MovementRect" type="ReferenceRect" parent="Debug"]
+layout_mode = 0
+offset_right = 1044.0
+offset_bottom = 503.0
+mouse_filter = 2
+border_width = 5.0
+editor_only = false
+
+[node name="State" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = -61.0
+offset_top = -95.0
+offset_right = 61.0
+offset_bottom = -58.0
+text = "State: IDLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(2.49999, -2.99999)
+scale = Vector2(24.05, 16.9)
+
+[node name="IconPivot" type="Node2D" parent="."]
+position = Vector2(53, -3)
+
+[node name="EatIcon" type="AnimatedSprite2D" parent="IconPivot"]
+visible = false
+position = Vector2(0, -56)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_fpnb8")
+autoplay = "default"
+frame_progress = 0.447379
+
+[node name="AlertIcon" type="Sprite2D" parent="IconPivot"]
+visible = false
+position = Vector2(-1.13543, -45.9969)
+rotation = -0.279253
+scale = Vector2(3, 3)
+texture = ExtResource("5_68dg6")
+offset = Vector2(0, -5.5)
+
+[connection signal="timeout" from="MovementTimer" to="." method="_on_movement_timer_timeout"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="end_chase" from="ChaseComponent" to="." method="_on_chase_component_end_chase"]
+[connection signal="start_chase" from="ChaseComponent" to="." method="_on_chase_component_start_chase"]
+[connection signal="eat" from="EatComponent" to="." method="_on_eat_component_eat"]
+[connection signal="end_eat" from="EatComponent" to="." method="_on_eat_component_end_eat"]
+[connection signal="start_eat" from="EatComponent" to="." method="_on_eat_component_start_eat"]

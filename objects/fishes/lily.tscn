@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://ucqva3ypywfg"]
+
+[ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_5en4v"]
+[ext_resource type="Texture2D" uid="uid://db8lfvo2el27n" path="res://assets/sprites/fishes/lily.png" id="2_e5js6"]
+[ext_resource type="Script" path="res://assets/resources/fish_data.gd" id="3_7giho"]
+
+[sub_resource type="Resource" id="Resource_j6nw0"]
+script = ExtResource("3_7giho")
+fish_name = "Lily"
+fish_texture = ExtResource("2_e5js6")
+fish_gold = 200
+fish_experience = 1.0
+fish_color = Color(0.8, 0.6, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uwufu"]
+radius = 240.533
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bltrh"]
+radius = 56.2228
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1tqmb"]
+radius = 80.0
+height = 352.0
+
+[node name="Lily" instance=ExtResource("1_5en4v")]
+speed = 300.0
+fish_mass = 200.0
+level = 10
+fish_data = SubResource("Resource_j6nw0")
+respawn_time = 100.0
+
+[node name="Sprite2D" parent="Visual" index="0"]
+scale = Vector2(5.84443, 5.84443)
+texture = ExtResource("2_e5js6")
+
+[node name="Bubbles" parent="Visual" index="1"]
+position = Vector2(160, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseComponent" index="0"]
+shape = SubResource("CircleShape2D_uwufu")
+
+[node name="EatComponent" parent="." index="5"]
+position = Vector2(152, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EatComponent" index="1"]
+shape = SubResource("CircleShape2D_bltrh")
+
+[node name="MovementRect" parent="Debug" index="0"]
+offset_left = -792.0
+offset_right = 1872.0
+offset_bottom = 704.0
+
+[node name="IconPivot" parent="." index="9"]
+position = Vector2(128, 0)
+
+[node name="EatIcon" parent="IconPivot" index="0"]
+position = Vector2(2.95558, -101.899)
+
+[node name="AlertIcon" parent="IconPivot" index="1"]
+position = Vector2(1.82015, -91.8955)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="10"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1tqmb")

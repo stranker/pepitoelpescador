@@ -1,0 +1,344 @@
+[gd_scene load_steps=12 format=3 uid="uid://j0grc3n7dyj2"]
+
+[ext_resource type="Script" path="res://ui/book_panel.gd" id="1_wnfv0"]
+[ext_resource type="PackedScene" uid="uid://bvbbrc370t35p" path="res://ui/profile_panel.tscn" id="2_3ql8n"]
+[ext_resource type="PackedScene" uid="uid://ngwgmo67epe2" path="res://ui/sound_options.tscn" id="3_jp8md"]
+[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="4_4jwp3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_soy2n"]
+bg_color = Color(1, 0.91875, 0.791849, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.396078, 0.172549, 0.141176, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 16.0
+expand_margin_top = 16.0
+expand_margin_right = 16.0
+expand_margin_bottom = 16.0
+
+[sub_resource type="Animation" id="Animation_b7ur6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/ProfilePanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/Map:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/SoundOptions:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_44qhb"]
+resource_name = "show_fishes"
+
+[sub_resource type="Animation" id="Animation_gofil"]
+resource_name = "show_map"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/ProfilePanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/Map:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/SoundOptions:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_2b3gg"]
+resource_name = "show_options"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/ProfilePanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/Map:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/SoundOptions:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_4a4rl"]
+resource_name = "show_profile"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/ProfilePanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/Map:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Control/HBoxContainer/Panels/SoundOptions:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hvtea"]
+_data = {
+"RESET": SubResource("Animation_b7ur6"),
+"show_fishes": SubResource("Animation_44qhb"),
+"show_map": SubResource("Animation_gofil"),
+"show_options": SubResource("Animation_2b3gg"),
+"show_profile": SubResource("Animation_4a4rl")
+}
+
+[node name="BookPanel" type="Control" node_paths=PackedStringArray("animation")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wnfv0")
+animation = NodePath("AnimationPlayer")
+metadata/_edit_lock_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 64
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_soy2n")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panels" type="Control" parent="MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProfilePanel" parent="MarginContainer/Control/HBoxContainer/Panels" instance=ExtResource("2_3ql8n")]
+layout_mode = 1
+
+[node name="Map" type="Panel" parent="MarginContainer/Control/HBoxContainer/Panels"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Shop" type="Button" parent="MarginContainer/Control/HBoxContainer/Panels/Map"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 72.0
+offset_right = 384.0
+offset_bottom = 148.0
+text = "Shop"
+
+[node name="Map1" type="Button" parent="MarginContainer/Control/HBoxContainer/Panels/Map"]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 152.0
+offset_right = 664.0
+offset_bottom = 228.0
+text = "Map1"
+
+[node name="Map2" type="Button" parent="MarginContainer/Control/HBoxContainer/Panels/Map"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 248.0
+offset_right = 328.0
+offset_bottom = 324.0
+disabled = true
+text = "Map2"
+
+[node name="Map3" type="Button" parent="MarginContainer/Control/HBoxContainer/Panels/Map"]
+layout_mode = 0
+offset_left = 464.0
+offset_top = 400.0
+offset_right = 656.0
+offset_bottom = 476.0
+disabled = true
+text = "Map3"
+
+[node name="SoundOptions" parent="MarginContainer/Control/HBoxContainer/Panels" instance=ExtResource("3_jp8md")]
+visible = false
+layout_mode = 1
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+
+[node name="Stats" type="Button" parent="MarginContainer/Control/HBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Stats"
+
+[node name="Map" type="Button" parent="MarginContainer/Control/HBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Map"
+
+[node name="Fish" type="Button" parent="MarginContainer/Control/HBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+disabled = true
+text = "Fishes"
+
+[node name="Options" type="Button" parent="MarginContainer/Control/HBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Options"
+
+[node name="CloseButton" type="TextureButton" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 40.0
+offset_bottom = 24.0
+grow_horizontal = 0
+texture_normal = ExtResource("4_4jwp3")
+texture_pressed = ExtResource("4_4jwp3")
+texture_hover = ExtResource("4_4jwp3")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hvtea")
+}
+
+[connection signal="button_down" from="MarginContainer/Control/HBoxContainer/Panels/Map/Shop" to="." method="_on_shop_button_down"]
+[connection signal="button_down" from="MarginContainer/Control/HBoxContainer/Panels/Map/Map1" to="." method="_on_map_1_button_down"]
+[connection signal="button_down" from="MarginContainer/Control/HBoxContainer/Panels/Map/Map2" to="." method="_on_map_2_button_down"]
+[connection signal="button_down" from="MarginContainer/Control/HBoxContainer/Panels/Map/Map3" to="." method="_on_map_3_button_down"]
+[connection signal="button_down" from="MarginContainer/Control/HBoxContainer/Buttons/Stats" to="." method="_on_stats_button_down"]
+[connection signal="button_down" from="MarginContainer/Control/HBoxContainer/Buttons/Map" to="." method="_on_map_button_down"]
+[connection signal="button_down" from="MarginContainer/Control/HBoxContainer/Buttons/Fish" to="." method="_on_fish_button_down"]
+[connection signal="button_down" from="MarginContainer/Control/HBoxContainer/Buttons/Options" to="." method="_on_options_button_down"]
+[connection signal="button_down" from="MarginContainer/Control/CloseButton" to="." method="_on_close_button_button_down"]

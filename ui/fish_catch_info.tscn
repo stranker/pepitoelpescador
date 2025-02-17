@@ -1,0 +1,498 @@
+[gd_scene load_steps=18 format=3 uid="uid://d2ikik77r0si0"]
+
+[ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="1_m67fs"]
+[ext_resource type="AudioStream" uid="uid://baq2pv3jkqm53" path="res://assets/sfx/fish_collect.wav" id="2_q3p7n"]
+[ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="2_rjy6i"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="3_3rf1l"]
+[ext_resource type="Texture2D" uid="uid://clny6aa75jcq1" path="res://assets/sprites/icons/Star.png" id="4_awh27"]
+[ext_resource type="Texture2D" uid="uid://c0uy6y2kg7m1d" path="res://assets/sprites/bubbles.png" id="5_5t2ka"]
+
+[sub_resource type="GDScript" id="GDScript_bl4si"]
+resource_name = "fish_catch_info"
+script/source = "extends Control
+
+@export var name_label: Label
+@export var fish_texture: TextureRect 
+@export var coin_label : Label
+@export var exp_label : Label
+@export var combo_exp_label : Label
+@export var stars_container : Control
+@export var anim : AnimationPlayer
+
+var fish_gold : int = 0
+
+func _ready() -> void:
+	combo_exp_label.hide()
+	pass
+
+func set_data(fish : Fish):
+	var fish_data = fish.fish_data
+	name_label.text = fish_data.fish_name
+	fish_texture.texture = fish_data.fish_texture
+	fish_gold = fish_data.fish_gold
+	coin_label.text = str(fish_gold)
+	exp_label.text = str(fish_data.fish_experience) + \" xp\"
+	if GameManager.combo_counter > 1:
+		combo_exp_label.show()
+		combo_exp_label.text = \"+ \" + str(GameManager.combo_counter) + \" xp\"
+		exp_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	for i in range(fish.fish_stars):
+		stars_container.get_child(i).visible = true
+		var tween : Tween = create_tween()
+		tween.parallel().tween_property(stars_container.get_child(i), \"scale\", Vector2(1.2,1.2),0.1).set_trans(Tween.TRANS_EXPO)
+		tween.parallel().tween_property(stars_container.get_child(i), \"scale\", Vector2.ONE,0.2).set_trans(Tween.TRANS_EXPO).set_delay(0.1)
+		tween.play()
+		await tween.finished
+	pass
+
+func _on_anim_animation_finished(anim_name: StringName) -> void:
+	if anim_name == \"pop\":
+		anim.play(\"destroy\")
+		GameManager.add_gold(fish_gold)
+	if anim_name == \"destroy\":
+		queue_free()
+	pass # Replace with function body.
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sqxyx"]
+bg_color = Color(0, 0, 0, 0.698039)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.873298, 0.873298, 0.873298, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_ltrtd"]
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_18ycp"]
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_sksah"]
+font = ExtResource("3_3rf1l")
+font_size = 24
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xu3cw"]
+font = ExtResource("3_3rf1l")
+font_size = 20
+font_color = Color(0, 1, 0, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_jmwsv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PopParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DestroyParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Collect:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_l6nee"]
+resource_name = "destroy"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.5, 2, 2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1.2, 1.2), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DestroyParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Collect:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_51txn"]
+resource_name = "pop"
+length = 1.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(0.2, 0.2), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PopParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5bh2g"]
+_data = {
+"RESET": SubResource("Animation_jmwsv"),
+"destroy": SubResource("Animation_l6nee"),
+"pop": SubResource("Animation_51txn")
+}
+
+[sub_resource type="Curve" id="Curve_7v0jy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.2881, 0.0, 0, 0]
+point_count = 2
+
+[node name="FishCatchInfo" type="Control" node_paths=PackedStringArray("name_label", "fish_texture", "coin_label", "exp_label", "combo_exp_label", "stars_container", "anim")]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -960.0
+offset_bottom = -456.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(96, 96)
+size_flags_horizontal = 4
+script = SubResource("GDScript_bl4si")
+name_label = NodePath("Panel/MarginContainer/VBoxContainer/Label")
+fish_texture = NodePath("Panel/MarginContainer/VBoxContainer/Texture/TextureRect")
+coin_label = NodePath("Panel/MarginContainer/VBoxContainer/Coins/HBoxContainer/Label")
+exp_label = NodePath("Panel/Exp/VBoxContainer/Exp")
+combo_exp_label = NodePath("Panel/Exp/VBoxContainer/ComboExp")
+stars_container = NodePath("Panel/Stars/HBC")
+anim = NodePath("Anim")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(96, 96)
+theme_override_styles/panel = SubResource("StyleBoxFlat_sqxyx")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+text = "Greeny"
+label_settings = SubResource("LabelSettings_ltrtd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Texture" type="Control" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/Texture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = 37.0
+offset_right = -8.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.349066
+size_flags_vertical = 3
+texture = ExtResource("1_m67fs")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Coins" type="Control" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.52
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Coins"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/Coins/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_rjy6i")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/Coins/HBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+text = "9"
+label_settings = SubResource("LabelSettings_18ycp")
+
+[node name="Exp" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_right = 192.0
+offset_bottom = 32.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Panel/Exp"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Exp" type="Label" parent="Panel/Exp/VBoxContainer"]
+texture_filter = 2
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "20 xp"
+label_settings = SubResource("LabelSettings_sksah")
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 4
+
+[node name="ComboExp" type="Label" parent="Panel/Exp/VBoxContainer"]
+texture_filter = 2
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "+ 12 xp"
+label_settings = SubResource("LabelSettings_xu3cw")
+vertical_alignment = 1
+text_overrun_behavior = 4
+
+[node name="Stars" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.0
+offset_top = -32.0
+offset_right = 72.0
+offset_bottom = -8.0
+grow_horizontal = 2
+
+[node name="HBC" type="HBoxContainer" parent="Panel/Stars"]
+modulate = Color(1, 0.803922, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Star" type="TextureRect" parent="Panel/Stars/HBC"]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(32, 16)
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource("4_awh27")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star2" type="TextureRect" parent="Panel/Stars/HBC"]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(32, 16)
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource("4_awh27")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star3" type="TextureRect" parent="Panel/Stars/HBC"]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(32, 16)
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource("4_awh27")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star4" type="TextureRect" parent="Panel/Stars/HBC"]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(32, 16)
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource("4_awh27")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star5" type="TextureRect" parent="Panel/Stars/HBC"]
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(32, 16)
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource("4_awh27")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5bh2g")
+}
+autoplay = "pop"
+
+[node name="Collect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_q3p7n")
+autoplay = true
+bus = &"SFx"
+
+[node name="PopParticles" type="CPUParticles2D" parent="."]
+position = Vector2(72, 72)
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+lifetime_randomness = 0.5
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 400.0
+orbit_velocity_min = 1.0
+orbit_velocity_max = 1.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 6.0
+scale_amount_max = 18.0
+scale_amount_curve = SubResource("Curve_7v0jy")
+
+[node name="DestroyParticles" type="CPUParticles2D" parent="."]
+position = Vector2(72, 72)
+emitting = false
+amount = 20
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+lifetime_randomness = 0.5
+local_coords = true
+texture = ExtResource("5_5t2ka")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 400.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_7v0jy")
+
+[connection signal="animation_finished" from="Anim" to="." method="_on_anim_animation_finished"]

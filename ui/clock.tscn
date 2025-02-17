@@ -1,0 +1,234 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsgecvueilt6e"]
+
+[ext_resource type="Texture2D" uid="uid://dcagfajmhqm31" path="res://assets/ui/new_clock_background.png" id="1_lkqdk"]
+[ext_resource type="Texture2D" uid="uid://bld7kbh6wo04l" path="res://assets/ui/new_clock_sun.png" id="2_i2wa4"]
+[ext_resource type="Texture2D" uid="uid://fd15cjen1t4x" path="res://assets/ui/new_clock_moon.png" id="3_73s3r"]
+
+[sub_resource type="GDScript" id="GDScript_1u7ed"]
+resource_name = "clock_ui"
+script/source = "extends Control
+
+var time : float = 0
+@export var anim : AnimationPlayer
+
+func _ready() -> void:
+	GameManager.day_time_start.connect(on_day_time_start)
+	CardManager.upgrade_selected.connect(on_upgrade_selected)
+	GameManager.player_level_update.connect(on_player_level_up)
+	pass
+
+func on_player_level_up(_level):
+	pause()
+	pass
+
+func on_upgrade_selected(_upgrade):
+	resume()
+	pass
+
+func on_day_time_start(duration):
+	start(duration)
+	pass
+
+func start(new_time : float):
+	time = new_time
+	anim.stop()
+	var new_speed = 1.0 / float(time)
+	anim.speed_scale = new_speed
+	anim.play(\"day\")
+	pass
+
+func resume():
+	anim.play(\"day\")
+	pass
+
+func pause():
+	anim.pause()
+	pass
+
+func midnight():
+	get_tree().call_group(\"gameplay\", \"on_midnight_start\")
+	pass
+
+func afternoon():
+	get_tree().call_group(\"gameplay\", \"on_afternoon_start\")
+	pass
+
+func new_day():
+	get_tree().call_group(\"gameplay\", \"on_midnight_end\")
+	pass
+"
+
+[sub_resource type="Animation" id="Animation_6e0ta"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/Icon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, 16)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/Icon:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_i2wa4")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background/Icon:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Background/Icon:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_txugb"]
+resource_name = "day"
+loop_mode = 1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.3, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"afternoon"
+}, {
+"args": [],
+"method": &"midnight"
+}, {
+"args": [],
+"method": &"new_day"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/Icon:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(8, 16), Vector2(88, 16)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background/Icon:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_i2wa4"), ExtResource("3_73s3r")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Background/Icon:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Background/Icon:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.466667, 0.5, 0.533333, 0.966667, 1),
+"transitions": PackedFloat32Array(1, 0.5, 0.5, 1, 0.5, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.286275), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.286275)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5cv6a"]
+_data = {
+"RESET": SubResource("Animation_6e0ta"),
+"day": SubResource("Animation_txugb")
+}
+
+[node name="Clock" type="Control" node_paths=PackedStringArray("anim")]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1024.0
+offset_bottom = -584.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_1u7ed")
+anim = NodePath("AnimationPlayer")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("1_lkqdk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="Background"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -16.0
+offset_right = 38.0
+offset_bottom = 14.0
+grow_vertical = 2
+pivot_offset = Vector2(15, 15)
+texture = ExtResource("2_i2wa4")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5cv6a")
+}

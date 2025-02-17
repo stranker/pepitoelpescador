@@ -1,0 +1,235 @@
+class_name Hook
+extends CharacterBody2D
+
+@export var base_speed : float = 1000
+@export var base_speed_decrease : float = 0.6
+@export var base_recover_force: float = 2000
+@export var base_accuracy : float = 0.7
+@onready var skin: Sprite2D = $Skin
+@onready var fishes: Node2D = $Fishes
+@onready var bubbles: CPUParticles2D = $Bubbles
+@export var wind: CPUParticles2D
+@onready var collectables: Node2D = $Collectables
+@export var base_length : float = 700.0
+@export var hook_force_threshold : float = 200
+@export var gravity : float = 1200
+@onready var camera: Camera2D = $Camera
+
+@onready var speed : float = base_speed
+@onready var speed_decrease : float = base_speed_decrease
+@onready var length : float = base_length
+@onready var accuracy : float = base_accuracy
+@export var recover_force : float = base_recover_force
+@onready var throw_sfx : AudioStreamPlayer = $Throw
+
+const water_splash_scene : PackedScene = preload("res://objects/vfx/water_splash.tscn")
+
+var direction : Vector2
+var initial_position : Vector2
+var final_direct_position : Vector2
+var clamp_y : bool = false
+
+enum MovementState { AIR, WATER }
+var movement_state = MovementState.AIR
+enum HookState { IDLE, THROWN, RECOVER }
+var hook_state = HookState.IDLE
+@export var stats : HookStats
+
+signal movement_state_changed(movement_state)
+signal hook_state_changed(hook_state)
+signal stats_updated(stats)
+signal items_collected(count)
+signal no_items_collected()
+
+func _ready() -> void:
+	set_physics_process(false)
+	initial_position = global_position
+	final_direct_position = initial_position + Vector2.DOWN * length
+	CardManager.character_selected.connect(on_character_selected)
+	CardManager.upgrade_selected.connect(on_upgrade_selected)
+	pass
+
+func on_character_selected(character_card : CharacterCard):
+	base_speed = character_card.base_power
+	base_accuracy = character_card.base_accuracy
+	speed = base_speed
+	accuracy = base_accuracy
+	stats.force = speed
+	stats.accuracy = accuracy
+	stats.length = length
+	stats.recover = recover_force
+	stats_updated.emit(stats)
+	get_tree().call_group("ui", "character_stats_updated", stats)
+	pass
+
+func on_upgrade_selected(upgrade_card : UpgradeCard):
+	match upgrade_card.upgrade_type:
+		UpgradeCard.UpgradeType.POWER:
+			speed = base_speed + upgrade_card.upgrade_value
+			stats.force_increment = upgrade_card.upgrade_value
+		UpgradeCard.UpgradeType.LENGTH:
+			length = base_length + upgrade_card.upgrade_value
+			stats.length_increment = upgrade_card.upgrade_value
+		UpgradeCard.UpgradeType.ACCURACY:
+			accuracy = max(0, base_accuracy - upgrade_card.upgrade_value)
+			stats.accuracy_increment = upgrade_card.upgrade_value
+		UpgradeCard.UpgradeType.RECOVER:
+			recover_force = base_recover_force + upgrade_card.upgrade_value
+			stats.recover_increment = upgrade_card.upgrade_value
+	stats_updated.emit(stats)
+	get_tree().call_group("ui", "character_stats_updated", stats)
+	pass
+
+func throw(dir : Vector2):
+	set_hook_state(HookState.THROWN)
+	set_physics_process(true)
+	var new_dir_angle : float = dir.angle() + randf_range(-accuracy, accuracy)
+	direction = Vector2.from_angle(new_dir_angle).normalized()
+	velocity = direction * speed
+	final_direct_position = initial_position + Vector2.DOWN * length
+	get_tree().call_group("ui", "fade_out")
+	wind.emitting = true
+	pass
+
+func recover():
+	set_hook_state(HookState.RECOVER)
+	velocity += global_position.direction_to(initial_position) * (1.0 / _get_fishes_weight()) * recover_force
+	final_direct_position += Vector2.UP * 200
+	pass
+
+func _get_fishes_weight() -> float:
+	var final_weight : float = 1
+	for fish in fishes.get_children():
+		final_weight += fish.fish_mass
+	return final_weight
+
+func aim(dir : Vector2):
+	rotation = lerp_angle(rotation, dir.angle(), 0.1)
+	skin.flip_v = dir.x < 0
+	pass
+
+func _physics_process(delta: float) -> void:
+	match movement_state:
+		MovementState.AIR:
+			air_movement(delta)
+		MovementState.WATER:
+			water_movement(delta)
+	match hook_state:
+		HookState.RECOVER:
+			_process_recover(delta)
+	if clamp_y:
+		velocity.y = 0
+		if global_position.distance_to(initial_position) < 250:
+			global_position = lerp(global_position, initial_position, delta * 5)
+			if global_position.distance_to(initial_position) < 50:
+				set_hook_state(HookState.IDLE)
+	move_and_slide()
+	pass
+
+func _process_recover(delta):
+	pass
+
+func air_movement(delta : float):
+	velocity.y += delta * gravity
+	rotation = lerp_angle(rotation, velocity.angle(), 0.1)
+	wind.emitting = velocity.length() > 500
+	pass
+
+func water_movement(delta : float):
+	if velocity.y < 200:
+		rotation = lerp_angle(rotation, Vector2.DOWN.angle(), delta)
+		velocity.y = lerpf(velocity.y, 0, delta)
+	else:
+		rotation = lerp_angle(rotation, velocity.angle(), delta * 2)
+	velocity = lerp(velocity, global_position.direction_to(final_direct_position) * speed * 0.2, delta)
+	velocity = velocity.limit_length(speed)
+	pass
+
+func set_movement_state(new_state : MovementState):
+	movement_state = new_state
+	match movement_state:
+		MovementState.AIR:
+			pass
+		MovementState.WATER:
+			pass
+	movement_state_changed.emit(movement_state)
+	pass
+
+func set_hook_state(new_state: HookState):
+	hook_state = new_state
+	match hook_state:
+		HookState.IDLE:
+			camera.zoom_hook_idle()
+			set_physics_process(false)
+			set_movement_state(MovementState.AIR)
+			global_position = initial_position
+			clamp_y = false
+			_collect_items()
+			bubbles.emitting = false
+			direction = Vector2.DOWN
+			pass
+		HookState.THROWN:
+			camera.zoom_hook_water()
+			set_physics_process(true)
+			throw_sfx.play()
+			pass
+		HookState.RECOVER:
+			pass
+	hook_state_changed.emit(hook_state)
+	pass
+
+func _collect_items():
+	if fishes.get_children().is_empty() and collectables.get_children().is_empty():
+		no_items_collected.emit()
+		return
+	for fish in fishes.get_children():
+		items_collected.emit(1)
+		fish.collect()
+		await get_tree().create_timer(0.2).timeout
+	for collectable in collectables.get_children():
+		items_collected.emit(1)
+		collectable.collect()
+		await get_tree().create_timer(0.2).timeout
+	pass
+
+func _on_water_detection_area_entered(area: Area2D) -> void:
+	match movement_state:
+		MovementState.AIR:
+			set_movement_state(MovementState.WATER)
+			wind.emitting = false
+			bubbles.emitting = true
+			_create_water_splash()
+		MovementState.WATER:
+			clamp_y = true
+	pass # Replace with function body.
+
+func _on_fish_detector_area_entered(area: Area2D) -> void:
+	if hook_state == HookState.RECOVER: return
+	if velocity.length() < hook_force_threshold: return
+	var fish : Fish = area as Fish
+	fish.hook(fishes)
+	velocity *= speed_decrease
+	pass # Replace with function body.
+
+
+func _on_collectable_detector_area_entered(area: Area2D) -> void:
+	if hook_state == HookState.RECOVER: return
+	if velocity.length() < hook_force_threshold: return
+	var collectable : Collectable = area as Collectable
+	collectable.hook(collectables) 
+	velocity *= speed_decrease
+	pass # Replace with function body.
+
+func on_end_boss_prensetation():
+	camera.enabled = true
+	pass
+
+func reset():
+	set_hook_state(HookState.IDLE)
+	pass
+
+func _create_water_splash():
+	var water_splash = water_splash_scene.instantiate()
+	get_tree().root.add_child(water_splash)
+	water_splash.global_position = global_position
+	pass

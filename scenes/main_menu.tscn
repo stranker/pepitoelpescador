@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj3urhrrnjbd4"]
+
+[ext_resource type="PackedScene" uid="uid://cbxq6hn0dd75u" path="res://scenes/scrim.tscn" id="1_bfmak"]
+[ext_resource type="PackedScene" uid="uid://dubkiwpf7td3y" path="res://scenes/intro.tscn" id="1_pnsca"]
+[ext_resource type="Texture2D" uid="uid://c0uy6y2kg7m1d" path="res://assets/sprites/bubbles.png" id="3_cjgqh"]
+
+[sub_resource type="GDScript" id="GDScript_m6sqb"]
+script/source = "extends Control
+
+func _on_button_button_down() -> void:
+	$Scrim.fade_in()
+	pass # Replace with function body.
+
+func _on_scrim_scrim_finish() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/game_scene.tscn\")
+	pass # Replace with function body.
+"
+
+[sub_resource type="Gradient" id="Gradient_d4dx1"]
+offsets = PackedFloat32Array(0, 0.664948, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_m6sqb")
+
+[node name="Intro" parent="." instance=ExtResource("1_pnsca")]
+layout_mode = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 280.0
+offset_right = 696.0
+offset_bottom = 392.0
+text = "START GAME"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -180.0
+offset_right = 268.0
+offset_bottom = -157.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "ONE MORE FISH"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scrim" parent="." instance=ExtResource("1_bfmak")]
+layout_mode = 1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(536, 688)
+amount = 100
+lifetime = 3.0
+lifetime_randomness = 0.99
+texture = ExtResource("3_cjgqh")
+emission_shape = 3
+emission_rect_extents = Vector2(800, 1)
+gravity = Vector2(0, -200)
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.2
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_d4dx1")
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="scrim_finish" from="Scrim" to="." method="_on_scrim_scrim_finish"]

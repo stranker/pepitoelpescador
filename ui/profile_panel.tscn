@@ -1,0 +1,230 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvbbrc370t35p"]
+
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_eqklu"]
+[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="2_1sqbu"]
+
+[sub_resource type="GDScript" id="GDScript_ky7sn"]
+resource_name = "profile_panel"
+script/source = "extends Control
+
+@export var power_label : RichTextLabel
+@export var accuracy_label : RichTextLabel
+@export var length_label : RichTextLabel
+@export var recover_label : RichTextLabel
+
+signal profile_closed()
+
+enum IncrementType { INCREMENT, DECREMENT }
+
+func _ready() -> void:
+	hide()
+	pass
+
+func character_stats_updated(stats : HookStats):
+	set_value(power_label, stats.force, stats.force_increment, IncrementType.INCREMENT)
+	set_value(accuracy_label, stats.accuracy, stats.accuracy_increment, IncrementType.DECREMENT)
+	set_value(length_label, stats.length, stats.length_increment, IncrementType.INCREMENT)
+	set_value(recover_label, stats.recover, stats.recover_increment, IncrementType.INCREMENT)
+	pass
+
+func set_value(label : RichTextLabel, value : float, increment : float, type : IncrementType):
+	var current_value = value + increment if type == IncrementType.INCREMENT else value - increment
+	label.text = \"[right]\" + str(current_value) + (\"[color=white] (\" + str(value) + \"[/color]\" + \"[color=green]\" + (\" + \" if type == IncrementType.INCREMENT else \" - \") + str(increment) + \"[/color])\" if increment > 0 else \"\") + \"[/right]\"
+	pass
+
+func _on_close_button_button_down() -> void:
+	hide()
+	profile_closed.emit()
+	pass # Replace with function body.
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4x3bo"]
+bg_color = Color(0.109804, 0.109804, 0.109804, 0.894118)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_raptb"]
+font = ExtResource("1_eqklu")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_uk1xi"]
+font = ExtResource("1_eqklu")
+font_size = 24
+
+[node name="ProfilePanel" type="Control" node_paths=PackedStringArray("power_label", "accuracy_label", "length_label", "recover_label") groups=["ui"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = SubResource("GDScript_ky7sn")
+power_label = NodePath("Panel/MarginContainer/Control/Stats/Power/Value")
+accuracy_label = NodePath("Panel/MarginContainer/Control/Stats/Accuracy/Value")
+length_label = NodePath("Panel/MarginContainer/Control/Stats/HookLength/Value")
+recover_label = NodePath("Panel/MarginContainer/Control/Stats/Recover/Value")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4x3bo")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Control" type="Control" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/MarginContainer/Control"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "STATS"
+label_settings = SubResource("LabelSettings_raptb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stats" type="VBoxContainer" parent="Panel/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 56.0
+offset_right = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Power" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Power"]
+texture_filter = 2
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Power"
+label_settings = SubResource("LabelSettings_uk1xi")
+
+[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Power"]
+texture_filter = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "2000"
+fit_content = true
+scroll_active = false
+
+[node name="Accuracy" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Accuracy"]
+texture_filter = 2
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Accuracy
+"
+label_settings = SubResource("LabelSettings_uk1xi")
+
+[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Accuracy"]
+texture_filter = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "2000"
+fit_content = true
+scroll_active = false
+
+[node name="HookLength" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/HookLength"]
+texture_filter = 2
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hook Lenght"
+label_settings = SubResource("LabelSettings_uk1xi")
+
+[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/HookLength"]
+texture_filter = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "2000"
+fit_content = true
+scroll_active = false
+
+[node name="Recover" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Recover"]
+texture_filter = 2
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Recover"
+label_settings = SubResource("LabelSettings_uk1xi")
+
+[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Recover"]
+texture_filter = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "2000"
+fit_content = true
+scroll_active = false
+
+[node name="CloseButton" type="TextureButton" parent="Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = -32.0
+offset_right = 24.0
+offset_bottom = 32.0
+grow_horizontal = 0
+texture_normal = ExtResource("2_1sqbu")
+texture_pressed = ExtResource("2_1sqbu")
+texture_hover = ExtResource("2_1sqbu")
+texture_disabled = ExtResource("2_1sqbu")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="button_down" from="Panel/CloseButton" to="." method="_on_close_button_button_down"]

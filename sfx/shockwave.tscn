@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://crdwybm3amj1g"]
+
+[ext_resource type="AudioStream" uid="uid://dbl2760c138eg" path="res://assets/sfx/fish_hit.wav" id="1_2abt5"]
+
+[sub_resource type="GDScript" id="GDScript_aiudk"]
+resource_name = "shockwave"
+script/source = "extends Node2D
+
+@export var max_radius : float = 100
+@export var time : float = 0.5
+@export var max_width : float = 5
+@export var impact : CPUParticles2D
+
+var radius = 0
+@onready var width = max_width
+
+func _ready() -> void:
+	var tween : Tween = create_tween()
+	tween.parallel().tween_property(self, \"radius\", max_radius, time).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(self, \"width\", 0, time).set_ease(Tween.EASE_IN)
+	tween.play()
+	impact.emitting = true
+	await tween.finished
+	queue_free()
+	pass
+
+func _process(delta: float) -> void:
+	queue_redraw()
+	pass
+
+func _draw() -> void:
+	draw_circle(Vector2.ZERO, radius, Color.WHITE, false, width)
+	pass
+"
+
+[sub_resource type="Curve" id="Curve_ka00g"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.504505, 0), -1.98779, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_i573q"]
+offsets = PackedFloat32Array(0, 0.603093, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Shockwave" type="Node2D" node_paths=PackedStringArray("impact")]
+script = SubResource("GDScript_aiudk")
+max_radius = 120.0
+time = 0.3
+impact = NodePath("Impact")
+
+[node name="Impact" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(10, 10)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 500.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_ka00g")
+color_ramp = SubResource("Gradient_i573q")
+
+[node name="ImpactSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_2abt5")
+autoplay = true
+bus = &"SFx"

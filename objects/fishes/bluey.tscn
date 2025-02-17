@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://rq2085qndg83"]
+
+[ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_u4pvq"]
+[ext_resource type="Texture2D" uid="uid://dm5wpq8crknfw" path="res://assets/sprites/fishes/bluey.png" id="2_vcyut"]
+[ext_resource type="Script" path="res://assets/resources/fish_data.gd" id="3_fbsxq"]
+
+[sub_resource type="Resource" id="Resource_18g53"]
+script = ExtResource("3_fbsxq")
+fish_name = "Bluey"
+fish_texture = ExtResource("2_vcyut")
+fish_gold = 6
+fish_experience = 3.0
+fish_color = Color(0.491393, 0.776208, 0.950241, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7nlwj"]
+radius = 300.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v1h6d"]
+radius = 30.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hiaqd"]
+radius = 34.0
+height = 166.0
+
+[node name="Bluey" instance=ExtResource("1_u4pvq")]
+speed = 110.0
+level = 1
+fish_data = SubResource("Resource_18g53")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+texture = ExtResource("2_vcyut")
+
+[node name="Bubbles" parent="Visual" index="1"]
+position = Vector2(67, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseComponent" index="0"]
+shape = SubResource("CircleShape2D_7nlwj")
+
+[node name="EatComponent" parent="." index="5"]
+position = Vector2(72, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EatComponent" index="1"]
+shape = SubResource("CircleShape2D_v1h6d")
+
+[node name="MovementRect" parent="Debug" index="0"]
+offset_right = 895.0
+offset_bottom = 431.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="7"]
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_hiaqd")
+
+[node name="IconPivot" parent="." index="10"]
+position = Vector2(63, 0)
+
+[node name="EatIcon" parent="IconPivot" index="0"]
+position = Vector2(2.95558, -47.8986)
+
+[node name="AlertIcon" parent="IconPivot" index="1"]
+position = Vector2(1.82015, -37.8955)

@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://wy6iqyp1pmr1"]
+
+[ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_e8jxn"]
+[ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_fvhq7"]
+[ext_resource type="Script" path="res://assets/resources/fish_data.gd" id="3_gamte"]
+
+[sub_resource type="Resource" id="Resource_1ht7d"]
+script = ExtResource("3_gamte")
+fish_name = "Greeny"
+fish_texture = ExtResource("2_fvhq7")
+fish_gold = 2
+fish_experience = 1.0
+fish_color = Color(0.211765, 0.835294, 0.290196, 1)
+fish_stars = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xli5b"]
+radius = 300.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_824n5"]
+radius = 30.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5msjq"]
+radius = 32.0
+height = 124.0
+
+[node name="Greeny" instance=ExtResource("1_e8jxn")]
+speed = 200.0
+fish_mass = 6.0
+fish_data = SubResource("Resource_1ht7d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseComponent" index="0"]
+shape = SubResource("CircleShape2D_xli5b")
+debug_color = Color(0.614954, 0.53555, 0, 0.113725)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EatComponent" index="1"]
+shape = SubResource("CircleShape2D_824n5")
+debug_color = Color(0.802381, 0.00950101, 1, 0.42)
+
+[node name="MovementRect" parent="Debug" index="0"]
+offset_right = 652.0
+offset_bottom = 314.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_5msjq")
+
+[node name="EatIcon" parent="IconPivot" index="0"]
+position = Vector2(-4.04442, -44.8986)
+
+[node name="AlertIcon" parent="IconPivot" index="1"]
+position = Vector2(-5.17985, -34.8955)

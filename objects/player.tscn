@@ -1,0 +1,305 @@
+[gd_scene load_steps=16 format=3 uid="uid://c6expp3ap42af"]
+
+[ext_resource type="Script" path="res://objects/player.gd" id="1_l4p8p"]
+[ext_resource type="PackedScene" uid="uid://ddgcwp74rtv0o" path="res://objects/hook.tscn" id="2_d1o6y"]
+[ext_resource type="Texture2D" uid="uid://bg5273i0auuvv" path="res://assets/sprites/fishermans/fisherman_skin.png" id="3_2fvkl"]
+[ext_resource type="Texture2D" uid="uid://ejc2v3gtfytb" path="res://assets/sprites/fishermans/boat.png" id="3_gxs7s"]
+[ext_resource type="Texture2D" uid="uid://bdpwlycxdhlc0" path="res://assets/sprites/ropes/default.png" id="4_wx688"]
+
+[sub_resource type="GDScript" id="GDScript_a2m6o"]
+resource_name = "rope"
+script/source = "extends Line2D
+
+
+@export var ropeLength = 30
+@export var constrain = 1	# distance between points
+@export var gravity = Vector2(0,9.8)
+@export var dampening = 0.9
+@export var startPin = true
+@export var endPin = true
+@export var target : Node2D
+
+var pos: PackedVector2Array
+var posPrev: PackedVector2Array
+var pointCount: int
+
+func _ready()->void:
+	pointCount = get_pointCount(ropeLength)
+	resize_arrays()
+	init_position()
+
+func get_pointCount(distance: float)->int:
+	return int(ceil(distance / constrain))
+
+func resize_arrays():
+	pos.resize(pointCount)
+	posPrev.resize(pointCount)
+
+func init_position()->void:
+	for i in range(pointCount):
+		pos[i] = position + Vector2(constrain *i, 0)
+		posPrev[i] = position + Vector2(constrain *i, 0)
+	position = Vector2.ZERO
+
+func _process(delta)->void:
+	if target:
+		set_last(target.global_position - global_position)
+	update_points(delta)
+	update_constrain()
+	
+	#update_constrain()	#Repeat to get tighter rope
+	#update_constrain()
+	
+	# Send positions to Line2D for drawing
+	points = pos
+
+func set_start(p:Vector2)->void:
+	pos[0] = p
+	posPrev[0] = p
+
+func set_last(p:Vector2)->void:
+	pos[pointCount-1] = p
+	posPrev[pointCount-1] = p
+
+func update_points(delta)->void:
+	for i in range (pointCount):
+		# not first and last || first if not pinned || last if not pinned
+		if (i!=0 && i!=pointCount-1) || (i==0 && !startPin) || (i==pointCount-1 && !endPin):
+			var velocity = (pos[i] -posPrev[i]) * dampening
+			posPrev[i] = pos[i]
+			pos[i] += velocity + (gravity * delta)
+
+func update_constrain()->void:
+	for i in range(pointCount):
+		if i == pointCount-1:
+			return
+		var distance = pos[i].distance_to(pos[i+1])
+		var difference = constrain - distance
+		var percent = difference / distance
+		var vec2 = pos[i+1] - pos[i]
+		
+		# if first point
+		if i == 0:
+			if startPin:
+				pos[i+1] += vec2 * percent
+			else:
+				pos[i] -= vec2 * (percent/2)
+				pos[i+1] += vec2 * (percent/2)
+		# if last point, skip because no more points after it
+		elif i == pointCount-1:
+			pass
+		# all the rest
+		else:
+			if i+1 == pointCount-1 && endPin:
+				pos[i] -= vec2 * percent
+			else:
+				pos[i] -= vec2 * (percent/2)
+				pos[i+1] += vec2 * (percent/2)
+"
+
+[sub_resource type="Animation" id="Animation_tx4nk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Boat:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_3e67s"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Boat:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(-2, -0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_41t83"]
+_data = {
+"RESET": SubResource("Animation_tx4nk"),
+"idle": SubResource("Animation_3e67s")
+}
+
+[sub_resource type="GDScript" id="GDScript_56ciw"]
+resource_name = "debug_stats"
+script/source = "extends Control
+
+@export var power_label : Label
+@export var accuracy_label : Label
+@export var length_label : Label
+@export var recover_label : Label
+
+func _on_hook_stats_updated(stats : HookStats) -> void:
+	power_label.text = \"Power:\" + str(stats.force)
+	accuracy_label.text = \"Accuracy:\" + str(stats.accuracy)
+	length_label.text = \"Length:\" + str(stats.length)
+	recover_label.text = \"Recover:\" + str(stats.recover)
+	pass # Replace with function body.
+"
+
+[sub_resource type="Curve" id="Curve_ev7ot"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_4u8jq"]
+offsets = PackedFloat32Array(0, 0.188192, 0.564576, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.870588, 0, 1, 1, 0.517647, 0, 1, 1, 0.188235, 0, 1)
+
+[sub_resource type="Animation" id="Animation_x1iy7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4poni"]
+resource_name = "fade"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dihgw"]
+_data = {
+"RESET": SubResource("Animation_x1iy7"),
+"fade": SubResource("Animation_4poni")
+}
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("force_line_anim", "force_line")]
+script = ExtResource("1_l4p8p")
+force_line_anim = NodePath("ForceLine/AnimationPlayer")
+force_line = NodePath("ForceLine")
+
+[node name="Boat" type="Sprite2D" parent="."]
+position = Vector2(9, 3)
+scale = Vector2(3, 3)
+texture = ExtResource("3_gxs7s")
+
+[node name="Skin" type="Sprite2D" parent="Boat"]
+show_behind_parent = true
+position = Vector2(-2.33333, -26)
+texture = ExtResource("3_2fvkl")
+
+[node name="Hook" parent="Boat" instance=ExtResource("2_d1o6y")]
+z_index = 3
+position = Vector2(-3, -19)
+rotation = -0.289661
+scale = Vector2(0.333333, 0.333333)
+
+[node name="Marker2D" type="Marker2D" parent="Boat/Hook"]
+position = Vector2(-56.6061, 0.867935)
+
+[node name="Rope" type="Line2D" parent="Boat" node_paths=PackedStringArray("target")]
+z_index = 2
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(0.333336, -5.66667)
+scale = Vector2(0.333333, 0.333333)
+width = 8.0
+texture = ExtResource("4_wx688")
+texture_mode = 1
+script = SubResource("GDScript_a2m6o")
+ropeLength = 50
+target = NodePath("../Hook/Marker2D")
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_41t83")
+}
+autoplay = "idle"
+
+[node name="DebugStats" type="Control" parent="." node_paths=PackedStringArray("power_label", "accuracy_label", "length_label", "recover_label")]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 84.0
+offset_top = -185.0
+offset_right = 214.0
+offset_bottom = -53.0
+mouse_filter = 2
+script = SubResource("GDScript_56ciw")
+power_label = NodePath("VBoxContainer/Power")
+accuracy_label = NodePath("VBoxContainer/Accuracy")
+length_label = NodePath("VBoxContainer/Length")
+recover_label = NodePath("VBoxContainer/Recover")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugStats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Power" type="Label" parent="DebugStats/VBoxContainer"]
+layout_mode = 2
+text = "Power:"
+
+[node name="Accuracy" type="Label" parent="DebugStats/VBoxContainer"]
+layout_mode = 2
+text = "Accuracy:"
+
+[node name="Length" type="Label" parent="DebugStats/VBoxContainer"]
+layout_mode = 2
+text = "Length:"
+
+[node name="Recover" type="Label" parent="DebugStats/VBoxContainer"]
+layout_mode = 2
+text = "Recover:"
+
+[node name="ForceLine" type="Line2D" parent="."]
+z_index = 5
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(10, -14)
+scale = Vector2(0.999999, 0.999999)
+width = 40.0
+width_curve = SubResource("Curve_ev7ot")
+gradient = SubResource("Gradient_4u8jq")
+end_cap_mode = 2
+script = SubResource("GDScript_a2m6o")
+ropeLength = 6
+gravity = Vector2(0, 0)
+dampening = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ForceLine"]
+libraries = {
+"": SubResource("AnimationLibrary_dihgw")
+}
+
+[connection signal="hook_state_changed" from="Boat/Hook" to="." method="_on_hook_hook_state_changed"]
+[connection signal="movement_state_changed" from="Boat/Hook" to="." method="_on_hook_movement_state_changed"]
+[connection signal="stats_updated" from="Boat/Hook" to="DebugStats" method="_on_hook_stats_updated"]

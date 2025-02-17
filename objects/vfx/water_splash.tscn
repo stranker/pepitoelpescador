@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://cks1yu28jgvtk"]
+
+[ext_resource type="Texture2D" uid="uid://c0uy6y2kg7m1d" path="res://assets/sprites/bubbles.png" id="1_gn3ck"]
+[ext_resource type="AudioStream" uid="uid://dep2iy1l8gghi" path="res://assets/sfx/splash1.wav" id="2_73tm8"]
+
+[sub_resource type="Gradient" id="Gradient_vkytp"]
+offsets = PackedFloat32Array(0, 0.686347, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GDScript" id="GDScript_3udrc"]
+resource_name = "water_splash"
+script/source = "extends CPUParticles2D
+
+func _ready() -> void:
+	emitting = true
+
+func _on_finished() -> void:
+	queue_free()
+	pass # Replace with function body.
+"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wp30n"]
+random_pitch = 2.0
+random_volume_offset_db = 5.0
+streams_count = 1
+stream_0/stream = ExtResource("2_73tm8")
+
+[node name="WaterSplash" type="CPUParticles2D"]
+emitting = false
+amount = 16
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_gn3ck")
+direction = Vector2(0, -1)
+spread = 20.0
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.1
+color_ramp = SubResource("Gradient_vkytp")
+script = SubResource("GDScript_3udrc")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_wp30n")
+autoplay = true
+bus = &"SFx"
+
+[connection signal="finished" from="." to="." method="_on_finished"]

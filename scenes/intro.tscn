@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://dubkiwpf7td3y"]
+
+[ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_ycq4p"]
+
+[sub_resource type="GDScript" id="GDScript_ev8yg"]
+script/source = "extends Control
+
+
+#func _input(event: InputEvent) -> void:
+	#if event.is_action_pressed(\"throw\"):
+		#get_tree().change_scene_to_file(\"res://scenes/main_menu.tscn\")
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	#get_tree().change_scene_to_file(\"res://scenes/main_menu.tscn\")
+
+	pass # Replace with function body.
+"
+
+[sub_resource type="Animation" id="Animation_fbglg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-200, 208)]
+}
+
+[sub_resource type="Animation" id="Animation_px4bk"]
+resource_name = "start"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-200, 208), Vector2(1328, 240)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hfnd2"]
+_data = {
+"RESET": SubResource("Animation_fbglg"),
+"start": SubResource("Animation_px4bk")
+}
+
+[node name="Intro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_ev8yg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.219608, 0.313726, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-200, 208)
+scale = Vector2(5, 5)
+texture = ExtResource("2_ycq4p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hfnd2")
+}
+autoplay = "start"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
