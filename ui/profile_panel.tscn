@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvbbrc370t35p"]
+[gd_scene load_steps=12 format=3 uid="uid://bvbbrc370t35p"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_eqklu"]
 [ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="2_1sqbu"]
@@ -7,17 +7,21 @@
 resource_name = "profile_panel"
 script/source = "extends Control
 
+@export var player_level_label : RichTextLabel
 @export var power_label : RichTextLabel
 @export var accuracy_label : RichTextLabel
 @export var length_label : RichTextLabel
 @export var recover_label : RichTextLabel
+@export var fishes_label : RichTextLabel
+@export var days_passed_label : RichTextLabel
 
 signal profile_closed()
 
-enum IncrementType { INCREMENT, DECREMENT }
+enum IncrementType { NONE, INCREMENT, DECREMENT }
 
 func _ready() -> void:
 	hide()
+	GameManager.update_game_stats.connect(on_game_stats_updated)
 	pass
 
 func character_stats_updated(stats : HookStats):
@@ -27,8 +31,18 @@ func character_stats_updated(stats : HookStats):
 	set_value(recover_label, stats.recover, stats.recover_increment, IncrementType.INCREMENT)
 	pass
 
+func on_game_stats_updated(stats : GameManager.GameStats):
+	set_value(player_level_label, stats.player_level, 0, IncrementType.INCREMENT)
+	set_value(fishes_label, stats.fishes_catched, 0, IncrementType.INCREMENT)
+	set_value(days_passed_label, stats.days_passed, 0, IncrementType.INCREMENT)
+	pass
+
 func set_value(label : RichTextLabel, value : float, increment : float, type : IncrementType):
-	var current_value = value + increment if type == IncrementType.INCREMENT else value - increment
+	var current_value = value
+	if type == IncrementType.INCREMENT:
+		current_value += increment
+	elif type == IncrementType.DECREMENT:
+		current_value -= increment
 	label.text = \"[right]\" + str(current_value) + (\"[color=white] (\" + str(value) + \"[/color]\" + \"[color=green]\" + (\" + \" if type == IncrementType.INCREMENT else \" - \") + str(increment) + \"[/color])\" if increment > 0 else \"\") + \"[/right]\"
 	pass
 
@@ -54,11 +68,27 @@ corner_radius_bottom_left = 8
 font = ExtResource("1_eqklu")
 font_size = 32
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0slr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8u2wk"]
+font = ExtResource("1_eqklu")
+font_size = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffrb7"]
+bg_color = Color(0.215902, 0.215902, 0.215902, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_uk1xi"]
 font = ExtResource("1_eqklu")
-font_size = 24
+font_size = 20
 
-[node name="ProfilePanel" type="Control" node_paths=PackedStringArray("power_label", "accuracy_label", "length_label", "recover_label") groups=["ui"]]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_urpep"]
+bg_color = Color(0.162066, 0.162066, 0.162065, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xc0k4"]
+font = ExtResource("1_eqklu")
+font_size = 26
+
+[node name="ProfilePanel" type="Control" node_paths=PackedStringArray("player_level_label", "power_label", "accuracy_label", "length_label", "recover_label", "fishes_label", "days_passed_label") groups=["ui"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,10 +98,13 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = SubResource("GDScript_ky7sn")
-power_label = NodePath("Panel/MarginContainer/Control/Stats/Power/Value")
-accuracy_label = NodePath("Panel/MarginContainer/Control/Stats/Accuracy/Value")
-length_label = NodePath("Panel/MarginContainer/Control/Stats/HookLength/Value")
-recover_label = NodePath("Panel/MarginContainer/Control/Stats/Recover/Value")
+player_level_label = NodePath("Panel/MarginContainer/Control/Stats/Level/MarginContainer/Level/Value")
+power_label = NodePath("Panel/MarginContainer/Control/Stats/Power/MarginContainer/Info/Value")
+accuracy_label = NodePath("Panel/MarginContainer/Control/Stats/Accuracy/MarginContainer/Level/Value")
+length_label = NodePath("Panel/MarginContainer/Control/Stats/HookLength/MarginContainer/Info/Value")
+recover_label = NodePath("Panel/MarginContainer/Control/Stats/Recover/MarginContainer/Level/Value")
+fishes_label = NodePath("Panel/MarginContainer/Control/Stats/FishesCatched/MarginContainer/Level/Value")
+days_passed_label = NodePath("Panel/MarginContainer/Control/Stats/DaysPassed/MarginContainer/Info/Value")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -90,9 +123,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
+theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_bottom = 16
 
 [node name="Control" type="Control" parent="Panel/MarginContainer"]
 layout_mode = 2
@@ -115,16 +148,90 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 16.0
-offset_top = 56.0
+offset_top = 40.0
 offset_right = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Power" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats"]
+[node name="Divider3" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c0slr")
+
+[node name="PlayerStats" type="Label" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+text = "Player Stats"
+label_settings = SubResource("LabelSettings_8u2wk")
+horizontal_alignment = 1
+
+[node name="Divider" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c0slr")
+
+[node name="Level" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ffrb7")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/Level"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Level" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/Level/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Power"]
+[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Level/MarginContainer/Level"]
+texture_filter = 2
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Level"
+label_settings = SubResource("LabelSettings_uk1xi")
+
+[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Level/MarginContainer/Level"]
+texture_filter = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_eqklu")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "2000"
+fit_content = true
+scroll_active = false
+
+[node name="Power" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_urpep")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/Power"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Info" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/Power/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Power/MarginContainer/Info"]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -132,66 +239,122 @@ size_flags_horizontal = 3
 text = "Power"
 label_settings = SubResource("LabelSettings_uk1xi")
 
-[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Power"]
+[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Power/MarginContainer/Info"]
 texture_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_eqklu")
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "2000"
 fit_content = true
 scroll_active = false
 
-[node name="Accuracy" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats"]
+[node name="Accuracy" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ffrb7")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/Accuracy"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Level" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/Accuracy/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Accuracy"]
+[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Accuracy/MarginContainer/Level"]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Accuracy
-"
+text = "Accuracy"
 label_settings = SubResource("LabelSettings_uk1xi")
 
-[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Accuracy"]
+[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Accuracy/MarginContainer/Level"]
 texture_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_eqklu")
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "2000"
 fit_content = true
 scroll_active = false
 
-[node name="HookLength" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats"]
+[node name="HookLength" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_urpep")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/HookLength"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Info" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/HookLength/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/HookLength"]
+[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/HookLength/MarginContainer/Info"]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Hook Lenght"
+text = "Hook length"
 label_settings = SubResource("LabelSettings_uk1xi")
 
-[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/HookLength"]
+[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/HookLength/MarginContainer/Info"]
 texture_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_eqklu")
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "2000"
 fit_content = true
 scroll_active = false
 
-[node name="Recover" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats"]
+[node name="Recover" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ffrb7")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/Recover"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Level" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/Recover/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Recover"]
+[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Recover/MarginContainer/Level"]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -199,11 +362,111 @@ size_flags_horizontal = 3
 text = "Recover"
 label_settings = SubResource("LabelSettings_uk1xi")
 
-[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Recover"]
+[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Recover/MarginContainer/Level"]
 texture_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_eqklu")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "2000"
+fit_content = true
+scroll_active = false
+
+[node name="Divider4" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c0slr")
+
+[node name="GameStats" type="Label" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+text = "Game Stats"
+label_settings = SubResource("LabelSettings_xc0k4")
+horizontal_alignment = 1
+
+[node name="Divider2" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c0slr")
+
+[node name="FishesCatched" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ffrb7")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/FishesCatched"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Level" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/FishesCatched/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/FishesCatched/MarginContainer/Level"]
+texture_filter = 2
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fishes catched"
+label_settings = SubResource("LabelSettings_uk1xi")
+
+[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/FishesCatched/MarginContainer/Level"]
+texture_filter = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_eqklu")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "2000"
+fit_content = true
+scroll_active = false
+
+[node name="DaysPassed" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_urpep")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/DaysPassed"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Info" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/DaysPassed/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/DaysPassed/MarginContainer/Info"]
+texture_filter = 2
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Days passed"
+label_settings = SubResource("LabelSettings_uk1xi")
+
+[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/DaysPassed/MarginContainer/Info"]
+texture_filter = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("1_eqklu")
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "2000"
 fit_content = true

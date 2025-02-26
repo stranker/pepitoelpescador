@@ -29,9 +29,9 @@ func _ready() -> void:
 	CardManager.character_selected.connect(on_character_selected)
 	play_available.connect(GameManager.on_ui_play_available)
 	play_unavailable.connect(GameManager.on_ui_play_unavailable)
-	coins_label.text = str(GameManager.gold)
-	experience_bar.max_value = GameManager.player_level * GameManager.experience_increment
-	level_label.text = str(GameManager.player_level)
+	coins_label.text = str(GameManager.game_stats.gold)
+	experience_bar.max_value = GameManager.game_stats.player_level * GameManager.experience_increment
+	level_label.text = str(GameManager.game_stats.player_level)
 	pass # Replace with function body.
 
 func on_divinity_day():
@@ -44,7 +44,7 @@ func on_player_level_update(lvl):
 	pass
 
 func set_level_text():
-	level_label.text = str(GameManager.player_level)
+	level_label.text = str(GameManager.game_stats.player_level)
 	pass
 
 func on_character_selected(char : CharacterCard):
@@ -97,5 +97,5 @@ func _on_cinematic_camera_end_boss_presentation() -> void:
 	pass # Replace with function body.
 
 func _on_book_button_button_down() -> void:
-	book_panel.show()
+	book_panel.show_panel()
 	pass # Replace with function body.

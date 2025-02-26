@@ -37,5 +37,11 @@ func _on_map_3_button_down() -> void:
 	pass # Replace with function body.
 
 func _on_close_button_button_down() -> void:
+	get_tree().set_pause(false)
 	hide()
 	pass # Replace with function body.
+
+func show_panel():
+	show()
+	get_tree().set_pause(true)
+	pass
