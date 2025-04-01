@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ngwgmo67epe2"]
+[gd_scene load_steps=9 format=3 uid="uid://ngwgmo67epe2"]
 
 [ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="1_5w28i"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_57mqj"]
 
 [sub_resource type="GDScript" id="GDScript_308e6"]
 resource_name = "sound_options"
@@ -47,6 +48,22 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="LabelSettings" id="LabelSettings_qobcg"]
+font = ExtResource("2_57mqj")
+font_size = 46
+
+[sub_resource type="LabelSettings" id="LabelSettings_fbdfa"]
+font = ExtResource("2_57mqj")
+font_size = 46
+
+[sub_resource type="LabelSettings" id="LabelSettings_tnhqg"]
+font = ExtResource("2_57mqj")
+font_size = 46
+
+[sub_resource type="LabelSettings" id="LabelSettings_xwkdv"]
+font = ExtResource("2_57mqj")
+font_size = 72
+
 [node name="SoundOptions" type="Control" node_paths=PackedStringArray("general_slider", "music_slider", "sound_slider")]
 layout_mode = 3
 anchors_preset = 15
@@ -55,9 +72,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_308e6")
-general_slider = NodePath("SoundOptions/General")
-music_slider = NodePath("SoundOptions/MusicSlider")
-sound_slider = NodePath("SoundOptions/SoundSlider")
+general_slider = NodePath("SoundOptions/VBoxContainer/General/General")
+music_slider = NodePath("SoundOptions/VBoxContainer/Music/MusicSlider")
+sound_slider = NodePath("SoundOptions/VBoxContainer/SFx/SoundSlider")
 
 [node name="SoundOptions" type="Panel" parent="."]
 layout_mode = 1
@@ -87,112 +104,94 @@ texture_disabled = ExtResource("1_5w28i")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="General" type="HSlider" parent="SoundOptions"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SoundOptions"]
+custom_minimum_size = Vector2(512, 400)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -144.0
-offset_top = -68.0
-offset_right = 144.0
-offset_bottom = -52.0
+offset_left = -256.0
+offset_top = -212.0
+offset_right = 256.0
+offset_bottom = 212.0
 grow_horizontal = 2
 grow_vertical = 2
-min_value = -40.0
-max_value = 0.0
-step = 8.0
-rounded = true
+alignment = 1
 
-[node name="SoundSlider" type="HSlider" parent="SoundOptions"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -144.0
-offset_top = -4.0
-offset_right = 144.0
-offset_bottom = 12.0
-grow_horizontal = 2
-grow_vertical = 2
-min_value = -40.0
-max_value = 0.0
-step = 8.0
-rounded = true
+[node name="General" type="VBoxContainer" parent="SoundOptions/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="SoundOptions"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -144.0
-offset_top = 60.0
-offset_right = 144.0
-offset_bottom = 76.0
-grow_horizontal = 2
-grow_vertical = 2
-min_value = -40.0
-max_value = 0.0
-step = 8.0
-rounded = true
-
-[node name="GeneralLabel" type="Label" parent="SoundOptions"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -144.0
-offset_top = -108.0
-offset_right = 144.0
-offset_bottom = -85.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="GeneralLabel" type="Label" parent="SoundOptions/VBoxContainer/General"]
+layout_mode = 2
 text = "GENERAL"
+label_settings = SubResource("LabelSettings_qobcg")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SfxLabel" type="Label" parent="SoundOptions"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -144.0
-offset_top = -36.0
-offset_right = 144.0
-offset_bottom = -13.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "SFx"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="General" type="HSlider" parent="SoundOptions/VBoxContainer/General"]
+layout_mode = 2
+min_value = -40.0
+max_value = 0.0
+step = 8.0
+rounded = true
 
-[node name="MusicLabel" type="Label" parent="SoundOptions"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -144.0
-offset_top = 28.0
-offset_right = 144.0
-offset_bottom = 51.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Music" type="VBoxContainer" parent="SoundOptions/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="MusicLabel" type="Label" parent="SoundOptions/VBoxContainer/Music"]
+layout_mode = 2
 text = "MUSIC"
+label_settings = SubResource("LabelSettings_fbdfa")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="SoundOptions/VBoxContainer/Music"]
+layout_mode = 2
+min_value = -40.0
+max_value = 0.0
+step = 8.0
+rounded = true
+
+[node name="SFx" type="VBoxContainer" parent="SoundOptions/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="SfxLabel" type="Label" parent="SoundOptions/VBoxContainer/SFx"]
+layout_mode = 2
+text = "SFx"
+label_settings = SubResource("LabelSettings_tnhqg")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SoundSlider" type="HSlider" parent="SoundOptions/VBoxContainer/SFx"]
+layout_mode = 2
+min_value = -40.0
+max_value = 0.0
+step = 8.0
+rounded = true
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_top = 16.0
+offset_right = 576.0
+offset_bottom = 81.0
+grow_horizontal = 2
+text = "OPTIONS"
+label_settings = SubResource("LabelSettings_xwkdv")
+horizontal_alignment = 1
 
 [connection signal="button_down" from="SoundOptions/Close" to="." method="_on_close_button_down"]
-[connection signal="value_changed" from="SoundOptions/General" to="." method="_on_general_value_changed"]
-[connection signal="value_changed" from="SoundOptions/SoundSlider" to="." method="_on_sound_slider_value_changed"]
-[connection signal="value_changed" from="SoundOptions/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="SoundOptions/VBoxContainer/General/General" to="." method="_on_general_value_changed"]
+[connection signal="value_changed" from="SoundOptions/VBoxContainer/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="SoundOptions/VBoxContainer/SFx/SoundSlider" to="." method="_on_sound_slider_value_changed"]

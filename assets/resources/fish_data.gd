@@ -7,3 +7,4 @@ extends Resource
 @export var fish_experience : float = 1
 @export var fish_color : Color
 @export var fish_stars : int = 1
+var unlocked : bool = false

@@ -1,6 +1,6 @@
-[gd_scene load_steps=37 format=3 uid="uid://c4e5o2j6nkkkn"]
+[gd_scene load_steps=38 format=3 uid="uid://c4e5o2j6nkkkn"]
 
-[ext_resource type="Script" path="res://scenes/ui.gd" id="1_hy13r"]
+[ext_resource type="Script" uid="uid://c5c42qdomv36y" path="res://scenes/ui.gd" id="1_hy13r"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="2_rauqo"]
 [ext_resource type="AudioStream" uid="uid://dy6dnip7c1qfr" path="res://assets/sfx/coins.wav" id="3_r0co5"]
 [ext_resource type="PackedScene" uid="uid://cbxq6hn0dd75u" path="res://scenes/scrim.tscn" id="6_squ3x"]
@@ -77,8 +77,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_inegl"]
 _data = {
-"RESET": SubResource("Animation_1f2ph"),
-"earn": SubResource("Animation_gfs05")
+&"RESET": SubResource("Animation_1f2ph"),
+&"earn": SubResource("Animation_gfs05")
 }
 
 [sub_resource type="Animation" id="Animation_db8l5"]
@@ -138,8 +138,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hykrw"]
 _data = {
-"RESET": SubResource("Animation_db8l5"),
-"fade_out": SubResource("Animation_1thc4")
+&"RESET": SubResource("Animation_db8l5"),
+&"fade_out": SubResource("Animation_1thc4")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7uijp"]
@@ -363,9 +363,9 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7wjaj"]
 _data = {
-"RESET": SubResource("Animation_w3tlt"),
-"add_exp": SubResource("Animation_xikqj"),
-"level_up": SubResource("Animation_qjwn8")
+&"RESET": SubResource("Animation_w3tlt"),
+&"add_exp": SubResource("Animation_xikqj"),
+&"level_up": SubResource("Animation_qjwn8")
 }
 
 [sub_resource type="Animation" id="Animation_clmrf"]
@@ -467,9 +467,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_um7qg"]
 _data = {
-"RESET": SubResource("Animation_clmrf"),
-"add": SubResource("Animation_g3oek"),
-"enter": SubResource("Animation_ahfo7")
+&"RESET": SubResource("Animation_clmrf"),
+&"add": SubResource("Animation_g3oek"),
+&"enter": SubResource("Animation_ahfo7")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_hu5ey"]
@@ -485,7 +485,12 @@ font_color = Color(1, 0.619608, 0.294118, 1)
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
-[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("coins_label", "coin_anim", "anim", "fishes_catched", "scrimmer", "player_portrait_anim", "experience_bar", "profile", "level_label", "combo_label", "combo_anim", "book_panel") groups=["ui"]]
+[sub_resource type="LabelSettings" id="LabelSettings_x7jpl"]
+font = ExtResource("9_tdxgr")
+font_size = 48
+font_color = Color(0, 1, 0, 1)
+
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("coins_label", "coin_anim", "anim", "fishes_catched", "scrimmer", "player_portrait_anim", "experience_bar", "profile", "level_label", "combo_label", "combo_anim", "book_panel", "fps_label") groups=["ui"]]
 script = ExtResource("1_hy13r")
 coins_label = NodePath("MarginContainer/Main/Coins/HBoxContainer/Label")
 coin_anim = NodePath("MarginContainer/Main/Coins/Anim")
@@ -499,6 +504,7 @@ level_label = NodePath("MarginContainer/Main/FishermanProfile/BackgroundOultine/
 combo_label = NodePath("MarginContainer/Main/FishermanProfile/Combos/Control/Label")
 combo_anim = NodePath("MarginContainer/Main/FishermanProfile/Combos/ComboAnim")
 book_panel = NodePath("BookPanel")
+fps_label = NodePath("FPS")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 visible = false
@@ -556,7 +562,7 @@ label_settings = SubResource("LabelSettings_3nawq")
 
 [node name="Anim" type="AnimationPlayer" parent="MarginContainer/Main/Coins"]
 libraries = {
-"": SubResource("AnimationLibrary_inegl")
+&"": SubResource("AnimationLibrary_inegl")
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MarginContainer/Main/Coins"]
@@ -565,7 +571,7 @@ bus = &"SFx"
 
 [node name="Anim" type="AnimationPlayer" parent="MarginContainer/Main"]
 libraries = {
-"": SubResource("AnimationLibrary_hykrw")
+&"": SubResource("AnimationLibrary_hykrw")
 }
 
 [node name="FishesCatched" type="Control" parent="MarginContainer/Main"]
@@ -685,7 +691,7 @@ vertical_alignment = 1
 
 [node name="Anim" type="AnimationPlayer" parent="MarginContainer/Main/FishermanProfile"]
 libraries = {
-"": SubResource("AnimationLibrary_7wjaj")
+&"": SubResource("AnimationLibrary_7wjaj")
 }
 
 [node name="Combos" type="Control" parent="MarginContainer/Main/FishermanProfile"]
@@ -707,7 +713,7 @@ pivot_offset = Vector2(42, 29)
 
 [node name="ComboAnim" type="AnimationPlayer" parent="MarginContainer/Main/FishermanProfile/Combos"]
 libraries = {
-"": SubResource("AnimationLibrary_um7qg")
+&"": SubResource("AnimationLibrary_um7qg")
 }
 
 [node name="Control" type="Control" parent="MarginContainer/Main/FishermanProfile/Combos"]
@@ -781,5 +787,17 @@ visible = false
 
 [node name="BookPanel" parent="." instance=ExtResource("12_baj3o")]
 visible = false
+
+[node name="FPS" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -216.0
+offset_top = 72.0
+offset_right = -4.0
+offset_bottom = 124.0
+grow_horizontal = 0
+text = "FPS"
+label_settings = SubResource("LabelSettings_x7jpl")
 
 [connection signal="button_down" from="MarginContainer/Main/BookButton" to="." method="_on_book_button_button_down"]

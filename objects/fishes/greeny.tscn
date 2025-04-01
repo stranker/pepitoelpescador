@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_e8jxn"]
 [ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_fvhq7"]
-[ext_resource type="Script" path="res://assets/resources/fish_data.gd" id="3_gamte"]
+[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://assets/resources/fish_data.gd" id="3_gamte"]
 
 [sub_resource type="Resource" id="Resource_1ht7d"]
 script = ExtResource("3_gamte")

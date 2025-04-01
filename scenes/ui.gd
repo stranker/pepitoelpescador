@@ -12,6 +12,7 @@ extends CanvasLayer
 @export var combo_label : Label
 @export var combo_anim : AnimationPlayer
 @export var book_panel : Control
+@export var fps_label : Label
 
 const fish_catch_info_scene = preload("res://ui/fish_catch_info.tscn")
 
@@ -99,3 +100,12 @@ func _on_cinematic_camera_end_boss_presentation() -> void:
 func _on_book_button_button_down() -> void:
 	book_panel.show_panel()
 	pass # Replace with function body.
+
+func _on_game_scene_update_level_data(level_data: Variant) -> void:
+	book_panel.set_level_data(level_data)
+	pass # Replace with function body.
+
+func _physics_process(delta: float) -> void:
+	fps_label.text = "FPS:" + str(Engine.get_frames_per_second())
+	pass
+	

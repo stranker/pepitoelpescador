@@ -183,8 +183,8 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5cv6a"]
 _data = {
-"RESET": SubResource("Animation_6e0ta"),
-"day": SubResource("Animation_txugb")
+&"RESET": SubResource("Animation_6e0ta"),
+&"day": SubResource("Animation_txugb")
 }
 
 [node name="Clock" type="Control" node_paths=PackedStringArray("anim")]
@@ -230,5 +230,5 @@ stretch_mode = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_5cv6a")
+&"": SubResource("AnimationLibrary_5cv6a")
 }

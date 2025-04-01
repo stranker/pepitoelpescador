@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_bl1yr"]
 [ext_resource type="Texture2D" uid="uid://bvle0d1xauewb" path="res://assets/sprites/fishes/rusty.png" id="2_23hde"]
-[ext_resource type="Script" path="res://assets/resources/fish_data.gd" id="3_vqwep"]
+[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://assets/resources/fish_data.gd" id="3_vqwep"]
 
 [sub_resource type="Resource" id="Resource_hqeod"]
 script = ExtResource("3_vqwep")
@@ -11,6 +11,7 @@ fish_texture = ExtResource("2_23hde")
 fish_gold = 4
 fish_experience = 2.0
 fish_color = Color(0.952941, 0.658824, 0.2, 1)
+fish_stars = 1
 
 [sub_resource type="Curve" id="Curve_xcebo"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.95605, 0.0, 0, 0]
@@ -348,14 +349,14 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6xegg"]
 _data = {
-"RESET": SubResource("Animation_jj0a6"),
-"chase": SubResource("Animation_i6cgv"),
-"collect": SubResource("Animation_vc5nm"),
-"eat": SubResource("Animation_7id04"),
-"eated": SubResource("Animation_x8n03"),
-"hook": SubResource("Animation_2lm01"),
-"move": SubResource("Animation_tl176"),
-"start_eated": SubResource("Animation_v75j8")
+&"RESET": SubResource("Animation_jj0a6"),
+&"chase": SubResource("Animation_i6cgv"),
+&"collect": SubResource("Animation_vc5nm"),
+&"eat": SubResource("Animation_7id04"),
+&"eated": SubResource("Animation_x8n03"),
+&"hook": SubResource("Animation_2lm01"),
+&"move": SubResource("Animation_tl176"),
+&"start_eated": SubResource("Animation_v75j8")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2n3e8"]

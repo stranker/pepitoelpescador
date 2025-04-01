@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b7o878bg7yltg"]
 
-[ext_resource type="Script" path="res://ui/card_selector.gd" id="1_7ukqc"]
+[ext_resource type="Script" uid="uid://rgl2eq0uxma0" path="res://ui/card_selector.gd" id="1_7ukqc"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_k7cl5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r33km"]

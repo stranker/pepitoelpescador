@@ -19,7 +19,7 @@ var player_selected : bool = false
 signal gold_update(gold)
 signal experience_update(exp)
 signal player_level_update(level)
-signal fish_collected(fish, data)
+signal fish_collected(fish)
 signal play_available()
 signal play_unavailable()
 signal day_time_start(day_duration)

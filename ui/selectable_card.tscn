@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://cleqatf1rk0lp"]
 
-[ext_resource type="Script" path="res://ui/selectable_card.gd" id="1_8jx8r"]
+[ext_resource type="Script" uid="uid://biq8qynv83bry" path="res://ui/selectable_card.gd" id="1_8jx8r"]
 [ext_resource type="Texture2D" uid="uid://dedu1aqgaewfb" path="res://assets/sprites/cards/character_card.png" id="2_0td3g"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_hdkuc"]
 [ext_resource type="Texture2D" uid="uid://bvle0d1xauewb" path="res://assets/sprites/fishes/rusty.png" id="2_ij1bh"]
@@ -263,11 +263,11 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vu36m"]
 _data = {
-"RESET": SubResource("Animation_16ct4"),
-"appear": SubResource("Animation_j84q7"),
-"destroy": SubResource("Animation_0lbga"),
-"hover": SubResource("Animation_iy80d"),
-"selected": SubResource("Animation_ix1vg")
+&"RESET": SubResource("Animation_16ct4"),
+&"appear": SubResource("Animation_j84q7"),
+&"destroy": SubResource("Animation_0lbga"),
+&"hover": SubResource("Animation_iy80d"),
+&"selected": SubResource("Animation_ix1vg")
 }
 
 [node name="SelectableCard" type="Control" node_paths=PackedStringArray("card_title", "card_upgrade", "card_character", "card_description", "anim", "background")]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ha416gv1dh51"]
 
-[ext_resource type="Script" path="res://objects/collectables/treasure.gd" id="1_1c7lm"]
+[ext_resource type="Script" uid="uid://bwpgk0u1lulsb" path="res://objects/collectables/treasure.gd" id="1_1c7lm"]
 [ext_resource type="Texture2D" uid="uid://cmgf60wrcvxru" path="res://assets/sprites/treasures/treasure.png" id="1_o22ff"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_imasm"]
@@ -41,8 +41,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_520rh"]
 _data = {
-"RESET": SubResource("Animation_en4k6"),
-"idle": SubResource("Animation_ffvjc")
+&"RESET": SubResource("Animation_en4k6"),
+&"idle": SubResource("Animation_ffvjc")
 }
 
 [node name="Treasure" type="Area2D"]

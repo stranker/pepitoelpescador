@@ -1,8 +1,8 @@
 [gd_scene load_steps=25 format=3 uid="uid://m3pn8jhjp016"]
 
-[ext_resource type="Script" path="res://objects/fishes/fish.gd" id="1_vollg"]
+[ext_resource type="Script" uid="uid://4nk1v8at0msd" path="res://objects/fishes/fish.gd" id="1_vollg"]
 [ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_jvsmo"]
-[ext_resource type="Script" path="res://assets/resources/fish_data.gd" id="2_stxx7"]
+[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://assets/resources/fish_data.gd" id="2_stxx7"]
 [ext_resource type="Texture2D" uid="uid://dcn7r3k70kt6d" path="res://assets/sprites/icons/eat.png" id="4_0toll"]
 [ext_resource type="Texture2D" uid="uid://c0uy6y2kg7m1d" path="res://assets/sprites/bubbles.png" id="4_iq1b3"]
 [ext_resource type="PackedScene" uid="uid://bs87v6choh3co" path="res://objects/components/chase_component.tscn" id="4_lqw0p"]
@@ -361,15 +361,15 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6xegg"]
 _data = {
-"RESET": SubResource("Animation_jj0a6"),
-"chase": SubResource("Animation_i6cgv"),
-"collect": SubResource("Animation_vc5nm"),
-"eat": SubResource("Animation_7id04"),
-"eated": SubResource("Animation_x8n03"),
-"hook": SubResource("Animation_2lm01"),
-"move": SubResource("Animation_tl176"),
-"start_eated": SubResource("Animation_v75j8"),
-"stop_eated": SubResource("Animation_yuapq")
+&"RESET": SubResource("Animation_jj0a6"),
+&"chase": SubResource("Animation_i6cgv"),
+&"collect": SubResource("Animation_vc5nm"),
+&"eat": SubResource("Animation_7id04"),
+&"eated": SubResource("Animation_x8n03"),
+&"hook": SubResource("Animation_2lm01"),
+&"move": SubResource("Animation_tl176"),
+&"start_eated": SubResource("Animation_v75j8"),
+&"stop_eated": SubResource("Animation_yuapq")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m5f76"]
@@ -411,9 +411,9 @@ texture = ExtResource("2_jvsmo")
 [node name="Bubbles" type="CPUParticles2D" parent="Visual"]
 position = Vector2(50, -7)
 amount = 4
+texture = ExtResource("4_iq1b3")
 lifetime = 2.0
 lifetime_randomness = 0.5
-texture = ExtResource("4_iq1b3")
 direction = Vector2(0, -1)
 spread = 100.0
 gravity = Vector2(0, -100)
@@ -445,12 +445,12 @@ wait_time = 5.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_6xegg")
+&"": SubResource("AnimationLibrary_6xegg")
 }
 autoplay = "move"
 
 [node name="RespawnTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 60.0
 one_shot = true
 
 [node name="ChaseComponent" parent="." instance=ExtResource("4_lqw0p")]

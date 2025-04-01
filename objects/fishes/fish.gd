@@ -18,7 +18,7 @@ var states : Array = [
 @export var fish_mass : float = 10.0
 @export var level : int = 0
 @export var fish_data : FishData
-@export var respawn_time : float = 10
+@export var respawn_time : float = 50
 
 const shockwave_scene = preload("res://sfx/shockwave.tscn")
 
@@ -199,20 +199,20 @@ func hook(fish_parent : Node2D):
 	if fish_state == FishState.EAT:
 		target.stop_eated()
 	reparent.call_deferred(fish_parent)
-	set_fish_state.call_deferred(FishState.HOOK)
+	set_fish_state(FishState.HOOK)
 	set_deferred("position", Vector2.ZERO)
 	pass
 
 func collect():
 	collected.emit(self)
-	set_fish_state(FishState.COLLECT)
+	set_fish_state.call_deferred(FishState.COLLECT)
 	pass
 
 func _on_respawn_timer_timeout() -> void:
 	global_position = initial_pos
 	set_physics_process(true)
-	set_fish_state(FishState.MOVE)
-	pass # Replace with function body.
+	set_fish_state.call_deferred(FishState.MOVE)
+	pass
 
 func _respawn():
 	reparent.call_deferred(initial_parent)

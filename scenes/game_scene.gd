@@ -1,4 +1,4 @@
-extends Node2D
+extends Level
 
 signal afternoon
 signal midnight_start

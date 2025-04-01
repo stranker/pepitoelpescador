@@ -100,9 +100,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hi0v1"]
 _data = {
-"RESET": SubResource("Animation_46fuq"),
-"fade_out": SubResource("Animation_35xyw"),
-"scrimmer": SubResource("Animation_hqddj")
+&"RESET": SubResource("Animation_46fuq"),
+&"fade_out": SubResource("Animation_35xyw"),
+&"scrimmer": SubResource("Animation_hqddj")
 }
 
 [node name="Scrim" type="ColorRect"]

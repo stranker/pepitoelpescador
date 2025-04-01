@@ -208,9 +208,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5bh2g"]
 _data = {
-"RESET": SubResource("Animation_jmwsv"),
-"destroy": SubResource("Animation_l6nee"),
-"pop": SubResource("Animation_51txn")
+&"RESET": SubResource("Animation_jmwsv"),
+&"destroy": SubResource("Animation_l6nee"),
+&"pop": SubResource("Animation_51txn")
 }
 
 [sub_resource type="Curve" id="Curve_7v0jy"]

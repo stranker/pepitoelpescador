@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_5en4v"]
 [ext_resource type="Texture2D" uid="uid://db8lfvo2el27n" path="res://assets/sprites/fishes/lily.png" id="2_e5js6"]
-[ext_resource type="Script" path="res://assets/resources/fish_data.gd" id="3_7giho"]
+[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://assets/resources/fish_data.gd" id="3_7giho"]
 
 [sub_resource type="Resource" id="Resource_j6nw0"]
 script = ExtResource("3_7giho")
@@ -11,6 +11,7 @@ fish_texture = ExtResource("2_e5js6")
 fish_gold = 200
 fish_experience = 1.0
 fish_color = Color(0.8, 0.6, 1, 1)
+fish_stars = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uwufu"]
 radius = 240.533

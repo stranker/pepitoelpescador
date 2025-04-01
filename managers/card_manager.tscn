@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=3 uid="uid://d0u656wq8p8ft"]
 
-[ext_resource type="Script" path="res://managers/card_manager.gd" id="1_urukv"]
-[ext_resource type="Script" path="res://objects/character_card.gd" id="2_6p2yx"]
-[ext_resource type="Script" path="res://objects/upgrade_card.gd" id="3_3wi76"]
+[ext_resource type="Script" uid="uid://biw2k543ativ7" path="res://managers/card_manager.gd" id="1_urukv"]
+[ext_resource type="Script" uid="uid://dokbbhkitmfd5" path="res://objects/character_card.gd" id="2_6p2yx"]
+[ext_resource type="Script" uid="uid://cl1o6nm4ucn4l" path="res://objects/upgrade_card.gd" id="3_3wi76"]
 [ext_resource type="Texture2D" uid="uid://bucxh0pfjd2tw" path="res://assets/sprites/cards/upgrade_card.png" id="3_wf3hm"]
 [ext_resource type="Texture2D" uid="uid://cpalo30arsxsr" path="res://assets/sprites/cards/upgrades/accuracy_icon.png" id="4_1jsee"]
 [ext_resource type="Texture2D" uid="uid://dedu1aqgaewfb" path="res://assets/sprites/cards/character_card.png" id="5_nvbsy"]

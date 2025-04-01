@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://67yxn7oqday8"]
 
-[ext_resource type="Script" path="res://objects/components/eat_component.gd" id="1_p6oml"]
+[ext_resource type="Script" uid="uid://cy1pbljsqcbbu" path="res://objects/components/eat_component.gd" id="1_p6oml"]
 
 [node name="EatComponent" type="Area2D"]
 collision_layer = 16
