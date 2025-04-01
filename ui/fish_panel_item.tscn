@@ -162,11 +162,11 @@ offsets = PackedFloat32Array(0, 0.273684, 0.807018, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="FishPanelItem" type="Control" node_paths=PackedStringArray("name_label", "texture_rect", "anim")]
-custom_minimum_size = Vector2(232, 160)
+custom_minimum_size = Vector2(200, 152)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 232.0
-offset_bottom = 160.0
+offset_right = 200.0
+offset_bottom = 152.0
 script = ExtResource("1_ku7cw")
 name_label = NodePath("Panel/VBoxContainer/Label")
 texture_rect = NodePath("Panel/VBoxContainer/Control/TextureRect")
