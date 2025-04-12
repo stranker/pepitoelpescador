@@ -10,10 +10,14 @@
 
 [sub_resource type="Resource" id="Resource_vjdxc"]
 script = ExtResource("2_ok3jf")
+name = ""
+price = 0.0
 force = 0.0
 accuracy = 0.0
 length = 0.0
 recover = 0.0
+purchased = false
+equiped = false
 force_increment = 0.0
 accuracy_increment = 0.0
 length_increment = 0.0
@@ -66,11 +70,11 @@ random_volume_offset_db = 1.0
 streams_count = 1
 stream_0/stream = ExtResource("7_25xtu")
 
-[node name="Hook" type="CharacterBody2D" node_paths=PackedStringArray("wind") groups=["hook"]]
+[node name="Hook" type="CharacterBody2D" node_paths=PackedStringArray("skin", "wind") groups=["hook"]]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_u38fj")
-base_recover_force = 2500.0
+skin = NodePath("Skin")
 wind = NodePath("Wind")
 stats = SubResource("Resource_vjdxc")
 
@@ -135,10 +139,10 @@ scale_amount_curve = SubResource("Curve_m3dio")
 position = Vector2(56, 2)
 emitting = false
 amount = 30
+texture = ExtResource("4_d1hv7")
 lifetime = 0.6
 randomness = 1.0
 lifetime_randomness = 1.0
-texture = ExtResource("4_d1hv7")
 emission_shape = 1
 emission_sphere_radius = 4.0
 direction = Vector2(-1, 0)

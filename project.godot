@@ -15,19 +15,26 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="OneMoreFish"
-run/main_scene="res://scenes/game_scene.tscn"
+run/main_scene="uid://bhdtyhdxdivwg"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
+ItemManager="*res://managers/item_manager.tscn"
 CardManager="*res://managers/card_manager.tscn"
 GameManager="*res://managers/game_manager.gd"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+
+[editor]
+
+movie_writer/movie_file="E:/Proyectos/Godot/pepitoelpescador/movie_clips/movie_out.avi"
 
 [global_group]
 

@@ -45,7 +45,9 @@ var velocity : Vector2
 var initial_parent : Node2D
 var target : Fish = null
 @export var fish_scales : Array = [0.9, 0.95, 1.0, 1.05, 1.1]
+@export var fish_base_size : float = 10
 var fish_stars : int = 1
+var fish_size : float = 1
 
 signal collected(fish)
 
@@ -60,6 +62,7 @@ func _ready() -> void:
 	respawn_timer.wait_time = respawn_time
 	fish_stars = (randi() % 5) + 1
 	scale = Vector2.ONE * fish_scales[fish_stars - 1]
+	fish_size = fish_base_size * fish_scales[fish_stars - 1] + randf_range(0.0, 1.2)
 	if fish_data:
 		eated_particles.modulate = fish_data.fish_color
 	pass

@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://dgh54f34uljkg"]
+
+[ext_resource type="Script" uid="uid://tlxaa68vj303" path="res://managers/item_manager.gd" id="1_i730m"]
+[ext_resource type="Script" uid="uid://c8sxawxrjqy4a" path="res://objects/hook_stats.gd" id="2_13vnu"]
+[ext_resource type="Texture2D" uid="uid://cb6xdxcj7gp0" path="res://assets/sprites/hooks/default.png" id="3_vofrw"]
+[ext_resource type="Texture2D" uid="uid://cv0tkyvn38u6f" path="res://assets/sprites/fishermans/default.png" id="4_ipr50"]
+
+[sub_resource type="Resource" id="Resource_13vnu"]
+script = ExtResource("2_13vnu")
+name = "Wooden Hook"
+price = 0.0
+force = 1.2
+accuracy = 0.1
+length = 2.0
+recover = 1.0
+purchased = true
+equiped = true
+texture = ExtResource("3_vofrw")
+force_increment = 0.01
+accuracy_increment = 0.01
+length_increment = 0.5
+recover_increment = 0.01
+metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
+
+[sub_resource type="Resource" id="Resource_x1b0d"]
+script = ExtResource("2_13vnu")
+name = "Cool Hook"
+price = 100.0
+force = 2.0
+accuracy = 0.2
+length = 4.0
+recover = 2.0
+purchased = false
+equiped = false
+texture = ExtResource("4_ipr50")
+force_increment = 0.015
+accuracy_increment = 0.015
+length_increment = 0.75
+recover_increment = 0.015
+metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
+
+[node name="ItemManager" type="Node"]
+script = ExtResource("1_i730m")
+hooks = Array[ExtResource("2_13vnu")]([SubResource("Resource_13vnu"), SubResource("Resource_x1b0d")])

@@ -8,14 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://dbqvpsqgyiace" path="res://assets/sprites/icons/profile_exp.png" id="7_bn0f4"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="9_tdxgr"]
 [ext_resource type="AudioStream" uid="uid://nd8spbnjsn2s" path="res://assets/sfx/level_up.wav" id="10_fhbxk"]
-[ext_resource type="Texture2D" uid="uid://cn6pwjm7ij0s4" path="res://assets/ui/book.png" id="10_n5fwy"]
+[ext_resource type="PackedScene" uid="uid://w87u21qrvcd4" path="res://scenes/results_scene.tscn" id="10_hrmpd"]
 [ext_resource type="PackedScene" uid="uid://dsgecvueilt6e" path="res://ui/clock.tscn" id="10_xee24"]
 [ext_resource type="AudioStream" uid="uid://dotoht2cmhs33" path="res://assets/sfx/add_exp.wav" id="11_bxawd"]
-[ext_resource type="PackedScene" uid="uid://j0grc3n7dyj2" path="res://ui/book_panel.tscn" id="12_baj3o"]
 [ext_resource type="PackedScene" uid="uid://b7o878bg7yltg" path="res://ui/card_selector.tscn" id="13_fklw0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3nawq"]
-font_size = 48
+font_size = 46
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
@@ -79,67 +78,6 @@ tracks/1/keys = {
 _data = {
 &"RESET": SubResource("Animation_1f2ph"),
 &"earn": SubResource("Animation_gfs05")
-}
-
-[sub_resource type="Animation" id="Animation_db8l5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_1thc4"]
-resource_name = "fade_out"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.5, 0.5),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, true, false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_hykrw"]
-_data = {
-&"RESET": SubResource("Animation_db8l5"),
-&"fade_out": SubResource("Animation_1thc4")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7uijp"]
@@ -485,12 +423,174 @@ font_color = Color(1, 0.619608, 0.294118, 1)
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Animation" id="Animation_db8l5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ResultsScene:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FishermanProfile:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Clock:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1thc4"]
+resource_name = "fade_out"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_hrmpd"]
+resource_name = "results"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ResultsScene:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FishermanProfile:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Clock:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hykrw"]
+_data = {
+&"RESET": SubResource("Animation_db8l5"),
+&"fade_out": SubResource("Animation_1thc4"),
+&"results": SubResource("Animation_hrmpd")
+}
+
 [sub_resource type="LabelSettings" id="LabelSettings_x7jpl"]
 font = ExtResource("9_tdxgr")
 font_size = 48
 font_color = Color(0, 1, 0, 1)
 
-[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("coins_label", "coin_anim", "anim", "fishes_catched", "scrimmer", "player_portrait_anim", "experience_bar", "profile", "level_label", "combo_label", "combo_anim", "book_panel", "fps_label") groups=["ui"]]
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("coins_label", "coin_anim", "anim", "fishes_catched", "scrimmer", "player_portrait_anim", "experience_bar", "profile", "level_label", "combo_label", "combo_anim", "fps_label") groups=["ui"]]
 script = ExtResource("1_hy13r")
 coins_label = NodePath("MarginContainer/Main/Coins/HBoxContainer/Label")
 coin_anim = NodePath("MarginContainer/Main/Coins/Anim")
@@ -503,7 +603,6 @@ profile = NodePath("MarginContainer/Main/FishermanProfile/BackgroundOultine/Back
 level_label = NodePath("MarginContainer/Main/FishermanProfile/BackgroundOultine/Level/Label")
 combo_label = NodePath("MarginContainer/Main/FishermanProfile/Combos/Control/Label")
 combo_anim = NodePath("MarginContainer/Main/FishermanProfile/Combos/ComboAnim")
-book_panel = NodePath("BookPanel")
 fps_label = NodePath("FPS")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -531,8 +630,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -312.0
-offset_bottom = 56.0
+offset_left = -308.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 36.0
 grow_horizontal = 0
 pivot_offset = Vector2(312, 28)
 mouse_filter = 2
@@ -568,11 +669,6 @@ libraries = {
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MarginContainer/Main/Coins"]
 stream = ExtResource("3_r0co5")
 bus = &"SFx"
-
-[node name="Anim" type="AnimationPlayer" parent="MarginContainer/Main"]
-libraries = {
-&"": SubResource("AnimationLibrary_hykrw")
-}
 
 [node name="FishesCatched" type="Control" parent="MarginContainer/Main"]
 custom_minimum_size = Vector2(0, 192)
@@ -754,18 +850,6 @@ stream = ExtResource("11_bxawd")
 volume_db = -12.0
 bus = &"SFx"
 
-[node name="BookButton" type="TextureButton" parent="MarginContainer/Main"]
-layout_mode = 0
-offset_left = -10.0
-offset_top = 140.0
-offset_right = 76.0
-offset_bottom = 236.0
-texture_normal = ExtResource("10_n5fwy")
-texture_pressed = ExtResource("10_n5fwy")
-texture_hover = ExtResource("10_n5fwy")
-ignore_texture_size = true
-stretch_mode = 5
-
 [node name="Clock" parent="MarginContainer/Main" instance=ExtResource("10_xee24")]
 process_mode = 1
 layout_mode = 1
@@ -774,30 +858,37 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.0
 offset_left = -64.0
-offset_top = -20.0
+offset_top = -15.0
 offset_right = 64.0
-offset_bottom = 44.0
+offset_bottom = 49.0
 grow_vertical = 1
+
+[node name="ResultsScene" parent="MarginContainer/Main" instance=ExtResource("10_hrmpd")]
+layout_mode = 1
+
+[node name="Anim" type="AnimationPlayer" parent="MarginContainer/Main"]
+libraries = {
+&"": SubResource("AnimationLibrary_hykrw")
+}
 
 [node name="Scrim" parent="." instance=ExtResource("6_squ3x")]
 metadata/_edit_lock_ = true
 
 [node name="CardSelector" parent="." instance=ExtResource("13_fklw0")]
 visible = false
-
-[node name="BookPanel" parent="." instance=ExtResource("12_baj3o")]
-visible = false
+selection_type = 1
 
 [node name="FPS" type="Label" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -216.0
-offset_top = 72.0
+offset_top = 76.0
 offset_right = -4.0
-offset_bottom = 124.0
+offset_bottom = 128.0
 grow_horizontal = 0
 text = "FPS"
 label_settings = SubResource("LabelSettings_x7jpl")
+horizontal_alignment = 2
 
-[connection signal="button_down" from="MarginContainer/Main/BookButton" to="." method="_on_book_button_button_down"]
+[connection signal="end_day" from="MarginContainer/Main/Clock" to="." method="_on_clock_end_day"]

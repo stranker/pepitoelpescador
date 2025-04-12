@@ -1,0 +1,596 @@
+[gd_scene load_steps=22 format=3 uid="uid://g1lnxers4xc4"]
+
+[ext_resource type="Script" uid="uid://0bwau1wibnsc" path="res://ui/hooks_shop_panel.gd" id="1_kqfp7"]
+[ext_resource type="Texture2D" uid="uid://cb6xdxcj7gp0" path="res://assets/sprites/hooks/default.png" id="1_obbv5"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_kqfp7"]
+[ext_resource type="Texture2D" uid="uid://i5i1aru18p7g" path="res://icon.svg" id="3_glwro"]
+[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="4_g528f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5mka"]
+bg_color = Color(0, 0, 0, 0.866667)
+
+[sub_resource type="LabelSettings" id="LabelSettings_i5mka"]
+font = ExtResource("2_kqfp7")
+font_size = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67uj7"]
+bg_color = Color(0.303233, 0.303233, 0.303233, 0.752941)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxnrq"]
+bg_color = Color(0.982343, 0.982342, 0.982342, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_tyvbe"]
+font = ExtResource("2_kqfp7")
+font_size = 26
+
+[sub_resource type="LabelSettings" id="LabelSettings_tdjdk"]
+font = ExtResource("2_kqfp7")
+font_size = 26
+
+[sub_resource type="LabelSettings" id="LabelSettings_fovme"]
+font = ExtResource("2_kqfp7")
+font_size = 36
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyvbe"]
+bg_color = Color(0.882353, 0.74902, 0.0156863, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.882353, 0.6, 0.0156863, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqfp7"]
+bg_color = Color(0.882353, 0.6, 0.0156863, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.882353, 0.6, 0.0156863, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glwro"]
+bg_color = Color(0.270588, 0.74902, 0.0156863, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.133333, 0.333333, 0.333333, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Animation" id="Animation_i6ehd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EquipButton:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BuyButton:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BuyButton:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("EquipButton:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_22x31"]
+resource_name = "cant_purchase"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EquipButton:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BuyButton:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BuyButton:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_kqfp7"]
+resource_name = "equiped"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BuyButton:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EquipButton:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EquipButton:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_g528f"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EquipButton:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BuyButton:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BuyButton:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ud7yv"]
+resource_name = "purchased"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("EquipButton:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BuyButton:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EquipButton:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kpf1h"]
+_data = {
+&"RESET": SubResource("Animation_i6ehd"),
+&"cant_purchase": SubResource("Animation_22x31"),
+&"equiped": SubResource("Animation_kqfp7"),
+&"idle": SubResource("Animation_g528f"),
+&"purchased": SubResource("Animation_ud7yv")
+}
+
+[node name="HooksPanel" type="Control" node_paths=PackedStringArray("name_label", "speed_pb", "length_pb", "accuracy_pb", "texture", "buttons_anim")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kqfp7")
+name_label = NodePath("MarginContainer/Info/Stats/Name")
+speed_pb = NodePath("MarginContainer/Info/Stats/Stats/Speed/ProgressBar")
+length_pb = NodePath("MarginContainer/Info/Stats/Stats/Length/ProgressBar")
+accuracy_pb = NodePath("MarginContainer/Info/Stats/Stats/Accuracy/ProgressBar")
+texture = NodePath("MarginContainer/Info/Control/TextureRect")
+buttons_anim = NodePath("MarginContainer/Info/Buttons/ButtonAnimation")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i5mka")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 32
+
+[node name="Info" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/Info"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -320.0
+offset_right = 164.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Info/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -152.0
+offset_right = 152.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.785397
+pivot_offset = Vector2(152, 152)
+texture = ExtResource("1_obbv5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Stats" type="Control" parent="MarginContainer/Info"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -336.0
+offset_right = 192.0
+offset_bottom = -88.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Stats" type="VBoxContainer" parent="MarginContainer/Info/Stats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="Speed" type="VBoxContainer" parent="MarginContainer/Info/Stats/Stats"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Info/Stats/Stats/Speed"]
+layout_mode = 2
+text = "Speed"
+label_settings = SubResource("LabelSettings_i5mka")
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/Info/Stats/Stats/Speed"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_67uj7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qxnrq")
+max_value = 5.0
+value = 5.0
+show_percentage = false
+
+[node name="Length" type="VBoxContainer" parent="MarginContainer/Info/Stats/Stats"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Info/Stats/Stats/Length"]
+layout_mode = 2
+text = "Length"
+label_settings = SubResource("LabelSettings_tyvbe")
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/Info/Stats/Stats/Length"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_67uj7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qxnrq")
+value = 50.0
+show_percentage = false
+
+[node name="Accuracy" type="VBoxContainer" parent="MarginContainer/Info/Stats/Stats"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Info/Stats/Stats/Accuracy"]
+layout_mode = 2
+text = "Accuracy"
+label_settings = SubResource("LabelSettings_tdjdk")
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/Info/Stats/Stats/Accuracy"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_67uj7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qxnrq")
+max_value = 5.0
+value = 5.0
+show_percentage = false
+
+[node name="Name" type="Label" parent="MarginContainer/Info/Stats"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+text = "Wooden Hook"
+label_settings = SubResource("LabelSettings_fovme")
+horizontal_alignment = 1
+
+[node name="LeftButton" type="TextureButton" parent="MarginContainer/Info"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -64.0
+offset_right = 128.0
+offset_bottom = 64.0
+grow_vertical = 2
+texture_normal = ExtResource("3_glwro")
+texture_pressed = ExtResource("3_glwro")
+texture_hover = ExtResource("3_glwro")
+texture_disabled = ExtResource("3_glwro")
+
+[node name="RightButton" type="TextureButton" parent="MarginContainer/Info"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -64.0
+offset_bottom = 64.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = ExtResource("3_glwro")
+texture_pressed = ExtResource("3_glwro")
+texture_hover = ExtResource("3_glwro")
+texture_disabled = ExtResource("3_glwro")
+
+[node name="Buttons" type="Control" parent="MarginContainer/Info"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BuyButton" type="Button" parent="MarginContainer/Info/Buttons"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = -72.0
+offset_right = 146.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kqfp7")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/disabled = SubResource("StyleBoxFlat_tyvbe")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kqfp7")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tyvbe")
+disabled = true
+text = "BUY"
+
+[node name="EquipButton" type="Button" parent="MarginContainer/Info/Buttons"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = -72.0
+offset_right = 146.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kqfp7")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/disabled = SubResource("StyleBoxFlat_glwro")
+theme_override_styles/normal = SubResource("StyleBoxFlat_glwro")
+disabled = true
+text = "EQUIP"
+
+[node name="UpgradeButton" type="Button" parent="MarginContainer/Info/Buttons"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -146.0
+offset_top = -72.0
+offset_right = 146.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kqfp7")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = SubResource("StyleBoxFlat_tyvbe")
+text = "BUY"
+
+[node name="ButtonAnimation" type="AnimationPlayer" parent="MarginContainer/Info/Buttons"]
+libraries = {
+&"": SubResource("AnimationLibrary_kpf1h")
+}
+
+[node name="Close" type="TextureButton" parent="MarginContainer/Info"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_top = -8.0
+offset_right = 24.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture_normal = ExtResource("4_g528f")
+texture_pressed = ExtResource("4_g528f")
+texture_hover = ExtResource("4_g528f")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="button_down" from="MarginContainer/Info/LeftButton" to="." method="_on_left_button_button_down"]
+[connection signal="button_down" from="MarginContainer/Info/RightButton" to="." method="_on_right_button_button_down"]
+[connection signal="button_down" from="MarginContainer/Info/Buttons/BuyButton" to="." method="_on_buy_button_button_down"]
+[connection signal="button_down" from="MarginContainer/Info/Buttons/EquipButton" to="." method="_on_equip_button_button_down"]
+[connection signal="button_down" from="MarginContainer/Info/Close" to="." method="_on_close_button_down"]

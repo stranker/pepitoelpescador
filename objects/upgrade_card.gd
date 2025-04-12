@@ -6,7 +6,8 @@ enum UpgradeType {
 	ACCURACY,
 	RECOVER,
 	LENGTH,
-	BLOOD_THIRST
+	BLOOD_THIRST,
+	LONGER_DAY
 }
 
 @export var upgrade_type : UpgradeType

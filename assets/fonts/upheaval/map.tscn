@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=3 uid="uid://ctg1fx7elwl1p"]
+
+[ext_resource type="Script" uid="uid://bsi8phqfsjwdg" path="res://ui/map.gd" id="1_xf5ci"]
+[ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="2_hdjpg"]
+[ext_resource type="PackedScene" uid="uid://buwicco4ujh2" path="res://ui/map_item.tscn" id="3_gu6eb"]
+[ext_resource type="Texture2D" uid="uid://b7jfe2lk2w7ek" path="res://assets/sprites/background/color_shores.jpg" id="4_yi5cp"]
+[ext_resource type="Texture2D" uid="uid://ber5vtlo2ea28" path="res://assets/sprites/background/aurora_coast.jpg" id="5_ay3ok"]
+[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="5_nrgxe"]
+[ext_resource type="PackedScene" uid="uid://7605xw4rige" path="res://scenes/color_shores.tscn" id="5_uwv3m"]
+[ext_resource type="Texture2D" uid="uid://cmjghx3ti5vml" path="res://assets/sprites/background/mystic_river.jpg" id="6_uwv3m"]
+
+[node name="Map" type="Control" node_paths=PackedStringArray("maps_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xf5ci")
+maps_container = NodePath("MarginContainer/Maps")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Panel" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_hdjpg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Maps" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MapItem" parent="MarginContainer/Maps" instance=ExtResource("3_gu6eb")]
+layout_mode = 2
+offset_left = 56.0
+offset_top = 80.0
+offset_right = 312.0
+offset_bottom = 336.0
+level_name = "Color Shores"
+level_image = ExtResource("4_yi5cp")
+level_scene = ExtResource("5_uwv3m")
+locked = false
+
+[node name="MapItem2" parent="MarginContainer/Maps" instance=ExtResource("3_gu6eb")]
+layout_mode = 2
+offset_left = 400.0
+offset_top = 192.0
+offset_right = 656.0
+offset_bottom = 448.0
+level_name = "Aurora Coast"
+level_image = ExtResource("5_ay3ok")
+
+[node name="MapItem3" parent="MarginContainer/Maps" instance=ExtResource("3_gu6eb")]
+layout_mode = 2
+offset_left = 832.0
+offset_top = 80.0
+offset_right = 1088.0
+offset_bottom = 336.0
+level_name = "Mystic River"
+level_image = ExtResource("6_uwv3m")
+
+[node name="Close" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -96.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 104.0
+grow_horizontal = 0
+texture_normal = ExtResource("5_nrgxe")
+texture_pressed = ExtResource("5_nrgxe")
+texture_hover = ExtResource("5_nrgxe")
+texture_disabled = ExtResource("5_nrgxe")
+texture_focused = ExtResource("5_nrgxe")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Continue" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -112.0
+offset_right = 128.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Go Fish!"
+
+[connection signal="button_up" from="Close" to="." method="_on_close_button_up"]
+[connection signal="button_down" from="Continue" to="." method="_on_continue_button_down"]

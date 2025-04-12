@@ -1,0 +1,124 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2u66j70a1vay"]
+
+[ext_resource type="Texture2D" uid="uid://dbqvpsqgyiace" path="res://assets/sprites/icons/profile_exp.png" id="1_8k32s"]
+[ext_resource type="Texture2D" uid="uid://mkr2ayquatc4" path="res://assets/ui/fish_icon.png" id="1_bv7uk"]
+[ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_bv7uk"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="3_era6r"]
+[ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="4_meqma"]
+
+[sub_resource type="GDScript" id="GDScript_8k32s"]
+resource_name = "result_item"
+script/source = "extends Control
+
+@export var fish_texture_rect : TextureRect
+@export var fish_count_label : Label
+@export var fish_size_label : Label
+@export var fish_coins_label : Label
+
+@export var is_total : bool = false
+
+@export var default_texture : Texture
+
+var fish_name : String
+
+func set_data(data : Dictionary):
+	fish_name = data.name if data.has(\"name\") else \"total\"
+	fish_texture_rect.texture = data.texture if data.has(\"texture\") else default_texture
+	fish_count_label.text = \"x \" + str(data.count)
+	fish_size_label.text = str(data.size).pad_decimals(2) + \" cm\"
+	fish_coins_label.text =str(data.gold)
+	pass
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_qjcq7"]
+font = ExtResource("3_era6r")
+font_size = 32
+
+[node name="ResultItem" type="Control" node_paths=PackedStringArray("fish_texture_rect", "fish_count_label", "fish_size_label", "fish_coins_label")]
+custom_minimum_size = Vector2(560, 64)
+layout_mode = 3
+anchors_preset = 0
+script = SubResource("GDScript_8k32s")
+fish_texture_rect = NodePath("MarginContainer/HBoxContainer/TextureRect/TextureRect")
+fish_count_label = NodePath("MarginContainer/HBoxContainer/Count")
+fish_size_label = NodePath("MarginContainer/HBoxContainer/Size")
+fish_coins_label = NodePath("MarginContainer/HBoxContainer/Control/HBoxContainer/Coin")
+default_texture = ExtResource("1_bv7uk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+clip_children = 2
+layout_mode = 2
+texture = ExtResource("1_8k32s")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = 14.0
+offset_right = -8.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.523599
+texture = ExtResource("2_bv7uk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Count" type="Label" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "x1"
+label_settings = SubResource("LabelSettings_qjcq7")
+
+[node name="Size" type="Label" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "12.42 cm"
+label_settings = SubResource("LabelSettings_qjcq7")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer/Control/HBoxContainer"]
+clip_children = 2
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("4_meqma")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Coin" type="Label" parent="MarginContainer/HBoxContainer/Control/HBoxContainer"]
+layout_mode = 2
+text = "174"
+label_settings = SubResource("LabelSettings_qjcq7")

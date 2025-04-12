@@ -1,23 +1,28 @@
 extends Control
 
+enum SelectState { PLAYER, UPGRADE }
+
 const selectable_card_scene : PackedScene = preload("res://ui/selectable_card.tscn")
 @export var cards : HBoxContainer
 @export var title : Label
+@export var selection_type : SelectState
 
-signal upgrade_card_select()
-signal character_card_selected()
+signal upgrade_card_select(upgrade)
+signal character_card_selected(character)
 signal divinity_card_selected()
 
 func _ready() -> void:
-	if GameManager.player_selected:
-		get_tree().call_group("cinematic_camera", "on_character_card_selected")
-		return
-	show()
-	_create_character_cards()
-	GameManager.player_level_update.connect(on_player_level_up)
-	upgrade_card_select.connect(GameManager.on_end_upgrade_select)
-	divinity_card_selected.connect(GameManager.on_divinity_card_selected)
-	character_card_selected.connect(GameManager.on_character_card_selected)
+	match selection_type:
+		SelectState.PLAYER:
+			if GameManager.player_selected: return
+			show()
+			_create_character_cards()
+			character_card_selected.connect(GameManager.on_character_card_selected)
+			character_card_selected.connect(CardManager.on_character_card_selected)
+		SelectState.UPGRADE:
+			GameManager.player_level_update.connect(on_player_level_up)
+			upgrade_card_select.connect(GameManager.on_upgrade_select)
+			upgrade_card_select.connect(CardManager.on_upgrade_select)
 	pass
 
 func on_player_level_up(_level):
@@ -37,11 +42,10 @@ func on_card_selected(card_data : Card):
 		card.queue_free()
 	match card_data.card_type:
 		Card.CardType.CHARACTER:
-			character_card_selected.emit()
-			get_tree().call_group("cinematic_camera", "on_character_card_selected")
+			character_card_selected.emit(card_data)
 		Card.CardType.UPGRADE:
 			card_data.upgrade()
-			upgrade_card_select.emit()
+			upgrade_card_select.emit(card_data)
 		Card.CardType.DIVINITY:
 			pass
 	pass

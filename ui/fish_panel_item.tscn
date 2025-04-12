@@ -86,7 +86,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3, 0.4),
 "transitions": PackedFloat32Array(0.5, 0.5, 0.5, 1),
 "update": 0,
-"values": [0.0, -0.261799, -0.261799, 0.0]
+"values": [0.0, -0.261799, -0.261799, -0.174533]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -107,7 +107,7 @@ tracks/3/path = NodePath("CPUParticles2D:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -162,11 +162,11 @@ offsets = PackedFloat32Array(0, 0.273684, 0.807018, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="FishPanelItem" type="Control" node_paths=PackedStringArray("name_label", "texture_rect", "anim")]
-custom_minimum_size = Vector2(200, 152)
+custom_minimum_size = Vector2(232, 176)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 200.0
-offset_bottom = 152.0
+offset_right = 232.0
+offset_bottom = 176.0
 script = ExtResource("1_ku7cw")
 name_label = NodePath("Panel/VBoxContainer/Label")
 texture_rect = NodePath("Panel/VBoxContainer/Control/TextureRect")
@@ -190,6 +190,7 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
 texture_filter = 2
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Greeny"
 label_settings = SubResource("LabelSettings_5r4ah")
@@ -220,9 +221,9 @@ libraries = {
 autoplay = "locked"
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(128, 80)
+position = Vector2(128, 104)
 emitting = false
-amount = 15
+amount = 10
 texture = ExtResource("4_p0h76")
 lifetime = 0.6
 one_shot = true

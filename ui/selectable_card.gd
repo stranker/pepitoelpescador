@@ -28,7 +28,6 @@ func init(card_data : Card):
 	card_description.text = card_data.get_description()
 	background.texture = card_data.card_background
 	data = card_data
-	selected.connect(CardManager.on_selected_card)
 	anim.play("appear")
 	pass
 

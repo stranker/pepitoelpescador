@@ -4,22 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://c0eotynbjia5r" path="res://ui/fish_panel_item.tscn" id="1_diubb"]
 
 [node name="FishesPanel" type="Control" node_paths=PackedStringArray("fishes_grid")]
-custom_minimum_size = Vector2(896, 520)
+custom_minimum_size = Vector2(1023, 0)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 896.0
-offset_bottom = 520.0
+offset_right = 1023.0
+offset_bottom = 500.0
 script = ExtResource("1_bgne7")
 fishes_grid = NodePath("MarginContainer/GridContainer")
 fish_panel_item_scene = ExtResource("1_diubb")
-
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -38,17 +30,5 @@ layout_mode = 2
 theme_override_constants/h_separation = 22
 theme_override_constants/v_separation = 22
 columns = 4
-
-[node name="FishPanelItem" parent="MarginContainer/GridContainer" instance=ExtResource("1_diubb")]
-layout_mode = 2
-
-[node name="FishPanelItem2" parent="MarginContainer/GridContainer" instance=ExtResource("1_diubb")]
-layout_mode = 2
-
-[node name="FishPanelItem3" parent="MarginContainer/GridContainer" instance=ExtResource("1_diubb")]
-layout_mode = 2
-
-[node name="FishPanelItem4" parent="MarginContainer/GridContainer" instance=ExtResource("1_diubb")]
-layout_mode = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

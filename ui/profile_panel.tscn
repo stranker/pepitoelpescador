@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvbbrc370t35p"]
+[gd_scene load_steps=10 format=3 uid="uid://bvbbrc370t35p"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_eqklu"]
-[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="2_1sqbu"]
 
 [sub_resource type="GDScript" id="GDScript_ky7sn"]
 resource_name = "profile_panel"
@@ -52,18 +51,6 @@ func _on_close_button_button_down() -> void:
 	pass # Replace with function body.
 "
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4x3bo"]
-bg_color = Color(0.109804, 0.109804, 0.109804, 0.894118)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
 [sub_resource type="LabelSettings" id="LabelSettings_raptb"]
 font = ExtResource("1_eqklu")
 font_size = 32
@@ -98,24 +85,15 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = SubResource("GDScript_ky7sn")
-player_level_label = NodePath("Panel/MarginContainer/Control/Stats/Level/MarginContainer/Level/Value")
-power_label = NodePath("Panel/MarginContainer/Control/Stats/Power/MarginContainer/Info/Value")
-accuracy_label = NodePath("Panel/MarginContainer/Control/Stats/Accuracy/MarginContainer/Level/Value")
-length_label = NodePath("Panel/MarginContainer/Control/Stats/HookLength/MarginContainer/Info/Value")
-recover_label = NodePath("Panel/MarginContainer/Control/Stats/Recover/MarginContainer/Level/Value")
-fishes_label = NodePath("Panel/MarginContainer/Control/Stats/FishesCatched/MarginContainer/Level/Value")
-days_passed_label = NodePath("Panel/MarginContainer/Control/Stats/DaysPassed/MarginContainer/Info/Value")
+player_level_label = NodePath("MarginContainer/Control/Stats/Level/MarginContainer/Level/Value")
+power_label = NodePath("MarginContainer/Control/Stats/Power/MarginContainer/Info/Value")
+accuracy_label = NodePath("MarginContainer/Control/Stats/Accuracy/MarginContainer/Level/Value")
+length_label = NodePath("MarginContainer/Control/Stats/HookLength/MarginContainer/Info/Value")
+recover_label = NodePath("MarginContainer/Control/Stats/Recover/MarginContainer/Level/Value")
+fishes_label = NodePath("MarginContainer/Control/Stats/FishesCatched/MarginContainer/Level/Value")
+days_passed_label = NodePath("MarginContainer/Control/Stats/DaysPassed/MarginContainer/Info/Value")
 
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_4x3bo")
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -127,10 +105,10 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 16
 
-[node name="Control" type="Control" parent="Panel/MarginContainer"]
+[node name="Control" type="Control" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="Panel/MarginContainer/Control"]
+[node name="Title" type="Label" parent="MarginContainer/Control"]
 texture_filter = 2
 layout_mode = 1
 anchors_preset = 10
@@ -142,7 +120,7 @@ label_settings = SubResource("LabelSettings_raptb")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Stats" type="VBoxContainer" parent="Panel/MarginContainer/Control"]
+[node name="Stats" type="VBoxContainer" parent="MarginContainer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -153,28 +131,28 @@ offset_right = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Divider3" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+[node name="Divider3" type="Panel" parent="MarginContainer/Control/Stats"]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_c0slr")
 
-[node name="PlayerStats" type="Label" parent="Panel/MarginContainer/Control/Stats"]
+[node name="PlayerStats" type="Label" parent="MarginContainer/Control/Stats"]
 layout_mode = 2
 text = "Player Stats"
 label_settings = SubResource("LabelSettings_8u2wk")
 horizontal_alignment = 1
 
-[node name="Divider" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+[node name="Divider" type="Panel" parent="MarginContainer/Control/Stats"]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_c0slr")
 
-[node name="Level" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+[node name="Level" type="Panel" parent="MarginContainer/Control/Stats"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_ffrb7")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/Level"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/Stats/Level"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -186,11 +164,11 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Level" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/Level/MarginContainer"]
+[node name="Level" type="HBoxContainer" parent="MarginContainer/Control/Stats/Level/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Level/MarginContainer/Level"]
+[node name="Stat" type="Label" parent="MarginContainer/Control/Stats/Level/MarginContainer/Level"]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -198,7 +176,7 @@ size_flags_horizontal = 3
 text = "Level"
 label_settings = SubResource("LabelSettings_uk1xi")
 
-[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Level/MarginContainer/Level"]
+[node name="Value" type="RichTextLabel" parent="MarginContainer/Control/Stats/Level/MarginContainer/Level"]
 texture_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
@@ -210,12 +188,12 @@ text = "2000"
 fit_content = true
 scroll_active = false
 
-[node name="Power" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+[node name="Power" type="Panel" parent="MarginContainer/Control/Stats"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_urpep")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/Power"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/Stats/Power"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -227,11 +205,11 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Info" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/Power/MarginContainer"]
+[node name="Info" type="HBoxContainer" parent="MarginContainer/Control/Stats/Power/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Power/MarginContainer/Info"]
+[node name="Stat" type="Label" parent="MarginContainer/Control/Stats/Power/MarginContainer/Info"]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -239,7 +217,7 @@ size_flags_horizontal = 3
 text = "Power"
 label_settings = SubResource("LabelSettings_uk1xi")
 
-[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Power/MarginContainer/Info"]
+[node name="Value" type="RichTextLabel" parent="MarginContainer/Control/Stats/Power/MarginContainer/Info"]
 texture_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
@@ -251,12 +229,12 @@ text = "2000"
 fit_content = true
 scroll_active = false
 
-[node name="Accuracy" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+[node name="Accuracy" type="Panel" parent="MarginContainer/Control/Stats"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_ffrb7")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/Accuracy"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/Stats/Accuracy"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -268,11 +246,11 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Level" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/Accuracy/MarginContainer"]
+[node name="Level" type="HBoxContainer" parent="MarginContainer/Control/Stats/Accuracy/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Accuracy/MarginContainer/Level"]
+[node name="Stat" type="Label" parent="MarginContainer/Control/Stats/Accuracy/MarginContainer/Level"]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -280,7 +258,7 @@ size_flags_horizontal = 3
 text = "Accuracy"
 label_settings = SubResource("LabelSettings_uk1xi")
 
-[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Accuracy/MarginContainer/Level"]
+[node name="Value" type="RichTextLabel" parent="MarginContainer/Control/Stats/Accuracy/MarginContainer/Level"]
 texture_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
@@ -292,12 +270,12 @@ text = "2000"
 fit_content = true
 scroll_active = false
 
-[node name="HookLength" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+[node name="HookLength" type="Panel" parent="MarginContainer/Control/Stats"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_urpep")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/HookLength"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/Stats/HookLength"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -309,11 +287,11 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Info" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/HookLength/MarginContainer"]
+[node name="Info" type="HBoxContainer" parent="MarginContainer/Control/Stats/HookLength/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/HookLength/MarginContainer/Info"]
+[node name="Stat" type="Label" parent="MarginContainer/Control/Stats/HookLength/MarginContainer/Info"]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -321,7 +299,7 @@ size_flags_horizontal = 3
 text = "Hook length"
 label_settings = SubResource("LabelSettings_uk1xi")
 
-[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/HookLength/MarginContainer/Info"]
+[node name="Value" type="RichTextLabel" parent="MarginContainer/Control/Stats/HookLength/MarginContainer/Info"]
 texture_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
@@ -333,12 +311,12 @@ text = "2000"
 fit_content = true
 scroll_active = false
 
-[node name="Recover" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+[node name="Recover" type="Panel" parent="MarginContainer/Control/Stats"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_ffrb7")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/Recover"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/Stats/Recover"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -350,11 +328,11 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Level" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/Recover/MarginContainer"]
+[node name="Level" type="HBoxContainer" parent="MarginContainer/Control/Stats/Recover/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/Recover/MarginContainer/Level"]
+[node name="Stat" type="Label" parent="MarginContainer/Control/Stats/Recover/MarginContainer/Level"]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -362,7 +340,7 @@ size_flags_horizontal = 3
 text = "Recover"
 label_settings = SubResource("LabelSettings_uk1xi")
 
-[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/Recover/MarginContainer/Level"]
+[node name="Value" type="RichTextLabel" parent="MarginContainer/Control/Stats/Recover/MarginContainer/Level"]
 texture_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
@@ -374,28 +352,28 @@ text = "2000"
 fit_content = true
 scroll_active = false
 
-[node name="Divider4" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+[node name="Divider4" type="Panel" parent="MarginContainer/Control/Stats"]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_c0slr")
 
-[node name="GameStats" type="Label" parent="Panel/MarginContainer/Control/Stats"]
+[node name="GameStats" type="Label" parent="MarginContainer/Control/Stats"]
 layout_mode = 2
 text = "Game Stats"
 label_settings = SubResource("LabelSettings_xc0k4")
 horizontal_alignment = 1
 
-[node name="Divider2" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+[node name="Divider2" type="Panel" parent="MarginContainer/Control/Stats"]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_c0slr")
 
-[node name="FishesCatched" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+[node name="FishesCatched" type="Panel" parent="MarginContainer/Control/Stats"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_ffrb7")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/FishesCatched"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/Stats/FishesCatched"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -407,11 +385,11 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Level" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/FishesCatched/MarginContainer"]
+[node name="Level" type="HBoxContainer" parent="MarginContainer/Control/Stats/FishesCatched/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/FishesCatched/MarginContainer/Level"]
+[node name="Stat" type="Label" parent="MarginContainer/Control/Stats/FishesCatched/MarginContainer/Level"]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -419,7 +397,7 @@ size_flags_horizontal = 3
 text = "Fishes catched"
 label_settings = SubResource("LabelSettings_uk1xi")
 
-[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/FishesCatched/MarginContainer/Level"]
+[node name="Value" type="RichTextLabel" parent="MarginContainer/Control/Stats/FishesCatched/MarginContainer/Level"]
 texture_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
@@ -431,12 +409,12 @@ text = "2000"
 fit_content = true
 scroll_active = false
 
-[node name="DaysPassed" type="Panel" parent="Panel/MarginContainer/Control/Stats"]
+[node name="DaysPassed" type="Panel" parent="MarginContainer/Control/Stats"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_urpep")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/Control/Stats/DaysPassed"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/Stats/DaysPassed"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -448,11 +426,11 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Info" type="HBoxContainer" parent="Panel/MarginContainer/Control/Stats/DaysPassed/MarginContainer"]
+[node name="Info" type="HBoxContainer" parent="MarginContainer/Control/Stats/DaysPassed/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Stat" type="Label" parent="Panel/MarginContainer/Control/Stats/DaysPassed/MarginContainer/Info"]
+[node name="Stat" type="Label" parent="MarginContainer/Control/Stats/DaysPassed/MarginContainer/Info"]
 texture_filter = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -460,7 +438,7 @@ size_flags_horizontal = 3
 text = "Days passed"
 label_settings = SubResource("LabelSettings_uk1xi")
 
-[node name="Value" type="RichTextLabel" parent="Panel/MarginContainer/Control/Stats/DaysPassed/MarginContainer/Info"]
+[node name="Value" type="RichTextLabel" parent="MarginContainer/Control/Stats/DaysPassed/MarginContainer/Info"]
 texture_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
@@ -471,23 +449,3 @@ bbcode_enabled = true
 text = "2000"
 fit_content = true
 scroll_active = false
-
-[node name="CloseButton" type="TextureButton" parent="Panel"]
-visible = false
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_top = -32.0
-offset_right = 24.0
-offset_bottom = 32.0
-grow_horizontal = 0
-texture_normal = ExtResource("2_1sqbu")
-texture_pressed = ExtResource("2_1sqbu")
-texture_hover = ExtResource("2_1sqbu")
-texture_disabled = ExtResource("2_1sqbu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[connection signal="button_down" from="Panel/CloseButton" to="." method="_on_close_button_button_down"]

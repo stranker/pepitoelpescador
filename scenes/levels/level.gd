@@ -10,10 +10,12 @@ class LevelData:
 var level_data : LevelData = LevelData.new()
 
 signal update_level_data(level_data)
+signal afternoon
+signal midnight_end
 
 func _ready() -> void:
-	GameManager.fish_collected.connect(on_fish_collected)
 	add_to_group("Level")
+	GameManager.fish_collected.connect(on_fish_collected)
 	level_data.fishes = fishes
 	await get_tree().process_frame
 	update_level_data.emit(level_data)
@@ -27,3 +29,15 @@ func on_fish_collected(fish : Fish):
 			break
 	update_level_data.emit(level_data)
 	pass
+
+func on_afternoon_start():
+	afternoon.emit()
+	pass
+
+func on_midnight_end():
+	midnight_end.emit()
+	pass
+
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("debug_add_experience"):
+		GameManager.add_experience(5)

@@ -1,25 +1,21 @@
 class_name Hook
 extends CharacterBody2D
 
-@export var base_speed : float = 1000
-@export var base_speed_decrease : float = 0.6
-@export var base_recover_force: float = 2000
-@export var base_accuracy : float = 0.7
-@onready var skin: Sprite2D = $Skin
+@export var skin : Sprite2D
 @onready var fishes: Node2D = $Fishes
 @onready var bubbles: CPUParticles2D = $Bubbles
 @export var wind: CPUParticles2D
 @onready var collectables: Node2D = $Collectables
-@export var base_length : float = 700.0
 @export var hook_force_threshold : float = 200
 @export var gravity : float = 1200
 @onready var camera: Camera2D = $Camera
 
-@onready var speed : float = base_speed
-@onready var speed_decrease : float = base_speed_decrease
-@onready var length : float = base_length
-@onready var accuracy : float = base_accuracy
-@export var recover_force : float = base_recover_force
+var speed : float = 0
+var length : float = 0
+var accuracy : float = 0
+var speed_decrease : float = 0
+var recover_force : float = 0
+
 @onready var throw_sfx : AudioStreamPlayer = $Throw
 
 const water_splash_scene : PackedScene = preload("res://objects/vfx/water_splash.tscn")
@@ -44,40 +40,17 @@ signal no_items_collected()
 func _ready() -> void:
 	set_physics_process(false)
 	initial_position = global_position
+	_set_hook_data()
+	pass
+
+func _set_hook_data():
+	stats = ItemManager.equipped_hook
+	var character_stats : CharacterCard = GameManager.character
+	speed = stats.force + character_stats.base_power
+	accuracy = stats.accuracy + character_stats.base_accuracy
+	length = stats.length
+	skin.texture = stats.texture
 	final_direct_position = initial_position + Vector2.DOWN * length
-	CardManager.character_selected.connect(on_character_selected)
-	CardManager.upgrade_selected.connect(on_upgrade_selected)
-	pass
-
-func on_character_selected(character_card : CharacterCard):
-	base_speed = character_card.base_power
-	base_accuracy = character_card.base_accuracy
-	speed = base_speed
-	accuracy = base_accuracy
-	stats.force = speed
-	stats.accuracy = accuracy
-	stats.length = length
-	stats.recover = recover_force
-	stats_updated.emit(stats)
-	get_tree().call_group("ui", "character_stats_updated", stats)
-	pass
-
-func on_upgrade_selected(upgrade_card : UpgradeCard):
-	match upgrade_card.upgrade_type:
-		UpgradeCard.UpgradeType.POWER:
-			speed = base_speed + upgrade_card.upgrade_value
-			stats.force_increment = upgrade_card.upgrade_value
-		UpgradeCard.UpgradeType.LENGTH:
-			length = base_length + upgrade_card.upgrade_value
-			stats.length_increment = upgrade_card.upgrade_value
-		UpgradeCard.UpgradeType.ACCURACY:
-			accuracy = max(0, base_accuracy - upgrade_card.upgrade_value)
-			stats.accuracy_increment = upgrade_card.upgrade_value
-		UpgradeCard.UpgradeType.RECOVER:
-			recover_force = base_recover_force + upgrade_card.upgrade_value
-			stats.recover_increment = upgrade_card.upgrade_value
-	stats_updated.emit(stats)
-	get_tree().call_group("ui", "character_stats_updated", stats)
 	pass
 
 func throw(dir : Vector2):
@@ -86,7 +59,6 @@ func throw(dir : Vector2):
 	var new_dir_angle : float = dir.angle() + randf_range(-accuracy, accuracy)
 	direction = Vector2.from_angle(new_dir_angle).normalized()
 	velocity = direction * speed
-	final_direct_position = initial_position + Vector2.DOWN * length
 	get_tree().call_group("ui", "fade_out")
 	wind.emitting = true
 	pass
@@ -191,6 +163,11 @@ func _collect_items():
 		collectable.collect()
 		await get_tree().create_timer(0.2).timeout
 	pass
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.keycode == KEY_F4:
+			reset()
 
 func _on_water_detection_area_entered(area: Area2D) -> void:
 	match movement_state:

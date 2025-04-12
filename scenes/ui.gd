@@ -27,13 +27,13 @@ func _ready() -> void:
 	GameManager.player_level_update.connect(on_player_level_update)
 	GameManager.experience_update.connect(on_experience_update)
 	GameManager.divinity_day.connect(on_divinity_day)
-	CardManager.character_selected.connect(on_character_selected)
 	play_available.connect(GameManager.on_ui_play_available)
 	play_unavailable.connect(GameManager.on_ui_play_unavailable)
 	coins_label.text = str(GameManager.game_stats.gold)
 	experience_bar.max_value = GameManager.game_stats.player_level * GameManager.experience_increment
 	level_label.text = str(GameManager.game_stats.player_level)
-	pass # Replace with function body.
+	profile.texture.atlas = CardManager.character_card.card_texture
+	pass
 
 func on_divinity_day():
 	pass
@@ -46,10 +46,6 @@ func on_player_level_update(lvl):
 
 func set_level_text():
 	level_label.text = str(GameManager.game_stats.player_level)
-	pass
-
-func on_character_selected(char : CharacterCard):
-	profile.texture.atlas = char.card_texture
 	pass
 
 func on_gold_update(gold):
@@ -97,15 +93,10 @@ func _on_cinematic_camera_end_boss_presentation() -> void:
 	anim.play_backwards("fade_out")
 	pass # Replace with function body.
 
-func _on_book_button_button_down() -> void:
-	book_panel.show_panel()
-	pass # Replace with function body.
-
-func _on_game_scene_update_level_data(level_data: Variant) -> void:
-	book_panel.set_level_data(level_data)
-	pass # Replace with function body.
-
 func _physics_process(delta: float) -> void:
 	fps_label.text = "FPS:" + str(Engine.get_frames_per_second())
 	pass
-	
+
+func _on_clock_end_day() -> void:
+	anim.play("results")
+	pass # Replace with function body.

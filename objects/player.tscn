@@ -237,7 +237,7 @@ target = NodePath("../Hook/Marker2D")
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_41t83")
+&"": SubResource("AnimationLibrary_41t83")
 }
 autoplay = "idle"
 
@@ -297,7 +297,7 @@ dampening = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ForceLine"]
 libraries = {
-"": SubResource("AnimationLibrary_dihgw")
+&"": SubResource("AnimationLibrary_dihgw")
 }
 
 [connection signal="hook_state_changed" from="Boat/Hook" to="." method="_on_hook_hook_state_changed"]

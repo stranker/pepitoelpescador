@@ -23,13 +23,13 @@ func _ready() -> void:
 	rope.set_start(skin.position)
 	GameManager.play_available.connect(on_play_available)
 	GameManager.play_unavailable.connect(on_play_unavailable)
-	CardManager.character_selected.connect(on_selected_character)
 	can_play = false
 	force_line.hide()
+	_set_character_data()
 	pass
 
-func on_selected_character(new_character_data : CharacterCard):
-	character_data = new_character_data
+func _set_character_data():
+	character_data = CardManager.character_card
 	skin.texture = character_data.card_texture
 	pass
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://d0u656wq8p8ft"]
+[gd_scene load_steps=20 format=3 uid="uid://d0u656wq8p8ft"]
 
 [ext_resource type="Script" uid="uid://biw2k543ativ7" path="res://managers/card_manager.gd" id="1_urukv"]
 [ext_resource type="Script" uid="uid://dokbbhkitmfd5" path="res://objects/character_card.gd" id="2_6p2yx"]
@@ -52,8 +52,8 @@ upgrade_level = 1
 upgrade_value_increment = 0.0
 upgrade_base_value = 0.0
 upgrade_color = Color(0.403922, 0.266667, 1, 1)
-card_name = "Shop"
-card_description = "The shop is open for business!"
+card_name = "Length"
+card_description = "Increases the hook length"
 card_background = ExtResource("3_wf3hm")
 
 [sub_resource type="Resource" id="Resource_0fynk"]
@@ -67,32 +67,10 @@ card_name = "Hook length"
 card_description = "Increases the hook length by"
 card_background = ExtResource("3_wf3hm")
 
-[sub_resource type="Resource" id="Resource_ldm61"]
-script = ExtResource("3_3wi76")
-upgrade_type = 5
-upgrade_level = 1
-upgrade_value_increment = 5.0
-upgrade_base_value = 5.0
-upgrade_color = Color(0.972549, 0.972549, 1, 1)
-card_name = "Longer day"
-card_description = "Increases the day time by"
-card_background = ExtResource("3_wf3hm")
-
-[sub_resource type="Resource" id="Resource_r11sm"]
-script = ExtResource("3_3wi76")
-upgrade_type = 6
-upgrade_level = 1
-upgrade_value_increment = 2.0
-upgrade_base_value = 2.0
-upgrade_color = Color(0.972549, 0.972549, 1, 1)
-card_name = "Shorter day"
-card_description = "Reduces the day time by"
-card_background = ExtResource("3_wf3hm")
-
 [sub_resource type="Resource" id="Resource_4yfaj"]
 script = ExtResource("2_6p2yx")
 character_type = 0
-base_power = 800.0
+base_power = 2.5
 base_accuracy = 0.4
 card_name = "The Hunter"
 card_texture = ExtResource("6_ha00d")
@@ -102,7 +80,7 @@ card_background = ExtResource("5_nvbsy")
 [sub_resource type="Resource" id="Resource_htk0b"]
 script = ExtResource("2_6p2yx")
 character_type = 1
-base_power = 600.0
+base_power = 1.0
 base_accuracy = 1.0
 card_name = "The Business Man"
 card_texture = ExtResource("7_2eyr2")
@@ -112,7 +90,7 @@ card_background = ExtResource("5_nvbsy")
 [sub_resource type="Resource" id="Resource_gipd3"]
 script = ExtResource("2_6p2yx")
 character_type = 2
-base_power = 1000.0
+base_power = 2.0
 base_accuracy = 0.6
 card_name = "The Fisherman"
 card_texture = ExtResource("8_gglj7")
@@ -122,8 +100,8 @@ card_background = ExtResource("5_nvbsy")
 [sub_resource type="Resource" id="Resource_6gl74"]
 script = ExtResource("2_6p2yx")
 character_type = 3
-base_power = 1200.0
-base_accuracy = 1.2
+base_power = 4.0
+base_accuracy = 1.5
 card_name = "The Power Builder"
 card_texture = ExtResource("9_0ds10")
 card_description = "Powerfull but inaccurate"
@@ -131,5 +109,5 @@ card_background = ExtResource("5_nvbsy")
 
 [node name="CardManager" type="Node"]
 script = ExtResource("1_urukv")
-upgrade_cards = Array[ExtResource("3_3wi76")]([SubResource("Resource_t1ebg"), SubResource("Resource_os6gr"), SubResource("Resource_pdx5o"), SubResource("Resource_qr071"), SubResource("Resource_0fynk"), SubResource("Resource_ldm61"), SubResource("Resource_r11sm")])
+upgrade_cards = Array[ExtResource("3_3wi76")]([SubResource("Resource_t1ebg"), SubResource("Resource_os6gr"), SubResource("Resource_pdx5o"), SubResource("Resource_qr071"), SubResource("Resource_0fynk")])
 character_cards = Array[ExtResource("2_6p2yx")]([SubResource("Resource_4yfaj"), SubResource("Resource_htk0b"), SubResource("Resource_gipd3"), SubResource("Resource_6gl74")])
