@@ -1,0 +1,482 @@
+[gd_scene load_steps=25 format=3 uid="uid://dktou66amwa86"]
+
+[ext_resource type="Script" uid="uid://keuk1n3uxt3s" path="res://ui/boats_shop_panel.gd" id="1_87epm"]
+[ext_resource type="Texture2D" uid="uid://ejc2v3gtfytb" path="res://assets/sprites/fishermans/boat.png" id="1_177vb"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_87epm"]
+[ext_resource type="Texture2D" uid="uid://clny6aa75jcq1" path="res://assets/sprites/icons/Star.png" id="3_iyhep"]
+[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="3_whe5k"]
+[ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="4_whe5k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyvbe"]
+bg_color = Color(0, 0, 0, 0.745098)
+
+[sub_resource type="Animation" id="Animation_lwppx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_177vb")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_6n3ib"]
+resource_name = "tier_1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_177vb")]
+}
+
+[sub_resource type="Animation" id="Animation_4ny0j"]
+resource_name = "tier_2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_177vb")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bpuqh"]
+_data = {
+&"RESET": SubResource("Animation_lwppx"),
+&"tier_1": SubResource("Animation_6n3ib"),
+&"tier_2": SubResource("Animation_4ny0j")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tdjdk"]
+bg_color = Color(0.462745, 0.45098, 0.784314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.396078, 0.235294, 0.713726, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_whe5k"]
+bg_color = Color(0.396078, 0.235294, 0.713726, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.396078, 0.235294, 0.713726, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_iyhep"]
+font = ExtResource("2_87epm")
+font_size = 38
+
+[sub_resource type="LabelSettings" id="LabelSettings_s1lg0"]
+font = ExtResource("2_87epm")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_i5mka"]
+font = ExtResource("2_87epm")
+font_size = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fovme"]
+bg_color = Color(0.303233, 0.303233, 0.303233, 0.752941)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_773qs"]
+bg_color = Color(0.982343, 0.982342, 0.982342, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_6c2nj"]
+font = ExtResource("2_87epm")
+font_size = 26
+font_color = Color(1, 0.823529, 0, 1)
+
+[sub_resource type="Animation" id="Animation_iyhep"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/UpgradeButton:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.470588)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Control/UpgradeButton:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_s1lg0"]
+resource_name = "disabled"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/UpgradeButton:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.470588)]
+}
+
+[sub_resource type="Animation" id="Animation_bpuqh"]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/UpgradeButton:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_whe5k"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/UpgradeButton:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6n3ib"]
+_data = {
+&"RESET": SubResource("Animation_iyhep"),
+&"disabled": SubResource("Animation_s1lg0"),
+&"hide": SubResource("Animation_bpuqh"),
+&"idle": SubResource("Animation_whe5k")
+}
+
+[node name="BoatsPanel" type="Control" node_paths=PackedStringArray("boat_texture", "boat_price", "button_anim", "day_time_pb", "boat_anim")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_87epm")
+boat_texture = NodePath("MarginContainer/Control/Boat")
+boat_price = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer/Control/HBoxContainer/Label")
+button_anim = NodePath("Anim")
+day_time_pb = NodePath("MarginContainer/Control/Stats/Stats/DayTime/ProgressBar")
+boat_anim = NodePath("MarginContainer/Control/Boat/AnimationPlayer")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tyvbe")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Boat" type="TextureRect" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -256.0
+offset_right = 320.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_177vb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/Control/Boat"]
+libraries = {
+&"": SubResource("AnimationLibrary_bpuqh")
+}
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/Boat"]
+visible = false
+layout_mode = 0
+offset_left = 160.0
+offset_top = 96.0
+offset_right = 256.0
+offset_bottom = 192.0
+texture = ExtResource("3_iyhep")
+
+[node name="UpgradeButton" type="Button" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -96.0
+offset_right = 108.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_87epm")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/disabled = SubResource("StyleBoxFlat_tdjdk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_whe5k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_whe5k")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tdjdk")
+disabled = true
+icon_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/UpgradeButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/UpgradeButton/MarginContainer"]
+modulate = Color(1, 1, 1, 0.470588)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+text = "UPGRADE"
+label_settings = SubResource("LabelSettings_iyhep")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("4_whe5k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer/Control/HBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_s1lg0")
+horizontal_alignment = 1
+
+[node name="Stats" type="Control" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -264.0
+offset_right = 192.0
+offset_bottom = -144.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Stats" type="VBoxContainer" parent="MarginContainer/Control/Stats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="DayTime" type="VBoxContainer" parent="MarginContainer/Control/Stats/Stats"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Control/Stats/Stats/DayTime"]
+layout_mode = 2
+text = "Day Time"
+label_settings = SubResource("LabelSettings_i5mka")
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/Control/Stats/Stats/DayTime"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_fovme")
+theme_override_styles/fill = SubResource("StyleBoxFlat_773qs")
+max_value = 120.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="MarginContainer/Control/Stats/Stats"]
+layout_mode = 2
+text = "Unlocks: Color Shores"
+label_settings = SubResource("LabelSettings_6c2nj")
+
+[node name="CloseButton" type="TextureButton" parent="."]
+layout_mode = 1
+offset_right = 72.0
+offset_bottom = 72.0
+texture_normal = ExtResource("3_whe5k")
+texture_pressed = ExtResource("3_whe5k")
+texture_hover = ExtResource("3_whe5k")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6n3ib")
+}
+autoplay = "disabled"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="button_down" from="MarginContainer/Control/UpgradeButton" to="." method="_on_upgrade_button_button_down"]
+[connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]

@@ -51,15 +51,16 @@ func _update_total():
 	total_result.set_data({"count":total_count,"gold":total_gold,"size":size_max})
 	pass
 
-func _input(event: InputEvent) -> void:
-	if not input_enabled: return
-	if event is InputEventScreenTouch:
-		anim.play_backwards("show")
-
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "show":
 		if not input_enabled:
 			input_enabled = true
 		else:
 			get_tree().change_scene_to_file("res://scenes/main_scene.tscn")
+	pass # Replace with function body.
+
+func _on_gui_input(event: InputEvent) -> void:
+	if not input_enabled: return
+	if event is InputEventScreenTouch:
+		anim.play_backwards("show")
 	pass # Replace with function body.

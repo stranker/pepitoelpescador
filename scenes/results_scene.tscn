@@ -209,6 +209,7 @@ grow_vertical = 2
 [node name="Control" type="Control" parent="CenterContainer"]
 custom_minimum_size = Vector2(600, 600)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Panel" type="Panel" parent="CenterContainer/Control"]
 layout_mode = 1
@@ -223,6 +224,7 @@ offset_right = 556.0
 offset_bottom = 210.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Control/Panel"]
 layout_mode = 1
@@ -238,6 +240,7 @@ layout_mode = 2
 
 [node name="ResultItem" parent="CenterContainer/Control/Panel/VBoxContainer" instance=ExtResource("2_eswdi")]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="TextureRect" parent="CenterContainer/Control/Panel/VBoxContainer/ResultItem/MarginContainer/HBoxContainer/TextureRect" index="0"]
 self_modulate = Color(1, 0.65098, 0, 1)
@@ -315,6 +318,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_6m812")
 }
 
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 
 [editable path="CenterContainer/Control/Panel/VBoxContainer/ResultItem"]

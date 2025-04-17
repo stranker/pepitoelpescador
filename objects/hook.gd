@@ -16,6 +16,11 @@ var accuracy : float = 0
 var speed_decrease : float = 0
 var recover_force : float = 0
 
+const LENGTH_MULTIPLIER : float = 250
+const LENGTH_LIMIT_MULTIPLIER : float = 1.5
+const SPEED_MULTIPLIER : float = 400
+const RECOVER_MULTIPLIER : float = 700
+
 @onready var throw_sfx : AudioStreamPlayer = $Throw
 
 const water_splash_scene : PackedScene = preload("res://objects/vfx/water_splash.tscn")
@@ -46,11 +51,11 @@ func _ready() -> void:
 func _set_hook_data():
 	stats = ItemManager.equipped_hook
 	var character_stats : CharacterCard = GameManager.character
-	speed = stats.force + character_stats.base_power
+	speed = (stats.force + character_stats.base_power) * SPEED_MULTIPLIER
 	accuracy = stats.accuracy + character_stats.base_accuracy
-	length = stats.length
+	length = stats.length * LENGTH_MULTIPLIER
+	recover_force = stats.recover * RECOVER_MULTIPLIER
 	skin.texture = stats.texture
-	final_direct_position = initial_position + Vector2.DOWN * length
 	pass
 
 func throw(dir : Vector2):
@@ -61,6 +66,7 @@ func throw(dir : Vector2):
 	velocity = direction * speed
 	get_tree().call_group("ui", "fade_out")
 	wind.emitting = true
+	final_direct_position = initial_position + Vector2.DOWN * length
 	pass
 
 func recover():
@@ -95,6 +101,7 @@ func _physics_process(delta: float) -> void:
 			global_position = lerp(global_position, initial_position, delta * 5)
 			if global_position.distance_to(initial_position) < 50:
 				set_hook_state(HookState.IDLE)
+				_collect_items()
 	move_and_slide()
 	pass
 
@@ -105,6 +112,7 @@ func air_movement(delta : float):
 	velocity.y += delta * gravity
 	rotation = lerp_angle(rotation, velocity.angle(), 0.1)
 	wind.emitting = velocity.length() > 500
+	_limit_velocity()
 	pass
 
 func water_movement(delta : float):
@@ -114,7 +122,11 @@ func water_movement(delta : float):
 	else:
 		rotation = lerp_angle(rotation, velocity.angle(), delta * 2)
 	velocity = lerp(velocity, global_position.direction_to(final_direct_position) * speed * 0.2, delta)
-	velocity = velocity.limit_length(speed)
+	_limit_velocity()
+	pass
+
+func _limit_velocity():
+	velocity = velocity.limit_length(length * LENGTH_LIMIT_MULTIPLIER)#LENGTH_LIMIT_MULTIPLIER)
 	pass
 
 func set_movement_state(new_state : MovementState):
@@ -136,7 +148,6 @@ func set_hook_state(new_state: HookState):
 			set_movement_state(MovementState.AIR)
 			global_position = initial_position
 			clamp_y = false
-			_collect_items()
 			bubbles.emitting = false
 			direction = Vector2.DOWN
 			pass
@@ -203,6 +214,8 @@ func on_end_boss_prensetation():
 
 func reset():
 	set_hook_state(HookState.IDLE)
+	for fish in fishes.get_children():
+		fish.queue_free()
 	pass
 
 func _create_water_splash():

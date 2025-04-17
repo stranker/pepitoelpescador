@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ngwgmo67epe2"]
+[gd_scene load_steps=9 format=3 uid="uid://ngwgmo67epe2"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_57mqj"]
+[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="2_qobcg"]
 
 [sub_resource type="GDScript" id="GDScript_308e6"]
 resource_name = "sound_options"
@@ -13,7 +14,6 @@ script/source = "extends Control
 signal closed()
 
 func _ready() -> void:
-	hide()
 	general_slider.value = -16
 	pass # Replace with function body.
 
@@ -29,11 +29,13 @@ func _on_music_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(\"Music\"), value)
 	pass # Replace with function body.
 
-func _on_close_button_down() -> void:
-	hide()
+func _on_close_button_button_down() -> void:
 	closed.emit()
 	pass # Replace with function body.
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7copr"]
+bg_color = Color(0, 0, 0, 0.862745)
 
 [sub_resource type="LabelSettings" id="LabelSettings_xwkdv"]
 font = ExtResource("2_57mqj")
@@ -52,32 +54,58 @@ font = ExtResource("2_57mqj")
 font_size = 46
 
 [node name="SoundOptions" type="Control" node_paths=PackedStringArray("general_slider", "music_slider", "sound_slider")]
+custom_minimum_size = Vector2(1000, 640)
 layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_308e6")
+general_slider = NodePath("Panel/MarginContainer/Control/VBoxContainer/General/General")
+music_slider = NodePath("Panel/MarginContainer/Control/VBoxContainer/Music/MusicSlider")
+sound_slider = NodePath("Panel/MarginContainer/Control/VBoxContainer/SFx/SoundSlider")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_308e6")
-general_slider = NodePath("VBoxContainer/General/General")
-music_slider = NodePath("VBoxContainer/Music/MusicSlider")
-sound_slider = NodePath("VBoxContainer/SFx/SoundSlider")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7copr")
 
-[node name="Title" type="Label" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Control" type="Control" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/MarginContainer/Control"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -576.0
-offset_top = 16.0
 offset_right = 576.0
-offset_bottom = 81.0
+offset_bottom = 65.0
 grow_horizontal = 2
 text = "OPTIONS"
 label_settings = SubResource("LabelSettings_xwkdv")
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Control"]
 custom_minimum_size = Vector2(512, 400)
 layout_mode = 1
 anchors_preset = 8
@@ -85,71 +113,88 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -256.0
-offset_top = -200.0
-offset_right = 256.0
-offset_bottom = 200.0
+offset_left = -352.0
+offset_top = -176.0
+offset_right = 352.0
+offset_bottom = 224.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="General" type="VBoxContainer" parent="VBoxContainer"]
+[node name="General" type="VBoxContainer" parent="Panel/MarginContainer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="GeneralLabel" type="Label" parent="VBoxContainer/General"]
+[node name="GeneralLabel" type="Label" parent="Panel/MarginContainer/Control/VBoxContainer/General"]
 layout_mode = 2
 text = "GENERAL"
 label_settings = SubResource("LabelSettings_qobcg")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="General" type="HSlider" parent="VBoxContainer/General"]
+[node name="General" type="HSlider" parent="Panel/MarginContainer/Control/VBoxContainer/General"]
 layout_mode = 2
 min_value = -40.0
 max_value = 0.0
 step = 8.0
 rounded = true
 
-[node name="Music" type="VBoxContainer" parent="VBoxContainer"]
+[node name="Music" type="VBoxContainer" parent="Panel/MarginContainer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="MusicLabel" type="Label" parent="VBoxContainer/Music"]
+[node name="MusicLabel" type="Label" parent="Panel/MarginContainer/Control/VBoxContainer/Music"]
 layout_mode = 2
 text = "MUSIC"
 label_settings = SubResource("LabelSettings_fbdfa")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="VBoxContainer/Music"]
+[node name="MusicSlider" type="HSlider" parent="Panel/MarginContainer/Control/VBoxContainer/Music"]
 layout_mode = 2
 min_value = -40.0
 max_value = 0.0
 step = 8.0
 rounded = true
 
-[node name="SFx" type="VBoxContainer" parent="VBoxContainer"]
+[node name="SFx" type="VBoxContainer" parent="Panel/MarginContainer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="SfxLabel" type="Label" parent="VBoxContainer/SFx"]
+[node name="SfxLabel" type="Label" parent="Panel/MarginContainer/Control/VBoxContainer/SFx"]
 layout_mode = 2
 text = "SFx"
 label_settings = SubResource("LabelSettings_tnhqg")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SoundSlider" type="HSlider" parent="VBoxContainer/SFx"]
+[node name="SoundSlider" type="HSlider" parent="Panel/MarginContainer/Control/VBoxContainer/SFx"]
 layout_mode = 2
 min_value = -40.0
 max_value = 0.0
 step = 8.0
 rounded = true
 
-[connection signal="value_changed" from="VBoxContainer/General/General" to="." method="_on_general_value_changed"]
-[connection signal="value_changed" from="VBoxContainer/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
-[connection signal="value_changed" from="VBoxContainer/SFx/SoundSlider" to="." method="_on_sound_slider_value_changed"]
+[node name="CloseButton" type="TextureButton" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -36.0
+offset_top = -24.0
+offset_right = 36.0
+offset_bottom = 48.0
+grow_horizontal = 0
+texture_normal = ExtResource("2_qobcg")
+texture_pressed = ExtResource("2_qobcg")
+texture_hover = ExtResource("2_qobcg")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="value_changed" from="Panel/MarginContainer/Control/VBoxContainer/General/General" to="." method="_on_general_value_changed"]
+[connection signal="value_changed" from="Panel/MarginContainer/Control/VBoxContainer/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Panel/MarginContainer/Control/VBoxContainer/SFx/SoundSlider" to="." method="_on_sound_slider_value_changed"]
+[connection signal="button_down" from="Panel/CloseButton" to="." method="_on_close_button_button_down"]

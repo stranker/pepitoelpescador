@@ -54,7 +54,8 @@ signal collected(fish)
 func _ready() -> void:
 	await get_tree().process_frame
 	initial_pos = global_position
-	initial_parent = get_parent()
+	if get_parent() is not Control:
+		initial_parent = get_parent()
 	get_new_position()
 	set_fish_state(FishState.MOVE)
 	debug_ui.visible = GameManager.debug_enabled

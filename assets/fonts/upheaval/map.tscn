@@ -42,10 +42,10 @@ layout_mode = 2
 
 [node name="MapItem" parent="MarginContainer/Maps" instance=ExtResource("3_gu6eb")]
 layout_mode = 2
-offset_left = 56.0
-offset_top = 80.0
-offset_right = 312.0
-offset_bottom = 336.0
+offset_left = 112.0
+offset_top = 128.0
+offset_right = 368.0
+offset_bottom = 384.0
 level_name = "Color Shores"
 level_image = ExtResource("4_yi5cp")
 level_scene = ExtResource("5_uwv3m")
@@ -53,32 +53,28 @@ locked = false
 
 [node name="MapItem2" parent="MarginContainer/Maps" instance=ExtResource("3_gu6eb")]
 layout_mode = 2
-offset_left = 400.0
-offset_top = 192.0
-offset_right = 656.0
-offset_bottom = 448.0
+offset_left = 504.0
+offset_top = 232.0
+offset_right = 760.0
+offset_bottom = 488.0
 level_name = "Aurora Coast"
 level_image = ExtResource("5_ay3ok")
 
 [node name="MapItem3" parent="MarginContainer/Maps" instance=ExtResource("3_gu6eb")]
 layout_mode = 2
-offset_left = 832.0
-offset_top = 80.0
-offset_right = 1088.0
-offset_bottom = 336.0
+offset_left = 888.0
+offset_top = 128.0
+offset_right = 1144.0
+offset_bottom = 384.0
 level_name = "Mystic River"
 level_image = ExtResource("6_uwv3m")
 
 [node name="Close" type="TextureButton" parent="."]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -96.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = 104.0
-grow_horizontal = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 104.0
+offset_bottom = 112.0
 texture_normal = ExtResource("5_nrgxe")
 texture_pressed = ExtResource("5_nrgxe")
 texture_hover = ExtResource("5_nrgxe")

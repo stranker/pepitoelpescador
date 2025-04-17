@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgh54f34uljkg"]
+[gd_scene load_steps=9 format=3 uid="uid://dgh54f34uljkg"]
 
 [ext_resource type="Script" uid="uid://tlxaa68vj303" path="res://managers/item_manager.gd" id="1_i730m"]
 [ext_resource type="Script" uid="uid://c8sxawxrjqy4a" path="res://objects/hook_stats.gd" id="2_13vnu"]
 [ext_resource type="Texture2D" uid="uid://cb6xdxcj7gp0" path="res://assets/sprites/hooks/default.png" id="3_vofrw"]
 [ext_resource type="Texture2D" uid="uid://cv0tkyvn38u6f" path="res://assets/sprites/fishermans/default.png" id="4_ipr50"]
+[ext_resource type="Script" uid="uid://ckm0fmy0scpjh" path="res://objects/boat_data.gd" id="5_84b6b"]
 
 [sub_resource type="Resource" id="Resource_13vnu"]
 script = ExtResource("2_13vnu")
@@ -39,6 +40,14 @@ length_increment = 0.75
 recover_increment = 0.015
 metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
 
+[sub_resource type="Resource" id="Resource_ipr50"]
+script = ExtResource("5_84b6b")
+price_list = Array[int]([0, 100])
+day_time_values = Array[float]([50.0, 60.0])
+current_tier = 0
+metadata/_custom_type_script = "uid://ckm0fmy0scpjh"
+
 [node name="ItemManager" type="Node"]
 script = ExtResource("1_i730m")
 hooks = Array[ExtResource("2_13vnu")]([SubResource("Resource_13vnu"), SubResource("Resource_x1b0d")])
+boat = SubResource("Resource_ipr50")

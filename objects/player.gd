@@ -3,7 +3,7 @@ extends Node2D
 var throw_direction : Vector2
 var throw_initial_pos : Vector2
 
-enum ThrowState { IDLE, START, END, DRAG }
+enum ThrowState { IDLE, START, END, DRAG, DISABLED }
 var throw_state : ThrowState = ThrowState.IDLE
 enum InteractionState { UNAVAILABLE, IDLE, THROW, RECOVER }
 var interaction_state : InteractionState = InteractionState.UNAVAILABLE
@@ -23,9 +23,14 @@ func _ready() -> void:
 	rope.set_start(skin.position)
 	GameManager.play_available.connect(on_play_available)
 	GameManager.play_unavailable.connect(on_play_unavailable)
+	GameManager.end_day.connect(on_end_day)
 	can_play = false
 	force_line.hide()
 	_set_character_data()
+	pass
+
+func on_end_day(fishes):
+	set_state(ThrowState.DISABLED)
 	pass
 
 func _set_character_data():
@@ -34,7 +39,7 @@ func _set_character_data():
 	pass
 
 func on_play_available():
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(0.2).timeout
 	can_play = true
 	pass
 
@@ -79,8 +84,8 @@ func set_state(new_state : ThrowState):
 		ThrowState.START:
 			throw_initial_pos = get_global_mouse_position()
 			rope.set_start(skin.position)
-			$ForceLine.set_start(get_local_mouse_position())
-			$ForceLine.set_last(get_local_mouse_position())
+			force_line.set_start(get_local_mouse_position())
+			force_line.set_last(get_local_mouse_position())
 			force_line.show()
 			force_line_anim.play("RESET")
 			can_drag = true
@@ -90,7 +95,11 @@ func set_state(new_state : ThrowState):
 		ThrowState.DRAG:
 			throw_direction = throw_initial_pos.direction_to(get_global_mouse_position()) * -1
 			hook.aim(throw_direction)
-			$ForceLine.set_last(get_local_mouse_position())
+			force_line.set_last(get_local_mouse_position())
+		ThrowState.DISABLED:
+			can_play = false
+			hook.reset()
+			force_line.hide()
 	pass
 
 func set_interaction_state(new_state : InteractionState):

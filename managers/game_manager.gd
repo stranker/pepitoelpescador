@@ -41,8 +41,6 @@ func _ready() -> void:
 	music.stream = load("res://assets/music/gone_fishin_by_memoraphile_CC0.mp3")
 	music.playing = true
 	music.bus = "Music"
-	AudioServer.set_bus_volume_db(1, -16)
-	AudioServer.set_bus_volume_db(2, -16)
 	pass
 
 func on_midnight_end():
@@ -59,6 +57,11 @@ func _start_game():
 
 func add_gold(new_gold : int):
 	game_stats.gold += new_gold
+	gold_update.emit(game_stats.gold)
+	pass
+
+func spend_coins(gold : int):
+	game_stats.gold -= gold
 	gold_update.emit(game_stats.gold)
 	pass
 
