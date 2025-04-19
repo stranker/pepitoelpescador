@@ -50,11 +50,11 @@ func _ready() -> void:
 
 func _set_hook_data():
 	stats = ItemManager.equipped_hook
-	var character_stats : CharacterCard = GameManager.character
-	speed = (stats.force + character_stats.base_power) * SPEED_MULTIPLIER
-	accuracy = stats.accuracy + character_stats.base_accuracy
-	length = stats.length * LENGTH_MULTIPLIER
-	recover_force = stats.recover * RECOVER_MULTIPLIER
+	var character_stats : CharacterCard = CardManager.character_card
+	speed = (stats.get_force() + character_stats.base_power) * SPEED_MULTIPLIER
+	accuracy = stats.get_accuracy() + character_stats.base_accuracy
+	length = stats.get_length() * LENGTH_MULTIPLIER
+	recover_force = stats.get_recover() * RECOVER_MULTIPLIER
 	skin.texture = stats.texture
 	pass
 

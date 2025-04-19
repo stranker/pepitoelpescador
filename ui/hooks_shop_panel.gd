@@ -21,16 +21,16 @@ func _ready():
 func set_data(hook_data : HookStats):
 	data = hook_data
 	name_label.text = hook_data.name
-	speed_pb.value = hook_data.force
-	length_pb.value = hook_data.length
-	accuracy_pb.value = hook_data.accuracy
+	speed_pb.value = hook_data.get_force()
+	length_pb.value = hook_data.get_length()
+	accuracy_pb.value = hook_data.get_accuracy()
 	texture.texture = hook_data.texture
 	if hook_data.purchased:
 		if hook_data.equiped:
 			buttons_anim.play("equiped")
 		else:
 			buttons_anim.play("purchased")
-	elif hook_data.price <= GameManager.game_stats.gold:
+	elif hook_data.get_price() <= GameManager.game_stats.gold:
 		buttons_anim.play("idle")
 	else:
 		buttons_anim.play("cant_purchase")

@@ -49,6 +49,7 @@ func on_fish_collected(fish : Fish):
 func _update_total():
 	no_fish_label.visible = total_count <= 0
 	total_result.set_data({"count":total_count,"gold":total_gold,"size":size_max})
+	total_result.visible = total_count > 0
 	pass
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

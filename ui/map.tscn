@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctg1fx7elwl1p"]
+[gd_scene load_steps=12 format=3 uid="uid://ctg1fx7elwl1p"]
 
 [ext_resource type="Script" uid="uid://bsi8phqfsjwdg" path="res://ui/map.gd" id="1_xf5ci"]
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="2_hdjpg"]
@@ -8,6 +8,31 @@
 [ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="5_nrgxe"]
 [ext_resource type="PackedScene" uid="uid://7605xw4rige" path="res://scenes/color_shores.tscn" id="5_uwv3m"]
 [ext_resource type="Texture2D" uid="uid://cmjghx3ti5vml" path="res://assets/sprites/background/mystic_river.jpg" id="6_uwv3m"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="9_dc1eh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjqc2"]
+bg_color = Color(0.462745, 0.298039, 0.784314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.341176, 0.192157, 0.552941, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0p7vj"]
+bg_color = Color(0.396078, 0.235294, 0.713726, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.396078, 0.235294, 0.713726, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Map" type="Control" node_paths=PackedStringArray("maps_container")]
 layout_mode = 3
@@ -26,10 +51,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
 
 [node name="Panel" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
@@ -37,35 +58,62 @@ texture = ExtResource("2_hdjpg")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="Line2D" type="Line2D" parent="MarginContainer"]
+position = Vector2(424, 288)
+points = PackedVector2Array(-112, -8, 32, 64, 160, 104, 296, 112, 408, 80, 488, 48, 632, -48, 752, -72, 832, -64, 864, -48)
+width = 20.0
+default_color = Color(1, 0, 0, 1)
+
 [node name="Maps" type="Control" parent="MarginContainer"]
 layout_mode = 2
 
 [node name="MapItem" parent="MarginContainer/Maps" instance=ExtResource("3_gu6eb")]
-layout_mode = 2
-offset_left = 112.0
-offset_top = 128.0
-offset_right = 368.0
-offset_bottom = 384.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -628.0
+offset_top = -216.0
+offset_right = -372.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
 level_name = "Color Shores"
 level_image = ExtResource("4_yi5cp")
 level_scene = ExtResource("5_uwv3m")
 locked = false
 
 [node name="MapItem2" parent="MarginContainer/Maps" instance=ExtResource("3_gu6eb")]
-layout_mode = 2
-offset_left = 504.0
-offset_top = 232.0
-offset_right = 760.0
-offset_bottom = 488.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
 level_name = "Aurora Coast"
 level_image = ExtResource("5_ay3ok")
 
 [node name="MapItem3" parent="MarginContainer/Maps" instance=ExtResource("3_gu6eb")]
-layout_mode = 2
-offset_left = 888.0
-offset_top = 128.0
-offset_right = 1144.0
-offset_bottom = 384.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 356.0
+offset_top = -248.0
+offset_right = 612.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
 level_name = "Mystic River"
 level_image = ExtResource("6_uwv3m")
 
@@ -90,13 +138,22 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -120.0
-offset_top = -112.0
-offset_right = 128.0
-offset_bottom = -48.0
+offset_left = -156.0
+offset_top = -128.0
+offset_right = 172.0
+offset_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Go Fish!"
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_dc1eh")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cjqc2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0p7vj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0p7vj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cjqc2")
+text = "Continue"
+icon_alignment = 2
 
 [connection signal="button_up" from="Close" to="." method="_on_close_button_up"]
 [connection signal="button_down" from="Continue" to="." method="_on_continue_button_down"]

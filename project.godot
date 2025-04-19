@@ -15,7 +15,7 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="OneMoreFish"
-run/main_scene="uid://bhdtyhdxdivwg"
+run/main_scene="uid://dj3urhrrnjbd4"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -27,7 +27,7 @@ GameManager="*res://managers/game_manager.gd"
 
 [display]
 
-window/size/viewport_width=1280
+window/size/viewport_width=1560
 window/size/viewport_height=720
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"

@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://brglr7ejcrv5o"]
+
+[ext_resource type="Script" uid="uid://y8votxjjlw48" path="res://scenes/loading_screen.gd" id="1_hprjd"]
+[ext_resource type="Texture2D" uid="uid://mkr2ayquatc4" path="res://assets/ui/fish_icon.png" id="2_ku3bi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wwex"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="LoadingScreen" type="Control" node_paths=PackedStringArray("progress_bar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hprjd")
+progress_bar = NodePath("Panel/TextureProgressBar")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8wwex")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -88.0
+offset_right = 104.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.14159
+pivot_offset = Vector2(104, 88)
+value = 6.0
+fill_mode = 1
+nine_patch_stretch = true
+texture_under = ExtResource("2_ku3bi")
+texture_progress = ExtResource("2_ku3bi")
+tint_under = Color(0.20871, 0.20871, 0.20871, 1)

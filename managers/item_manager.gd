@@ -21,3 +21,30 @@ func upgrade_boat():
 	GameManager.spend_coins(boat.next_price())
 	boat.upgrade()
 	pass
+
+func set_loaded_items(item_dic : Dictionary):
+	pass
+
+func set_loaded_boat(boat_tier : int):
+	boat.set_tier(boat_tier)
+	pass
+
+func get_items_for_save():
+	var data : Dictionary = {}
+	for hook in hooks:
+		data[hook.id] = {
+			"level": hook.level,
+			"purchased": hook.purchased,
+			"equiped": hook.equiped,
+		}
+	return data
+
+func get_boat_data():
+	return boat.current_tier
+
+func reset():
+	for hook in hooks:
+		hook.reset()
+	boat.reset()
+	equipped_hook = hooks.front()
+	pass

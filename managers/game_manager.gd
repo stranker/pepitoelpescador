@@ -4,12 +4,21 @@ class GameStats:
 	var gold : int = 0
 	var experience : float = 0
 	var player_level : int = 1
-	var combo_counter : int = 0
 	var days_passed : int = 0
 	var day_duration : float = 20
-	var fishes_catched : int = 0
+	var total_fishes_catched : int = 0
+	
+	func reset():
+		gold = 0
+		experience = 0
+		player_level = 1
+		days_passed =  0
+		day_duration = 0
+		total_fishes_catched = 0
 
 var game_stats : GameStats = GameStats.new()
+
+const game_data_path : String = "user://save_game.dat"
 
 var debug_enabled : bool = false
 var experience_increment : float = 10
@@ -17,7 +26,6 @@ var combo_counter : int = 0
 var player_selected : bool = false
 var level_scene : PackedScene = null
 var music : AudioStreamPlayer
-var character : CharacterCard = null
 var game_presentation_end : bool = false
 
 var fishes_catched : Array[Fish]
@@ -35,7 +43,50 @@ signal end_day(fishes)
 
 func _ready() -> void:
 	add_to_group("gameplay")
+	_load_game_data()
 	await get_tree().process_frame
+	_create_music()
+	pass
+
+func _load_game_data():
+	if FileAccess.file_exists(game_data_path):
+		var data : Dictionary = load_from_file()
+		game_stats.gold = data.gold
+		game_stats.experience = data.experience
+		game_stats.player_level = data.player_level
+		game_stats.days_passed = data.days_passed
+		game_stats.total_fishes_catched = data.total_fishes_catched
+		ItemManager.set_loaded_items(data.items)
+		ItemManager.set_loaded_boat(data.boat_tier)
+		CardManager.set_character(data.player_card_type)
+		player_selected = true
+	pass
+
+func save_game_data():
+	var game_data : Dictionary = {
+		"gold" = game_stats.gold,
+		"experience" = game_stats.experience,
+		"player_level" = game_stats.player_level,
+		"days_passed" = game_stats.days_passed,
+		"total_fishes_catched" = game_stats.total_fishes_catched,
+		"items" = ItemManager.get_items_for_save(),
+		"boat_tier" = ItemManager.get_boat_data(),
+		"player_card_type" = CardManager.get_character_card_for_save()
+	}
+	save_to_file(game_data)
+	pass
+
+func save_to_file(content : Dictionary):
+	var file = FileAccess.open(game_data_path, FileAccess.WRITE)
+	file.store_string(JSON.stringify(content))
+	pass
+
+func load_from_file():
+	var file = FileAccess.open(game_data_path, FileAccess.READ)
+	var content = JSON.parse_string(file.get_as_text())
+	return content
+
+func _create_music():
 	music = AudioStreamPlayer.new()
 	add_child(music)
 	music.stream = load("res://assets/music/gone_fishin_by_memoraphile_CC0.mp3")
@@ -85,7 +136,7 @@ func add_experience(new_exp : float):
 func collect_fish(fish : Fish):
 	fish_collected.emit(fish)
 	add_experience(fish.fish_data.fish_experience + combo_counter)
-	game_stats.fishes_catched += 1
+	game_stats.total_fishes_catched += 1
 	fishes_catched.append(fish)
 	on_update_game_stats()
 	pass
@@ -116,7 +167,6 @@ func on_divinity_card_selected():
 	pass
 
 func on_character_card_selected(card):
-	character = card
 	player_selected = true
 	on_update_game_stats()
 	pass
@@ -127,4 +177,11 @@ func on_combo_counter_updated(combo_count : int):
 
 func on_level_selected(level):
 	level_scene = level.level_scene
+	pass
+
+func clear_saved_data():
+	game_stats.reset()
+	player_selected = false
+	ItemManager.reset()
+	CardManager.reset()
 	pass

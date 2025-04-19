@@ -18,3 +18,12 @@ func next_price():
 func upgrade():
 	current_tier += 1
 	pass
+
+func set_tier(tier):
+	current_tier = tier
+	pass
+
+func reset():
+	current_tier = 0
+	GameManager.game_stats.day_duration = day_time_values[current_tier]
+	pass

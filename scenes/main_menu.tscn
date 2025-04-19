@@ -1,35 +1,62 @@
-[gd_scene load_steps=15 format=3 uid="uid://dj3urhrrnjbd4"]
+[gd_scene load_steps=20 format=3 uid="uid://dj3urhrrnjbd4"]
 
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="1_8ln24"]
 [ext_resource type="PackedScene" uid="uid://cbxq6hn0dd75u" path="res://scenes/scrim.tscn" id="1_bfmak"]
+[ext_resource type="PackedScene" uid="uid://brglr7ejcrv5o" path="res://scenes/loading_screen.tscn" id="1_tbmy8"]
 [ext_resource type="PackedScene" uid="uid://wy6iqyp1pmr1" path="res://objects/fishes/greeny.tscn" id="2_rtw2f"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_wu84c"]
 [ext_resource type="Texture2D" uid="uid://c0uy6y2kg7m1d" path="res://assets/sprites/bubbles.png" id="3_cjgqh"]
 [ext_resource type="PackedScene" uid="uid://ngwgmo67epe2" path="res://ui/sound_options.tscn" id="6_rtw2f"]
+[ext_resource type="PackedScene" uid="uid://do61r7ruayjdk" path="res://ui/credits_scene.tscn" id="7_oa1go"]
 
 [sub_resource type="GDScript" id="GDScript_m6sqb"]
 script/source = "extends Control
 
 @export var anim : AnimationPlayer
 
+@export var loading_scene : PackedScene
+
+func _ready() -> void:
+	if GameManager.player_selected:
+		anim.play(\"continue\")
+	else:
+		anim.play(\"new_game\")
 
 func _on_options_button_down() -> void:
 	anim.play(\"options\")
 	pass # Replace with function body.
 
-
 func _on_sound_options_closed() -> void:
 	anim.play_backwards(\"options\")
 	pass # Replace with function body.
 
-
 func _on_new_game_button_down() -> void:
-	get_tree().change_scene_to_file(\"res://scenes/main_scene.tscn\")
+	GameManager.clear_saved_data()
+	load_main_scene()
 	pass # Replace with function body.
 
+func on_game_scene_loaded(path):
+	var game_scene = ResourceLoader.load_threaded_get(path)
+	get_tree().change_scene_to_packed(game_scene)
+	pass
 
 func _on_continue_button_down() -> void:
-	get_tree().change_scene_to_file(\"res://scenes/main_scene.tscn\")
+	load_main_scene()
+	pass # Replace with function body.
+
+func load_main_scene():
+	var loading : LoadingScene = loading_scene.instantiate()
+	loading.scene_loaded.connect(on_game_scene_loaded)
+	add_child(loading)
+	loading.load(\"res://scenes/main_scene.tscn\")
+	pass
+
+func _on_credits_button_down() -> void:
+	anim.play(\"credits\")
+	pass # Replace with function body.
+
+func _on_credits_scene_closed() -> void:
+	anim.play(\"RESET\")
 	pass # Replace with function body.
 "
 
@@ -65,6 +92,75 @@ corner_radius_bottom_left = 8
 offsets = PackedFloat32Array(0, 0.664948, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
+[sub_resource type="Animation" id="Animation_oa1go"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SoundOptions:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CreditsScene:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Buttons/Continue:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tbmy8"]
+resource_name = "credits"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CreditsScene:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CreditsScene")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show_credits"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_rtw2f"]
 resource_name = "options"
 length = 0.1
@@ -82,12 +178,12 @@ tracks/0/keys = {
 "values": [false, true]
 }
 
-[sub_resource type="Animation" id="Animation_oa1go"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_jk1qb"]
+resource_name = "new_game"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SoundOptions:visible")
+tracks/0/path = NodePath("Buttons/Continue:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -97,9 +193,27 @@ tracks/0/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_5dd4i"]
+resource_name = "continue"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Buttons/Continue:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tbmy8"]
 _data = {
 &"RESET": SubResource("Animation_oa1go"),
+&"continue": SubResource("Animation_5dd4i"),
+&"credits": SubResource("Animation_tbmy8"),
+&"new_game": SubResource("Animation_jk1qb"),
 &"options": SubResource("Animation_rtw2f")
 }
 
@@ -112,6 +226,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_m6sqb")
 anim = NodePath("Anim")
+loading_scene = ExtResource("1_tbmy8")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -123,16 +238,16 @@ grow_vertical = 2
 texture = ExtResource("1_8ln24")
 
 [node name="Greeny" parent="." instance=ExtResource("2_rtw2f")]
-position = Vector2(72, 72)
+position = Vector2(184, 112)
 
 [node name="Greeny2" parent="." instance=ExtResource("2_rtw2f")]
-position = Vector2(1048, 176)
+position = Vector2(1384, 152)
 
 [node name="Greeny3" parent="." instance=ExtResource("2_rtw2f")]
-position = Vector2(1008, 448)
+position = Vector2(1408, 632)
 
 [node name="Greeny4" parent="." instance=ExtResource("2_rtw2f")]
-position = Vector2(248, 552)
+position = Vector2(121, 629)
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
@@ -162,9 +277,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -224.0
-offset_top = -400.0
-offset_right = 232.0
+offset_left = -204.0
+offset_top = -280.0
+offset_right = 204.0
 offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -249,6 +364,10 @@ color_ramp = SubResource("Gradient_d4dx1")
 visible = false
 layout_mode = 1
 
+[node name="CreditsScene" parent="." instance=ExtResource("7_oa1go")]
+visible = false
+layout_mode = 1
+
 [node name="Anim" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_tbmy8")
@@ -257,4 +376,6 @@ libraries = {
 [connection signal="button_down" from="Buttons/Continue" to="." method="_on_continue_button_down"]
 [connection signal="button_down" from="Buttons/New Game" to="." method="_on_new_game_button_down"]
 [connection signal="button_down" from="Buttons/Options" to="." method="_on_options_button_down"]
+[connection signal="button_down" from="Buttons/Credits" to="." method="_on_credits_button_down"]
 [connection signal="closed" from="SoundOptions" to="." method="_on_sound_options_closed"]
+[connection signal="closed" from="CreditsScene" to="." method="_on_credits_scene_closed"]

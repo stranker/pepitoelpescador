@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://buwicco4ujh2"]
+[gd_scene load_steps=12 format=3 uid="uid://buwicco4ujh2"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_vqpty"]
 [ext_resource type="Texture2D" uid="uid://by8erumq8j2sx" path="res://assets/ui/map.jpg" id="2_qm837"]
@@ -51,6 +51,15 @@ func _on_click_area_gui_input(event: InputEvent) -> void:
 	pass # Replace with function body.
 "
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqpty"]
+resource_local_to_scene = true
+bg_color = Color(1, 1, 1, 0)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 128
+corner_radius_top_right = 128
+corner_radius_bottom_right = 128
+corner_radius_bottom_left = 128
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqb6h"]
 resource_local_to_scene = true
 bg_color = Color(0, 0, 0, 1)
@@ -59,14 +68,10 @@ border_width_top = 8
 border_width_right = 8
 border_width_bottom = 8
 border_color = Color(1, 1, 1, 0)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-expand_margin_left = 10.0
-expand_margin_top = 10.0
-expand_margin_right = 10.0
-expand_margin_bottom = 10.0
+corner_radius_top_left = 128
+corner_radius_top_right = 128
+corner_radius_bottom_right = 128
+corner_radius_bottom_left = 128
 
 [sub_resource type="LabelSettings" id="LabelSettings_nrgxe"]
 font = ExtResource("1_vqpty")
@@ -77,7 +82,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:theme_override_styles/panel:border_color")
+tracks/0/path = NodePath("World/Panel:theme_override_styles/panel:border_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -89,7 +94,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Panel:modulate")
+tracks/1/path = NodePath("World/Panel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -97,6 +102,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("World:theme_override_styles/panel:bg_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_vqpty"]
@@ -104,7 +121,7 @@ resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:theme_override_styles/panel:border_color")
+tracks/0/path = NodePath("World/Panel:theme_override_styles/panel:border_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -116,7 +133,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Panel:modulate")
+tracks/1/path = NodePath("World/Panel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -125,13 +142,25 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("World:theme_override_styles/panel:bg_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_4od7s"]
 resource_name = "lock"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:modulate")
+tracks/0/path = NodePath("World/Panel:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -139,6 +168,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0.212305, 0.212305, 0.212305, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("World:theme_override_styles/panel:bg_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_qm837"]
@@ -148,14 +189,14 @@ step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel:theme_override_styles/panel:border_color")
+tracks/0/path = NodePath("World:theme_override_styles/panel:bg_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.164706)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4od7s"]
@@ -172,10 +213,16 @@ layout_mode = 3
 anchors_preset = 0
 script = SubResource("GDScript_vqpty")
 anim = NodePath("AnimationPlayer")
-name_label = NodePath("Panel/VBoxContainer/Label")
-image_rect = NodePath("Panel/VBoxContainer/TextureRect")
+name_label = NodePath("Label")
+image_rect = NodePath("World/Panel/TextureRect")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="World" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 256.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vqpty")
+
+[node name="Panel" type="Panel" parent="World"]
 clip_children = 2
 layout_mode = 1
 anchors_preset = 15
@@ -185,28 +232,26 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_aqb6h")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 42)
+[node name="TextureRect" type="TextureRect" parent="World/Panel"]
 layout_mode = 2
-text = "Color Shores"
-label_settings = SubResource("LabelSettings_nrgxe")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer"]
-layout_mode = 2
+offset_right = 256.0
+offset_bottom = 256.0
 size_flags_vertical = 3
 texture = ExtResource("2_qm837")
 expand_mode = 1
 stretch_mode = 6
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 2
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+offset_top = -40.0
+offset_right = 256.0
+offset_bottom = 2.0
+text = "Color Shores"
+label_settings = SubResource("LabelSettings_nrgxe")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

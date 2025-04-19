@@ -40,3 +40,17 @@ func on_character_card_selected(card_data : CharacterCard):
 	character_card = card_data as CharacterCard
 	character_selected.emit(character_card)
 	pass
+
+func get_character_card_for_save():
+	return character_card.character_type
+
+func set_character(character_type : int):
+	for card in character_cards:
+		if card.character_type == character_type:
+			character_card = card
+			break
+
+func reset():
+	character_card = null
+	upgrade_cards_added.clear()
+	pass
