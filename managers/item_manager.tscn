@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgh54f34uljkg"]
+[gd_scene load_steps=11 format=3 uid="uid://dgh54f34uljkg"]
 
 [ext_resource type="Script" uid="uid://tlxaa68vj303" path="res://managers/item_manager.gd" id="1_i730m"]
 [ext_resource type="Script" uid="uid://c8sxawxrjqy4a" path="res://objects/hook_stats.gd" id="2_13vnu"]
 [ext_resource type="Texture2D" uid="uid://cb6xdxcj7gp0" path="res://assets/sprites/hooks/default.png" id="3_vofrw"]
 [ext_resource type="Texture2D" uid="uid://cv0tkyvn38u6f" path="res://assets/sprites/fishermans/default.png" id="4_ipr50"]
 [ext_resource type="Script" uid="uid://ckm0fmy0scpjh" path="res://objects/boat_data.gd" id="5_84b6b"]
+[ext_resource type="Texture2D" uid="uid://ejc2v3gtfytb" path="res://assets/sprites/fishermans/boat.png" id="6_x1b0d"]
+[ext_resource type="Texture2D" uid="uid://diew3w44ia36g" path="res://assets/sprites/fishermans/boat_outlined.png" id="7_84b6b"]
 
 [sub_resource type="Resource" id="Resource_13vnu"]
 script = ExtResource("2_13vnu")
@@ -15,11 +17,11 @@ equiped = true
 texture = ExtResource("3_vofrw")
 level = 0
 initial_hook = false
-price_array = Array[int]([0, 25, 50, 75, 100])
-force_array = Array[float]([10.0, 12.0, 15.0, 18.0, 22.0])
-accuracy_array = Array[float]([1.0, 0.9, 0.8, 0.7, 0.6])
+price_array = Array[int]([0, 0, 0, 0, 0])
+force_array = Array[float]([0.8, 0.9, 1.0, 1.1, 5.0])
+accuracy_array = Array[float]([0.1, 0.12, 0.14, 0.16, 1.0])
 length_array = Array[float]([2.0, 2.1, 2.3, 2.5, 3.0])
-recover_array = Array[float]([1.0, 2.0, 3.0, 4.0, 5.0])
+recover_array = Array[float]([1.0, 2.0, 3.0, 4.0, 10.0])
 metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
 
 [sub_resource type="Resource" id="Resource_x1b0d"]
@@ -31,9 +33,9 @@ equiped = false
 texture = ExtResource("4_ipr50")
 level = 0
 initial_hook = false
-price_array = Array[int]([0, 25, 50, 75, 100])
-force_array = Array[float]([10.0, 12.0, 15.0, 18.0, 22.0])
-accuracy_array = Array[float]([1.0, 0.9, 0.8, 0.7, 0.6])
+price_array = Array[int]([50, 75, 100, 125, 200])
+force_array = Array[float]([1.5, 1.7, 2.0, 2.2, 2.5])
+accuracy_array = Array[float]([0.2, 0.25, 0.3, 0.35, 0.4])
 length_array = Array[float]([2.0, 2.1, 2.3, 2.5, 3.0])
 recover_array = Array[float]([1.0, 2.0, 3.0, 4.0, 5.0])
 metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
@@ -42,6 +44,7 @@ metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
 script = ExtResource("5_84b6b")
 price_list = Array[int]([0, 100])
 day_time_values = Array[float]([50.0, 60.0])
+textures = Array[Texture]([ExtResource("6_x1b0d"), ExtResource("7_84b6b")])
 current_tier = 0
 metadata/_custom_type_script = "uid://ckm0fmy0scpjh"
 

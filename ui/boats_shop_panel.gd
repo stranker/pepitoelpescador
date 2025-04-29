@@ -3,8 +3,7 @@ extends Control
 @export var boat_texture : TextureRect
 @export var boat_price : Label
 @export var button_anim : AnimationPlayer
-@export var day_time_pb : ProgressBar
-@export var boat_anim : AnimationPlayer
+@export var day_time : StatProgressBar
 
 signal closed
 
@@ -24,9 +23,9 @@ func _on_close_button_button_down() -> void:
 	pass # Replace with function body.
 
 func _refresh_ui():
-	boat_anim.play("tier_" + str(data.current_tier + 1))
+	boat_texture.texture = data.get_texture()
 	boat_price.text = str(data.next_price())
-	day_time_pb.value = data.day_time_values[data.current_tier]
+	day_time.set_data({"current_value": data.get_day_time(), "next_value": data.get_next_day_time()})
 	if data.next_price() < 0:
 		button_anim.play("hide")
 	else:

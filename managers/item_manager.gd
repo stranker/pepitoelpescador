@@ -12,9 +12,19 @@ func _ready() -> void:
 	pass
 
 func equip_hook(new_hook : HookStats):
+	equipped_hook.unequip()
 	equipped_hook = new_hook
-	for hook in hooks:
-		hook.equiped = new_hook == equipped_hook
+	equipped_hook.equip()
+	pass
+
+func purchase_hook(hook : HookStats):
+	GameManager.spend_coins(hook.get_price())
+	hook.purchase()
+	pass
+
+func upgrade_hook(hook : HookStats):
+	GameManager.spend_coins(hook.get_price())
+	hook.upgrade()
 	pass
 
 func upgrade_boat():

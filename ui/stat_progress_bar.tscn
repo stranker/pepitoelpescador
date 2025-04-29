@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsqhlrsvjyk21"]
+
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_6r0jc"]
+[ext_resource type="Script" uid="uid://bd4m1rplqw" path="res://ui/stat_progress_bar.tres.gd" id="1_x68mg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i5mka"]
+font = ExtResource("1_6r0jc")
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67uj7"]
+bg_color = Color(0, 0, 0, 0.752941)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxnrq"]
+bg_color = Color(0.560784, 1, 0.027451, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpf1h"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6b4v5"]
+bg_color = Color(0.973535, 0.973535, 0.973535, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Speed" type="VBoxContainer" node_paths=PackedStringArray("stat_label", "current_progress", "next_progress")]
+custom_minimum_size = Vector2(0, 28)
+offset_right = 192.0
+offset_bottom = 32.0
+theme_override_constants/separation = 0
+script = ExtResource("1_x68mg")
+stat_label = NodePath("Stat")
+current_progress = NodePath("NextProgress/CurrentProgress")
+next_progress = NodePath("NextProgress")
+
+[node name="Stat" type="Label" parent="."]
+layout_mode = 2
+text = "Stat"
+label_settings = SubResource("LabelSettings_i5mka")
+
+[node name="NextProgress" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_67uj7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qxnrq")
+max_value = 5.0
+value = 5.0
+show_percentage = false
+
+[node name="CurrentProgress" type="ProgressBar" parent="NextProgress"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_kpf1h")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6b4v5")
+max_value = 5.0
+value = 1.0
+show_percentage = false

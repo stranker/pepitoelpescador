@@ -144,11 +144,11 @@ script/source = "extends Control
 @export var length_label : Label
 @export var recover_label : Label
 
-func _on_hook_stats_updated(stats : HookStats) -> void:
-	power_label.text = \"Power:\" + str(stats.force)
-	accuracy_label.text = \"Accuracy:\" + str(stats.accuracy)
-	length_label.text = \"Length:\" + str(stats.length)
-	recover_label.text = \"Recover:\" + str(stats.recover)
+func _on_hook_stats_updated(speed, accuracy, length, recover) -> void:
+	power_label.text = \"Power:\" + str(speed)
+	accuracy_label.text = \"Accuracy:\" + str(accuracy)
+	length_label.text = \"Length:\" + str(length)
+	recover_label.text = \"Recover:\" + str(recover)
 	pass # Replace with function body.
 "
 
@@ -242,7 +242,6 @@ libraries = {
 autoplay = "idle"
 
 [node name="DebugStats" type="Control" parent="." node_paths=PackedStringArray("power_label", "accuracy_label", "length_label", "recover_label")]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 84.0

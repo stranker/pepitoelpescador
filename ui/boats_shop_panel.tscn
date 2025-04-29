@@ -1,90 +1,20 @@
-[gd_scene load_steps=25 format=3 uid="uid://dktou66amwa86"]
+[gd_scene load_steps=19 format=3 uid="uid://dktou66amwa86"]
 
 [ext_resource type="Script" uid="uid://keuk1n3uxt3s" path="res://ui/boats_shop_panel.gd" id="1_87epm"]
 [ext_resource type="Texture2D" uid="uid://ejc2v3gtfytb" path="res://assets/sprites/fishermans/boat.png" id="1_177vb"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_87epm"]
-[ext_resource type="Texture2D" uid="uid://clny6aa75jcq1" path="res://assets/sprites/icons/Star.png" id="3_iyhep"]
+[ext_resource type="Texture2D" uid="uid://cpjpcvecgladw" path="res://assets/sprites/cards/shop_card.png" id="2_iyhep"]
 [ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="3_whe5k"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="4_whe5k"]
+[ext_resource type="PackedScene" uid="uid://dsqhlrsvjyk21" path="res://ui/stat_progress_bar.tscn" id="5_s1lg0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyvbe"]
 bg_color = Color(0, 0, 0, 0.745098)
 
-[sub_resource type="Animation" id="Animation_lwppx"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_177vb")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_6n3ib"]
-resource_name = "tier_1"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_177vb")]
-}
-
-[sub_resource type="Animation" id="Animation_4ny0j"]
-resource_name = "tier_2"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_177vb")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextureRect:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bpuqh"]
-_data = {
-&"RESET": SubResource("Animation_lwppx"),
-&"tier_1": SubResource("Animation_6n3ib"),
-&"tier_2": SubResource("Animation_4ny0j")
-}
+[sub_resource type="LabelSettings" id="LabelSettings_6c2nj"]
+font = ExtResource("2_87epm")
+font_size = 26
+font_color = Color(1, 0.823529, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tdjdk"]
 bg_color = Color(0.462745, 0.45098, 0.784314, 1)
@@ -117,38 +47,6 @@ font_size = 38
 [sub_resource type="LabelSettings" id="LabelSettings_s1lg0"]
 font = ExtResource("2_87epm")
 font_size = 32
-
-[sub_resource type="LabelSettings" id="LabelSettings_i5mka"]
-font = ExtResource("2_87epm")
-font_size = 26
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fovme"]
-bg_color = Color(0.303233, 0.303233, 0.303233, 0.752941)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_773qs"]
-bg_color = Color(0.982343, 0.982342, 0.982342, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="LabelSettings" id="LabelSettings_6c2nj"]
-font = ExtResource("2_87epm")
-font_size = 26
-font_color = Color(1, 0.823529, 0, 1)
 
 [sub_resource type="Animation" id="Animation_iyhep"]
 length = 0.001
@@ -266,7 +164,7 @@ _data = {
 &"idle": SubResource("Animation_whe5k")
 }
 
-[node name="BoatsPanel" type="Control" node_paths=PackedStringArray("boat_texture", "boat_price", "button_anim", "day_time_pb", "boat_anim")]
+[node name="BoatsPanel" type="Control" node_paths=PackedStringArray("boat_texture", "boat_price", "button_anim", "day_time")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -275,11 +173,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_87epm")
-boat_texture = NodePath("MarginContainer/Control/Boat")
+boat_texture = NodePath("MarginContainer/Control/Card/Boat")
 boat_price = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer/Control/HBoxContainer/Label")
 button_anim = NodePath("Anim")
-day_time_pb = NodePath("MarginContainer/Control/Stats/Stats/DayTime/ProgressBar")
-boat_anim = NodePath("MarginContainer/Control/Boat/AnimationPlayer")
+day_time = NodePath("MarginContainer/Control/Card/Stats/Stats/DayTime")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -305,36 +202,71 @@ theme_override_constants/margin_bottom = 64
 [node name="Control" type="Control" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Boat" type="TextureRect" parent="MarginContainer/Control"]
+[node name="Card" type="TextureRect" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 496.0
+grow_horizontal = 2
+texture = ExtResource("2_iyhep")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Boat" type="TextureRect" parent="MarginContainer/Control/Card"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -256.0
-offset_right = 320.0
-offset_bottom = 40.0
+offset_left = -156.0
+offset_top = -192.0
+offset_right = 156.0
+offset_bottom = 56.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_177vb")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/Control/Boat"]
-libraries = {
-&"": SubResource("AnimationLibrary_bpuqh")
-}
+[node name="Stats" type="Control" parent="MarginContainer/Control/Card"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -164.0
+offset_top = -168.0
+offset_right = 192.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/Boat"]
-visible = false
-layout_mode = 0
-offset_left = 160.0
-offset_top = 96.0
-offset_right = 256.0
-offset_bottom = 192.0
-texture = ExtResource("3_iyhep")
+[node name="Stats" type="VBoxContainer" parent="MarginContainer/Control/Card/Stats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -36.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Control/Card/Stats/Stats"]
+layout_mode = 2
+text = "Unlocks: Color Shores"
+label_settings = SubResource("LabelSettings_6c2nj")
+
+[node name="DayTime" parent="MarginContainer/Control/Card/Stats/Stats" instance=ExtResource("5_s1lg0")]
+layout_mode = 2
+stat_name = "Day Time"
+min_value = 1.0
+max_value = 120.0
 
 [node name="UpgradeButton" type="Button" parent="MarginContainer/Control"]
 layout_mode = 1
@@ -413,53 +345,6 @@ layout_mode = 2
 text = "100"
 label_settings = SubResource("LabelSettings_s1lg0")
 horizontal_alignment = 1
-
-[node name="Stats" type="Control" parent="MarginContainer/Control"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -192.0
-offset_top = -264.0
-offset_right = 192.0
-offset_bottom = -144.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Stats" type="VBoxContainer" parent="MarginContainer/Control/Stats"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 2
-
-[node name="DayTime" type="VBoxContainer" parent="MarginContainer/Control/Stats/Stats"]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/Control/Stats/Stats/DayTime"]
-layout_mode = 2
-text = "Day Time"
-label_settings = SubResource("LabelSettings_i5mka")
-
-[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/Control/Stats/Stats/DayTime"]
-custom_minimum_size = Vector2(0, 24)
-layout_mode = 2
-size_flags_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_fovme")
-theme_override_styles/fill = SubResource("StyleBoxFlat_773qs")
-max_value = 120.0
-value = 50.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="MarginContainer/Control/Stats/Stats"]
-layout_mode = 2
-text = "Unlocks: Color Shores"
-label_settings = SubResource("LabelSettings_6c2nj")
 
 [node name="CloseButton" type="TextureButton" parent="."]
 layout_mode = 1

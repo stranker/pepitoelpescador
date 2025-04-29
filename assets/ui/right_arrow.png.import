@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d25r7ah5uv4vl"
-path="res://.godot/imported/shop_background.jpg-61a0173413ab70af5648678b5821da85.ctex"
+uid="uid://74frmjaqi1ns"
+path="res://.godot/imported/right_arrow.png-11bbfdcce15b0dffe5a995faae11b186.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/background/shop_background.jpg"
-dest_files=["res://.godot/imported/shop_background.jpg-61a0173413ab70af5648678b5821da85.ctex"]
+source_file="res://assets/ui/right_arrow.png"
+dest_files=["res://.godot/imported/right_arrow.png-11bbfdcce15b0dffe5a995faae11b186.ctex"]
 
 [params]
 

@@ -15,11 +15,18 @@ extends Resource
 @export var length_array : Array[float]
 @export var recover_array : Array[float]
 
-func get_price():
-	if level < price_array.size() - 1:
+func get_next_price():
+	if level < get_max_level() - 1:
 		return price_array[level + 1]
 	else:
 		return -1
+
+func get_price():
+	return price_array[level]
+
+func purchase():
+	purchased = true
+	pass
 
 func get_force():
 	return force_array[level]
@@ -31,10 +38,51 @@ func get_length():
 	return length_array[level]
 
 func get_recover():
-	return length_array[level]
+	return recover_array[level]
+
+func get_next_force():
+	if level + 1 >= get_max_level():
+		return force_array.back()
+	return force_array[level + 1]
+
+func get_next_accuracy():
+	if level + 1 >= get_max_level():
+		return accuracy_array.back()
+	return accuracy_array[level + 1]
+
+func get_next_length():
+	if level + 1 >= get_max_level():
+		return length_array.back()
+	return length_array[level + 1]
+
+func get_next_recover():
+	if level + 1 >= get_max_level():
+		return recover_array.back()
+	return recover_array[level + 1]
 
 func reset():
 	level = 0
 	purchased = initial_hook
 	equiped = false
+	pass
+
+func upgrade():
+	level += 1
+	pass
+
+func get_max_level():
+	return price_array.size()
+
+func can_upgrade():
+	return level < get_max_level()
+
+func is_max_level():
+	return level + 1 >= get_max_level()
+
+func unequip():
+	equiped = false
+	pass
+
+func equip():
+	equiped = true
 	pass

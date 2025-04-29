@@ -38,7 +38,7 @@ var hook_state = HookState.IDLE
 
 signal movement_state_changed(movement_state)
 signal hook_state_changed(hook_state)
-signal stats_updated(stats)
+signal stats_updated(speed, accuracy, length, recover)
 signal items_collected(count)
 signal no_items_collected()
 
@@ -56,6 +56,7 @@ func _set_hook_data():
 	length = stats.get_length() * LENGTH_MULTIPLIER
 	recover_force = stats.get_recover() * RECOVER_MULTIPLIER
 	skin.texture = stats.texture
+	stats_updated.emit(speed, accuracy, length, recover_force)
 	pass
 
 func throw(dir : Vector2):
@@ -166,9 +167,10 @@ func _collect_items():
 		no_items_collected.emit()
 		return
 	for fish in fishes.get_children():
-		items_collected.emit(1)
-		fish.collect()
-		await get_tree().create_timer(0.2).timeout
+		if is_instance_valid(fish):
+			items_collected.emit(1)
+			fish.collect()
+			await get_tree().create_timer(0.2).timeout
 	for collectable in collectables.get_children():
 		items_collected.emit(1)
 		collectable.collect()

@@ -57,6 +57,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		if not input_enabled:
 			input_enabled = true
 		else:
+			GameManager.save_game_data()
 			get_tree().change_scene_to_file("res://scenes/main_scene.tscn")
 	pass # Replace with function body.
 

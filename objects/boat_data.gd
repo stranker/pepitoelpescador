@@ -3,7 +3,16 @@ extends Resource
 
 @export var price_list : Array[int]
 @export var day_time_values : Array[float]
+@export var textures : Array[Texture]
 @export var current_tier : int = 0
+
+func get_day_time():
+	return day_time_values[current_tier]
+
+func get_next_day_time():
+	if current_tier + 1 >= get_max_tier():
+		return day_time_values.back()
+	return day_time_values[current_tier + 1]
 
 func get_max_tier():
 	return price_list.size()
@@ -14,6 +23,9 @@ func next_price():
 		return price_list[next_tier]
 	else:
 		return -1
+
+func get_texture():
+	return textures[current_tier]
 
 func upgrade():
 	current_tier += 1
