@@ -30,6 +30,12 @@ func _ready() -> void:
 		anim.play(\"lock\")
 	pass
 
+func unlock():
+	if not locked: return
+	locked = false
+	anim.play(\"idle\")
+	pass
+
 func set_selected(is_selected : bool):
 	if locked: return
 	selected = is_selected
@@ -118,6 +124,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_vqpty"]
 resource_name = "idle"
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -157,6 +164,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_4od7s"]
 resource_name = "lock"
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

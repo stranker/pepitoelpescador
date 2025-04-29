@@ -42,10 +42,11 @@ metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
 
 [sub_resource type="Resource" id="Resource_ipr50"]
 script = ExtResource("5_84b6b")
-price_list = Array[int]([0, 100])
+price_list = Array[int]([0, 0])
 day_time_values = Array[float]([50.0, 60.0])
 textures = Array[Texture]([ExtResource("6_x1b0d"), ExtResource("7_84b6b")])
 current_tier = 0
+unlocks = Array[String](["Unlocks: Color Shores", "Unlocks: Aurora Coast"])
 metadata/_custom_type_script = "uid://ckm0fmy0scpjh"
 
 [node name="ItemManager" type="Node"]

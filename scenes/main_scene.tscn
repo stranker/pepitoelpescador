@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://bhdtyhdxdivwg"]
+[gd_scene load_steps=29 format=4 uid="uid://bhdtyhdxdivwg"]
 
 [ext_resource type="Script" uid="uid://bmmw8i83dyeou" path="res://scenes/main_scene.gd" id="1_gubc5"]
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="1_pw63i"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ctg1fx7elwl1p" path="res://ui/map.tscn" id="7_c16ls"]
 [ext_resource type="PackedScene" uid="uid://b7o878bg7yltg" path="res://ui/card_selector.tscn" id="8_18nlu"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="9_6wevv"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="9_e1cbu"]
 [ext_resource type="AudioStream" uid="uid://dy6dnip7c1qfr" path="res://assets/sfx/coins.wav" id="10_e1cbu"]
 
 [sub_resource type="Animation" id="Animation_e1cbu"]
@@ -86,6 +87,7 @@ func _ready() -> void:
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_mngbo"]
+font = ExtResource("9_e1cbu")
 font_size = 46
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)

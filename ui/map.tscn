@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctg1fx7elwl1p"]
+[gd_scene load_steps=13 format=3 uid="uid://ctg1fx7elwl1p"]
 
 [ext_resource type="Script" uid="uid://bsi8phqfsjwdg" path="res://ui/map.gd" id="1_xf5ci"]
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="2_hdjpg"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="5_nrgxe"]
 [ext_resource type="PackedScene" uid="uid://7605xw4rige" path="res://scenes/color_shores.tscn" id="5_uwv3m"]
 [ext_resource type="Texture2D" uid="uid://cmjghx3ti5vml" path="res://assets/sprites/background/mystic_river.jpg" id="6_uwv3m"]
+[ext_resource type="PackedScene" uid="uid://buqew5foqk3au" path="res://scenes/aurora_coast.tscn" id="7_cjqc2"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="9_dc1eh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjqc2"]
@@ -100,6 +101,7 @@ grow_horizontal = 2
 grow_vertical = 2
 level_name = "Aurora Coast"
 level_image = ExtResource("5_ay3ok")
+level_scene = ExtResource("7_cjqc2")
 
 [node name="MapItem3" parent="MarginContainer/Maps" instance=ExtResource("3_gu6eb")]
 layout_mode = 1

@@ -164,7 +164,7 @@ _data = {
 &"idle": SubResource("Animation_whe5k")
 }
 
-[node name="BoatsPanel" type="Control" node_paths=PackedStringArray("boat_texture", "boat_price", "button_anim", "day_time")]
+[node name="BoatsPanel" type="Control" node_paths=PackedStringArray("boat_texture", "boat_price", "button_anim", "day_time", "unlock_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -177,6 +177,7 @@ boat_texture = NodePath("MarginContainer/Control/Card/Boat")
 boat_price = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer/Control/HBoxContainer/Label")
 button_anim = NodePath("Anim")
 day_time = NodePath("MarginContainer/Control/Card/Stats/Stats/DayTime")
+unlock_label = NodePath("MarginContainer/Control/Card/Stats/Stats/Unlocks")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -257,7 +258,7 @@ offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="MarginContainer/Control/Card/Stats/Stats"]
+[node name="Unlocks" type="Label" parent="MarginContainer/Control/Card/Stats/Stats"]
 layout_mode = 2
 text = "Unlocks: Color Shores"
 label_settings = SubResource("LabelSettings_6c2nj")

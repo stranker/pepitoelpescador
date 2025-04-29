@@ -6,6 +6,8 @@ extends Node
 var equipped_hook : HookStats = null
 var equipped_boat : BoatData = null
 
+signal boat_upgraded(boat)
+
 func _ready() -> void:
 	equipped_hook = hooks.front()
 	equipped_boat = boat
@@ -30,6 +32,7 @@ func upgrade_hook(hook : HookStats):
 func upgrade_boat():
 	GameManager.spend_coins(boat.next_price())
 	boat.upgrade()
+	boat_upgraded.emit(boat)
 	pass
 
 func set_loaded_items(item_dic : Dictionary):
