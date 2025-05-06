@@ -5,7 +5,7 @@ class GameStats:
 	var experience : float = 0
 	var player_level : int = 1
 	var days_passed : int = 0
-	var day_duration : float = 20
+	var day_duration : float = 500
 	var total_fishes_catched : int = 0
 	
 	func reset():
@@ -41,11 +41,25 @@ signal divinity_day()
 signal update_game_stats(stats)
 signal end_day(fishes)
 
+@onready var loading_scene : PackedScene = preload("res://scenes/loading_screen.tscn")
+
 func _ready() -> void:
 	add_to_group("gameplay")
 	_load_game_data()
 	await get_tree().process_frame
 	_create_music()
+	pass
+
+func load_scene(scene_path : String):
+	var loading : LoadingScene = loading_scene.instantiate()
+	loading.scene_loaded.connect(on_game_scene_loaded)
+	get_tree().root.add_child(loading)
+	loading.load(scene_path)
+	pass
+
+func on_game_scene_loaded(scene_path : String):
+	var game_scene = ResourceLoader.load_threaded_get(scene_path)
+	get_tree().change_scene_to_packed(game_scene)
 	pass
 
 func _load_game_data():
@@ -118,7 +132,7 @@ func spend_coins(gold : int):
 
 func start_level():
 	fishes_catched.clear()
-	get_tree().change_scene_to_packed(level_scene)
+	load_scene(level_scene.resource_path)
 	pass
 
 func add_experience(new_exp : float):
@@ -129,7 +143,7 @@ func add_experience(new_exp : float):
 		experience_update.emit(game_stats.experience)
 		game_stats.player_level += 1
 		player_level_update.emit(game_stats.player_level)
-		play_unavailable.emit()
+		#play_unavailable.emit()
 		await get_tree().create_timer(0.7).timeout
 	pass
 

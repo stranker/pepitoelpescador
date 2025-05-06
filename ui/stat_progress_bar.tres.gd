@@ -20,6 +20,8 @@ func _ready() -> void:
 	pass
 
 func set_data(data : Dictionary):
-	current_progress.value = data.current_value
-	next_progress.value = data.next_value
+	if data.has("current_value"):
+		current_progress.value = data.current_value
+	if data.has("next_value"):
+		next_progress.value = data.next_value
 	pass

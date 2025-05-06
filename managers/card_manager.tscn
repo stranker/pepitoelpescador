@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d0u656wq8p8ft"]
+[gd_scene load_steps=18 format=3 uid="uid://d0u656wq8p8ft"]
 
 [ext_resource type="Script" uid="uid://biw2k543ativ7" path="res://managers/card_manager.gd" id="1_urukv"]
 [ext_resource type="Script" uid="uid://dokbbhkitmfd5" path="res://objects/character_card.gd" id="2_6p2yx"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://dedu1aqgaewfb" path="res://assets/sprites/cards/character_card.png" id="5_nvbsy"]
 [ext_resource type="Texture2D" uid="uid://dbrnrpoi6vpym" path="res://assets/sprites/fishermans/hunter_skin.png" id="6_ha00d"]
 [ext_resource type="Texture2D" uid="uid://dsbkpd4pvndmm" path="res://assets/sprites/fishermans/businessman_skin.png" id="7_2eyr2"]
-[ext_resource type="Texture2D" uid="uid://bg5273i0auuvv" path="res://assets/sprites/fishermans/fisherman_skin.png" id="8_gglj7"]
 [ext_resource type="Texture2D" uid="uid://j4nwyvbnwcqt" path="res://assets/sprites/fishermans/bodybuilder_skin.png" id="9_0ds10"]
 
 [sub_resource type="Resource" id="Resource_t1ebg"]
@@ -70,8 +69,8 @@ card_background = ExtResource("3_wf3hm")
 [sub_resource type="Resource" id="Resource_4yfaj"]
 script = ExtResource("2_6p2yx")
 character_type = 0
-base_power = 2.5
-base_accuracy = 0.4
+base_power = 1.8
+base_accuracy = 1.0
 card_name = "The Hunter"
 card_texture = ExtResource("6_ha00d")
 card_description = "Great accuracy but less power"
@@ -81,27 +80,17 @@ card_background = ExtResource("5_nvbsy")
 script = ExtResource("2_6p2yx")
 character_type = 1
 base_power = 1.0
-base_accuracy = 1.0
+base_accuracy = 0.1
 card_name = "The Business Man"
 card_texture = ExtResource("7_2eyr2")
 card_description = "Its the best to sell things"
-card_background = ExtResource("5_nvbsy")
-
-[sub_resource type="Resource" id="Resource_gipd3"]
-script = ExtResource("2_6p2yx")
-character_type = 2
-base_power = 2.0
-base_accuracy = 0.6
-card_name = "The Fisherman"
-card_texture = ExtResource("8_gglj7")
-card_description = "Good overall of accuracy and power strength"
 card_background = ExtResource("5_nvbsy")
 
 [sub_resource type="Resource" id="Resource_6gl74"]
 script = ExtResource("2_6p2yx")
 character_type = 3
 base_power = 4.0
-base_accuracy = 1.5
+base_accuracy = 0.0
 card_name = "The Power Builder"
 card_texture = ExtResource("9_0ds10")
 card_description = "Powerfull but inaccurate"
@@ -110,4 +99,4 @@ card_background = ExtResource("5_nvbsy")
 [node name="CardManager" type="Node"]
 script = ExtResource("1_urukv")
 upgrade_cards = Array[ExtResource("3_3wi76")]([SubResource("Resource_t1ebg"), SubResource("Resource_os6gr"), SubResource("Resource_pdx5o"), SubResource("Resource_qr071"), SubResource("Resource_0fynk")])
-character_cards = Array[ExtResource("2_6p2yx")]([SubResource("Resource_4yfaj"), SubResource("Resource_htk0b"), SubResource("Resource_gipd3"), SubResource("Resource_6gl74")])
+character_cards = Array[ExtResource("2_6p2yx")]([SubResource("Resource_4yfaj"), SubResource("Resource_htk0b"), SubResource("Resource_6gl74")])

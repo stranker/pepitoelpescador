@@ -1,5 +1,5 @@
 class_name LoadingScene
-extends Control
+extends CanvasLayer
 
 signal scene_loaded(path)
 
@@ -19,9 +19,10 @@ func _physics_process(delta: float) -> void:
 	var progress = []
 	var status = ResourceLoader.load_threaded_get_status(path, progress)
 	if status == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_IN_PROGRESS:
-		progress_value = progress[0] * 100
+		progress_value = progress[0] * 50
 		progress_bar.value = move_toward(progress_bar.value, progress_value, delta * 20)
 	if status == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
-		progress_bar.value = move_toward(progress_bar.value, 100.0, delta * 150)
+		progress_bar.value = move_toward(progress_bar.value, 100.0, delta * 100)
 		if progress_bar.value >= 99:
 			scene_loaded.emit(path)
+			queue_free()

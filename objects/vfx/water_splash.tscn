@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cks1yu28jgvtk"]
+[gd_scene load_steps=8 format=3 uid="uid://cks1yu28jgvtk"]
 
 [ext_resource type="Texture2D" uid="uid://c0uy6y2kg7m1d" path="res://assets/sprites/bubbles.png" id="1_gn3ck"]
 [ext_resource type="AudioStream" uid="uid://dep2iy1l8gghi" path="res://assets/sfx/splash1.wav" id="2_73tm8"]
@@ -7,31 +7,79 @@
 offsets = PackedFloat32Array(0, 0.686347, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GDScript" id="GDScript_3udrc"]
-resource_name = "water_splash"
-script/source = "extends CPUParticles2D
-
-func _ready() -> void:
-	emitting = true
-
-func _on_finished() -> void:
-	queue_free()
-	pass # Replace with function body.
-"
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_wp30n"]
 random_pitch = 2.0
 random_volume_offset_db = 5.0
 streams_count = 1
 stream_0/stream = ExtResource("2_73tm8")
 
+[sub_resource type="Animation" id="Animation_0fx18"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_1p7rl"]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fv7o5"]
+_data = {
+&"RESET": SubResource("Animation_0fx18"),
+&"show": SubResource("Animation_1p7rl")
+}
+
 [node name="WaterSplash" type="CPUParticles2D"]
 emitting = false
-amount = 16
+amount = 24
+texture = ExtResource("1_gn3ck")
 lifetime = 0.8
 one_shot = true
 explosiveness = 1.0
-texture = ExtResource("1_gn3ck")
 direction = Vector2(0, -1)
 spread = 20.0
 initial_velocity_min = 300.0
@@ -42,11 +90,14 @@ angle_min = -720.0
 angle_max = 720.0
 scale_amount_min = 0.1
 color_ramp = SubResource("Gradient_vkytp")
-script = SubResource("GDScript_3udrc")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_wp30n")
-autoplay = true
 bus = &"SFx"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fv7o5")
+}
 
 [connection signal="finished" from="." to="." method="_on_finished"]

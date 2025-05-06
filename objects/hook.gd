@@ -9,6 +9,8 @@ extends CharacterBody2D
 @export var hook_force_threshold : float = 200
 @export var gravity : float = 1200
 @onready var camera: Camera2D = $Camera
+@onready var water_splash: CPUParticles2D = $WaterSplash
+
 
 var speed : float = 0
 var length : float = 0
@@ -16,14 +18,12 @@ var accuracy : float = 0
 var speed_decrease : float = 0
 var recover_force : float = 0
 
-const LENGTH_MULTIPLIER : float = 250
+const LENGTH_MULTIPLIER : float = 100
 const LENGTH_LIMIT_MULTIPLIER : float = 1.5
 const SPEED_MULTIPLIER : float = 400
 const RECOVER_MULTIPLIER : float = 700
 
 @onready var throw_sfx : AudioStreamPlayer = $Throw
-
-const water_splash_scene : PackedScene = preload("res://objects/vfx/water_splash.tscn")
 
 var direction : Vector2
 var initial_position : Vector2
@@ -60,18 +60,19 @@ func _set_hook_data():
 	pass
 
 func throw(dir : Vector2):
-	set_hook_state(HookState.THROWN)
+	set_state(HookState.THROWN)
 	set_physics_process(true)
-	var new_dir_angle : float = dir.angle() + randf_range(-accuracy, accuracy)
+	var throw_accuracy = (HookStats.MAX_ACCURACY - accuracy) / HookStats.MAX_ACCURACY
+	var new_dir_angle : float = dir.angle() + randf_range(-throw_accuracy, throw_accuracy)
 	direction = Vector2.from_angle(new_dir_angle).normalized()
 	velocity = direction * speed
-	get_tree().call_group("ui", "fade_out")
 	wind.emitting = true
 	final_direct_position = initial_position + Vector2.DOWN * length
+	get_tree().call_group("ui", "fade_out")
 	pass
 
 func recover():
-	set_hook_state(HookState.RECOVER)
+	set_state(HookState.RECOVER)
 	velocity += global_position.direction_to(initial_position) * (1.0 / _get_fishes_weight()) * recover_force
 	final_direct_position += Vector2.UP * 200
 	pass
@@ -101,9 +102,10 @@ func _physics_process(delta: float) -> void:
 		if global_position.distance_to(initial_position) < 250:
 			global_position = lerp(global_position, initial_position, delta * 5)
 			if global_position.distance_to(initial_position) < 50:
-				set_hook_state(HookState.IDLE)
+				set_state(HookState.IDLE)
 				_collect_items()
 	move_and_slide()
+	_clamp_length()
 	pass
 
 func _process_recover(delta):
@@ -116,18 +118,22 @@ func air_movement(delta : float):
 	_limit_velocity()
 	pass
 
+func _clamp_length():
+	position = position.limit_length(length * 0.3)
+	pass
+
 func water_movement(delta : float):
 	if velocity.y < 200:
 		rotation = lerp_angle(rotation, Vector2.DOWN.angle(), delta)
 		velocity.y = lerpf(velocity.y, 0, delta)
 	else:
 		rotation = lerp_angle(rotation, velocity.angle(), delta * 2)
-	velocity = lerp(velocity, global_position.direction_to(final_direct_position) * speed * 0.2, delta)
+	velocity = velocity.lerp(global_position.direction_to(final_direct_position) * speed * 0.2, delta)
 	_limit_velocity()
 	pass
 
 func _limit_velocity():
-	velocity = velocity.limit_length(length * LENGTH_LIMIT_MULTIPLIER)#LENGTH_LIMIT_MULTIPLIER)
+	velocity = velocity.limit_length(length * LENGTH_LIMIT_MULTIPLIER)
 	pass
 
 func set_movement_state(new_state : MovementState):
@@ -140,7 +146,7 @@ func set_movement_state(new_state : MovementState):
 	movement_state_changed.emit(movement_state)
 	pass
 
-func set_hook_state(new_state: HookState):
+func set_state(new_state: HookState):
 	hook_state = new_state
 	match hook_state:
 		HookState.IDLE:
@@ -188,10 +194,11 @@ func _on_water_detection_area_entered(area: Area2D) -> void:
 			set_movement_state(MovementState.WATER)
 			wind.emitting = false
 			bubbles.emitting = true
-			_create_water_splash()
+			water_splash.rotation = -rotation
+			water_splash.play()
 		MovementState.WATER:
 			clamp_y = true
-	pass # Replace with function body.
+	pass
 
 func _on_fish_detector_area_entered(area: Area2D) -> void:
 	if hook_state == HookState.RECOVER: return
@@ -199,7 +206,7 @@ func _on_fish_detector_area_entered(area: Area2D) -> void:
 	var fish : Fish = area as Fish
 	fish.hook(fishes)
 	velocity *= speed_decrease
-	pass # Replace with function body.
+	pass
 
 
 func _on_collectable_detector_area_entered(area: Area2D) -> void:
@@ -208,20 +215,14 @@ func _on_collectable_detector_area_entered(area: Area2D) -> void:
 	var collectable : Collectable = area as Collectable
 	collectable.hook(collectables) 
 	velocity *= speed_decrease
-	pass # Replace with function body.
+	pass
 
 func on_end_boss_prensetation():
 	camera.enabled = true
 	pass
 
 func reset():
-	set_hook_state(HookState.IDLE)
+	set_state(HookState.IDLE)
 	for fish in fishes.get_children():
 		fish.queue_free()
-	pass
-
-func _create_water_splash():
-	var water_splash = water_splash_scene.instantiate()
-	get_tree().root.add_child(water_splash)
-	water_splash.global_position = global_position
 	pass

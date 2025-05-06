@@ -1,8 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://dj3urhrrnjbd4"]
+[gd_scene load_steps=19 format=3 uid="uid://dj3urhrrnjbd4"]
 
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="1_8ln24"]
 [ext_resource type="PackedScene" uid="uid://cbxq6hn0dd75u" path="res://scenes/scrim.tscn" id="1_bfmak"]
-[ext_resource type="PackedScene" uid="uid://brglr7ejcrv5o" path="res://scenes/loading_screen.tscn" id="1_tbmy8"]
 [ext_resource type="PackedScene" uid="uid://wy6iqyp1pmr1" path="res://objects/fishes/greeny.tscn" id="2_rtw2f"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_wu84c"]
 [ext_resource type="Texture2D" uid="uid://c0uy6y2kg7m1d" path="res://assets/sprites/bubbles.png" id="3_cjgqh"]
@@ -13,8 +12,6 @@
 script/source = "extends Control
 
 @export var anim : AnimationPlayer
-
-@export var loading_scene : PackedScene
 
 func _ready() -> void:
 	if GameManager.player_selected:
@@ -32,7 +29,7 @@ func _on_sound_options_closed() -> void:
 
 func _on_new_game_button_down() -> void:
 	GameManager.clear_saved_data()
-	load_main_scene()
+	GameManager.load_scene(\"res://scenes/customize_scene.tscn\")
 	pass # Replace with function body.
 
 func on_game_scene_loaded(path):
@@ -41,15 +38,8 @@ func on_game_scene_loaded(path):
 	pass
 
 func _on_continue_button_down() -> void:
-	load_main_scene()
+	GameManager.load_scene(\"res://scenes/main_scene.tscn\")
 	pass # Replace with function body.
-
-func load_main_scene():
-	var loading : LoadingScene = loading_scene.instantiate()
-	loading.scene_loaded.connect(on_game_scene_loaded)
-	add_child(loading)
-	loading.load(\"res://scenes/main_scene.tscn\")
-	pass
 
 func _on_credits_button_down() -> void:
 	anim.play(\"credits\")
@@ -226,9 +216,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_m6sqb")
 anim = NodePath("Anim")
-loading_scene = ExtResource("1_tbmy8")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

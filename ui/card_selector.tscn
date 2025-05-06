@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7o878bg7yltg"]
+[gd_scene load_steps=6 format=3 uid="uid://b7o878bg7yltg"]
 
 [ext_resource type="Script" uid="uid://rgl2eq0uxma0" path="res://ui/card_selector.gd" id="1_7ukqc"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_k7cl5"]
+[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="3_dqylm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r33km"]
 bg_color = Color(0, 0, 0, 0.941176)
@@ -10,7 +11,7 @@ bg_color = Color(0, 0, 0, 0.941176)
 font = ExtResource("2_k7cl5")
 font_size = 64
 
-[node name="CardSelector" type="Control" node_paths=PackedStringArray("cards", "title")]
+[node name="CardSelector" type="Control" node_paths=PackedStringArray("cards", "title", "close_button")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -21,6 +22,7 @@ grow_vertical = 2
 script = ExtResource("1_7ukqc")
 cards = NodePath("Cards")
 title = NodePath("Title")
+close_button = NodePath("Close")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -61,3 +63,17 @@ text = "SELECT YOUR CHARACTER"
 label_settings = SubResource("LabelSettings_ca4vc")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Close" type="TextureButton" parent="."]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 104.0
+offset_bottom = 112.0
+texture_normal = ExtResource("3_dqylm")
+texture_pressed = ExtResource("3_dqylm")
+texture_hover = ExtResource("3_dqylm")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="button_down" from="Close" to="." method="_on_close_button_down"]

@@ -15,6 +15,8 @@ extends Resource
 @export var length_array : Array[float]
 @export var recover_array : Array[float]
 
+const MAX_ACCURACY = 5
+
 func get_next_price():
 	if level < get_max_level() - 1:
 		return price_array[level + 1]

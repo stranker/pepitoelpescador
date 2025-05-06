@@ -29,6 +29,14 @@ func _ready() -> void:
 	_set_character_data()
 	pass
 
+func _physics_process(delta: float) -> void:
+	#queue_redraw()
+	pass
+
+func _draw() -> void:
+	#draw_circle(Vector2.ZERO, hook.length, Color.CRIMSON, false, 5)
+	pass
+
 func on_end_day(fishes):
 	set_state(ThrowState.DISABLED)
 	pass
@@ -74,7 +82,6 @@ func _handle_recover(event : InputEvent):
 
 func set_state(new_state : ThrowState):
 	throw_state = new_state
-	#print_debug(ThrowState.keys()[new_state])
 	match throw_state:
 		ThrowState.IDLE:
 			throw_initial_pos = global_position

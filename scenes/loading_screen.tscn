@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://brglr7ejcrv5o"]
+[gd_scene load_steps=7 format=3 uid="uid://brglr7ejcrv5o"]
 
 [ext_resource type="Script" uid="uid://y8votxjjlw48" path="res://scenes/loading_screen.gd" id="1_hprjd"]
 [ext_resource type="Texture2D" uid="uid://mkr2ayquatc4" path="res://assets/ui/fish_icon.png" id="2_ku3bi"]
@@ -6,17 +6,58 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wwex"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="LoadingScreen" type="Control" node_paths=PackedStringArray("progress_bar")]
+[sub_resource type="Animation" id="Animation_ku3bi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureProgressBar:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-3.14159]
+}
+
+[sub_resource type="Animation" id="Animation_hprjd"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureProgressBar:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [-3.05433, -3.22886]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5phy8"]
+_data = {
+&"RESET": SubResource("Animation_ku3bi"),
+&"idle": SubResource("Animation_hprjd")
+}
+
+[node name="LoadingScreen" type="CanvasLayer" node_paths=PackedStringArray("progress_bar")]
+layer = 2
+script = ExtResource("1_hprjd")
+progress_bar = NodePath("Main/Panel/TextureProgressBar")
+
+[node name="Main" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_hprjd")
-progress_bar = NodePath("Panel/TextureProgressBar")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="Main"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,7 +66,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8wwex")
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Panel"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Main/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -46,3 +87,9 @@ nine_patch_stretch = true
 texture_under = ExtResource("2_ku3bi")
 texture_progress = ExtResource("2_ku3bi")
 tint_under = Color(0.20871, 0.20871, 0.20871, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Main/Panel"]
+libraries = {
+&"": SubResource("AnimationLibrary_5phy8")
+}
+autoplay = "idle"

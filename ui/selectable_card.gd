@@ -2,11 +2,16 @@ class_name SelectableCard
 extends Control
 
 @export var card_title : Label
-@export var card_upgrade : TextureRect
-@export var card_character : TextureRect
+@export var card_image : TextureRect
 @export var card_description : RichTextLabel
 @export var anim : AnimationPlayer
+@export var description_anim : AnimationPlayer
 @export var background : NinePatchRect
+@export var star_list : HBoxContainer
+
+@export var power_progress : StatProgressBar
+@export var accuracy_progress : StatProgressBar
+
 var is_selected : bool = false
 var is_drestroyed : bool = false
 var is_interactive : bool = false
@@ -15,40 +20,63 @@ var data : Card
 
 signal selected(card_data)
 
+func _ready() -> void:
+	description_anim.play("upgrade")
+	_animate_upgrade_star($Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List/Star)
+	pass
+
 func init(card_data : Card):
 	card_title.text = card_data.card_name
 	if card_data.card_type == Card.CardType.CHARACTER:
-		card_character.show()
-		card_upgrade.hide()
-		card_character.texture.atlas = card_data.card_texture
+		var card = card_data as CharacterCard
+		card_image.texture = AtlasTexture.new()
+		card_image.texture.region = Rect2(12, 0, 42, 42)
+		card_image.texture.atlas = card_data.card_texture
+		description_anim.play("character")
+		power_progress.set_data({"current_value":card.base_power})
+		accuracy_progress.set_data({"current_value":card.base_accuracy})
 	else:
-		card_character.hide()
-		card_upgrade.show()
-		card_upgrade.texture = card_data.card_texture
+		var card = card_data as UpgradeCard
+		for i in range(card.upgrade_level):
+			star_list.get_child(i).self_modulate = Color.DARK_ORANGE
+		_animate_upgrade_star(star_list.get_child(card.upgrade_level - 1))
+		card_image.texture = card_data.card_texture
+		description_anim.play("upgrade")
 	card_description.text = card_data.get_description()
 	background.texture = card_data.card_background
 	data = card_data
 	anim.play("appear")
 	pass
 
+func _animate_upgrade_star(star : Control):
+	var color = star.self_modulate
+	var tween : Tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(star, "self_modulate", Color(color.r,color.g,color.b,0.2), 0.3).set_ease(Tween.EASE_IN)
+	tween.tween_property(star, "self_modulate", Color(color.r,color.g,color.b,1.0), 0.3).set_ease(Tween.EASE_IN).set_delay(0.5)
+	tween.set_loops()
+	tween.play()
+	pass
+
 func _on_mouse_entered() -> void:
 	if not is_interactive: return
 	if is_selected or is_drestroyed: return
 	anim.play("hover")
-	pass # Replace with function body.
+	pass
 
 func _on_mouse_exited() -> void:
 	if not is_interactive: return
 	if is_selected or is_drestroyed: return
 	anim.play("RESET")
-	pass # Replace with function body.
+	pass
 
 func _on_gui_input(event: InputEvent) -> void:
+	if not is_interactive: return
 	if is_selected: return
 	if event.is_action_pressed("mouse_select") and event.is_pressed():
 		anim.play("selected")
 		is_selected = true
-	pass # Replace with function body.
+	pass
 
 func card_selected():
 	selected.emit(data)
@@ -58,5 +86,5 @@ func destroy():
 	anim.play("destroy")
 	pass
 
-func set_interactive():
+func enable():
 	is_interactive = true

@@ -615,7 +615,7 @@ respawn_time = 50.0
 
 [node name="WaterCollision" type="Area2D" parent="Water"]
 z_index = 3
-position = Vector2(6, 11)
+position = Vector2(3, 18)
 collision_layer = 2
 collision_mask = 0
 
