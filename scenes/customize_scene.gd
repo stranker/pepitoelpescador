@@ -1,71 +1,68 @@
 extends Control
 
 @export var anim : AnimationPlayer
+@export var skin_colors : HBoxContainer
 
-@export var head : TextureRect
-@export var hat : TextureRect
-@export var body : TextureRect
+@export var face : Sprite2D
+@export var hat : Sprite2D
+@export var body : Sprite2D
 
-@export var head_textures : Array[Texture]
-@export var hat_textures : Array[Texture]
-@export var body_textures : Array[Texture]
+@export var player_skin : Array[Sprite2D]
 
-var head_idx : int = 0
-var hat_idx : int = 0
-var body_idx : int = 0
-
-func _update_hat_texture():
-	hat_idx = hat_idx % hat_textures.size()
-	hat.texture = hat_textures[hat_idx]
+func _ready() -> void:
+	_bind_skin_buttons()
+	on_skin_color_changed(skin_colors.get_child(0).get_theme_stylebox("normal").bg_color)
 	pass
 
-func _update_head_texture():
-	head_idx = head_idx % head_textures.size()
-	head.texture = head_textures[head_idx]
+func _bind_skin_buttons():
+	for skin_button in skin_colors.get_children():
+		var button : Button = skin_button as Button
+		var style_box : StyleBoxFlat = button.get_theme_stylebox("normal")
+		var skin_color : Color = style_box.bg_color
+		button.pressed.connect(on_skin_color_changed.bind(skin_color))
 	pass
 
-func _update_body_texture():
-	body_idx = body_idx % body_textures.size()
-	body.texture = body_textures[body_idx]
+func on_skin_color_changed(skin_color : Color):
+	for part in player_skin:
+		part.self_modulate = skin_color
 	pass
 
 func _on_hat_left_button_down() -> void:
-	hat_idx -= 1
-	_update_hat_texture()
+	previous_frame_sprite(hat)
 	pass
 
 func _on_face_left_button_down() -> void:
-	head_idx -= 1
-	_update_head_texture()
+	previous_frame_sprite(face)
 	pass
 
 func _on_body_left_button_down() -> void:
-	body_idx -= 1
-	_update_body_texture()
+	previous_frame_sprite(body)
 	pass
 
 func _on_hat_right_button_down() -> void:
-	hat_idx += 1
-	_update_hat_texture()
+	next_frame_sprite(hat)
 	pass
 
 func _on_face_right_button_down() -> void:
-	head_idx += 1
-	_update_head_texture()
+	next_frame_sprite(face)
 	pass
 
 func _on_body_right_button_down() -> void:
-	body_idx += 1
-	_update_body_texture()
+	next_frame_sprite(body)
+	pass
+
+func previous_frame_sprite(sprite : Sprite2D):
+	sprite.frame = sprite.hframes - 1 if sprite.frame <= 0 else sprite.frame - 1
+	pass
+
+func next_frame_sprite(sprite : Sprite2D):
+	sprite.frame = 0 if sprite.frame >= sprite.hframes - 1 else sprite.frame + 1
 	pass
 
 func _on_randomize_button_down() -> void:
-	head_idx = randi() % head_textures.size()
-	hat_idx = randi() % hat_textures.size()
-	body_idx = randi() % body_textures.size()
-	_update_head_texture()
-	_update_hat_texture()
-	_update_body_texture()
+	face.frame = randi() % face.hframes
+	hat.frame = randi() % hat.hframes
+	body.frame = randi() % body.hframes
 	pass
 
 func _on_confirm_button_down() -> void:
