@@ -7,7 +7,7 @@ extends Control
 var enabled_input : bool = false
 
 func _ready() -> void:
-	CardManager.character_selected.connect(on_character_selected)
+	GameManager.save_game_data()
 	if GameManager.player_selected:
 		init_cinematic()
 	if GameManager.game_presentation_end:
@@ -33,14 +33,6 @@ func _on_map_map_close() -> void:
 	anim.play("idle")
 	pass # Replace with function body.
 
-func on_character_selected(character: CharacterCard) -> void:
-	GameManager.save_game_data()
-	if GameManager.game_presentation_end:
-		cinematic_camera.global_position = get_viewport_rect().size * 0.5
-		enabled_input = true
-		return
-	init_cinematic()
-	pass # Replace with function body.
 
 func _on_shop_gui_input(event: InputEvent) -> void:
 	if not enabled_input: return

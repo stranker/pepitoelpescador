@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6humfo0d4sts" path="res://objects/player.gd" id="1_l4p8p"]
 [ext_resource type="PackedScene" uid="uid://ddgcwp74rtv0o" path="res://objects/hook.tscn" id="2_d1o6y"]
-[ext_resource type="Texture2D" uid="uid://bg5273i0auuvv" path="res://assets/sprites/fishermans/fisherman_skin.png" id="3_2fvkl"]
+[ext_resource type="PackedScene" uid="uid://c5oj0pohmtd3v" path="res://objects/player_skin.tscn" id="3_f46kd"]
 [ext_resource type="Texture2D" uid="uid://ejc2v3gtfytb" path="res://assets/sprites/fishermans/boat.png" id="3_gxs7s"]
 [ext_resource type="Texture2D" uid="uid://bdpwlycxdhlc0" path="res://assets/sprites/ropes/default.png" id="4_wx688"]
 
@@ -208,14 +208,14 @@ position = Vector2(9, 3)
 scale = Vector2(3, 3)
 texture = ExtResource("3_gxs7s")
 
-[node name="Skin" type="Sprite2D" parent="Boat"]
+[node name="Skin" parent="Boat" instance=ExtResource("3_f46kd")]
 show_behind_parent = true
-position = Vector2(-2.33333, -26)
-texture = ExtResource("3_2fvkl")
+position = Vector2(-9.33333, -23.6667)
+scale = Vector2(0.1, 0.1)
 
 [node name="Hook" parent="Boat" instance=ExtResource("2_d1o6y")]
 z_index = 3
-position = Vector2(-3, -19)
+position = Vector2(-3, -13.6667)
 rotation = -0.289661
 scale = Vector2(0.333333, 0.333333)
 

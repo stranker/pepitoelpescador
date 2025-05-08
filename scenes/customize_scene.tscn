@@ -1,14 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://d0xbi6t0b2vbd"]
+[gd_scene load_steps=27 format=3 uid="uid://d0xbi6t0b2vbd"]
 
 [ext_resource type="Script" uid="uid://cqxlmo30gty7l" path="res://scenes/customize_scene.gd" id="1_j84h7"]
 [ext_resource type="Texture2D" uid="uid://74frmjaqi1ns" path="res://assets/ui/right_arrow.png" id="2_h4jc1"]
-[ext_resource type="Texture2D" uid="uid://bmcpshn44opkk" path="res://assets/sprites/fishermans/hat_a.png" id="4_dprt2"]
-[ext_resource type="Texture2D" uid="uid://c8ujrss2xwqug" path="res://assets/sprites/fishermans/body_a.png" id="5_2pnih"]
+[ext_resource type="PackedScene" uid="uid://c5oj0pohmtd3v" path="res://objects/player_skin.tscn" id="3_e6uhi"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="6_5ayll"]
-[ext_resource type="Texture2D" uid="uid://cqmy0xop3ayrv" path="res://assets/sprites/fishermans/back_body.png" id="9_c4e0f"]
 [ext_resource type="PackedScene" uid="uid://b7o878bg7yltg" path="res://ui/card_selector.tscn" id="10_4tpme"]
-[ext_resource type="Texture2D" uid="uid://cviosxqcg33ak" path="res://assets/sprites/fishermans/front_body.png" id="10_11g7p"]
-[ext_resource type="Texture2D" uid="uid://b3x0tii10ixvy" path="res://assets/sprites/fishermans/faces.png" id="11_11g7p"]
 [ext_resource type="ButtonGroup" uid="uid://c8ttjyp7riciv" path="res://scenes/customize_skin_button_group.tres" id="13_asrir"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jdcre"]
@@ -125,34 +121,6 @@ border_width_right = 6
 border_width_bottom = 6
 border_color = Color(0.968627, 0.968627, 0.968627, 1)
 
-[sub_resource type="Animation" id="Animation_xjfl5"]
-resource_name = "idle"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CardSelector:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Panel:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="Animation" id="Animation_4tpme"]
 length = 0.001
 tracks/0/type = "value"
@@ -223,6 +191,34 @@ tracks/2/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_xjfl5"]
+resource_name = "idle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardSelector:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c4e0f"]
 _data = {
 &"RESET": SubResource("Animation_4tpme"),
@@ -230,7 +226,7 @@ _data = {
 &"idle": SubResource("Animation_xjfl5")
 }
 
-[node name="CustomizeScene" type="Control" node_paths=PackedStringArray("anim", "skin_colors", "face", "hat", "body", "player_skin")]
+[node name="CustomizeScene" type="Control" node_paths=PackedStringArray("anim", "skin_colors", "player_skin")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -240,10 +236,7 @@ grow_vertical = 2
 script = ExtResource("1_j84h7")
 anim = NodePath("AnimationPlayer")
 skin_colors = NodePath("Panel/SkinColors")
-face = NodePath("Panel/CustomizePanel/Character/Pivot/Skin/Scale/BackBody/Face")
-hat = NodePath("Panel/CustomizePanel/Character/Pivot/Skin/Scale/BackBody/Hat")
-body = NodePath("Panel/CustomizePanel/Character/Pivot/Skin/Scale/BackBody/Body")
-player_skin = [NodePath("Panel/CustomizePanel/Character/Pivot/Skin/Scale/BackBody"), NodePath("Panel/CustomizePanel/Character/Pivot/Skin/Scale/BackBody/Hands")]
+player_skin = NodePath("Panel/CustomizePanel/Character/Pivot/Skin")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -276,15 +269,25 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -64.0
-offset_top = -264.0
+offset_top = -320.0
 offset_right = 64.0
-offset_bottom = 156.0
+offset_bottom = 108.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 alignment = 1
 
 [node name="HatLeft" type="TextureButton" parent="Panel/CustomizePanel/Left/LeftButtons"]
+custom_minimum_size = Vector2(0, 92)
+layout_mode = 2
+texture_normal = ExtResource("2_h4jc1")
+texture_pressed = ExtResource("2_h4jc1")
+texture_hover = ExtResource("2_h4jc1")
+ignore_texture_size = true
+stretch_mode = 5
+flip_h = true
+
+[node name="HairLeft" type="TextureButton" parent="Panel/CustomizePanel/Left/LeftButtons"]
 custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 texture_normal = ExtResource("2_h4jc1")
@@ -333,30 +336,7 @@ offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Skin" type="Node2D" parent="Panel/CustomizePanel/Character/Pivot"]
-
-[node name="Scale" type="Node2D" parent="Panel/CustomizePanel/Character/Pivot/Skin"]
-scale = Vector2(9, 9)
-
-[node name="BackBody" type="Sprite2D" parent="Panel/CustomizePanel/Character/Pivot/Skin/Scale"]
-texture = ExtResource("9_c4e0f")
-
-[node name="Face" type="Sprite2D" parent="Panel/CustomizePanel/Character/Pivot/Skin/Scale/BackBody"]
-position = Vector2(-1.77778, -11)
-texture = ExtResource("11_11g7p")
-hframes = 4
-
-[node name="Hands" type="Sprite2D" parent="Panel/CustomizePanel/Character/Pivot/Skin/Scale/BackBody"]
-position = Vector2(-1.90735e-06, 0)
-texture = ExtResource("10_11g7p")
-
-[node name="Body" type="Sprite2D" parent="Panel/CustomizePanel/Character/Pivot/Skin/Scale/BackBody"]
-position = Vector2(-1.90735e-06, 14.2222)
-texture = ExtResource("5_2pnih")
-
-[node name="Hat" type="Sprite2D" parent="Panel/CustomizePanel/Character/Pivot/Skin/Scale/BackBody"]
-position = Vector2(-2, -20)
-texture = ExtResource("4_dprt2")
+[node name="Skin" parent="Panel/CustomizePanel/Character/Pivot" instance=ExtResource("3_e6uhi")]
 
 [node name="Right" type="Control" parent="Panel/CustomizePanel"]
 custom_minimum_size = Vector2(128, 0)
@@ -371,16 +351,25 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -264.0
-offset_right = 64.0
-offset_bottom = 156.0
+offset_left = -68.0
+offset_top = -320.0
+offset_right = 60.0
+offset_bottom = 108.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 alignment = 1
 
 [node name="HatRight" type="TextureButton" parent="Panel/CustomizePanel/Right/RightButtons"]
+custom_minimum_size = Vector2(0, 92)
+layout_mode = 2
+texture_normal = ExtResource("2_h4jc1")
+texture_pressed = ExtResource("2_h4jc1")
+texture_hover = ExtResource("2_h4jc1")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="HairRight" type="TextureButton" parent="Panel/CustomizePanel/Right/RightButtons"]
 custom_minimum_size = Vector2(0, 92)
 layout_mode = 2
 texture_normal = ExtResource("2_h4jc1")
@@ -543,9 +532,11 @@ libraries = {
 autoplay = "idle"
 
 [connection signal="button_down" from="Panel/CustomizePanel/Left/LeftButtons/HatLeft" to="." method="_on_hat_left_button_down"]
+[connection signal="button_down" from="Panel/CustomizePanel/Left/LeftButtons/HairLeft" to="." method="_on_hair_left_button_down"]
 [connection signal="button_down" from="Panel/CustomizePanel/Left/LeftButtons/FaceLeft" to="." method="_on_face_left_button_down"]
 [connection signal="button_down" from="Panel/CustomizePanel/Left/LeftButtons/BodyLeft" to="." method="_on_body_left_button_down"]
 [connection signal="button_down" from="Panel/CustomizePanel/Right/RightButtons/HatRight" to="." method="_on_hat_right_button_down"]
+[connection signal="button_down" from="Panel/CustomizePanel/Right/RightButtons/HairRight" to="." method="_on_hair_right_button_down"]
 [connection signal="button_down" from="Panel/CustomizePanel/Right/RightButtons/FaceRight" to="." method="_on_face_right_button_down"]
 [connection signal="button_down" from="Panel/CustomizePanel/Right/RightButtons/BodyRight" to="." method="_on_body_right_button_down"]
 [connection signal="button_down" from="Panel/Buttons/Randomize" to="." method="_on_randomize_button_down"]

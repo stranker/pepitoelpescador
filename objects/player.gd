@@ -14,10 +14,9 @@ var character_data : CharacterCard
 
 @onready var hook: Hook = $Boat/Hook
 @onready var rope: Line2D = $Boat/Rope
-@onready var skin: Sprite2D = $Boat/Skin
+@onready var skin: PlayerSkin = $Boat/Skin
 @export var force_line_anim : AnimationPlayer
 @export var force_line : Node2D
-
 
 func _ready() -> void:
 	rope.set_start(skin.position)
@@ -43,7 +42,6 @@ func on_end_day(fishes):
 
 func _set_character_data():
 	character_data = CardManager.character_card
-	skin.texture = character_data.card_texture
 	pass
 
 func on_play_available():

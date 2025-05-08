@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ceb87s2cr0q4e"
-path="res://.godot/imported/face_b.png-a8260f0687b8a8104f6282b8997813a1.ctex"
+uid="uid://jm5md8021wny"
+path="res://.godot/imported/bodies.png-8801b866f64dfb75ca6f1d2ff2104d54.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/fishermans/face_b.png"
-dest_files=["res://.godot/imported/face_b.png-a8260f0687b8a8104f6282b8997813a1.ctex"]
+source_file="res://assets/sprites/fishermans/bodies.png"
+dest_files=["res://.godot/imported/bodies.png-8801b866f64dfb75ca6f1d2ff2104d54.ctex"]
 
 [params]
 

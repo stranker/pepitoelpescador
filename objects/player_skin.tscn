@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5oj0pohmtd3v"]
+
+[ext_resource type="Texture2D" uid="uid://cqmy0xop3ayrv" path="res://assets/sprites/fishermans/back_body.png" id="1_ec74v"]
+[ext_resource type="Script" uid="uid://brqjev4p5vlg8" path="res://objects/player_skin.gd" id="1_mxhnr"]
+[ext_resource type="Texture2D" uid="uid://b3x0tii10ixvy" path="res://assets/sprites/fishermans/faces.png" id="2_mxhnr"]
+[ext_resource type="Texture2D" uid="uid://cviosxqcg33ak" path="res://assets/sprites/fishermans/front_body.png" id="3_w3b18"]
+[ext_resource type="Texture2D" uid="uid://bpdymc7f08wm2" path="res://assets/sprites/fishermans/hairs.png" id="4_w3b18"]
+[ext_resource type="Texture2D" uid="uid://jm5md8021wny" path="res://assets/sprites/fishermans/bodies.png" id="5_mxhnr"]
+[ext_resource type="Texture2D" uid="uid://bmcpshn44opkk" path="res://assets/sprites/fishermans/hat_a.png" id="5_n4dcl"]
+
+[node name="Skin" type="Node2D" node_paths=PackedStringArray("face", "hat", "hair", "body")]
+script = ExtResource("1_mxhnr")
+face = NodePath("Scale/BackBody/Face")
+hat = NodePath("Scale/BackBody/Hat")
+hair = NodePath("Scale/BackBody/Hair")
+body = NodePath("Scale/BackBody/Body")
+
+[node name="Scale" type="Node2D" parent="."]
+scale = Vector2(9, 9)
+
+[node name="BackBody" type="Sprite2D" parent="Scale"]
+texture = ExtResource("1_ec74v")
+
+[node name="Face" type="Sprite2D" parent="Scale/BackBody"]
+position = Vector2(-1.6, -11)
+texture = ExtResource("2_mxhnr")
+hframes = 4
+
+[node name="Body" type="Sprite2D" parent="Scale/BackBody"]
+position = Vector2(-3, 9)
+texture = ExtResource("5_mxhnr")
+hframes = 2
+
+[node name="Hair" type="Sprite2D" parent="Scale/BackBody"]
+position = Vector2(-2, -11)
+texture = ExtResource("4_w3b18")
+hframes = 4
+frame = 2
+
+[node name="Hat" type="Sprite2D" parent="Scale/BackBody"]
+position = Vector2(-2, -20)
+texture = ExtResource("5_n4dcl")
+
+[node name="Hands" type="Sprite2D" parent="Scale/BackBody"]
+position = Vector2(-1.90735e-06, 0)
+texture = ExtResource("3_w3b18")

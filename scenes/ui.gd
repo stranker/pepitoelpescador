@@ -7,7 +7,6 @@ extends CanvasLayer
 @export var scrimmer : Control
 @export var player_portrait_anim : AnimationPlayer
 @export var experience_bar : TextureProgressBar
-@export var profile : TextureRect
 @export var level_label : Label
 @export var combo_label : Label
 @export var combo_anim : AnimationPlayer
@@ -32,7 +31,6 @@ func _ready() -> void:
 	coins_label.text = str(GameManager.game_stats.gold)
 	experience_bar.max_value = GameManager.game_stats.player_level * GameManager.experience_increment
 	level_label.text = str(GameManager.game_stats.player_level)
-	profile.texture.atlas = CardManager.character_card.card_texture
 	pass
 
 func on_divinity_day():

@@ -27,6 +27,7 @@ var player_selected : bool = false
 var level_scene : PackedScene = null
 var music : AudioStreamPlayer
 var game_presentation_end : bool = false
+var skin_data : PlayerSkin.SkinData = null
 
 var fishes_catched : Array[Fish]
 
@@ -73,6 +74,8 @@ func _load_game_data():
 		ItemManager.set_loaded_items(data.items)
 		ItemManager.set_loaded_boat(data.boat_tier)
 		CardManager.set_character(data.player_card_type)
+		skin_data = PlayerSkin.SkinData.new()
+		skin_data.set_data(data.player_skin)
 		player_selected = true
 	pass
 
@@ -85,7 +88,8 @@ func save_game_data():
 		"total_fishes_catched" = game_stats.total_fishes_catched,
 		"items" = ItemManager.get_items_for_save(),
 		"boat_tier" = ItemManager.get_boat_data(),
-		"player_card_type" = CardManager.get_character_card_for_save()
+		"player_card_type" = CardManager.get_character_card_for_save(),
+		"player_skin" = skin_data.raw_data
 	}
 	save_to_file(game_data)
 	pass
@@ -198,4 +202,8 @@ func clear_saved_data():
 	player_selected = false
 	ItemManager.reset()
 	CardManager.reset()
+	pass
+
+func on_update_skin_data(data : PlayerSkin.SkinData):
+	skin_data = data
 	pass
