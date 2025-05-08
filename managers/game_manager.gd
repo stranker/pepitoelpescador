@@ -200,6 +200,7 @@ func on_level_selected(level):
 func clear_saved_data():
 	game_stats.reset()
 	player_selected = false
+	skin_data = null
 	ItemManager.reset()
 	CardManager.reset()
 	pass
