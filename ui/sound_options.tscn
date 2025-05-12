@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://ngwgmo67epe2"]
+[gd_scene load_steps=20 format=3 uid="uid://ngwgmo67epe2"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_57mqj"]
-[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="2_qobcg"]
+[ext_resource type="Texture2D" uid="uid://qhttpbs70h6t" path="res://assets/ui/sound_icon.png" id="2_fbdfa"]
+[ext_resource type="Texture2D" uid="uid://c2xankc5adpts" path="res://assets/ui/music_icon.png" id="2_tnhqg"]
 
 [sub_resource type="GDScript" id="GDScript_308e6"]
 resource_name = "sound_options"
@@ -32,14 +33,29 @@ func _on_music_slider_value_changed(value: float) -> void:
 func _on_close_button_button_down() -> void:
 	closed.emit()
 	pass # Replace with function body.
+
+func _on_music_toggled(toggled_on: bool) -> void:
+	AudioServer.set_bus_mute(AudioServer.get_bus_index(\"Music\"), toggled_on)
+	pass # Replace with function body.
+
+func _on_sound_toggled(toggled_on: bool) -> void:
+	AudioServer.set_bus_mute(AudioServer.get_bus_index(\"SFx\"), toggled_on)
+	pass # Replace with function body.
 "
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7copr"]
-bg_color = Color(0, 0, 0, 0.862745)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57mqj"]
+bg_color = Color(0, 0, 0, 0.729412)
 
 [sub_resource type="LabelSettings" id="LabelSettings_xwkdv"]
 font = ExtResource("2_57mqj")
 font_size = 72
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7copr"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_qobcg"]
 font = ExtResource("2_57mqj")
@@ -53,26 +69,158 @@ font_size = 46
 font = ExtResource("2_57mqj")
 font_size = 46
 
-[node name="SoundOptions" type="Control" node_paths=PackedStringArray("general_slider", "music_slider", "sound_slider")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbdfa"]
+bg_color = Color(0.913725, 0.913725, 0.913725, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 12
+border_color = Color(0.652386, 0.558941, 0.904197, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.145098)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwkdv"]
+bg_color = Color(0.912288, 0.912289, 0.912288, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.652386, 0.558941, 0.904197, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.145098)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnhqg"]
+bg_color = Color(0.969137, 0.969137, 0.969137, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 12
+border_color = Color(0.690196, 0.509804, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.145098)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tu0xq"]
+bg_color = Color(0.466667, 0.333333, 1, 1)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_j02j8"]
+font = ExtResource("2_57mqj")
+font_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qobcg"]
+bg_color = Color(0.980932, 0.346384, 0.308302, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j02j8"]
+bg_color = Color(0.7, 0.112, 0.2786, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfime"]
+bg_color = Color(0.921569, 0.160784, 0.164706, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_isgpb"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 48
+corner_radius_top_right = 48
+corner_radius_bottom_right = 48
+corner_radius_bottom_left = 48
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[node name="Options" type="Control" node_paths=PackedStringArray("general_slider", "music_slider", "sound_slider")]
 custom_minimum_size = Vector2(1000, 640)
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_308e6")
+general_slider = NodePath("Panel/MarginContainer/VBoxContainer/General/General")
+music_slider = NodePath("Panel/MarginContainer/VBoxContainer/Music/MusicSlider")
+sound_slider = NodePath("Panel/MarginContainer/VBoxContainer/SFx/SoundSlider")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_57mqj")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -580.0
+offset_top = 24.0
+offset_right = 572.0
+offset_bottom = 89.0
+grow_horizontal = 2
+text = "OPTIONS"
+label_settings = SubResource("LabelSettings_xwkdv")
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-script = SubResource("GDScript_308e6")
-general_slider = NodePath("Panel/MarginContainer/Control/VBoxContainer/General/General")
-music_slider = NodePath("Panel/MarginContainer/Control/VBoxContainer/Music/MusicSlider")
-sound_slider = NodePath("Panel/MarginContainer/Control/VBoxContainer/SFx/SoundSlider")
-
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+offset_left = -412.0
+offset_top = -240.0
+offset_right = 413.0
+offset_bottom = 224.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7copr")
@@ -84,117 +232,194 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="Control" type="Control" parent="Panel/MarginContainer"]
-layout_mode = 2
-
-[node name="Title" type="Label" parent="Panel/MarginContainer/Control"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -576.0
-offset_right = 576.0
-offset_bottom = 65.0
-grow_horizontal = 2
-text = "OPTIONS"
-label_settings = SubResource("LabelSettings_xwkdv")
-horizontal_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+visible = false
 custom_minimum_size = Vector2(512, 400)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -352.0
-offset_top = -176.0
-offset_right = 352.0
-offset_bottom = 224.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 alignment = 1
 
-[node name="General" type="VBoxContainer" parent="Panel/MarginContainer/Control/VBoxContainer"]
+[node name="General" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="GeneralLabel" type="Label" parent="Panel/MarginContainer/Control/VBoxContainer/General"]
+[node name="GeneralLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/General"]
 layout_mode = 2
 text = "GENERAL"
 label_settings = SubResource("LabelSettings_qobcg")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="General" type="HSlider" parent="Panel/MarginContainer/Control/VBoxContainer/General"]
+[node name="General" type="HSlider" parent="Panel/MarginContainer/VBoxContainer/General"]
 layout_mode = 2
 min_value = -40.0
 max_value = 0.0
 step = 8.0
 rounded = true
 
-[node name="Music" type="VBoxContainer" parent="Panel/MarginContainer/Control/VBoxContainer"]
+[node name="Music" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="MusicLabel" type="Label" parent="Panel/MarginContainer/Control/VBoxContainer/Music"]
+[node name="MusicLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/Music"]
 layout_mode = 2
 text = "MUSIC"
 label_settings = SubResource("LabelSettings_fbdfa")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="Panel/MarginContainer/Control/VBoxContainer/Music"]
+[node name="MusicSlider" type="HSlider" parent="Panel/MarginContainer/VBoxContainer/Music"]
 layout_mode = 2
 min_value = -40.0
 max_value = 0.0
 step = 8.0
 rounded = true
 
-[node name="SFx" type="VBoxContainer" parent="Panel/MarginContainer/Control/VBoxContainer"]
+[node name="SFx" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="SfxLabel" type="Label" parent="Panel/MarginContainer/Control/VBoxContainer/SFx"]
+[node name="SfxLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/SFx"]
 layout_mode = 2
 text = "SFx"
 label_settings = SubResource("LabelSettings_tnhqg")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SoundSlider" type="HSlider" parent="Panel/MarginContainer/Control/VBoxContainer/SFx"]
+[node name="SoundSlider" type="HSlider" parent="Panel/MarginContainer/VBoxContainer/SFx"]
 layout_mode = 2
 min_value = -40.0
 max_value = 0.0
 step = 8.0
 rounded = true
 
-[node name="CloseButton" type="TextureButton" parent="Panel"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -36.0
-offset_top = -24.0
-offset_right = 36.0
-offset_bottom = 48.0
-grow_horizontal = 0
-texture_normal = ExtResource("2_qobcg")
-texture_pressed = ExtResource("2_qobcg")
-texture_hover = ExtResource("2_qobcg")
-ignore_texture_size = true
-stretch_mode = 5
+[node name="Control" type="Control" parent="Panel/MarginContainer"]
+layout_mode = 2
 
-[connection signal="value_changed" from="Panel/MarginContainer/Control/VBoxContainer/General/General" to="." method="_on_general_value_changed"]
-[connection signal="value_changed" from="Panel/MarginContainer/Control/VBoxContainer/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
-[connection signal="value_changed" from="Panel/MarginContainer/Control/VBoxContainer/SFx/SoundSlider" to="." method="_on_sound_slider_value_changed"]
-[connection signal="button_down" from="Panel/CloseButton" to="." method="_on_close_button_button_down"]
+[node name="Buttons" type="HBoxContainer" parent="Panel/MarginContainer/Control"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -412.5
+offset_top = -60.0
+offset_right = 412.5
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Music" type="Button" parent="Panel/MarginContainer/Control/Buttons"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/icon_hover_pressed_color = Color(0.928848, 0.426323, 0.474297, 1)
+theme_override_colors/icon_hover_color = Color(0.659324, 0.509905, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.857221, 0.297747, 0.372641, 1)
+theme_override_colors/icon_normal_color = Color(0.584314, 0.345098, 1, 1)
+theme_override_icons/icon = ExtResource("2_tnhqg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fbdfa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xwkdv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tnhqg")
+toggle_mode = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/Control/Buttons/Music"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tu0xq")
+
+[node name="Sound" type="Button" parent="Panel/MarginContainer/Control/Buttons"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/icon_hover_pressed_color = Color(0.928848, 0.426323, 0.474297, 1)
+theme_override_colors/icon_hover_color = Color(0.659324, 0.509905, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.857221, 0.297747, 0.372641, 1)
+theme_override_colors/icon_normal_color = Color(0.584314, 0.345098, 1, 1)
+theme_override_icons/icon = ExtResource("2_fbdfa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fbdfa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xwkdv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tnhqg")
+toggle_mode = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/Control/Buttons/Sound"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tu0xq")
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -137.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "v 0.1"
+label_settings = SubResource("LabelSettings_j02j8")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="."]
+texture_filter = 2
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 1
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 112.0
+offset_bottom = 112.0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_57mqj")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = SubResource("StyleBoxFlat_qobcg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j02j8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sfime")
+text = "X"
+
+[node name="Panel" type="Panel" parent="CloseButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_isgpb")
+
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/General/General" to="." method="_on_general_value_changed"]
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/SFx/SoundSlider" to="." method="_on_sound_slider_value_changed"]
+[connection signal="toggled" from="Panel/MarginContainer/Control/Buttons/Music" to="." method="_on_music_toggled"]
+[connection signal="toggled" from="Panel/MarginContainer/Control/Buttons/Sound" to="." method="_on_sound_toggled"]
+[connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]

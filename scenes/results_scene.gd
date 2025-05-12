@@ -19,7 +19,7 @@ func _ready() -> void:
 	GameManager.fish_collected.connect(on_fish_collected)
 	pass
 
-func on_end_day(fishes):
+func on_end_day(_fishes):
 	anim.play("show")
 	pass
 
@@ -58,7 +58,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 			input_enabled = true
 		else:
 			GameManager.save_game_data()
-			get_tree().change_scene_to_file("res://scenes/main_scene.tscn")
+			GameManager.load_scene("res://scenes/main_scene.tscn")
 	pass # Replace with function body.
 
 func _on_gui_input(event: InputEvent) -> void:

@@ -89,7 +89,7 @@ func _ready() -> void:
 
 [sub_resource type="LabelSettings" id="LabelSettings_mngbo"]
 font = ExtResource("9_e1cbu")
-font_size = 46
+font_size = 56
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
@@ -395,10 +395,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
 metadata/_edit_lock_ = true
 
 [node name="Control" type="Control" parent="UI/MarginContainer"]
@@ -410,7 +410,7 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -92.0
+offset_left = -392.0
 offset_bottom = 48.0
 grow_horizontal = 0
 mouse_filter = 2
@@ -424,10 +424,11 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 6
 alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/Control/Coins/HBoxContainer"]
-custom_minimum_size = Vector2(44, 44)
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("9_6wevv")
 expand_mode = 1

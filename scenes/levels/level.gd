@@ -9,12 +9,16 @@ class LevelData:
 
 var level_data : LevelData = LevelData.new()
 
+@export var cinematic_camera : Camera2D
+@export var boss_fish : Fish
+
 signal update_level_data(level_data)
 signal afternoon
 signal midnight_end
 
 func _ready() -> void:
 	add_to_group("Level")
+	cinematic_camera.set_end_boss(boss_fish)
 	GameManager.fish_collected.connect(on_fish_collected)
 	level_data.fishes = fishes
 	await get_tree().process_frame

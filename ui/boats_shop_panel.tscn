@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://dktou66amwa86"]
+[gd_scene load_steps=22 format=3 uid="uid://dktou66amwa86"]
 
 [ext_resource type="Script" uid="uid://keuk1n3uxt3s" path="res://ui/boats_shop_panel.gd" id="1_87epm"]
 [ext_resource type="Texture2D" uid="uid://ejc2v3gtfytb" path="res://assets/sprites/fishermans/boat.png" id="1_177vb"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_87epm"]
 [ext_resource type="Texture2D" uid="uid://cpjpcvecgladw" path="res://assets/sprites/cards/shop_card.png" id="2_iyhep"]
-[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="3_whe5k"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="4_whe5k"]
 [ext_resource type="PackedScene" uid="uid://dsqhlrsvjyk21" path="res://ui/stat_progress_bar.tscn" id="5_s1lg0"]
 
@@ -164,6 +163,56 @@ _data = {
 &"idle": SubResource("Animation_whe5k")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyhep"]
+bg_color = Color(0.980932, 0.346384, 0.308302, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1lg0"]
+bg_color = Color(0.7, 0.112, 0.2786, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6n3ib"]
+bg_color = Color(0.921569, 0.160784, 0.164706, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lwppx"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 48
+corner_radius_top_right = 48
+corner_radius_bottom_right = 48
+corner_radius_bottom_left = 48
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
 [node name="BoatsPanel" type="Control" node_paths=PackedStringArray("boat_texture", "boat_price", "button_anim", "day_time", "unlock_label")]
 layout_mode = 3
 anchors_preset = 15
@@ -281,6 +330,7 @@ offset_top = -96.0
 offset_right = 108.0
 grow_horizontal = 2
 grow_vertical = 0
+focus_mode = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_87epm")
 theme_override_font_sizes/font_size = 48
@@ -347,21 +397,38 @@ text = "100"
 label_settings = SubResource("LabelSettings_s1lg0")
 horizontal_alignment = 1
 
-[node name="CloseButton" type="TextureButton" parent="."]
-layout_mode = 1
-offset_right = 72.0
-offset_bottom = 72.0
-texture_normal = ExtResource("3_whe5k")
-texture_pressed = ExtResource("3_whe5k")
-texture_hover = ExtResource("3_whe5k")
-ignore_texture_size = true
-stretch_mode = 5
-
 [node name="Anim" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_6n3ib")
 }
 autoplay = "disabled"
+
+[node name="CloseButton" type="Button" parent="."]
+texture_filter = 2
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 112.0
+offset_bottom = 112.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_87epm")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = SubResource("StyleBoxFlat_iyhep")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_s1lg0")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6n3ib")
+text = "X"
+
+[node name="Panel" type="Panel" parent="CloseButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lwppx")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="button_down" from="MarginContainer/Control/UpgradeButton" to="." method="_on_upgrade_button_button_down"]

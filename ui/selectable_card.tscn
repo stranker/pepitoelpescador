@@ -260,7 +260,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_ix1vg"]
 resource_name = "selected"
-length = 0.4
+length = 0.2
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -323,22 +323,22 @@ _data = {
 }
 
 [node name="SelectableCard" type="Control" node_paths=PackedStringArray("card_title", "card_image", "card_description", "anim", "description_anim", "background", "star_list", "power_progress", "accuracy_progress")]
-custom_minimum_size = Vector2(232, 320)
+custom_minimum_size = Vector2(256, 400)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 232.0
-offset_bottom = 320.0
+offset_right = 256.0
+offset_bottom = 400.0
 pivot_offset = Vector2(116, 160)
 script = ExtResource("1_8jx8r")
-card_title = NodePath("Background/MarginContainer/Control/VBoxContainer/Title")
-card_image = NodePath("Background/MarginContainer/Control/VBoxContainer/Control/MarginContainer/Control/Image")
-card_description = NodePath("Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Description")
+card_title = NodePath("Background/MarginContainer/Control/Title")
+card_image = NodePath("Background/MarginContainer/Control/Image/MarginContainer/Control/Image")
+card_description = NodePath("Background/MarginContainer/Control/Description/UpgradeDescription/Description")
 anim = NodePath("Anim")
-description_anim = NodePath("Background/MarginContainer/Control/VBoxContainer/Description/Description")
+description_anim = NodePath("Background/MarginContainer/Control/Description/Description")
 background = NodePath("Background")
-star_list = NodePath("Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List")
-power_progress = NodePath("Background/MarginContainer/Control/VBoxContainer/Description/CharacterDescription/MarginContainer/VBoxContainer/Power")
-accuracy_progress = NodePath("Background/MarginContainer/Control/VBoxContainer/Description/CharacterDescription/MarginContainer/VBoxContainer/Accuracy")
+star_list = NodePath("Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List")
+power_progress = NodePath("Background/MarginContainer/Control/Description/CharacterDescription/MarginContainer/VBoxContainer/Power")
+accuracy_progress = NodePath("Background/MarginContainer/Control/Description/CharacterDescription/MarginContainer/VBoxContainer/Accuracy")
 
 [node name="Background" type="NinePatchRect" parent="."]
 layout_mode = 1
@@ -366,31 +366,39 @@ theme_override_constants/margin_bottom = 6
 layout_mode = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 7
-
-[node name="Title" type="Label" parent="Background/MarginContainer/Control/VBoxContainer"]
+[node name="Title" type="Label" parent="Background/MarginContainer/Control"]
 texture_filter = 2
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -122.0
+offset_right = 122.0
+offset_bottom = 30.0
+grow_horizontal = 2
 text = "CARD NAME"
 label_settings = SubResource("LabelSettings_ocdhs")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="Background/MarginContainer/Control/VBoxContainer"]
+[node name="Image" type="Control" parent="Background/MarginContainer/Control"]
 custom_minimum_size = Vector2(0, 168)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -162.0
+offset_right = 122.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/Control/VBoxContainer/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/Control/Image"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -402,11 +410,11 @@ theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="Control" type="Control" parent="Background/MarginContainer/Control/VBoxContainer/Control/MarginContainer"]
+[node name="Control" type="Control" parent="Background/MarginContainer/Control/Image/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Image" type="TextureRect" parent="Background/MarginContainer/Control/VBoxContainer/Control/MarginContainer/Control"]
+[node name="Image" type="TextureRect" parent="Background/MarginContainer/Control/Image/MarginContainer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -420,12 +428,23 @@ texture = SubResource("AtlasTexture_r3p3l")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Description" type="Control" parent="Background/MarginContainer/Control/VBoxContainer"]
-layout_mode = 2
+[node name="Description" type="Control" parent="Background/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -122.0
+offset_top = -130.0
+offset_right = 122.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="UpgradeDescription" type="Control" parent="Background/MarginContainer/Control/VBoxContainer/Description"]
+[node name="UpgradeDescription" type="Control" parent="Background/MarginContainer/Control/Description"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -436,12 +455,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Description" type="RichTextLabel" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription"]
+[node name="Description" type="RichTextLabel" parent="Background/MarginContainer/Control/Description/UpgradeDescription"]
 texture_filter = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 6.0
+offset_right = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 6
@@ -454,7 +475,7 @@ text = "Card text"
 fit_content = true
 scroll_active = false
 
-[node name="Stars" type="Control" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription"]
+[node name="Stars" type="Control" parent="Background/MarginContainer/Control/Description/UpgradeDescription"]
 custom_minimum_size = Vector2(0, 22)
 layout_mode = 1
 anchors_preset = 12
@@ -464,7 +485,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="List" type="HBoxContainer" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars"]
+[node name="List" type="HBoxContainer" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -474,7 +495,7 @@ offset_right = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Star" type="TextureRect" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List"]
+[node name="Star" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -482,7 +503,7 @@ texture = ExtResource("5_grjs2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Star2" type="TextureRect" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List"]
+[node name="Star2" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -490,7 +511,7 @@ texture = ExtResource("5_grjs2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Star3" type="TextureRect" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List"]
+[node name="Star3" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -498,7 +519,7 @@ texture = ExtResource("5_grjs2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Star4" type="TextureRect" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List"]
+[node name="Star4" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -506,7 +527,7 @@ texture = ExtResource("5_grjs2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Star5" type="TextureRect" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List"]
+[node name="Star5" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -514,7 +535,7 @@ texture = ExtResource("5_grjs2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Star6" type="TextureRect" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List"]
+[node name="Star6" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -522,7 +543,7 @@ texture = ExtResource("5_grjs2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Star7" type="TextureRect" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List"]
+[node name="Star7" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -530,7 +551,7 @@ texture = ExtResource("5_grjs2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Star8" type="TextureRect" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List"]
+[node name="Star8" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -538,7 +559,7 @@ texture = ExtResource("5_grjs2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Star9" type="TextureRect" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List"]
+[node name="Star9" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -546,7 +567,7 @@ texture = ExtResource("5_grjs2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Star10" type="TextureRect" parent="Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List"]
+[node name="Star10" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -554,7 +575,7 @@ texture = ExtResource("5_grjs2")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CharacterDescription" type="Control" parent="Background/MarginContainer/Control/VBoxContainer/Description"]
+[node name="CharacterDescription" type="Control" parent="Background/MarginContainer/Control/Description"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -564,7 +585,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/Control/VBoxContainer/Description/CharacterDescription"]
+[node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/Control/Description/CharacterDescription"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -576,20 +597,20 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer/Control/VBoxContainer/Description/CharacterDescription/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer/Control/Description/CharacterDescription/MarginContainer"]
 layout_mode = 2
 
-[node name="Power" parent="Background/MarginContainer/Control/VBoxContainer/Description/CharacterDescription/MarginContainer/VBoxContainer" instance=ExtResource("5_gdbvi")]
+[node name="Power" parent="Background/MarginContainer/Control/Description/CharacterDescription/MarginContainer/VBoxContainer" instance=ExtResource("5_gdbvi")]
 layout_mode = 2
 stat_name = "Power"
 max_value = 4.0
 
-[node name="Accuracy" parent="Background/MarginContainer/Control/VBoxContainer/Description/CharacterDescription/MarginContainer/VBoxContainer" instance=ExtResource("5_gdbvi")]
+[node name="Accuracy" parent="Background/MarginContainer/Control/Description/CharacterDescription/MarginContainer/VBoxContainer" instance=ExtResource("5_gdbvi")]
 layout_mode = 2
 stat_name = "Accuracy"
 max_value = 2.0
 
-[node name="Description" type="AnimationPlayer" parent="Background/MarginContainer/Control/VBoxContainer/Description"]
+[node name="Description" type="AnimationPlayer" parent="Background/MarginContainer/Control/Description"]
 libraries = {
 &"": SubResource("AnimationLibrary_3yjkb")
 }

@@ -18,11 +18,16 @@ var is_interactive : bool = false
 
 var data : Card
 
-signal selected(card_data)
+signal selected(card, card_data)
 
-func _ready() -> void:
-	description_anim.play("upgrade")
-	_animate_upgrade_star($Background/MarginContainer/Control/VBoxContainer/Description/UpgradeDescription/Stars/List/Star)
+func reset():
+	is_selected = false
+	anim.play("RESET")
+	show()
+	pass
+
+func show_info():
+	anim.play("hover")
 	pass
 
 func init(card_data : Card):
@@ -79,7 +84,8 @@ func _on_gui_input(event: InputEvent) -> void:
 	pass
 
 func card_selected():
-	selected.emit(data)
+	selected.emit(self, data)
+	pass
 
 func destroy():
 	is_drestroyed = true

@@ -1,13 +1,75 @@
-[gd_scene load_steps=14 format=3 uid="uid://bwqm7jufoed7b"]
+[gd_scene load_steps=20 format=3 uid="uid://bwqm7jufoed7b"]
 
 [ext_resource type="Script" uid="uid://dxujv3plw3gh8" path="res://ui/shop.gd" id="1_1slnd"]
-[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="2_2v8nf"]
 [ext_resource type="Texture2D" uid="uid://ce0mrj2a8qegf" path="res://assets/sprites/background/shop_background_2.png" id="2_i5mka"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="3_i5mka"]
+[ext_resource type="Texture2D" uid="uid://dge2c6fa7wec7" path="res://assets/ui/shop_board.png" id="3_tyvbe"]
 [ext_resource type="Texture2D" uid="uid://ddfymmn4efuo2" path="res://assets/ui/hook_book.png" id="4_i5mka"]
-[ext_resource type="Texture2D" uid="uid://dbqvpsqgyiace" path="res://assets/sprites/icons/profile_exp.png" id="5_qxnrq"]
 [ext_resource type="Texture2D" uid="uid://ddw04hdq711wb" path="res://assets/ui/boat_book.png" id="6_tyvbe"]
 [ext_resource type="PackedScene" uid="uid://g1lnxers4xc4" path="res://ui/hooks_shop_panel.tscn" id="7_qxnrq"]
 [ext_resource type="PackedScene" uid="uid://dktou66amwa86" path="res://ui/boats_shop_panel.tscn" id="8_i5mka"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tdjdk"]
+texture = ExtResource("3_tyvbe")
+modulate_color = Color(1, 0.85098, 0.721569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fovme"]
+font = ExtResource("3_i5mka")
+font_size = 64
+font_color = Color(0.94902, 0.94902, 0.839216, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.556863)
+shadow_offset = Vector2(1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5mka"]
+bg_color = Color(0.980932, 0.346384, 0.308302, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyvbe"]
+bg_color = Color(0.7, 0.112, 0.2786, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tdjdk"]
+bg_color = Color(0.921569, 0.160784, 0.164706, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fovme"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 48
+corner_radius_top_right = 48
+corner_radius_bottom_right = 48
+corner_radius_bottom_left = 48
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
 
 [sub_resource type="Animation" id="Animation_fovme"]
 length = 0.001
@@ -187,6 +249,42 @@ texture = ExtResource("2_i5mka")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="Welcome" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -164.0
+offset_top = 30.0
+offset_right = 164.0
+offset_bottom = 150.0
+grow_horizontal = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_tdjdk")
+text = "WELCOME"
+label_settings = SubResource("LabelSettings_fovme")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Welcome2" type="Label" parent="Welcome"]
+self_modulate = Color(0, 0, 0, 0.690196)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.0
+offset_top = -56.0
+offset_right = 164.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_tdjdk")
+label_settings = SubResource("LabelSettings_fovme")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Panel" type="Panel" parent="."]
 visible = false
 layout_mode = 1
@@ -196,18 +294,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Close" type="TextureButton" parent="."]
-layout_mode = 1
-offset_left = 40.0
-offset_top = 32.0
+[node name="CloseButton" type="Button" parent="."]
+texture_filter = 2
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
 offset_right = 112.0
-offset_bottom = 104.0
-texture_normal = ExtResource("2_2v8nf")
-texture_pressed = ExtResource("2_2v8nf")
-texture_hover = ExtResource("2_2v8nf")
-texture_focused = ExtResource("2_2v8nf")
-ignore_texture_size = true
-stretch_mode = 5
+offset_bottom = 112.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("3_i5mka")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = SubResource("StyleBoxFlat_i5mka")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tyvbe")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tdjdk")
+text = "X"
+
+[node name="Panel" type="Panel" parent="CloseButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fovme")
 
 [node name="Buttons" type="Control" parent="."]
 layout_mode = 1
@@ -225,10 +337,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -776.0
-offset_top = -344.0
-offset_right = -528.0
-offset_bottom = -44.0
+offset_left = -880.0
+offset_top = -416.0
+offset_right = -536.0
 grow_horizontal = 0
 grow_vertical = 0
 texture_normal = ExtResource("4_i5mka")
@@ -239,26 +350,6 @@ texture_focused = ExtResource("4_i5mka")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Acessories" type="TextureButton" parent="Buttons"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -176.0
-offset_top = -216.0
-offset_right = 40.0
-offset_bottom = 24.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("5_qxnrq")
-texture_pressed = ExtResource("5_qxnrq")
-texture_hover = ExtResource("5_qxnrq")
-ignore_texture_size = true
-stretch_mode = 5
-
 [node name="Boat" type="TextureButton" parent="Buttons"]
 layout_mode = 1
 anchors_preset = 3
@@ -266,13 +357,12 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -480.0
-offset_top = -392.0
-offset_right = -104.0
-offset_bottom = -88.0
+offset_left = -584.0
+offset_top = -416.0
+offset_right = -75.0
+offset_bottom = -5.0
 grow_horizontal = 0
 grow_vertical = 0
-rotation = 0.261799
 texture_normal = ExtResource("6_tyvbe")
 texture_pressed = ExtResource("6_tyvbe")
 texture_hover = ExtResource("6_tyvbe")
@@ -294,7 +384,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_6c2nj")
 }
 
-[connection signal="button_down" from="Close" to="." method="_on_close_button_down"]
+[connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]
 [connection signal="button_down" from="Buttons/Hooks" to="." method="_on_hooks_button_down"]
 [connection signal="button_down" from="Buttons/Boat" to="." method="_on_boat_button_down"]
 [connection signal="closed" from="HooksPanel" to="." method="_on_hooks_panel_closed"]

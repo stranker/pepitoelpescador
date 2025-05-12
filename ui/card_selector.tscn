@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7o878bg7yltg"]
+[gd_scene load_steps=21 format=3 uid="uid://b7o878bg7yltg"]
 
 [ext_resource type="Script" uid="uid://rgl2eq0uxma0" path="res://ui/card_selector.gd" id="1_7ukqc"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_k7cl5"]
-[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="3_dqylm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r33km"]
 bg_color = Color(0, 0, 0, 0.941176)
@@ -11,7 +10,206 @@ bg_color = Color(0, 0, 0, 0.941176)
 font = ExtResource("2_k7cl5")
 font_size = 64
 
-[node name="CardSelector" type="Control" node_paths=PackedStringArray("cards", "title", "close_button")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_obsd8"]
+bg_color = Color(0.696556, 0.868724, 0.880695, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btld0"]
+bg_color = Color(0.589117, 0.80419, 0.819439, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.574533, 0.088, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jksk1"]
+bg_color = Color(0.653971, 0.0926155, 9.62615e-08, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.486275, 0.184314, 0.294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1j5md"]
+bg_color = Color(0.486275, 0.184314, 0.294118, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.486275, 0.184314, 0.294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xpuo"]
+bg_color = Color(0.77382, 0.11757, 1.92523e-07, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.486275, 0.184314, 0.294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mhcml"]
+bg_color = Color(0.197426, 0.489764, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0, 0.356863, 0.290196, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4m01o"]
+bg_color = Color(0, 0.356863, 0.290196, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0, 0.356863, 0.290196, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8r1hy"]
+bg_color = Color(0.264892, 0.635367, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0, 0.356863, 0.290196, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csbw3"]
+bg_color = Color(0.980932, 0.346384, 0.308302, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dqylm"]
+bg_color = Color(0.7, 0.112, 0.2786, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bdmku"]
+bg_color = Color(0.921569, 0.160784, 0.164706, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0vbf"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 48
+corner_radius_top_right = 48
+corner_radius_bottom_right = 48
+corner_radius_bottom_left = 48
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="Animation" id="Animation_mhcml"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SelectedCardInfo:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_4xpuo"]
+resource_name = "card_selected"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SelectedCardInfo:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1j5md"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SelectedCardInfo:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4m01o"]
+_data = {
+&"RESET": SubResource("Animation_mhcml"),
+&"card_selected": SubResource("Animation_4xpuo"),
+&"idle": SubResource("Animation_1j5md")
+}
+
+[node name="CardSelector" type="Control" node_paths=PackedStringArray("cards", "title", "close_button", "selected_card_pos", "anim", "abilities")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -22,7 +220,10 @@ grow_vertical = 2
 script = ExtResource("1_7ukqc")
 cards = NodePath("Cards")
 title = NodePath("Title")
-close_button = NodePath("Close")
+close_button = NodePath("CloseButton")
+selected_card_pos = NodePath("SelectedCardPos")
+anim = NodePath("AnimationPlayer")
+abilities = NodePath("SelectedCardInfo/Control/Control/Abilities")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -41,8 +242,8 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -104.0
-offset_bottom = 216.0
+offset_top = -128.0
+offset_bottom = 272.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -64,16 +265,134 @@ label_settings = SubResource("LabelSettings_ca4vc")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Close" type="TextureButton" parent="."]
+[node name="SelectedCardPos" type="Control" parent="."]
 layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 352.0
+offset_top = -128.0
+offset_right = 352.0
+offset_bottom = -128.0
+grow_vertical = 2
+
+[node name="SelectedCardInfo" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -808.0
+offset_top = -192.0
+offset_right = -232.0
+offset_bottom = 280.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_obsd8")
+
+[node name="Back" type="Panel" parent="SelectedCardInfo"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 472.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_btld0")
+
+[node name="Control" type="MarginContainer" parent="SelectedCardInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Control" type="Control" parent="SelectedCardInfo/Control"]
+layout_mode = 2
+
+[node name="Abilities" type="VBoxContainer" parent="SelectedCardInfo/Control/Control"]
+layout_mode = 2
+offset_right = 560.0
+offset_bottom = 384.0
+theme_override_constants/separation = 12
+
+[node name="Buttons" type="HBoxContainer" parent="SelectedCardInfo/Control/Control"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Cancel" type="Button" parent="SelectedCardInfo/Control/Control/Buttons"]
+custom_minimum_size = Vector2(240, 64)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_k7cl5")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = SubResource("StyleBoxFlat_jksk1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1j5md")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4xpuo")
+text = "Cancel"
+icon_alignment = 2
+
+[node name="Confirm" type="Button" parent="SelectedCardInfo/Control/Control/Buttons"]
+custom_minimum_size = Vector2(240, 64)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_k7cl5")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = SubResource("StyleBoxFlat_mhcml")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4m01o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8r1hy")
+text = "SELECT"
+icon_alignment = 2
+
+[node name="CloseButton" type="Button" parent="."]
+texture_filter = 2
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 0
 offset_left = 24.0
 offset_top = 24.0
-offset_right = 104.0
+offset_right = 112.0
 offset_bottom = 112.0
-texture_normal = ExtResource("3_dqylm")
-texture_pressed = ExtResource("3_dqylm")
-texture_hover = ExtResource("3_dqylm")
-ignore_texture_size = true
-stretch_mode = 5
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_k7cl5")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = SubResource("StyleBoxFlat_csbw3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dqylm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bdmku")
+text = "X"
 
-[connection signal="button_down" from="Close" to="." method="_on_close_button_down"]
+[node name="Panel" type="Panel" parent="CloseButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j0vbf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4m01o")
+}
+
+[connection signal="button_down" from="SelectedCardInfo/Control/Control/Buttons/Cancel" to="." method="_on_cancel_button_down"]
+[connection signal="button_down" from="SelectedCardInfo/Control/Control/Buttons/Confirm" to="." method="_on_confirm_button_down"]
+[connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]

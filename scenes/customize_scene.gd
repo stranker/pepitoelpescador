@@ -57,6 +57,7 @@ func _on_randomize_button_down() -> void:
 	pass
 
 func _on_confirm_button_down() -> void:
+	player_skin.save()
 	anim.play("confirm_customize")
 	pass
 

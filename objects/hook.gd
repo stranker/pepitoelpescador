@@ -119,7 +119,7 @@ func air_movement(delta : float):
 	pass
 
 func _clamp_length():
-	position = position.limit_length(length * 0.3)
+	position = position.limit_length(length)
 	pass
 
 func water_movement(delta : float):

@@ -65,10 +65,6 @@ func _check_upgrade_button():
 func _can_buy():
 	return data.get_price() <= GameManager.game_stats.gold
 
-func _on_close_button_down() -> void:
-	closed.emit()
-	pass # Replace with function body.
-
 func _on_left_button_button_down() -> void:
 	current_hook_idx -= 1
 	current_hook_idx = clamp(current_hook_idx, 0, ItemManager.hooks.size() - 1)
@@ -105,4 +101,15 @@ func _refresh_ui():
 func _on_upgrade_button_button_down() -> void:
 	ItemManager.upgrade_hook(data)
 	_refresh_ui()
+	pass # Replace with function body.
+
+
+func _on_visibility_changed() -> void:
+	if visible:
+		_refresh_ui()
+	pass # Replace with function body.
+
+
+func _on_close_button_button_down() -> void:
+	closed.emit()
 	pass # Replace with function body.

@@ -13,31 +13,25 @@ var can_drag : bool = false
 var character_data : CharacterCard
 
 @onready var hook: Hook = $Boat/Hook
-@onready var rope: Line2D = $Boat/Rope
 @onready var skin: PlayerSkin = $Boat/Skin
 @export var force_line_anim : AnimationPlayer
 @export var force_line : Node2D
+@export var boat_anim : AnimationPlayer
 
 func _ready() -> void:
-	rope.set_start(skin.position)
 	GameManager.play_available.connect(on_play_available)
 	GameManager.play_unavailable.connect(on_play_unavailable)
 	GameManager.end_day.connect(on_end_day)
-	can_play = false
+	can_play = true
+	interaction_state = InteractionState.THROW
 	force_line.hide()
 	_set_character_data()
 	pass
 
-func _physics_process(delta: float) -> void:
-	#queue_redraw()
-	pass
-
-func _draw() -> void:
-	#draw_circle(Vector2.ZERO, hook.length, Color.CRIMSON, false, 5)
-	pass
-
 func on_end_day(fishes):
 	set_state(ThrowState.DISABLED)
+	boat_anim.play("end")
+	boat_anim.queue("end_idle")
 	pass
 
 func _set_character_data():
@@ -88,7 +82,6 @@ func set_state(new_state : ThrowState):
 			get_tree().call_group("ui", "fade_in")
 		ThrowState.START:
 			throw_initial_pos = get_global_mouse_position()
-			rope.set_start(skin.position)
 			force_line.set_start(get_local_mouse_position())
 			force_line.set_last(get_local_mouse_position())
 			force_line.show()

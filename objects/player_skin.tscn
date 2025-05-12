@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cviosxqcg33ak" path="res://assets/sprites/fishermans/front_body.png" id="3_w3b18"]
 [ext_resource type="Texture2D" uid="uid://bpdymc7f08wm2" path="res://assets/sprites/fishermans/hairs.png" id="4_w3b18"]
 [ext_resource type="Texture2D" uid="uid://jm5md8021wny" path="res://assets/sprites/fishermans/bodies.png" id="5_mxhnr"]
-[ext_resource type="Texture2D" uid="uid://bmcpshn44opkk" path="res://assets/sprites/fishermans/hat_a.png" id="5_n4dcl"]
+[ext_resource type="Texture2D" uid="uid://1kdqupnhc4c" path="res://assets/sprites/fishermans/hats.png" id="6_w3b18"]
 
 [node name="Skin" type="Node2D" node_paths=PackedStringArray("face", "hat", "hair", "body")]
 script = ExtResource("1_mxhnr")
@@ -39,7 +39,8 @@ frame = 2
 
 [node name="Hat" type="Sprite2D" parent="Scale/BackBody"]
 position = Vector2(-2, -20)
-texture = ExtResource("5_n4dcl")
+texture = ExtResource("6_w3b18")
+hframes = 4
 
 [node name="Hands" type="Sprite2D" parent="Scale/BackBody"]
 position = Vector2(-1.90735e-06, 0)

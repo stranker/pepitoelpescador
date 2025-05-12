@@ -16,12 +16,12 @@ purchased = true
 equiped = true
 texture = ExtResource("3_vofrw")
 level = 0
-initial_hook = false
-price_array = Array[int]([0, 0, 0, 0, 0])
-force_array = Array[float]([0.8, 0.9, 1.0, 1.1, 5.0])
-accuracy_array = Array[float]([0.1, 0.12, 0.14, 0.16, 1.0])
+initial_hook = true
+price_array = Array[int]([30, 60, 100, 120, 150])
+force_array = Array[float]([0.8, 0.9, 1.0, 1.1, 1.3])
+accuracy_array = Array[float]([0.1, 0.12, 0.14, 0.16, 0.2])
 length_array = Array[float]([8.0, 8.2, 8.6, 9.0, 10.0])
-recover_array = Array[float]([1.0, 2.0, 3.0, 4.0, 10.0])
+recover_array = Array[float]([1.0, 1.2, 1.4, 1.6, 1.85])
 metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
 
 [sub_resource type="Resource" id="Resource_x1b0d"]
@@ -42,8 +42,8 @@ metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
 
 [sub_resource type="Resource" id="Resource_ipr50"]
 script = ExtResource("5_84b6b")
-price_list = Array[int]([0, 0])
-day_time_values = Array[float]([500.0, 60.0])
+price_list = Array[int]([0, 500])
+day_time_values = Array[float]([40.0, 60.0])
 textures = Array[Texture]([ExtResource("6_x1b0d"), ExtResource("7_84b6b")])
 current_tier = 0
 unlocks = Array[String](["Unlocks: Color Shores", "Unlocks: Aurora Coast"])

@@ -111,3 +111,7 @@ func _set_skin_data(new_data : SkinData):
 	body.frame = data.body_idx
 	set_skin_color(data.skin_color)
 	pass
+
+func save():
+	_update_data()
+	pass

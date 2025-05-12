@@ -356,6 +356,9 @@ hue_variation_max = 1.0
 [node name="Player" parent="." instance=ExtResource("6_3rcre")]
 position = Vector2(578, 484)
 
+[node name="RopeRendererLine2D" parent="Player/Boat/Rope" index="0"]
+points = PackedVector2Array(0, 0, -0.168152, 2.51044, -0.341248, 4.9838, -0.5224, 7.40616, -0.7146, 9.76675, -0.92041, 12.0576, -1.14288, 14.2731, -1.38556, 16.4089, -1.65302, 18.4619, -1.95135, 20.4297, -2.28918, 22.3094, -2.67938, 24.0967, -3.14105, 25.7845, -3.70453, 27.3589, -4.41962, 28.7894, -5.36658, 30.0018, -6.6424, 30.8078, -8.18518, 30.8744, -9.64795, 30.1292, -10.8638, 28.856, -11.8704, 27.2605, -12.727, 25.4306, -13.4752, 23.4011, -14.1406, 21.1884, -14.7386, 18.8069, -15.2793, 16.2773, -15.7715, 13.6292, -16.2251, 10.8992, -16.6512, 8.12714, -17.0615, 5.35269, -17.2548, 4.03345)
+
 [node name="Water" type="Node2D" parent="."]
 position = Vector2(93, 518)
 
@@ -615,7 +618,7 @@ respawn_time = 50.0
 
 [node name="WaterCollision" type="Area2D" parent="Water"]
 z_index = 3
-position = Vector2(3, 18)
+position = Vector2(2, 34)
 collision_layer = 2
 collision_mask = 0
 

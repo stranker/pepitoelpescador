@@ -1,0 +1,125 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0f07pdjg4nrt"]
+
+[ext_resource type="Texture2D" uid="uid://cpalo30arsxsr" path="res://assets/sprites/cards/upgrades/accuracy_icon.png" id="1_bybqi"]
+[ext_resource type="Script" uid="uid://drfoxmode8o1o" path="res://ui/ability_info.gd" id="1_screy"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_screy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ot44"]
+bg_color = Color(0.413774, 0.672669, 0.438985, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uoat"]
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.374139, 0.374139, 0.374139, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_jksk1"]
+font = ExtResource("2_screy")
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_screy"]
+font = ExtResource("2_screy")
+font_size = 24
+
+[node name="Ability" type="Control" node_paths=PackedStringArray("image", "title", "requirement", "description")]
+custom_minimum_size = Vector2(560, 120)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_screy")
+image = NodePath("Back/ImagePanel/Image")
+title = NodePath("Back/Info/Title")
+requirement = NodePath("Back/Info/Requirement")
+description = NodePath("Back/Info/RichTextLabel")
+
+[node name="Back" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ot44")
+
+[node name="ImagePanel" type="Panel" parent="Back"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -44.0
+offset_right = 104.0
+offset_bottom = 44.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5uoat")
+
+[node name="Image" type="TextureRect" parent="Back/ImagePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bybqi")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Info" type="Control" parent="Back"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -440.0
+offset_top = -48.0
+offset_right = -16.0
+offset_bottom = 48.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Back/Info"]
+texture_filter = 2
+layout_mode = 1
+offset_right = 103.0
+offset_bottom = 33.0
+text = "TITLE"
+label_settings = SubResource("LabelSettings_jksk1")
+
+[node name="Requirement" type="Label" parent="Back/Info"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.0
+offset_top = 4.0
+offset_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 0
+text = "Lvl 1"
+label_settings = SubResource("LabelSettings_screy")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Back/Info"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -56.0
+offset_right = 424.0
+offset_bottom = -8.0
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("2_screy")
+theme_override_font_sizes/normal_font_size = 24
+text = "This is a long description of what the ability does"

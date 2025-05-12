@@ -30,6 +30,15 @@ size = Vector2(124, 28)
 resource_name = "hook_camera"
 script/source = "extends Camera2D
 
+func _ready() -> void:
+	GameManager.end_day.connect(on_end_of_day)
+
+func on_end_of_day(_fishes):
+	var tween : Tween = get_tree().create_tween()
+	tween.tween_property(self, \"offset\", Vector2(300,0), 0.5).set_ease(Tween.EASE_IN)
+	tween.play()
+	zoom_to(Vector2.ONE * 1.2, 0.5)
+	pass
 
 func zoom_hook_water():
 	zoom_to(Vector2.ONE * 0.7, 0.3)

@@ -98,3 +98,12 @@ func _physics_process(delta: float) -> void:
 func _on_clock_end_day() -> void:
 	anim.play("results")
 	pass # Replace with function body.
+
+func _on_options_button_down() -> void:
+	anim.play("options")
+	pass # Replace with function body.
+
+func _on_options_panel_closed() -> void:
+	$OptionsPanel.hide()
+	anim.play_backwards("idle")
+	pass # Replace with function body.

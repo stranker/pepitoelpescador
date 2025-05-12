@@ -5,7 +5,7 @@ class GameStats:
 	var experience : float = 0
 	var player_level : int = 1
 	var days_passed : int = 0
-	var day_duration : float = 500
+	var day_duration : float = 40
 	var total_fishes_catched : int = 0
 	
 	func reset():

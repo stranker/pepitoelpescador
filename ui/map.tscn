@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://ctg1fx7elwl1p"]
+[gd_scene load_steps=16 format=3 uid="uid://ctg1fx7elwl1p"]
 
 [ext_resource type="Script" uid="uid://bsi8phqfsjwdg" path="res://ui/map.gd" id="1_xf5ci"]
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="2_hdjpg"]
 [ext_resource type="PackedScene" uid="uid://buwicco4ujh2" path="res://ui/map_item.tscn" id="3_gu6eb"]
 [ext_resource type="Texture2D" uid="uid://b7jfe2lk2w7ek" path="res://assets/sprites/background/color_shores.jpg" id="4_yi5cp"]
 [ext_resource type="Texture2D" uid="uid://ber5vtlo2ea28" path="res://assets/sprites/background/aurora_coast.jpg" id="5_ay3ok"]
-[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="5_nrgxe"]
 [ext_resource type="PackedScene" uid="uid://7605xw4rige" path="res://scenes/color_shores.tscn" id="5_uwv3m"]
 [ext_resource type="Texture2D" uid="uid://cmjghx3ti5vml" path="res://assets/sprites/background/mystic_river.jpg" id="6_uwv3m"]
 [ext_resource type="PackedScene" uid="uid://buqew5foqk3au" path="res://scenes/aurora_coast.tscn" id="7_cjqc2"]
@@ -34,6 +33,56 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dc1eh"]
+bg_color = Color(0.980932, 0.346384, 0.308302, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_em20l"]
+bg_color = Color(0.7, 0.112, 0.2786, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uy36j"]
+bg_color = Color(0.921569, 0.160784, 0.164706, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_osy78"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 48
+corner_radius_top_right = 48
+corner_radius_bottom_right = 48
+corner_radius_bottom_left = 48
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
 
 [node name="Map" type="Control" node_paths=PackedStringArray("maps_container")]
 layout_mode = 3
@@ -119,20 +168,6 @@ grow_vertical = 2
 level_name = "Mystic River"
 level_image = ExtResource("6_uwv3m")
 
-[node name="Close" type="TextureButton" parent="."]
-layout_mode = 1
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 104.0
-offset_bottom = 112.0
-texture_normal = ExtResource("5_nrgxe")
-texture_pressed = ExtResource("5_nrgxe")
-texture_hover = ExtResource("5_nrgxe")
-texture_disabled = ExtResource("5_nrgxe")
-texture_focused = ExtResource("5_nrgxe")
-ignore_texture_size = true
-stretch_mode = 5
-
 [node name="Continue" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -157,5 +192,32 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_cjqc2")
 text = "Continue"
 icon_alignment = 2
 
-[connection signal="button_up" from="Close" to="." method="_on_close_button_up"]
+[node name="CloseButton" type="Button" parent="."]
+texture_filter = 2
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 112.0
+offset_bottom = 112.0
+focus_mode = 1
+theme_override_fonts/font = ExtResource("9_dc1eh")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = SubResource("StyleBoxFlat_dc1eh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_em20l")
+theme_override_styles/normal = SubResource("StyleBoxFlat_uy36j")
+text = "X"
+
+[node name="Panel" type="Panel" parent="CloseButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_osy78")
+
 [connection signal="button_down" from="Continue" to="." method="_on_continue_button_down"]
+[connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]

@@ -5,10 +5,18 @@ enum SelectState { PLAYER, UPGRADE }
 enum State { AVAILABLE, DISABLED }
 
 const selectable_card_scene : PackedScene = preload("res://ui/selectable_card.tscn")
+const ability_info_scene : PackedScene = preload("res://ui/ability_info.tscn")
+
 @export var cards : HBoxContainer
 @export var title : Label
 @export var selection_type : SelectState
-@export var close_button : TextureButton
+@export var close_button : Button
+@export var selected_card_pos : Control
+@export var anim : AnimationPlayer
+@export var abilities : VBoxContainer
+
+var selected_card : Card
+
 var state : State = State.DISABLED
 
 signal upgrade_card_select(upgrade)
@@ -17,39 +25,31 @@ signal back()
 
 func _ready() -> void:
 	close_button.hide()
+	character_card_selected.connect(GameManager.on_character_card_selected)
+	character_card_selected.connect(CardManager.on_character_card_selected)
 	pass
 
 func _show_class_cards():
 	show()
 	close_button.show()
 	_create_character_cards()
-	character_card_selected.connect(GameManager.on_character_card_selected)
-	character_card_selected.connect(CardManager.on_character_card_selected)
 	pass
 
-func on_player_level_up(_level):
-	#await get_tree().create_timer(1.5).timeout
-	#show()
-	#_create_upgrade_cards()
-	pass
-
-func on_card_selected(card_data : Card):
+func on_card_selected(selected_card : SelectableCard, card_data : Card):
+	self.selected_card = card_data
+	var character : CharacterCard = card_data as CharacterCard
+	for ability in character.abilities:
+		var ability_info = ability_info_scene.instantiate()
+		abilities.add_child(ability_info)
+		ability_info.set_data(ability)
+	selected_card.show_info()
+	var tween : Tween = create_tween()
+	tween.tween_property(selected_card, "global_position", selected_card_pos.global_position, 0.2).set_ease(Tween.EASE_IN)
+	tween.play()
+	anim.play("card_selected")
 	for card in cards.get_children():
-		if card.data != card_data:
-			card.destroy()
-			await get_tree().create_timer(0.1).timeout
-	await get_tree().create_timer(2).timeout
-	hide()
-	for card in cards.get_children():
-		card.queue_free()
-	match card_data.card_type:
-		Card.CardType.CHARACTER:
-			character_card_selected.emit(card_data)
-		Card.CardType.UPGRADE:
-			card_data.upgrade()
-			upgrade_card_select.emit(card_data)
-		Card.CardType.DIVINITY:
-			pass
+		if card != selected_card:
+			card.hide()
 	pass
 
 func _create_character_cards():
@@ -75,9 +75,23 @@ func _create_cards(cards_list : Array):
 		card.enable()
 	pass
 
-
-func _on_close_button_down() -> void:
+func _on_close_button_button_down() -> void:
+	anim.play("idle")
 	for card in cards.get_children():
 		card.queue_free()
 	back.emit()
+	for ability_info in abilities.get_children():
+		ability_info.queue_free()
+	pass # Replace with function body.
+
+func _on_cancel_button_down() -> void:
+	anim.play("idle")
+	for card in cards.get_children():
+		card.reset()
+	for ability_info in abilities.get_children():
+		ability_info.queue_free()
+	pass # Replace with function body.
+
+func _on_confirm_button_down() -> void:
+	character_card_selected.emit(self.selected_card)
 	pass # Replace with function body.

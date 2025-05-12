@@ -1,10 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://g1lnxers4xc4"]
+[gd_scene load_steps=31 format=3 uid="uid://g1lnxers4xc4"]
 
 [ext_resource type="Script" uid="uid://0bwau1wibnsc" path="res://ui/hooks_shop_panel.gd" id="1_kqfp7"]
 [ext_resource type="Texture2D" uid="uid://cb6xdxcj7gp0" path="res://assets/sprites/hooks/default.png" id="1_obbv5"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_kqfp7"]
 [ext_resource type="Texture2D" uid="uid://cpjpcvecgladw" path="res://assets/sprites/cards/shop_card.png" id="3_g528f"]
-[ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="4_g528f"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="5_glwro"]
 [ext_resource type="Texture2D" uid="uid://74frmjaqi1ns" path="res://assets/ui/right_arrow.png" id="6_i6ehd"]
 [ext_resource type="PackedScene" uid="uid://dsqhlrsvjyk21" path="res://ui/stat_progress_bar.tscn" id="6_ud7yv"]
@@ -48,18 +47,6 @@ font_size = 38
 [sub_resource type="LabelSettings" id="LabelSettings_22x31"]
 font = ExtResource("2_kqfp7")
 font_size = 32
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ud7yv"]
-bg_color = Color(0.133333, 0.333333, 0.333333, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 8
-border_color = Color(0.133333, 0.333333, 0.333333, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_22x31"]
 bg_color = Color(0.169601, 0.497842, 0.00860895, 1)
@@ -560,6 +547,56 @@ _data = {
 &"upgrade_enabled": SubResource("Animation_glwro")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ud7yv"]
+bg_color = Color(0.980932, 0.346384, 0.308302, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpf1h"]
+bg_color = Color(0.7, 0.112, 0.2786, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6b4v5"]
+bg_color = Color(0.921569, 0.160784, 0.164706, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.64, 0.1088, 0.29472, 1)
+corner_radius_top_left = 42
+corner_radius_top_right = 42
+corner_radius_bottom_right = 42
+corner_radius_bottom_left = 42
+shadow_color = Color(0, 0, 0, 0.0980392)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_senh1"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 48
+corner_radius_top_right = 48
+corner_radius_bottom_right = 48
+corner_radius_bottom_left = 48
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
 [node name="HooksPanel" type="Control" node_paths=PackedStringArray("name_label", "speed_stat", "length_stat", "accuracy_stat", "recover_stat", "texture", "buttons_anim", "upgrade_label", "buy_label", "right_button", "left_button", "upgrade_button")]
 layout_mode = 3
 anchors_preset = 15
@@ -771,6 +808,7 @@ offset_top = -80.0
 offset_right = 120.5
 grow_horizontal = 2
 grow_vertical = 0
+focus_mode = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_kqfp7")
 theme_override_font_sizes/font_size = 56
@@ -858,10 +896,10 @@ visible = false
 custom_minimum_size = Vector2(240, 83)
 layout_mode = 2
 size_flags_horizontal = 6
+focus_mode = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_kqfp7")
 theme_override_font_sizes/font_size = 56
-theme_override_styles/focus = SubResource("StyleBoxFlat_ud7yv")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_22x31")
 theme_override_styles/hover = SubResource("StyleBoxFlat_22x31")
 theme_override_styles/normal = SubResource("StyleBoxFlat_glwro")
@@ -872,6 +910,7 @@ text = "EQUIP"
 custom_minimum_size = Vector2(240, 83)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_kqfp7")
 theme_override_font_sizes/font_size = 48
@@ -964,21 +1003,37 @@ stretch_mode = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
-[node name="Close" type="TextureButton" parent="."]
-layout_mode = 1
-offset_left = 32.0
+[node name="CloseButton" type="Button" parent="."]
+texture_filter = 2
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 0
+offset_left = 24.0
 offset_top = 24.0
-offset_right = 120.0
+offset_right = 112.0
 offset_bottom = 112.0
-texture_normal = ExtResource("4_g528f")
-texture_pressed = ExtResource("4_g528f")
-texture_hover = ExtResource("4_g528f")
-ignore_texture_size = true
-stretch_mode = 5
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_kqfp7")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = SubResource("StyleBoxFlat_ud7yv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kpf1h")
+theme_override_styles/normal = SubResource("StyleBoxFlat_6b4v5")
+text = "X"
 
+[node name="Panel" type="Panel" parent="CloseButton"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_senh1")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/Left/LeftButton" to="." method="_on_left_button_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/Info/Buttons/BuyButton" to="." method="_on_buy_button_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/EquipButton" to="." method="_on_equip_button_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton" to="." method="_on_upgrade_button_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/Right/RightButton" to="." method="_on_right_button_button_down"]
-[connection signal="button_down" from="Close" to="." method="_on_close_button_down"]
+[connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]

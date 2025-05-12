@@ -36,6 +36,10 @@ window/stretch/aspect="expand"
 
 movie_writer/movie_file="E:/Proyectos/Godot/pepitoelpescador/movie_clips/movie_out.avi"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ropesim/plugin.cfg")
+
 [global_group]
 
 ui=""

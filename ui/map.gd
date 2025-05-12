@@ -18,10 +18,6 @@ func on_boat_upgraded(boat : BoatData):
 		maps_container.get_child(i).unlock()
 	pass
 
-func _on_close_button_up() -> void:
-	map_close.emit()
-	pass # Replace with function body.
-
 func on_map_selected(selected_map):
 	for map in maps_container.get_children():
 		map.set_selected(selected_map == map)
@@ -30,4 +26,9 @@ func on_map_selected(selected_map):
 
 func _on_continue_button_down() -> void:
 	GameManager.start_level()
+	pass # Replace with function body.
+
+
+func _on_close_button_button_down() -> void:
+	map_close.emit()
 	pass # Replace with function body.
