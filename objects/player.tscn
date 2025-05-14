@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c6expp3ap42af"]
+[gd_scene load_steps=25 format=3 uid="uid://c6expp3ap42af"]
 
 [ext_resource type="Script" uid="uid://6humfo0d4sts" path="res://objects/player.gd" id="1_l4p8p"]
 [ext_resource type="PackedScene" uid="uid://ddgcwp74rtv0o" path="res://objects/hook.tscn" id="2_d1o6y"]
@@ -172,12 +172,12 @@ script/source = "extends Control
 @export var length_label : Label
 @export var recover_label : Label
 
-func _on_hook_stats_updated(speed, accuracy, length, recover) -> void:
-	power_label.text = \"Power:\" + str(speed)
-	accuracy_label.text = \"Accuracy:\" + str(accuracy)
-	length_label.text = \"Length:\" + str(length)
-	recover_label.text = \"Recover:\" + str(recover)
-	pass # Replace with function body.
+func _on_hook_stats_updated(stats : Hook.Stats) -> void:
+	power_label.text = \"Power:\" + str(stats.speed)
+	accuracy_label.text = \"Accuracy:\" + str(stats.accuracy)
+	length_label.text = \"Length:\" + str(stats.length)
+	recover_label.text = \"Recover:\" + str(stats.recover_force)
+	pass
 "
 
 [sub_resource type="Curve" id="Curve_ev7ot"]
@@ -319,11 +319,23 @@ _data = {
 &"fade": SubResource("Animation_4poni")
 }
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("force_line_anim", "force_line", "boat_anim")]
+[sub_resource type="GDScript" id="GDScript_i8sra"]
+resource_name = "player_abilities"
+script/source = "extends Node
+
+func add_ability(ability : Ability):
+	var ability_component : AbilityComponent = ability.ability_component.instantiate()
+	ability_component.set_data(ability)
+	add_child(ability_component)
+	pass
+"
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("force_line_anim", "force_line", "boat_anim", "abilities_parent")]
 script = ExtResource("1_l4p8p")
 force_line_anim = NodePath("ForceLine/AnimationPlayer")
 force_line = NodePath("ForceLine")
 boat_anim = NodePath("Anim")
+abilities_parent = NodePath("Abilities")
 
 [node name="Boat" type="Node2D" parent="."]
 
@@ -399,13 +411,12 @@ libraries = {
 autoplay = "idle"
 
 [node name="DebugStats" type="Control" parent="." node_paths=PackedStringArray("power_label", "accuracy_label", "length_label", "recover_label")]
-visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = 84.0
-offset_top = -185.0
-offset_right = 214.0
-offset_bottom = -53.0
+offset_left = 240.0
+offset_top = -226.0
+offset_right = 370.0
+offset_bottom = -94.0
 mouse_filter = 2
 script = SubResource("GDScript_56ciw")
 power_label = NodePath("VBoxContainer/Power")
@@ -456,6 +467,9 @@ dampening = 1.0
 libraries = {
 &"": SubResource("AnimationLibrary_dihgw")
 }
+
+[node name="Abilities" type="Node" parent="."]
+script = SubResource("GDScript_i8sra")
 
 [connection signal="hook_state_changed" from="Boat/Hook" to="." method="_on_hook_hook_state_changed"]
 [connection signal="movement_state_changed" from="Boat/Hook" to="." method="_on_hook_movement_state_changed"]

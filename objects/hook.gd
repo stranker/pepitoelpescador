@@ -1,6 +1,26 @@
 class_name Hook
 extends CharacterBody2D
 
+class Stats:
+	signal updated(stats)
+	
+	var speed : float:
+		set(new_speed):
+			speed = new_speed
+			updated.emit(self)
+	var length : float:
+		set(new_length):
+			length = new_length
+			updated.emit(self)
+	var accuracy : float:
+		set(new_accuracy):
+			accuracy = new_accuracy
+			updated.emit(self)
+	var recover_force : float:
+		set(new_recover_force):
+			recover_force = new_recover_force
+			updated.emit(self)
+
 @export var skin : Sprite2D
 @onready var fishes: Node2D = $Fishes
 @onready var bubbles: CPUParticles2D = $Bubbles
@@ -11,12 +31,7 @@ extends CharacterBody2D
 @onready var camera: Camera2D = $Camera
 @onready var water_splash: CPUParticles2D = $WaterSplash
 
-
-var speed : float = 0
-var length : float = 0
-var accuracy : float = 0
 var speed_decrease : float = 0
-var recover_force : float = 0
 
 const LENGTH_MULTIPLIER : float = 100
 const LENGTH_LIMIT_MULTIPLIER : float = 1.5
@@ -34,46 +49,51 @@ enum MovementState { AIR, WATER }
 var movement_state = MovementState.AIR
 enum HookState { IDLE, THROWN, RECOVER }
 var hook_state = HookState.IDLE
-@export var stats : HookStats
+@export var hook_stats : HookStats
+var stats : Stats = Stats.new()
 
 signal movement_state_changed(movement_state)
 signal hook_state_changed(hook_state)
-signal stats_updated(speed, accuracy, length, recover)
+signal stats_updated(stats)
 signal items_collected(count)
 signal no_items_collected()
 
 func _ready() -> void:
 	set_physics_process(false)
 	initial_position = global_position
+	stats.updated.connect(on_stats_updated)
 	_set_hook_data()
 	pass
 
+func on_stats_updated(stats):
+	stats_updated.emit(stats)
+	pass
+
 func _set_hook_data():
-	stats = ItemManager.equipped_hook
+	hook_stats = ItemManager.equipped_hook
 	var character_stats : CharacterCard = CardManager.character_card
-	speed = (stats.get_force() + character_stats.base_power) * SPEED_MULTIPLIER
-	accuracy = stats.get_accuracy() + character_stats.base_accuracy
-	length = stats.get_length() * LENGTH_MULTIPLIER
-	recover_force = stats.get_recover() * RECOVER_MULTIPLIER
-	skin.texture = stats.texture
-	stats_updated.emit(speed, accuracy, length, recover_force)
+	stats.speed = (hook_stats.get_force() + character_stats.base_power) * SPEED_MULTIPLIER
+	stats.accuracy = hook_stats.get_accuracy() + character_stats.base_accuracy
+	stats.length = hook_stats.get_length() * LENGTH_MULTIPLIER
+	stats.recover_force = hook_stats.get_recover() * RECOVER_MULTIPLIER
+	skin.texture = hook_stats.texture
 	pass
 
 func throw(dir : Vector2):
 	set_state(HookState.THROWN)
 	set_physics_process(true)
-	var throw_accuracy = (HookStats.MAX_ACCURACY - accuracy) / HookStats.MAX_ACCURACY
+	var throw_accuracy = (HookStats.MAX_ACCURACY - stats.accuracy) / HookStats.MAX_ACCURACY
 	var new_dir_angle : float = dir.angle() + randf_range(-throw_accuracy, throw_accuracy)
 	direction = Vector2.from_angle(new_dir_angle).normalized()
-	velocity = direction * speed
+	velocity = direction * stats.speed
 	wind.emitting = true
-	final_direct_position = initial_position + Vector2.DOWN * length
+	final_direct_position = initial_position + Vector2.DOWN * stats.length
 	get_tree().call_group("ui", "fade_out")
 	pass
 
 func recover():
 	set_state(HookState.RECOVER)
-	velocity += global_position.direction_to(initial_position) * (1.0 / _get_fishes_weight()) * recover_force
+	velocity += global_position.direction_to(initial_position) * (1.0 / _get_fishes_weight()) * stats.recover_force
 	final_direct_position += Vector2.UP * 200
 	pass
 
@@ -119,7 +139,7 @@ func air_movement(delta : float):
 	pass
 
 func _clamp_length():
-	position = position.limit_length(length)
+	position = position.limit_length(stats.length)
 	pass
 
 func water_movement(delta : float):
@@ -128,12 +148,12 @@ func water_movement(delta : float):
 		velocity.y = lerpf(velocity.y, 0, delta)
 	else:
 		rotation = lerp_angle(rotation, velocity.angle(), delta * 2)
-	velocity = velocity.lerp(global_position.direction_to(final_direct_position) * speed * 0.2, delta)
+	velocity = velocity.lerp(global_position.direction_to(final_direct_position) * stats.speed * 0.2, delta)
 	_limit_velocity()
 	pass
 
 func _limit_velocity():
-	velocity = velocity.limit_length(length * LENGTH_LIMIT_MULTIPLIER)
+	velocity = velocity.limit_length(stats.length * LENGTH_LIMIT_MULTIPLIER)
 	pass
 
 func set_movement_state(new_state : MovementState):

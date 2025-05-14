@@ -17,6 +17,7 @@ var character_data : CharacterCard
 @export var force_line_anim : AnimationPlayer
 @export var force_line : Node2D
 @export var boat_anim : AnimationPlayer
+@export var abilities_parent : Node
 
 func _ready() -> void:
 	GameManager.play_available.connect(on_play_available)
@@ -36,6 +37,12 @@ func on_end_day(fishes):
 
 func _set_character_data():
 	character_data = CardManager.character_card
+	_create_abilities()
+	pass
+
+func _create_abilities():
+	for ability in character_data.abilities:
+		abilities_parent.add_ability(ability)
 	pass
 
 func on_play_available():

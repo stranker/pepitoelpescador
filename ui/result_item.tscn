@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2u66j70a1vay"]
+[gd_scene load_steps=10 format=3 uid="uid://b2u66j70a1vay"]
 
-[ext_resource type="Texture2D" uid="uid://dbqvpsqgyiace" path="res://assets/sprites/icons/profile_exp.png" id="1_8k32s"]
 [ext_resource type="Texture2D" uid="uid://mkr2ayquatc4" path="res://assets/ui/fish_icon.png" id="1_bv7uk"]
 [ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_bv7uk"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="3_era6r"]
@@ -10,10 +9,11 @@
 resource_name = "result_item"
 script/source = "extends Control
 
-@export var fish_texture_rect : TextureRect
-@export var fish_count_label : Label
-@export var fish_size_label : Label
-@export var fish_coins_label : Label
+@export var image : TextureRect
+@export var count_label : Label
+@export var size_label : Label
+@export var coins_label : Label
+@export var increment_label : Label
 
 @export var is_total : bool = false
 
@@ -21,28 +21,56 @@ script/source = "extends Control
 
 var fish_name : String
 
+func _ready() -> void:
+	increment_label.hide()
+
 func set_data(data : Dictionary):
 	fish_name = data.name if data.has(\"name\") else \"total\"
-	fish_texture_rect.texture = data.texture if data.has(\"texture\") else default_texture
-	fish_count_label.text = \"x \" + str(data.count)
-	fish_size_label.text = str(data.size).pad_decimals(2) + \" cm\"
-	fish_coins_label.text =str(data.gold)
+	image.texture = data.texture if data.has(\"texture\") else default_texture
+	count_label.text = \"x \" + str(data.count)
+	size_label.text = str(data.size).pad_decimals(2) + \" cm\"
+	coins_label.text = str(data.gold)
+	if data.increment != 0:
+		increment_label.text = \"+ \" + str(ceil(data.increment))
+		increment_label.show()
 	pass
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k32s"]
+bg_color = Color(0.920995, 0.920995, 0.920994, 1)
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 28
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_qjcq7"]
 font = ExtResource("3_era6r")
 font_size = 32
 
-[node name="ResultItem" type="Control" node_paths=PackedStringArray("fish_texture_rect", "fish_count_label", "fish_size_label", "fish_coins_label")]
+[sub_resource type="LabelSettings" id="LabelSettings_bv7uk"]
+font = ExtResource("3_era6r")
+font_size = 32
+font_color = Color(1, 0.797, 0.13, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_era6r"]
+font = ExtResource("3_era6r")
+font_size = 32
+font_color = Color(0, 1, 0.116667, 1)
+
+[node name="ResultItem" type="Control" node_paths=PackedStringArray("image", "count_label", "size_label", "coins_label", "increment_label")]
 custom_minimum_size = Vector2(560, 64)
 layout_mode = 3
 anchors_preset = 0
 script = SubResource("GDScript_8k32s")
-fish_texture_rect = NodePath("MarginContainer/HBoxContainer/TextureRect/TextureRect")
-fish_count_label = NodePath("MarginContainer/HBoxContainer/Count")
-fish_size_label = NodePath("MarginContainer/HBoxContainer/Size")
-fish_coins_label = NodePath("MarginContainer/HBoxContainer/Control/HBoxContainer/Coin")
+image = NodePath("MarginContainer/HBoxContainer/Panel/TextureRect")
+count_label = NodePath("MarginContainer/HBoxContainer/Count")
+size_label = NodePath("MarginContainer/HBoxContainer/Size")
+coins_label = NodePath("MarginContainer/HBoxContainer/Control/HBoxContainer/Coin")
+increment_label = NodePath("MarginContainer/HBoxContainer/Control/HBoxContainer/Increment")
 default_texture = ExtResource("1_bv7uk")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -60,22 +88,21 @@ theme_override_constants/margin_bottom = 8
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer/HBoxContainer"]
 clip_children = 2
+custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
-texture = ExtResource("1_8k32s")
-expand_mode = 2
-stretch_mode = 5
+theme_override_styles/panel = SubResource("StyleBoxFlat_8k32s")
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/TextureRect"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = 14.0
-offset_right = -8.0
-offset_bottom = 46.0
+offset_left = -29.0
+offset_top = 17.0
+offset_right = -11.0
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.523599
@@ -94,7 +121,7 @@ custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "12.42 cm"
-label_settings = SubResource("LabelSettings_qjcq7")
+label_settings = SubResource("LabelSettings_bv7uk")
 horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
@@ -122,3 +149,9 @@ stretch_mode = 5
 layout_mode = 2
 text = "174"
 label_settings = SubResource("LabelSettings_qjcq7")
+
+[node name="Increment" type="Label" parent="MarginContainer/HBoxContainer/Control/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "+ 16"
+label_settings = SubResource("LabelSettings_era6r")

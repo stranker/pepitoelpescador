@@ -48,7 +48,7 @@ func set_data(fish : Fish):
 func _on_anim_animation_finished(anim_name: StringName) -> void:
 	if anim_name == \"pop\":
 		anim.play(\"destroy\")
-		GameManager.add_gold(fish_gold)
+		#GameManager.add_gold(fish_gold)
 	if anim_name == \"destroy\":
 		queue_free()
 	pass # Replace with function body.
@@ -443,7 +443,7 @@ stretch_mode = 5
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_5bh2g")
+&"": SubResource("AnimationLibrary_5bh2g")
 }
 autoplay = "pop"
 
@@ -478,13 +478,13 @@ scale_amount_curve = SubResource("Curve_7v0jy")
 position = Vector2(72, 72)
 emitting = false
 amount = 20
+texture = ExtResource("5_5t2ka")
 lifetime = 0.4
 one_shot = true
 explosiveness = 1.0
 randomness = 0.5
 lifetime_randomness = 0.5
 local_coords = true
-texture = ExtResource("5_5t2ka")
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 300.0

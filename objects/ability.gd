@@ -8,3 +8,5 @@ enum AbilityType { PASSIVE, ACTIVE }
 @export var texture : Texture
 @export var type : AbilityType
 @export var level_requirement : int = 0
+@export var ability_component : PackedScene
+@export var modifier : float

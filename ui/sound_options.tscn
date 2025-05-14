@@ -51,11 +51,16 @@ font = ExtResource("2_57mqj")
 font_size = 72
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7copr"]
-bg_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+bg_color = Color(0.423, 0.767667, 0.94, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.427451, 0.305882, 0.917647, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="LabelSettings" id="LabelSettings_qobcg"]
 font = ExtResource("2_57mqj")
@@ -217,10 +222,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -412.0
-offset_top = -240.0
-offset_right = 413.0
-offset_bottom = 224.0
+offset_left = -341.0
+offset_top = -200.0
+offset_right = 342.0
+offset_bottom = 184.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7copr")

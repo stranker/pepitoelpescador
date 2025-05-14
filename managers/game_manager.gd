@@ -28,6 +28,8 @@ var level_scene : PackedScene = null
 var music : AudioStreamPlayer
 var game_presentation_end : bool = false
 var skin_data : PlayerSkin.SkinData = null
+var session_gold : int = 0
+var gold_increment : float = 0
 
 var fishes_catched : Array[Fish]
 

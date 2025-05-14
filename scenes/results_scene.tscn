@@ -1,17 +1,21 @@
-[gd_scene load_steps=14 format=3 uid="uid://w87u21qrvcd4"]
+[gd_scene load_steps=13 format=3 uid="uid://w87u21qrvcd4"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_2fneg"]
 [ext_resource type="Script" uid="uid://bgrko37lln7rw" path="res://scenes/results_scene.gd" id="1_d1605"]
 [ext_resource type="PackedScene" uid="uid://b2u66j70a1vay" path="res://ui/result_item.tscn" id="2_eswdi"]
-[ext_resource type="Texture2D" uid="uid://mkr2ayquatc4" path="res://assets/ui/fish_icon.png" id="3_qjcq7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eswdi"]
-bg_color = Color(0.0475577, 0.0475577, 0.0475576, 1)
+bg_color = Color(0.592667, 0.53, 1, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.431932, 0.133487, 0.999953, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-shadow_color = Color(0, 0, 0, 0.701961)
+shadow_color = Color(0, 0, 0, 0.0980392)
 shadow_size = 4
 shadow_offset = Vector2(0, 4)
 
@@ -68,7 +72,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CenterContainer/Control/Panel/VBoxContainer:modulate")
+tracks/3/path = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -77,13 +81,27 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_8a2dw"]
 resource_name = "end"
+length = 0.1
 step = 0.1
 
 [sub_resource type="Animation" id="Animation_d1605"]
 resource_name = "idle"
+length = 0.1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -135,7 +153,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.4, 0.5, 0.8),
 "transitions": PackedFloat32Array(0.5, 1, 1, 1),
 "update": 0,
-"values": [Vector2(20, 600), Vector2(20, 80), Vector2(20, 114), Vector2(400, 114)]
+"values": [Vector2(20, 600), Vector2(20, 40), Vector2(20, 60), Vector2(400, 60)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -152,7 +170,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CenterContainer/Control/Panel/VBoxContainer:modulate")
+tracks/3/path = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -179,10 +197,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d1605")
-results = NodePath("CenterContainer/Control/Panel/VBoxContainer/Results")
+results = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/Results")
 anim = NodePath("AnimationPlayer")
-total_result = NodePath("CenterContainer/Control/Panel/VBoxContainer/ResultItem")
-no_fish_label = NodePath("CenterContainer/Control/Panel/Label")
+total_result = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem")
+no_fish_label = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/Label")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -213,7 +231,22 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_eswdi")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Control/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Control" type="Control" parent="CenterContainer/Control/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Control/Panel/MarginContainer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -221,46 +254,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Results" type="VBoxContainer" parent="CenterContainer/Control/Panel/VBoxContainer"]
-custom_minimum_size = Vector2(560, 310)
+[node name="Results" type="VBoxContainer" parent="CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(544, 286)
 layout_mode = 2
 
-[node name="ResultItem" parent="CenterContainer/Control/Panel/VBoxContainer" instance=ExtResource("2_eswdi")]
-visible = false
+[node name="ResultItem" parent="CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer" groups=["ui"] instance=ExtResource("2_eswdi")]
+custom_minimum_size = Vector2(544, 64)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="TextureRect" parent="CenterContainer/Control/Panel/VBoxContainer/ResultItem/MarginContainer/HBoxContainer/TextureRect" index="0"]
-self_modulate = Color(1, 0.65098, 0, 1)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 44.0
-offset_top = 4.0
-offset_right = 119.0
-offset_bottom = 55.0
-rotation = -3.66519
-texture = ExtResource("3_qjcq7")
-
-[node name="Count" parent="CenterContainer/Control/Panel/VBoxContainer/ResultItem/MarginContainer/HBoxContainer" index="1"]
+[node name="Count" parent="CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem/MarginContainer/HBoxContainer" index="1"]
 text = "x0"
 
-[node name="Size" parent="CenterContainer/Control/Panel/VBoxContainer/ResultItem/MarginContainer/HBoxContainer" index="2"]
+[node name="Size" parent="CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem/MarginContainer/HBoxContainer" index="2"]
 text = "0.0 cm"
 
-[node name="Coin" parent="CenterContainer/Control/Panel/VBoxContainer/ResultItem/MarginContainer/HBoxContainer/Control/HBoxContainer" index="1"]
+[node name="Coin" parent="CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem/MarginContainer/HBoxContainer/Control/HBoxContainer" index="1"]
 text = "0"
 
-[node name="Label" type="Label" parent="CenterContainer/Control/Panel"]
+[node name="Label" type="Label" parent="CenterContainer/Control/Panel/MarginContainer/Control"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
+offset_top = -22.0
+offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "No fishes hooked"
@@ -274,9 +293,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -204.0
-offset_top = 60.0
+offset_top = 8.0
 offset_right = 204.0
-offset_bottom = 118.0
+offset_bottom = 66.0
 grow_horizontal = 2
 text = "RESULTS"
 label_settings = SubResource("LabelSettings_8a2dw")
@@ -309,4 +328,4 @@ libraries = {
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 
-[editable path="CenterContainer/Control/Panel/VBoxContainer/ResultItem"]
+[editable path="CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem"]

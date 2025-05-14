@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyojf5hrxvjur"]
+
+[sub_resource type="GDScript" id="GDScript_4p3yt"]
+resource_name = "cat_eye_component"
+script/source = "extends AbilityComponent
+
+func _ready() -> void:
+	add_to_group(\"gameplay\")
+	pass
+
+func on_afternoon_start():
+	var hook : Hook = get_tree().get_first_node_in_group(\"hook\")
+	hook.stats.accuracy += ability.modifier
+	pass
+"
+
+[node name="CatEyeComponent" type="Node"]
+script = SubResource("GDScript_4p3yt")

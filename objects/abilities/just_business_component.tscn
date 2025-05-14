@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://du67qtxmrjq6m"]
+
+[sub_resource type="GDScript" id="GDScript_5ampj"]
+resource_name = "just_business_component"
+script/source = "extends AbilityComponent
+
+func _ready() -> void:
+	GameManager.gold_increment += ability.modifier
+	pass
+"
+
+[node name="JustBusinessComponent" type="Node"]
+script = SubResource("GDScript_5ampj")
