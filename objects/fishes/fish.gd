@@ -18,12 +18,10 @@ var states : Array = [
 @export var fish_mass : float = 10.0
 @export var level : int = 0
 @export var fish_data : FishData
-@export var respawn_time : float = 50
 
 const shockwave_scene = preload("res://sfx/shockwave.tscn")
 
 @onready var movement_timer: Timer = $MovementTimer
-@onready var respawn_timer: Timer = $RespawnTimer
 
 @onready var debug_ui: Control = $Debug
 @onready var movement_rect: ReferenceRect = $Debug/MovementRect
@@ -45,7 +43,6 @@ var velocity : Vector2
 var initial_parent : Node2D
 var target : Fish = null
 @export var fish_scales : Array = [0.9, 0.95, 1.0, 1.05, 1.1]
-@export var fish_base_size : float = 10
 var fish_stars : int = 1
 var fish_size : float = 1
 
@@ -60,10 +57,9 @@ func _ready() -> void:
 	set_fish_state(FishState.MOVE)
 	debug_ui.visible = GameManager.debug_enabled
 	collected.connect(GameManager.collect_fish)
-	respawn_timer.wait_time = respawn_time
-	fish_stars = (randi() % 5) + 1
+	fish_stars = (randi() % 5) + 1 if not fish_data.is_boss else 5
 	scale = Vector2.ONE * fish_scales[fish_stars - 1]
-	fish_size = fish_base_size * fish_scales[fish_stars - 1] + randf_range(0.0, 1.2)
+	fish_size = fish_data.base_size * fish_scales[fish_stars - 1] + randf_range(0.0, 1.2)
 	if fish_data:
 		eated_particles.modulate = fish_data.fish_color
 	pass
@@ -124,7 +120,7 @@ func eat_exit():
 
 func eated_enter():
 	await get_tree().create_timer(3).timeout
-	_respawn()
+	queue_free()
 	pass
 
 func eated_exit():
@@ -212,19 +208,8 @@ func collect():
 	set_fish_state.call_deferred(FishState.COLLECT)
 	pass
 
-func _on_respawn_timer_timeout() -> void:
-	global_position = initial_pos
-	set_physics_process(true)
-	set_fish_state.call_deferred(FishState.MOVE)
-	pass
-
-func _respawn():
-	reparent.call_deferred(initial_parent)
-	respawn_timer.start.call_deferred()
-	pass
-
 func end_collect():
-	_respawn()
+	queue_free()
 	pass
 
 func _on_chase_component_start_chase(new_target: Variant) -> void:

@@ -1,17 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ucqva3ypywfg"]
+[gd_scene load_steps=7 format=3 uid="uid://ucqva3ypywfg"]
 
 [ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_5en4v"]
 [ext_resource type="Texture2D" uid="uid://db8lfvo2el27n" path="res://assets/sprites/fishes/lily.png" id="2_e5js6"]
-[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://assets/resources/fish_data.gd" id="3_7giho"]
-
-[sub_resource type="Resource" id="Resource_j6nw0"]
-script = ExtResource("3_7giho")
-fish_name = "Lily"
-fish_texture = ExtResource("2_e5js6")
-fish_gold = 200
-fish_experience = 1.0
-fish_color = Color(0.8, 0.6, 1, 1)
-fish_stars = 1
+[ext_resource type="Resource" uid="uid://fwiia0yrsd7l" path="res://data/fishes/lily.tres" id="2_m65ed"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uwufu"]
 radius = 240.533
@@ -27,8 +18,7 @@ height = 352.0
 speed = 300.0
 fish_mass = 200.0
 level = 10
-fish_data = SubResource("Resource_j6nw0")
-respawn_time = 100.0
+fish_data = ExtResource("2_m65ed")
 
 [node name="Sprite2D" parent="Visual" index="0"]
 scale = Vector2(5.84443, 5.84443)
@@ -40,7 +30,7 @@ position = Vector2(160, -8)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseComponent" index="0"]
 shape = SubResource("CircleShape2D_uwufu")
 
-[node name="EatComponent" parent="." index="5"]
+[node name="EatComponent" parent="." index="4"]
 position = Vector2(152, -3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EatComponent" index="1"]
@@ -51,7 +41,7 @@ offset_left = -792.0
 offset_right = 1872.0
 offset_bottom = 704.0
 
-[node name="IconPivot" parent="." index="9"]
+[node name="IconPivot" parent="." index="7"]
 position = Vector2(128, 0)
 
 [node name="EatIcon" parent="IconPivot" index="0"]
@@ -60,6 +50,6 @@ position = Vector2(2.95558, -101.899)
 [node name="AlertIcon" parent="IconPivot" index="1"]
 position = Vector2(1.82015, -91.8955)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="10"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1tqmb")

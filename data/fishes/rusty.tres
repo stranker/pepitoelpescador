@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FishData" load_steps=3 format=3 uid="uid://m37s2us8moyq"]
+
+[ext_resource type="Texture2D" uid="uid://bvle0d1xauewb" path="res://assets/sprites/fishes/rusty.png" id="1_u6ju6"]
+[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://data/fishes/fish_data.gd" id="2_rlrwn"]
+
+[resource]
+script = ExtResource("2_rlrwn")
+fish_name = "Rusty"
+fish_texture = ExtResource("1_u6ju6")
+fish_gold = 4
+fish_experience = 2.0
+fish_color = Color(0.952941, 0.658824, 0.2, 1)
+fish_stars = 1
+base_size = 9.0
+id = 1
+is_boss = false

@@ -23,7 +23,7 @@ config/icon="res://icon.svg"
 
 ItemManager="*res://managers/item_manager.tscn"
 CardManager="*res://managers/card_manager.tscn"
-GameManager="*res://managers/game_manager.gd"
+GameManager="*res://managers/game_manager.tscn"
 
 [display]
 

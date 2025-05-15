@@ -113,3 +113,8 @@ func _on_visibility_changed() -> void:
 func _on_close_button_button_down() -> void:
 	closed.emit()
 	pass # Replace with function body.
+
+
+func _on_button_animation_animation_changed(old_name: StringName, new_name: StringName) -> void:
+	print_debug(old_name, " -> ", new_name)
+	pass # Replace with function body.

@@ -1,17 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://rq2085qndg83"]
+[gd_scene load_steps=7 format=3 uid="uid://rq2085qndg83"]
 
 [ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_u4pvq"]
+[ext_resource type="Resource" uid="uid://4acdc8fk8dj1" path="res://data/fishes/bluey.tres" id="2_51xew"]
 [ext_resource type="Texture2D" uid="uid://dm5wpq8crknfw" path="res://assets/sprites/fishes/bluey.png" id="2_vcyut"]
-[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://assets/resources/fish_data.gd" id="3_fbsxq"]
-
-[sub_resource type="Resource" id="Resource_18g53"]
-script = ExtResource("3_fbsxq")
-fish_name = "Bluey"
-fish_texture = ExtResource("2_vcyut")
-fish_gold = 6
-fish_experience = 3.0
-fish_color = Color(0.491393, 0.776208, 0.950241, 1)
-fish_stars = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7nlwj"]
 radius = 300.0
@@ -26,7 +17,7 @@ height = 166.0
 [node name="Bluey" instance=ExtResource("1_u4pvq")]
 speed = 110.0
 level = 1
-fish_data = SubResource("Resource_18g53")
+fish_data = ExtResource("2_51xew")
 
 [node name="Sprite2D" parent="Visual" index="0"]
 texture = ExtResource("2_vcyut")
@@ -51,7 +42,7 @@ offset_bottom = 431.0
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_hiaqd")
 
-[node name="IconPivot" parent="." index="10"]
+[node name="IconPivot" parent="." index="9"]
 position = Vector2(63, 0)
 
 [node name="EatIcon" parent="IconPivot" index="0"]

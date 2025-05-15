@@ -1,6 +1,6 @@
-[gd_scene load_steps=32 format=4 uid="uid://buqew5foqk3au"]
+[gd_scene load_steps=35 format=4 uid="uid://buqew5foqk3au"]
 
-[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://assets/resources/fish_data.gd" id="1_j6l37"]
+[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://data/fishes/fish_data.gd" id="1_j6l37"]
 [ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_i7k0y"]
 [ext_resource type="Texture2D" uid="uid://bvle0d1xauewb" path="res://assets/sprites/fishes/rusty.png" id="3_68sdd"]
 [ext_resource type="Texture2D" uid="uid://dm5wpq8crknfw" path="res://assets/sprites/fishes/bluey.png" id="4_2gyjr"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://dny677nakndbt" path="res://objects/fishes/rusty.tscn" id="11_ma2sn"]
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="12_mq4d8"]
 [ext_resource type="PackedScene" uid="uid://c4e5o2j6nkkkn" path="res://ui/ui.tscn" id="13_w8rcd"]
+[ext_resource type="Texture2D" uid="uid://dqs5ggkr2ueq1" path="res://assets/sprites/particles/clouds.png" id="14_68sdd"]
+[ext_resource type="Texture2D" uid="uid://coyppbvf7fk5t" path="res://assets/sprites/particles/clouds_1.png" id="15_2gyjr"]
 
 [sub_resource type="GDScript" id="GDScript_4qobx"]
 script/source = "extends Level
@@ -26,6 +28,9 @@ fish_gold = 0
 fish_experience = 1.0
 fish_color = Color(0, 0, 0, 1)
 fish_stars = 1
+base_size = 0.0
+id = -1
+is_boss = false
 metadata/_custom_type_script = "uid://b6y452mskqd7s"
 
 [sub_resource type="Resource" id="Resource_ro0ie"]
@@ -36,6 +41,9 @@ fish_gold = 0
 fish_experience = 1.0
 fish_color = Color(0, 0, 0, 1)
 fish_stars = 1
+base_size = 0.0
+id = -1
+is_boss = false
 metadata/_custom_type_script = "uid://b6y452mskqd7s"
 
 [sub_resource type="Resource" id="Resource_103ce"]
@@ -46,6 +54,9 @@ fish_gold = 0
 fish_experience = 1.0
 fish_color = Color(0, 0, 0, 1)
 fish_stars = 1
+base_size = 0.0
+id = -1
+is_boss = false
 metadata/_custom_type_script = "uid://b6y452mskqd7s"
 
 [sub_resource type="Resource" id="Resource_pb36m"]
@@ -56,6 +67,9 @@ fish_gold = 0
 fish_experience = 1.0
 fish_color = Color(0, 0, 0, 1)
 fish_stars = 1
+base_size = 0.0
+id = -1
+is_boss = false
 metadata/_custom_type_script = "uid://b6y452mskqd7s"
 
 [sub_resource type="GDScript" id="GDScript_det0m"]
@@ -309,6 +323,10 @@ func _physics_process(delta: float) -> void:
 	pass
 "
 
+[sub_resource type="Gradient" id="Gradient_pjyhi"]
+offsets = PackedFloat32Array(0, 0.20068, 0.612245, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="ColorShores" type="Node2D" groups=["gameplay"]]
 script = SubResource("GDScript_4qobx")
 fishes = Array[ExtResource("1_j6l37")]([SubResource("Resource_6aqbo"), SubResource("Resource_ro0ie"), SubResource("Resource_103ce"), SubResource("Resource_pb36m")])
@@ -378,243 +396,183 @@ position = Vector2(485, 1426)
 fish_mass = 10.0
 level = 0
 fish_data = null
-respawn_time = 50.0
 
 [node name="Greeny" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(-325, 191)
-respawn_time = 50.0
 
 [node name="Greeny2" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(323, 234)
-respawn_time = 50.0
 
 [node name="Greeny3" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(877, 426)
-respawn_time = 50.0
 
 [node name="Greeny4" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(1347, 194)
-respawn_time = 50.0
 
 [node name="Greeny5" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(1811, 234)
-respawn_time = 50.0
 
 [node name="Greeny6" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(243, 432)
-respawn_time = 50.0
 
 [node name="Greeny7" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(-397, 530)
-respawn_time = 50.0
 
 [node name="Greeny8" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(-725, 314)
-respawn_time = 50.0
 
 [node name="Greeny9" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(-1261, 208)
-respawn_time = 50.0
 
 [node name="Greeny10" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(-2005, 508)
-respawn_time = 50.0
 
 [node name="Greeny11" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(-2381, 337)
-respawn_time = 50.0
 
 [node name="Greeny12" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(2507, 218)
-respawn_time = 50.0
 
 [node name="Greeny13" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(2859, 456)
-respawn_time = 50.0
 
 [node name="Greeny14" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(3507, 264)
-respawn_time = 50.0
 
 [node name="Greeny15" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(4115, 501)
-respawn_time = 50.0
 
 [node name="Greeny16" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(4523, 315)
-respawn_time = 50.0
 
 [node name="Greeny17" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(3603, 768)
-respawn_time = 50.0
 
 [node name="Greeny18" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(2691, 794)
-respawn_time = 50.0
 
 [node name="Greeny19" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(1795, 970)
-respawn_time = 50.0
 
 [node name="Greeny20" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(1734, 746)
-respawn_time = 50.0
 
 [node name="Greeny21" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(515, 538)
-respawn_time = 50.0
 
 [node name="Greeny22" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(-213, 967)
-respawn_time = 50.0
 
 [node name="Greeny23" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(-933, 994)
-respawn_time = 50.0
 
 [node name="Greeny24" parent="Water/Fishes" instance=ExtResource("9_a4i88")]
 position = Vector2(-1453, 688)
-respawn_time = 50.0
 
 [node name="Bluey" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(-925, 538)
-respawn_time = 50.0
 
 [node name="Bluey2" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(-73, 602)
-respawn_time = 50.0
 
 [node name="Bluey8" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(-613, 1146)
-respawn_time = 50.0
 
 [node name="Bluey9" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(-1261, 1250)
-respawn_time = 50.0
 
 [node name="Bluey10" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(-1653, 967)
-respawn_time = 50.0
 
 [node name="Bluey11" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(-2229, 939)
-respawn_time = 50.0
 
 [node name="Bluey12" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(-2661, 794)
-respawn_time = 50.0
 
 [node name="Bluey13" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(-3141, 978)
-respawn_time = 50.0
 
 [node name="Bluey14" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(-3501, 852)
-respawn_time = 50.0
 
 [node name="Bluey15" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(275, 1074)
-respawn_time = 50.0
 
 [node name="Bluey16" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(1247, 1114)
-respawn_time = 50.0
 
 [node name="Bluey17" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(1819, 1354)
-respawn_time = 50.0
 
 [node name="Bluey18" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(2347, 1107)
-respawn_time = 50.0
 
 [node name="Bluey19" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(3331, 1296)
-respawn_time = 50.0
 
 [node name="Bluey20" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(4043, 1100)
-respawn_time = 50.0
 
 [node name="Bluey21" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(4747, 1082)
-respawn_time = 50.0
 
 [node name="Bluey3" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(435, 722)
-respawn_time = 50.0
 
 [node name="Bluey4" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(1019, 628)
-respawn_time = 50.0
 
 [node name="Bluey5" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(1427, 664)
-respawn_time = 50.0
 
 [node name="Bluey6" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(1651, 508)
-respawn_time = 50.0
 
 [node name="Bluey7" parent="Water/Fishes" instance=ExtResource("10_olcsb")]
 position = Vector2(2195, 466)
-respawn_time = 50.0
 
 [node name="Rusty" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(123, 306)
-respawn_time = 50.0
 
 [node name="Rusty2" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(595, 322)
-respawn_time = 50.0
 
 [node name="Rusty3" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(1115, 266)
-respawn_time = 50.0
 
 [node name="Rusty4" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(739, 906)
-respawn_time = 50.0
 
 [node name="Rusty5" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(739, 650)
-respawn_time = 50.0
 
 [node name="Rusty6" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(-6, 816)
-respawn_time = 50.0
 
 [node name="Rusty7" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(-1165, 650)
-respawn_time = 50.0
 
 [node name="Rusty8" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(1059, 920)
-respawn_time = 50.0
 
 [node name="Rusty9" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(1323, 459)
-respawn_time = 50.0
 
 [node name="Rusty10" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(2227, 816)
-respawn_time = 50.0
 
 [node name="Rusty11" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(2403, 586)
-respawn_time = 50.0
 
 [node name="Rusty12" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(1923, 465)
-respawn_time = 50.0
 
 [node name="Rusty13" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(3115, 656)
-respawn_time = 50.0
 
 [node name="Rusty14" parent="Water/Fishes" instance=ExtResource("11_ma2sn")]
 position = Vector2(3011, 1056)
-respawn_time = 50.0
 
 [node name="WaterCollision" type="Area2D" parent="Water"]
 z_index = 3
@@ -673,6 +631,40 @@ expand_mode = 1
 
 [node name="UI" parent="." instance=ExtResource("13_w8rcd")]
 process_mode = 3
+
+[node name="Clouds" type="Node2D" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Clouds"]
+position = Vector2(1544, -5)
+amount = 2
+texture = ExtResource("14_68sdd")
+lifetime = 25.0
+preprocess = 1.0
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector2(-1, 0)
+spread = 2.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+scale_amount_min = 0.5
+color_ramp = SubResource("Gradient_pjyhi")
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="Clouds"]
+position = Vector2(1544, -5)
+amount = 2
+texture = ExtResource("15_2gyjr")
+lifetime = 25.0
+preprocess = 1.0
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector2(-1, 0)
+spread = 2.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+scale_amount_min = 0.5
+color_ramp = SubResource("Gradient_pjyhi")
 
 [connection signal="update_level_data" from="." to="UI" method="_on_game_scene_update_level_data"]
 [connection signal="end_boss_presentation" from="CinematicCamera" to="Player" method="_on_cinematic_camera_end_boss_presentation"]

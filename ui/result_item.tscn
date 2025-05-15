@@ -30,22 +30,21 @@ func set_data(data : Dictionary):
 	count_label.text = \"x \" + str(data.count)
 	size_label.text = str(data.size).pad_decimals(2) + \" cm\"
 	coins_label.text = str(data.gold)
-	if data.increment != 0:
-		increment_label.text = \"+ \" + str(ceil(data.increment))
+	if data.has(\"increment\") and data.increment != 0:
+		increment_label.text = \"+\" + str(ceil(data.increment))
 		increment_label.show()
 	pass
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k32s"]
-bg_color = Color(0.920995, 0.920995, 0.920994, 1)
-corner_radius_top_left = 28
-corner_radius_top_right = 28
-corner_radius_bottom_right = 28
-corner_radius_bottom_left = 28
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
+bg_color = Color(0.929715, 0.929715, 0.929715, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 4
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_qjcq7"]
 font = ExtResource("3_era6r")
@@ -111,9 +110,9 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Count" type="Label" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(64, 0)
+custom_minimum_size = Vector2(88, 0)
 layout_mode = 2
-text = "x1"
+text = "x10"
 label_settings = SubResource("LabelSettings_qjcq7")
 
 [node name="Size" type="Label" parent="MarginContainer/HBoxContainer"]
@@ -122,7 +121,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "12.42 cm"
 label_settings = SubResource("LabelSettings_bv7uk")
-horizontal_alignment = 1
 
 [node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(140, 0)
@@ -137,7 +135,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/HBoxContainer/Control/HBoxContainer"]
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/Control/HBoxContainer"]
 clip_children = 2
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -152,6 +150,7 @@ label_settings = SubResource("LabelSettings_qjcq7")
 
 [node name="Increment" type="Label" parent="MarginContainer/HBoxContainer/Control/HBoxContainer"]
 visible = false
+custom_minimum_size = Vector2(78, 0)
 layout_mode = 2
-text = "+ 16"
+text = "+250"
 label_settings = SubResource("LabelSettings_era6r")

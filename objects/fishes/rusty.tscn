@@ -1,17 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://dny677nakndbt"]
+[gd_scene load_steps=17 format=3 uid="uid://dny677nakndbt"]
 
 [ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_bl1yr"]
+[ext_resource type="Resource" uid="uid://m37s2us8moyq" path="res://data/fishes/rusty.tres" id="2_7k51i"]
 [ext_resource type="Texture2D" uid="uid://bvle0d1xauewb" path="res://assets/sprites/fishes/rusty.png" id="2_23hde"]
-[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://assets/resources/fish_data.gd" id="3_vqwep"]
-
-[sub_resource type="Resource" id="Resource_hqeod"]
-script = ExtResource("3_vqwep")
-fish_name = "Rusty"
-fish_texture = ExtResource("2_23hde")
-fish_gold = 4
-fish_experience = 2.0
-fish_color = Color(0.952941, 0.658824, 0.2, 1)
-fish_stars = 1
 
 [sub_resource type="Curve" id="Curve_xcebo"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.95605, 0.0, 0, 0]
@@ -373,7 +364,7 @@ height = 126.0
 position = Vector2(0, 1)
 speed = 150.0
 fish_mass = 7.0
-fish_data = SubResource("Resource_hqeod")
+fish_data = ExtResource("2_7k51i")
 
 [node name="Sprite2D" parent="Visual" index="0"]
 texture = ExtResource("2_23hde")
@@ -383,7 +374,7 @@ scale_amount_curve = SubResource("Curve_xcebo")
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {
-"": SubResource("AnimationLibrary_6xegg")
+&"": SubResource("AnimationLibrary_6xegg")
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseComponent" index="0"]

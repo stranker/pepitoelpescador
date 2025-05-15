@@ -25,7 +25,7 @@ func purchase_hook(hook : HookStats):
 	pass
 
 func upgrade_hook(hook : HookStats):
-	GameManager.spend_coins(hook.get_price())
+	GameManager.spend_coins(hook.get_next_price())
 	hook.upgrade()
 	pass
 

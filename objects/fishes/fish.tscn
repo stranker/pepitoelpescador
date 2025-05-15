@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://4nk1v8at0msd" path="res://objects/fishes/fish.gd" id="1_vollg"]
 [ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_jvsmo"]
-[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://assets/resources/fish_data.gd" id="2_stxx7"]
+[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://data/fishes/fish_data.gd" id="2_stxx7"]
 [ext_resource type="Texture2D" uid="uid://dcn7r3k70kt6d" path="res://assets/sprites/icons/eat.png" id="4_0toll"]
 [ext_resource type="Texture2D" uid="uid://c0uy6y2kg7m1d" path="res://assets/sprites/bubbles.png" id="4_iq1b3"]
 [ext_resource type="PackedScene" uid="uid://bs87v6choh3co" path="res://objects/components/chase_component.tscn" id="4_lqw0p"]
@@ -16,6 +16,9 @@ fish_gold = 0
 fish_experience = 1.0
 fish_color = Color(0, 0, 0, 1)
 fish_stars = 1
+base_size = 0.0
+id = -1
+is_boss = false
 
 [sub_resource type="Curve" id="Curve_xcebo"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.792135, 0), -3.39048, 0.0, 0, 0]
@@ -399,7 +402,6 @@ collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_vollg")
 fish_data = SubResource("Resource_m62sw")
-respawn_time = 40.0
 
 [node name="Visual" type="Node2D" parent="."]
 
@@ -448,10 +450,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_6xegg")
 }
 autoplay = "move"
-
-[node name="RespawnTimer" type="Timer" parent="."]
-wait_time = 60.0
-one_shot = true
 
 [node name="ChaseComponent" parent="." instance=ExtResource("4_lqw0p")]
 
@@ -505,7 +503,6 @@ texture = ExtResource("5_68dg6")
 offset = Vector2(0, -5.5)
 
 [connection signal="timeout" from="MovementTimer" to="." method="_on_movement_timer_timeout"]
-[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
 [connection signal="end_chase" from="ChaseComponent" to="." method="_on_chase_component_end_chase"]
 [connection signal="start_chase" from="ChaseComponent" to="." method="_on_chase_component_start_chase"]
 [connection signal="eat" from="EatComponent" to="." method="_on_eat_component_eat"]

@@ -1,17 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://wy6iqyp1pmr1"]
+[gd_scene load_steps=6 format=3 uid="uid://wy6iqyp1pmr1"]
 
 [ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_e8jxn"]
-[ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_fvhq7"]
-[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://assets/resources/fish_data.gd" id="3_gamte"]
-
-[sub_resource type="Resource" id="Resource_1ht7d"]
-script = ExtResource("3_gamte")
-fish_name = "Greeny"
-fish_texture = ExtResource("2_fvhq7")
-fish_gold = 2
-fish_experience = 1.0
-fish_color = Color(0.211765, 0.835294, 0.290196, 1)
-fish_stars = 1
+[ext_resource type="Resource" uid="uid://dxjl6e1vqjbgt" path="res://data/fishes/greeny.tres" id="2_8lsfx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xli5b"]
 radius = 300.0
@@ -26,7 +16,7 @@ height = 124.0
 [node name="Greeny" instance=ExtResource("1_e8jxn")]
 speed = 200.0
 fish_mass = 6.0
-fish_data = SubResource("Resource_1ht7d")
+fish_data = ExtResource("2_8lsfx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseComponent" index="0"]
 shape = SubResource("CircleShape2D_xli5b")

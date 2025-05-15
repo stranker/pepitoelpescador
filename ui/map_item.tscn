@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://buwicco4ujh2"]
+[gd_scene load_steps=11 format=3 uid="uid://buwicco4ujh2"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_vqpty"]
 [ext_resource type="Texture2D" uid="uid://by8erumq8j2sx" path="res://assets/ui/map.jpg" id="2_qm837"]
@@ -11,69 +11,43 @@ script/source = "extends Control
 @export var name_label : Label
 @export var image_rect : TextureRect
 
+@export var map_data : MapData
 
-@export var level_name : String
-@export var level_image : Texture
-@export var level_scene : PackedScene
-
-signal select
+signal select(scene)
 
 var selected : bool = false
-@export var locked : bool = true
 
-func _ready() -> void:
-	name_label.text = level_name
-	image_rect.texture = level_image
-	if not locked:
-		anim.play(\"RESET\")
+func set_data(data : MapData):
+	map_data = data
+	name_label.text = map_data.name
+	image_rect.texture = map_data.image
+	if not map_data.locked:
+		anim.play(\"idle\")
 	else:
 		anim.play(\"lock\")
 	pass
 
 func unlock():
-	if not locked: return
-	locked = false
+	if not map_data.locked: return
+	map_data.locked = false
 	anim.play(\"idle\")
 	pass
 
-func set_selected(is_selected : bool):
-	if locked: return
-	selected = is_selected
-	if selected:
-		anim.play(\"selected\")
-	else:
-		anim.play(\"idle\")
-	pass
-
 func select_map():
-	select.emit()
+	anim.play(\"selected\")
+	select.emit(map_data)
 	pass
 
 func _on_click_area_gui_input(event: InputEvent) -> void:
-	if locked or selected: return
+	if map_data.locked: return
 	if event is InputEventScreenTouch:
 		if event.pressed:
-			select.emit()
+			select_map()
 	pass # Replace with function body.
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqpty"]
 resource_local_to_scene = true
-bg_color = Color(1, 1, 1, 0)
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 128
-corner_radius_top_right = 128
-corner_radius_bottom_right = 128
-corner_radius_bottom_left = 128
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqb6h"]
-resource_local_to_scene = true
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 8
-border_width_top = 8
-border_width_right = 8
-border_width_bottom = 8
-border_color = Color(1, 1, 1, 0)
 corner_radius_top_left = 128
 corner_radius_top_right = 128
 corner_radius_bottom_right = 128
@@ -88,19 +62,19 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("World/Panel:theme_override_styles/panel:border_color")
+tracks/0/path = NodePath("World:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("World/Panel:modulate")
+tracks/1/path = NodePath("World:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -108,18 +82,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("World:theme_override_styles/panel:bg_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_vqpty"]
@@ -128,38 +90,14 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("World/Panel:theme_override_styles/panel:border_color")
+tracks/0/path = NodePath("World:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("World/Panel:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
 "values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("World:theme_override_styles/panel:bg_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_4od7s"]
@@ -168,43 +106,31 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("World/Panel:modulate")
+tracks/0/path = NodePath("World:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.212305, 0.212305, 0.212305, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("World:theme_override_styles/panel:bg_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(0.259294, 0.259294, 0.259294, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_qm837"]
 resource_name = "selected"
-loop_mode = 1
+length = 0.3
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("World:theme_override_styles/panel:bg_color")
+tracks/0/path = NodePath("World:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(0.5, 2, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4od7s"]
@@ -216,21 +142,17 @@ _data = {
 }
 
 [node name="MapItem" type="Control" node_paths=PackedStringArray("anim", "name_label", "image_rect")]
-custom_minimum_size = Vector2(256, 256)
+custom_minimum_size = Vector2(208, 208)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 208.0
+offset_bottom = 208.0
 script = SubResource("GDScript_vqpty")
 anim = NodePath("AnimationPlayer")
-name_label = NodePath("Label")
-image_rect = NodePath("World/Panel/TextureRect")
+name_label = NodePath("MapName")
+image_rect = NodePath("World/TextureRect")
 
 [node name="World" type="Panel" parent="."]
-layout_mode = 0
-offset_right = 256.0
-offset_bottom = 256.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_vqpty")
-
-[node name="Panel" type="Panel" parent="World"]
 clip_children = 2
 layout_mode = 1
 anchors_preset = 15
@@ -238,24 +160,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_aqb6h")
+pivot_offset = Vector2(104, 104)
+theme_override_styles/panel = SubResource("StyleBoxFlat_vqpty")
 
-[node name="TextureRect" type="TextureRect" parent="World/Panel"]
-layout_mode = 2
-offset_right = 256.0
-offset_bottom = 256.0
+[node name="TextureRect" type="TextureRect" parent="World"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 texture = ExtResource("2_qm837")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="."]
+[node name="MapName" type="Label" parent="."]
 texture_filter = 2
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
-offset_top = -40.0
+offset_left = -48.0
+offset_top = -56.0
 offset_right = 256.0
-offset_bottom = 2.0
+offset_bottom = -14.0
 text = "Color Shores"
 label_settings = SubResource("LabelSettings_nrgxe")
 horizontal_alignment = 1

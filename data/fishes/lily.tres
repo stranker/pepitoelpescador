@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FishData" load_steps=3 format=3 uid="uid://fwiia0yrsd7l"]
+
+[ext_resource type="Texture2D" uid="uid://db8lfvo2el27n" path="res://assets/sprites/fishes/lily.png" id="1_5v1rg"]
+[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://data/fishes/fish_data.gd" id="2_rvqyx"]
+
+[resource]
+script = ExtResource("2_rvqyx")
+fish_name = "Lily"
+fish_texture = ExtResource("1_5v1rg")
+fish_gold = 200
+fish_experience = 1.0
+fish_color = Color(0.8, 0.6, 1, 1)
+fish_stars = 1
+base_size = 30.0
+id = 3
+is_boss = true

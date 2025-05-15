@@ -12,7 +12,7 @@ var fishes_data: Dictionary = {}
 var input_enabled : bool = false
 var total_gold : int = 0
 var total_count : int = 0
-var total_increment : int = 0
+var total_increment : float = 0
 var size_max : float = 0
 
 func _ready() -> void:
@@ -20,8 +20,12 @@ func _ready() -> void:
 	GameManager.fish_collected.connect(on_fish_collected)
 	pass
 
-func on_end_day(_fishes):
+func on_end_day(fishes : Array):
 	anim.play("show")
+	if fishes.is_empty():
+		anim.queue("show_no_fishes")
+	else:
+		anim.queue("show_fishes")
 	pass
 
 func on_fish_collected(fish : Fish):
@@ -57,23 +61,22 @@ func on_fish_collected(fish : Fish):
 	pass
 
 func _update_total():
-	no_fish_label.visible = total_count <= 0
-	total_result.set_data({"count":total_count,"gold":total_gold,"size":size_max, "increment":total_increment})
-	total_result.visible = total_count > 0
+	total_result.set_data({"count":total_count,"gold":total_gold + ceil(total_increment),"size":size_max})
 	pass
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "show":
-		if not input_enabled:
-			input_enabled = true
-			GameManager.add_gold(total_gold + ceil(total_increment))
-		else:
-			GameManager.save_game_data()
-			GameManager.load_scene("res://scenes/main_scene.tscn")
-	pass # Replace with function body.
+func end_presentation():
+	if input_enabled: return
+	input_enabled = true
+	GameManager.add_gold(total_gold + ceil(total_increment))
+	GameManager.save_game_data()
+	pass
+
+func continue_to_main():
+	GameManager.load_scene("res://scenes/main_scene.tscn")
+	pass
 
 func _on_gui_input(event: InputEvent) -> void:
 	if not input_enabled: return
 	if event is InputEventScreenTouch:
-		anim.play_backwards("show")
+		anim.play("end")
 	pass # Replace with function body.

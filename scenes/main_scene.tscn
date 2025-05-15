@@ -84,6 +84,11 @@ script/source = "extends CanvasLayer
 
 func _ready() -> void:
 	coins_label.text = str(GameManager.game_stats.gold)
+	GameManager.gold_update.connect(on_gold_update)
+	pass
+
+func on_gold_update(coins):
+	coins_label.text = str(coins)
 	pass
 "
 

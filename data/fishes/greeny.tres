@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FishData" load_steps=3 format=3 uid="uid://dxjl6e1vqjbgt"]
+
+[ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="1_56wox"]
+[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://data/fishes/fish_data.gd" id="2_hck8t"]
+
+[resource]
+script = ExtResource("2_hck8t")
+fish_name = "Greeny"
+fish_texture = ExtResource("1_56wox")
+fish_gold = 2
+fish_experience = 1.0
+fish_color = Color(0.211765, 0.835294, 0.290196, 1)
+fish_stars = 1
+base_size = 8.0
+id = 0
+is_boss = false

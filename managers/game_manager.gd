@@ -7,6 +7,7 @@ class GameStats:
 	var days_passed : int = 0
 	var day_duration : float = 40
 	var total_fishes_catched : int = 0
+	var total_fishes_ids : Array = []
 	
 	func reset():
 		gold = 0
@@ -15,6 +16,8 @@ class GameStats:
 		days_passed =  0
 		day_duration = 0
 		total_fishes_catched = 0
+		total_fishes_ids.clear()
+		pass
 
 var game_stats : GameStats = GameStats.new()
 
@@ -24,14 +27,16 @@ var debug_enabled : bool = false
 var experience_increment : float = 10
 var combo_counter : int = 0
 var player_selected : bool = false
-var level_scene : PackedScene = null
 var music : AudioStreamPlayer
 var game_presentation_end : bool = false
 var skin_data : PlayerSkin.SkinData = null
-var session_gold : int = 0
 var gold_increment : float = 0
 
+var map_selected : MapData
+
 var fishes_catched : Array[Fish]
+
+@export var maps : Array[MapData]
 
 signal gold_update(gold)
 signal experience_update(exp)
@@ -73,6 +78,9 @@ func _load_game_data():
 		game_stats.player_level = data.player_level
 		game_stats.days_passed = data.days_passed
 		game_stats.total_fishes_catched = data.total_fishes_catched
+		for id in data.total_fishes_ids:
+			game_stats.total_fishes_ids.append(int(id))
+		_update_maps_data()
 		ItemManager.set_loaded_items(data.items)
 		ItemManager.set_loaded_boat(data.boat_tier)
 		CardManager.set_character(data.player_card_type)
@@ -87,13 +95,20 @@ func save_game_data():
 		"experience" = game_stats.experience,
 		"player_level" = game_stats.player_level,
 		"days_passed" = game_stats.days_passed,
+		"total_fishes_ids" = game_stats.total_fishes_ids,
 		"total_fishes_catched" = game_stats.total_fishes_catched,
 		"items" = ItemManager.get_items_for_save(),
 		"boat_tier" = ItemManager.get_boat_data(),
 		"player_card_type" = CardManager.get_character_card_for_save(),
 		"player_skin" = skin_data.raw_data
 	}
+	_update_maps_data()
 	save_to_file(game_data)
+	pass
+
+func _update_maps_data():
+	for map in maps:
+		map.initilize(game_stats.total_fishes_ids)
 	pass
 
 func save_to_file(content : Dictionary):
@@ -138,7 +153,7 @@ func spend_coins(gold : int):
 
 func start_level():
 	fishes_catched.clear()
-	load_scene(level_scene.resource_path)
+	load_scene(map_selected.scene.resource_path)
 	pass
 
 func add_experience(new_exp : float):
@@ -157,6 +172,8 @@ func collect_fish(fish : Fish):
 	fish_collected.emit(fish)
 	add_experience(fish.fish_data.fish_experience + combo_counter)
 	game_stats.total_fishes_catched += 1
+	if not game_stats.total_fishes_ids.has(fish.fish_data.id):
+		game_stats.total_fishes_ids.append(fish.fish_data.id)
 	fishes_catched.append(fish)
 	on_update_game_stats()
 	pass
@@ -175,6 +192,7 @@ func on_update_game_stats():
 
 func on_end_of_day():
 	game_stats.days_passed += 1
+	gold_increment = 0
 	on_update_game_stats()
 	pass
 
@@ -195,8 +213,8 @@ func on_combo_counter_updated(combo_count : int):
 	combo_counter = combo_count
 	pass
 
-func on_level_selected(level):
-	level_scene = level.level_scene
+func on_level_selected(map):
+	map_selected = map
 	pass
 
 func clear_saved_data():

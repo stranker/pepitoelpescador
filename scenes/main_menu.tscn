@@ -641,16 +641,30 @@ grow_vertical = 2
 texture = ExtResource("1_8ln24")
 
 [node name="Greeny" parent="." instance=ExtResource("2_rtw2f")]
-position = Vector2(184, 112)
+position = Vector2(320, 360)
+
+[node name="Debug" parent="Greeny" index="5"]
+visible = true
+
+[node name="MovementRect" parent="Greeny/Debug" index="0"]
+offset_left = -600.0
+offset_top = -200.0
+offset_right = 600.0
+offset_bottom = 200.0
+pivot_offset = Vector2(600, 200)
 
 [node name="Greeny2" parent="." instance=ExtResource("2_rtw2f")]
-position = Vector2(1384, 152)
+position = Vector2(1312, 464)
 
-[node name="Greeny3" parent="." instance=ExtResource("2_rtw2f")]
-position = Vector2(1408, 632)
+[node name="Debug" parent="Greeny2" index="5"]
+visible = true
 
-[node name="Greeny4" parent="." instance=ExtResource("2_rtw2f")]
-position = Vector2(121, 629)
+[node name="MovementRect" parent="Greeny2/Debug" index="0"]
+offset_left = -600.0
+offset_top = -200.0
+offset_right = 600.0
+offset_bottom = 200.0
+pivot_offset = Vector2(600, 200)
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 1
@@ -825,20 +839,23 @@ text = "Confirm"
 icon_alignment = 2
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(656, 344)
+position = Vector2(768, 369)
 amount = 10
 texture = ExtResource("3_cjgqh")
 lifetime = 3.0
+preprocess = 1.0
 randomness = 1.0
 emission_shape = 3
-emission_rect_extents = Vector2(600, 360)
+emission_rect_extents = Vector2(1000, 400)
 direction = Vector2(0, 1)
 spread = 180.0
 gravity = Vector2(0, 0)
-initial_velocity_min = 20.0
-initial_velocity_max = 60.0
+initial_velocity_min = 2.0
+initial_velocity_max = 10.0
 angular_velocity_min = -720.0
 angular_velocity_max = 720.0
+orbit_velocity_min = -0.05
+orbit_velocity_max = 0.05
 angle_min = -720.0
 angle_max = 720.0
 scale_amount_min = 0.2
@@ -866,3 +883,6 @@ libraries = {
 [connection signal="button_down" from="NewGameConfirmation/Panel/VBoxContainer/HBoxContainer/Confirm" to="." method="_on_confirm_button_down"]
 [connection signal="closed" from="SoundOptions" to="." method="_on_sound_options_closed"]
 [connection signal="closed" from="CreditsScene" to="." method="_on_credits_scene_closed"]
+
+[editable path="Greeny"]
+[editable path="Greeny2"]
