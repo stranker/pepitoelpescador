@@ -1,8 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://ngwgmo67epe2"]
+[gd_scene load_steps=33 format=3 uid="uid://ngwgmo67epe2"]
 
-[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_57mqj"]
-[ext_resource type="Texture2D" uid="uid://qhttpbs70h6t" path="res://assets/ui/sound_icon.png" id="2_fbdfa"]
-[ext_resource type="Texture2D" uid="uid://c2xankc5adpts" path="res://assets/ui/music_icon.png" id="2_tnhqg"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_w62fi"]
+[ext_resource type="Texture2D" uid="uid://c2xankc5adpts" path="res://assets/ui/music_icon.png" id="2_6vynn"]
+[ext_resource type="Texture2D" uid="uid://qhttpbs70h6t" path="res://assets/ui/sound_icon.png" id="3_7bf8q"]
 
 [sub_resource type="GDScript" id="GDScript_308e6"]
 resource_name = "sound_options"
@@ -11,6 +11,7 @@ script/source = "extends Control
 @export var general_slider : HSlider
 @export var music_slider : HSlider
 @export var sound_slider : HSlider
+@export var anim : AnimationPlayer
 
 signal closed()
 
@@ -41,13 +42,29 @@ func _on_music_toggled(toggled_on: bool) -> void:
 func _on_sound_toggled(toggled_on: bool) -> void:
 	AudioServer.set_bus_mute(AudioServer.get_bus_index(\"SFx\"), toggled_on)
 	pass # Replace with function body.
+
+
+func _on_reset_data_button_down() -> void:
+	anim.play(\"reset_data\")
+	pass # Replace with function body.
+
+
+func _on_cancel_button_down() -> void:
+	anim.play(\"idle\")
+	pass # Replace with function body.
+
+
+func _on_confirm_button_down() -> void:
+	GameManager.clear_saved_data()
+	GameManager.load_scene(\"res://scenes/main_menu.tscn\")
+	pass # Replace with function body.
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57mqj"]
 bg_color = Color(0, 0, 0, 0.729412)
 
 [sub_resource type="LabelSettings" id="LabelSettings_xwkdv"]
-font = ExtResource("2_57mqj")
+font = ExtResource("1_w62fi")
 font_size = 72
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7copr"]
@@ -63,15 +80,15 @@ corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [sub_resource type="LabelSettings" id="LabelSettings_qobcg"]
-font = ExtResource("2_57mqj")
+font = ExtResource("1_w62fi")
 font_size = 46
 
 [sub_resource type="LabelSettings" id="LabelSettings_fbdfa"]
-font = ExtResource("2_57mqj")
+font = ExtResource("1_w62fi")
 font_size = 46
 
 [sub_resource type="LabelSettings" id="LabelSettings_tnhqg"]
-font = ExtResource("2_57mqj")
+font = ExtResource("1_w62fi")
 font_size = 46
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbdfa"]
@@ -125,7 +142,7 @@ expand_margin_right = 6.0
 expand_margin_bottom = 6.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_j02j8"]
-font = ExtResource("2_57mqj")
+font = ExtResource("1_w62fi")
 font_size = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qobcg"]
@@ -178,7 +195,145 @@ expand_margin_top = 6.0
 expand_margin_right = 6.0
 expand_margin_bottom = 6.0
 
-[node name="Options" type="Control" node_paths=PackedStringArray("general_slider", "music_slider", "sound_slider")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w62fi"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.831373)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6vynn"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 0.968627)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_7bf8q"]
+font = ExtResource("1_w62fi")
+font_size = 42
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6yuxc"]
+bg_color = Color(0.653971, 0.0926155, 9.62615e-08, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.486275, 0.184314, 0.294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5n1i6"]
+bg_color = Color(0.486275, 0.184314, 0.294118, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.486275, 0.184314, 0.294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5eh8n"]
+bg_color = Color(0.77382, 0.11757, 1.92523e-07, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.486275, 0.184314, 0.294118, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rd527"]
+bg_color = Color(0.197426, 0.489764, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0, 0.356863, 0.290196, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2342a"]
+bg_color = Color(0, 0.356863, 0.290196, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0, 0.356863, 0.290196, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a3edd"]
+bg_color = Color(0.264892, 0.635367, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0, 0.356863, 0.290196, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Animation" id="Animation_y2bh0"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PopupConfirmation:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tcm2s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PopupConfirmation:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_n3y2q"]
+resource_name = "reset_data"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PopupConfirmation:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qm0ht"]
+_data = {
+&"RESET": SubResource("Animation_tcm2s"),
+&"idle": SubResource("Animation_y2bh0"),
+&"reset_data": SubResource("Animation_n3y2q")
+}
+
+[node name="Options" type="Control" node_paths=PackedStringArray("general_slider", "music_slider", "sound_slider", "anim")]
 custom_minimum_size = Vector2(1000, 640)
 layout_mode = 3
 anchors_preset = 15
@@ -190,6 +345,7 @@ script = SubResource("GDScript_308e6")
 general_slider = NodePath("Panel/MarginContainer/VBoxContainer/General/General")
 music_slider = NodePath("Panel/MarginContainer/VBoxContainer/Music/MusicSlider")
 sound_slider = NodePath("Panel/MarginContainer/VBoxContainer/SFx/SoundSlider")
+anim = NodePath("AnimationPlayer")
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
@@ -317,9 +473,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -412.5
-offset_top = -60.0
+offset_top = -128.0
 offset_right = 412.5
-offset_bottom = 60.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 64
@@ -333,7 +489,7 @@ theme_override_colors/icon_hover_pressed_color = Color(0.928848, 0.426323, 0.474
 theme_override_colors/icon_hover_color = Color(0.659324, 0.509905, 1, 1)
 theme_override_colors/icon_pressed_color = Color(0.857221, 0.297747, 0.372641, 1)
 theme_override_colors/icon_normal_color = Color(0.584314, 0.345098, 1, 1)
-theme_override_icons/icon = ExtResource("2_tnhqg")
+theme_override_icons/icon = ExtResource("2_6vynn")
 theme_override_styles/hover = SubResource("StyleBoxFlat_fbdfa")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xwkdv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_tnhqg")
@@ -360,7 +516,7 @@ theme_override_colors/icon_hover_pressed_color = Color(0.928848, 0.426323, 0.474
 theme_override_colors/icon_hover_color = Color(0.659324, 0.509905, 1, 1)
 theme_override_colors/icon_pressed_color = Color(0.857221, 0.297747, 0.372641, 1)
 theme_override_colors/icon_normal_color = Color(0.584314, 0.345098, 1, 1)
-theme_override_icons/icon = ExtResource("2_fbdfa")
+theme_override_icons/icon = ExtResource("3_7bf8q")
 theme_override_styles/hover = SubResource("StyleBoxFlat_fbdfa")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xwkdv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_tnhqg")
@@ -395,6 +551,50 @@ label_settings = SubResource("LabelSettings_j02j8")
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="ResetData" type="Button" parent="Panel/MarginContainer/Control"]
+custom_minimum_size = Vector2(120, 64)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -154.5
+offset_top = -112.0
+offset_right = 155.5
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.169245, 0.169245, 0.169245, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.928848, 0.426323, 0.474297, 1)
+theme_override_colors/icon_hover_color = Color(0.659324, 0.509905, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.857221, 0.297747, 0.372641, 1)
+theme_override_colors/icon_normal_color = Color(0.584314, 0.345098, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_w62fi")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/hover = SubResource("StyleBoxFlat_fbdfa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xwkdv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tnhqg")
+text = "Reset data"
+icon_alignment = 1
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/Control/ResetData"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tu0xq")
+
 [node name="CloseButton" type="Button" parent="."]
 texture_filter = 2
 custom_minimum_size = Vector2(88, 88)
@@ -404,7 +604,7 @@ offset_top = 24.0
 offset_right = 112.0
 offset_bottom = 112.0
 focus_mode = 0
-theme_override_fonts/font = ExtResource("2_57mqj")
+theme_override_fonts/font = ExtResource("1_w62fi")
 theme_override_font_sizes/font_size = 64
 theme_override_styles/hover = SubResource("StyleBoxFlat_qobcg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_j02j8")
@@ -422,9 +622,92 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_isgpb")
 
+[node name="PopupConfirmation" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w62fi")
+
+[node name="Panel" type="Panel" parent="PopupConfirmation"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -112.0
+offset_right = 350.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6vynn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupConfirmation/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Label" type="Label" parent="PopupConfirmation/Panel/VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+text = "Do you want to delete the save data?"
+label_settings = SubResource("LabelSettings_7bf8q")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PopupConfirmation/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Cancel" type="Button" parent="PopupConfirmation/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(240, 72)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_w62fi")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = SubResource("StyleBoxFlat_6yuxc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5n1i6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_5eh8n")
+text = "Cancel"
+icon_alignment = 2
+
+[node name="Confirm" type="Button" parent="PopupConfirmation/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(240, 72)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_w62fi")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/hover = SubResource("StyleBoxFlat_rd527")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2342a")
+theme_override_styles/normal = SubResource("StyleBoxFlat_a3edd")
+text = "Confirm"
+icon_alignment = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qm0ht")
+}
+autoplay = "idle"
+
 [connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/General/General" to="." method="_on_general_value_changed"]
 [connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/SFx/SoundSlider" to="." method="_on_sound_slider_value_changed"]
 [connection signal="toggled" from="Panel/MarginContainer/Control/Buttons/Music" to="." method="_on_music_toggled"]
 [connection signal="toggled" from="Panel/MarginContainer/Control/Buttons/Sound" to="." method="_on_sound_toggled"]
+[connection signal="button_down" from="Panel/MarginContainer/Control/ResetData" to="." method="_on_reset_data_button_down"]
 [connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]
+[connection signal="button_down" from="PopupConfirmation/Panel/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_down"]
+[connection signal="button_down" from="PopupConfirmation/Panel/VBoxContainer/HBoxContainer/Confirm" to="." method="_on_confirm_button_down"]

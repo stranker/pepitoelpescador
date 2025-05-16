@@ -222,6 +222,7 @@ func _on_water_detection_area_entered(area: Area2D) -> void:
 
 func _on_fish_detector_area_entered(area: Area2D) -> void:
 	if hook_state == HookState.RECOVER: return
+	if fishes.get_child_count() >= hook_stats.penetration: return
 	if velocity.length() < hook_force_threshold: return
 	var fish : Fish = area as Fish
 	fish.hook(fishes)

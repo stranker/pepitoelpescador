@@ -18,5 +18,4 @@ func initilize(fishes_ids : Array):
 				fish_count += 1
 				break
 	map_completed_percentage = fish_count / float(fishes.size())
-	print_debug(map_completed_percentage)
 	pass

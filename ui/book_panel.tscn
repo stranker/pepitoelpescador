@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bvbbrc370t35p" path="res://ui/profile_panel.tscn" id="2_3ql8n"]
 [ext_resource type="Texture2D" uid="uid://cb2eoigf5gbf7" path="res://assets/ui/profile_icon.png" id="2_uo5qg"]
 [ext_resource type="PackedScene" uid="uid://ctg1fx7elwl1p" path="res://ui/map.tscn" id="3_3x44m"]
-[ext_resource type="PackedScene" uid="uid://ngwgmo67epe2" path="res://ui/sound_options.tscn" id="3_jp8md"]
+[ext_resource type="PackedScene" uid="uid://ngwgmo67epe2" path="res://ui/options_scene.tscn" id="3_jp8md"]
 [ext_resource type="Texture2D" uid="uid://bn52xophc2ukx" path="res://assets/ui/map_icon.png" id="3_uo5qg"]
 [ext_resource type="Texture2D" uid="uid://c8pr57efekt5l" path="res://assets/ui/close_button.png" id="4_4jwp3"]
 [ext_resource type="PackedScene" uid="uid://peujken5bx5u" path="res://ui/fishes_panel.tscn" id="4_7eqks"]

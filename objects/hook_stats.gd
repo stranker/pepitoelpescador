@@ -8,6 +8,7 @@ extends Resource
 @export var texture : Texture
 @export var level : int = 0
 @export var initial_hook : bool = false
+@export var penetration : int = 1
 
 @export var price_array : Array[int]
 @export var force_array : Array[float]
@@ -16,6 +17,10 @@ extends Resource
 @export var recover_array : Array[float]
 
 const MAX_ACCURACY = 5
+
+func set_max_penetration(value : int):
+	penetration = value
+	pass
 
 func get_next_price():
 	if level < get_max_level() - 1:

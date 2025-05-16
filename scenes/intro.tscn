@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dubkiwpf7td3y"]
+[gd_scene load_steps=6 format=3 uid="uid://bccdhucvdbu7c"]
 
 [ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_ycq4p"]
 
@@ -80,7 +80,7 @@ texture = ExtResource("2_ycq4p")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_hfnd2")
+&"": SubResource("AnimationLibrary_hfnd2")
 }
 autoplay = "start"
 

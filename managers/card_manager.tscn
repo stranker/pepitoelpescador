@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d0u656wq8p8ft"]
+[gd_scene load_steps=24 format=3 uid="uid://d0u656wq8p8ft"]
 
 [ext_resource type="Script" uid="uid://biw2k543ativ7" path="res://managers/card_manager.gd" id="1_urukv"]
 [ext_resource type="Script" uid="uid://dokbbhkitmfd5" path="res://objects/character_card.gd" id="2_6p2yx"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://ccjuv7sn2xqo0" path="res://objects/ability.gd" id="6_qsuk7"]
 [ext_resource type="Texture2D" uid="uid://dsbkpd4pvndmm" path="res://assets/sprites/fishermans/businessman_skin.png" id="7_2eyr2"]
 [ext_resource type="PackedScene" uid="uid://du67qtxmrjq6m" path="res://objects/abilities/just_business_component.tscn" id="7_16ita"]
+[ext_resource type="PackedScene" uid="uid://dyojf5hrxvjur" path="res://objects/abilities/cat_eye_component.tscn" id="7_301xb"]
 [ext_resource type="Texture2D" uid="uid://j4nwyvbnwcqt" path="res://assets/sprites/fishermans/bodybuilder_skin.png" id="9_0ds10"]
 
 [sub_resource type="Resource" id="Resource_t1ebg"]
@@ -68,6 +69,28 @@ card_name = "Hook length"
 card_description = "Increases the hook length by"
 card_background = ExtResource("3_wf3hm")
 
+[sub_resource type="Resource" id="Resource_stf3t"]
+script = ExtResource("6_qsuk7")
+name = "Cat Eye"
+description = "Gains 30% of accuracy on afternoon"
+texture = ExtResource("4_1jsee")
+type = 0
+level_requirement = 0
+ability_component = ExtResource("7_301xb")
+modifier = 0.3
+metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
+
+[sub_resource type="Resource" id="Resource_4yfaj"]
+script = ExtResource("2_6p2yx")
+character_type = 0
+base_power = 1.8
+base_accuracy = 1.0
+abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_stf3t")])
+card_name = "The Hunter"
+card_texture = ExtResource("6_ha00d")
+card_description = "Great accuracy but less power"
+card_background = ExtResource("5_nvbsy")
+
 [sub_resource type="Resource" id="Resource_16ita"]
 script = ExtResource("6_qsuk7")
 name = "Just Business"
@@ -78,17 +101,6 @@ level_requirement = 0
 ability_component = ExtResource("7_16ita")
 modifier = 0.2
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
-
-[sub_resource type="Resource" id="Resource_4yfaj"]
-script = ExtResource("2_6p2yx")
-character_type = 0
-base_power = 1.8
-base_accuracy = 1.0
-abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_16ita")])
-card_name = "The Huntress"
-card_texture = ExtResource("6_ha00d")
-card_description = "Great accuracy but less power"
-card_background = ExtResource("5_nvbsy")
 
 [sub_resource type="Resource" id="Resource_htk0b"]
 script = ExtResource("2_6p2yx")
@@ -101,12 +113,23 @@ card_texture = ExtResource("7_2eyr2")
 card_description = "Its the best to sell things"
 card_background = ExtResource("5_nvbsy")
 
+[sub_resource type="Resource" id="Resource_301xb"]
+script = ExtResource("6_qsuk7")
+name = "Fish Crusher"
+description = "Can capture more than one fish with the hook"
+texture = ExtResource("4_1jsee")
+type = 0
+level_requirement = 0
+ability_component = ExtResource("7_16ita")
+modifier = 2.0
+metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
+
 [sub_resource type="Resource" id="Resource_6gl74"]
 script = ExtResource("2_6p2yx")
 character_type = 3
 base_power = 4.0
 base_accuracy = 0.0
-abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_16ita")])
+abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_301xb")])
 card_name = "The Power Builder"
 card_texture = ExtResource("9_0ds10")
 card_description = "Powerfull but inaccurate"
