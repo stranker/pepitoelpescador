@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://d0xbi6t0b2vbd"]
+[gd_scene load_steps=32 format=3 uid="uid://d0xbi6t0b2vbd"]
 
 [ext_resource type="Script" uid="uid://cqxlmo30gty7l" path="res://scenes/customize_scene.gd" id="1_j84h7"]
 [ext_resource type="Texture2D" uid="uid://74frmjaqi1ns" path="res://assets/ui/right_arrow.png" id="2_h4jc1"]
@@ -23,6 +23,18 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg1i5"]
+bg_color = Color(0.396078, 0.235294, 0.713726, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.396078, 0.235294, 0.713726, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mm4d"]
 bg_color = Color(0.414638, 0.250967, 0.742126, 1)
 border_width_left = 2
@@ -35,13 +47,13 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg1i5"]
-bg_color = Color(0.396078, 0.235294, 0.713726, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6abr"]
+bg_color = Color(0.270588, 0.74902, 0.0156863, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 8
-border_color = Color(0.396078, 0.235294, 0.713726, 1)
+border_color = Color(0.133333, 0.333333, 0.333333, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -59,8 +71,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6abr"]
-bg_color = Color(0.270588, 0.74902, 0.0156863, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0y7et"]
+bg_color = Color(0.133333, 0.403922, 0.203922, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -508,11 +520,13 @@ alignment = 1
 [node name="Randomize" type="Button" parent="Panel/Buttons"]
 layout_mode = 2
 size_flags_horizontal = 3
-focus_mode = 1
+focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_5ayll")
 theme_override_font_sizes/font_size = 42
+theme_override_styles/focus = SubResource("StyleBoxFlat_jdcre")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_jdcre")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_bg1i5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3mm4d")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_bg1i5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_jdcre")
@@ -526,9 +540,11 @@ focus_mode = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("6_5ayll")
 theme_override_font_sizes/font_size = 42
-theme_override_styles/focus = SubResource("StyleBoxFlat_g0jxx")
+theme_override_styles/focus = SubResource("StyleBoxFlat_k6abr")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_g0jxx")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_0y7et")
 theme_override_styles/hover = SubResource("StyleBoxFlat_g0jxx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0y7et")
 theme_override_styles/normal = SubResource("StyleBoxFlat_k6abr")
 text = "CONFIRM"
 

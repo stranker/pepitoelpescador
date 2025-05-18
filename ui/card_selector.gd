@@ -88,6 +88,7 @@ func _on_cancel_button_down() -> void:
 	anim.play("idle")
 	for card in cards.get_children():
 		card.reset()
+		card.disable()
 	for ability_info in abilities.get_children():
 		ability_info.queue_free()
 	pass # Replace with function body.
@@ -95,3 +96,12 @@ func _on_cancel_button_down() -> void:
 func _on_confirm_button_down() -> void:
 	character_card_selected.emit(self.selected_card)
 	pass # Replace with function body.
+
+func disable_cards():
+	for card in cards.get_children():
+		card.disable()
+	pass
+
+func enable_cards():
+	for card in cards.get_children():
+		card.enable()

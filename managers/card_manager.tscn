@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d0u656wq8p8ft"]
+[gd_scene load_steps=25 format=3 uid="uid://d0u656wq8p8ft"]
 
 [ext_resource type="Script" uid="uid://biw2k543ativ7" path="res://managers/card_manager.gd" id="1_urukv"]
 [ext_resource type="Script" uid="uid://dokbbhkitmfd5" path="res://objects/character_card.gd" id="2_6p2yx"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://du67qtxmrjq6m" path="res://objects/abilities/just_business_component.tscn" id="7_16ita"]
 [ext_resource type="PackedScene" uid="uid://dyojf5hrxvjur" path="res://objects/abilities/cat_eye_component.tscn" id="7_301xb"]
 [ext_resource type="Texture2D" uid="uid://j4nwyvbnwcqt" path="res://assets/sprites/fishermans/bodybuilder_skin.png" id="9_0ds10"]
+[ext_resource type="PackedScene" uid="uid://bekqov7qymyio" path="res://objects/abilities/fish_crusher_component.tscn" id="12_stf3t"]
 
 [sub_resource type="Resource" id="Resource_t1ebg"]
 script = ExtResource("3_3wi76")
@@ -108,7 +109,7 @@ character_type = 1
 base_power = 1.0
 base_accuracy = 0.1
 abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_16ita")])
-card_name = "The Business Man"
+card_name = "The Broker"
 card_texture = ExtResource("7_2eyr2")
 card_description = "Its the best to sell things"
 card_background = ExtResource("5_nvbsy")
@@ -120,7 +121,7 @@ description = "Can capture more than one fish with the hook"
 texture = ExtResource("4_1jsee")
 type = 0
 level_requirement = 0
-ability_component = ExtResource("7_16ita")
+ability_component = ExtResource("12_stf3t")
 modifier = 2.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 
@@ -130,7 +131,7 @@ character_type = 3
 base_power = 4.0
 base_accuracy = 0.0
 abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_301xb")])
-card_name = "The Power Builder"
+card_name = "The Colossus"
 card_texture = ExtResource("9_0ds10")
 card_description = "Powerfull but inaccurate"
 card_background = ExtResource("5_nvbsy")

@@ -4,6 +4,7 @@ extends VBoxContainer
 @export var stat_label : Label
 @export var current_progress : ProgressBar
 @export var next_progress : ProgressBar
+@export var anim : AnimationPlayer
 
 @export var stat_name : String
 @export var min_value : float
@@ -25,3 +26,9 @@ func set_data(data : Dictionary):
 	if data.has("next_value"):
 		next_progress.value = data.next_value
 	pass
+
+func reset():
+	anim.play("RESET")
+
+func hover():
+	anim.play("hover")

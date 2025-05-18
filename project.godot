@@ -15,7 +15,7 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="OneMoreFish"
-run/main_scene="uid://dx0cjdriy3hr0"
+run/main_scene="uid://dj3urhrrnjbd4"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

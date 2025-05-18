@@ -643,9 +643,6 @@ texture = ExtResource("1_8ln24")
 [node name="Greeny" parent="." instance=ExtResource("2_rtw2f")]
 position = Vector2(320, 360)
 
-[node name="Debug" parent="Greeny" index="5"]
-visible = true
-
 [node name="MovementRect" parent="Greeny/Debug" index="0"]
 offset_left = -600.0
 offset_top = -200.0
@@ -655,9 +652,6 @@ pivot_offset = Vector2(600, 200)
 
 [node name="Greeny2" parent="." instance=ExtResource("2_rtw2f")]
 position = Vector2(1312, 464)
-
-[node name="Debug" parent="Greeny2" index="5"]
-visible = true
 
 [node name="MovementRect" parent="Greeny2/Debug" index="0"]
 offset_left = -600.0

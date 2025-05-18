@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsqhlrsvjyk21"]
+[gd_scene load_steps=11 format=3 uid="uid://dsqhlrsvjyk21"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_6r0jc"]
 [ext_resource type="Script" uid="uid://bd4m1rplqw" path="res://ui/stat_progress_bar.tres.gd" id="1_x68mg"]
@@ -37,7 +37,45 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="Speed" type="VBoxContainer" node_paths=PackedStringArray("stat_label", "current_progress", "next_progress")]
+[sub_resource type="Animation" id="Animation_x68mg"]
+resource_name = "hover"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NextProgress:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.443137)]
+}
+
+[sub_resource type="Animation" id="Animation_b0wx8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NextProgress:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h3x88"]
+_data = {
+&"RESET": SubResource("Animation_b0wx8"),
+&"hover": SubResource("Animation_x68mg")
+}
+
+[node name="Speed" type="VBoxContainer" node_paths=PackedStringArray("stat_label", "current_progress", "next_progress", "anim")]
 custom_minimum_size = Vector2(0, 28)
 offset_right = 192.0
 offset_bottom = 32.0
@@ -46,6 +84,7 @@ script = ExtResource("1_x68mg")
 stat_label = NodePath("Stat")
 current_progress = NodePath("NextProgress/CurrentProgress")
 next_progress = NodePath("NextProgress")
+anim = NodePath("Anim")
 
 [node name="Stat" type="Label" parent="."]
 layout_mode = 2
@@ -78,3 +117,8 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_6b4v5")
 max_value = 5.0
 value = 1.0
 show_percentage = false
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_h3x88")
+}

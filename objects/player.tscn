@@ -411,6 +411,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="DebugStats" type="Control" parent="." node_paths=PackedStringArray("power_label", "accuracy_label", "length_label", "recover_label")]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 240.0

@@ -10,3 +10,6 @@ enum AbilityType { PASSIVE, ACTIVE }
 @export var level_requirement : int = 0
 @export var ability_component : PackedScene
 @export var modifier : float
+
+func get_type_string():
+	return "PASSIVE" if type == AbilityType.PASSIVE else "ACTIVE"

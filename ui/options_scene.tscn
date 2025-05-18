@@ -281,8 +281,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="Animation" id="Animation_y2bh0"]
-resource_name = "idle"
+[sub_resource type="Animation" id="Animation_tcm2s"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -296,8 +296,8 @@ tracks/0/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_tcm2s"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_y2bh0"]
+resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

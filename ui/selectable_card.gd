@@ -8,6 +8,7 @@ extends Control
 @export var description_anim : AnimationPlayer
 @export var background : NinePatchRect
 @export var star_list : HBoxContainer
+@export var attributes : VBoxContainer
 
 @export var power_progress : StatProgressBar
 @export var accuracy_progress : StatProgressBar
@@ -23,10 +24,14 @@ signal selected(card, card_data)
 func reset():
 	is_selected = false
 	anim.play("RESET")
+	for attribute in attributes.get_children():
+		attribute.reset()
 	show()
 	pass
 
 func show_info():
+	for attribute in attributes.get_children():
+		attribute.hover()
 	anim.play("hover")
 	pass
 
@@ -66,12 +71,14 @@ func _animate_upgrade_star(star : Control):
 func _on_mouse_entered() -> void:
 	if not is_interactive: return
 	if is_selected or is_drestroyed: return
-	anim.play("hover")
+	show_info()
 	pass
 
 func _on_mouse_exited() -> void:
 	if not is_interactive: return
 	if is_selected or is_drestroyed: return
+	for attribute in attributes.get_children():
+		attribute.reset()
 	anim.play("RESET")
 	pass
 
@@ -92,5 +99,10 @@ func destroy():
 	anim.play("destroy")
 	pass
 
+func disable():
+	is_interactive = false
+	pass
+
 func enable():
 	is_interactive = true
+	pass
