@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://chhnrx8jp3syn"]
+
+[ext_resource type="Script" uid="uid://bfsr5e86kcx0h" path="res://ui/ability_button.gd" id="1_e7yqb"]
+[ext_resource type="Texture2D" uid="uid://cpalo30arsxsr" path="res://assets/sprites/cards/upgrades/accuracy_icon.png" id="2_1cvru"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7yqb"]
+bg_color = Color(0.783523, 0.783523, 0.783523, 1)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mf2ns"]
+bg_color = Color(0.93845, 0.93845, 0.93845, 1)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 6
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Button" type="Button" node_paths=PackedStringArray("texture_progress")]
+custom_minimum_size = Vector2(80, 80)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1480.0
+offset_bottom = -640.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_e7yqb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_e7yqb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_mf2ns")
+script = ExtResource("1_e7yqb")
+texture_progress = NodePath("MarginContainer/TextureProgressBar")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 6
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer"]
+layout_mode = 2
+step = 0.1
+value = 100.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("2_1cvru")
+texture_progress = ExtResource("2_1cvru")
+tint_under = Color(0, 0, 0, 1)
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]

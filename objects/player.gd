@@ -4,7 +4,7 @@ var throw_direction : Vector2
 var throw_initial_pos : Vector2
 
 enum ThrowState { IDLE, START, END, DRAG, DISABLED }
-var throw_state : ThrowState = ThrowState.IDLE
+var throw_state : ThrowState = ThrowState.DISABLED
 enum InteractionState { UNAVAILABLE, IDLE, THROW, RECOVER }
 var interaction_state : InteractionState = InteractionState.UNAVAILABLE
 var can_play : bool = true
@@ -24,7 +24,6 @@ func _ready() -> void:
 	GameManager.play_unavailable.connect(on_play_unavailable)
 	GameManager.end_day.connect(on_end_day)
 	can_play = true
-	interaction_state = InteractionState.THROW
 	force_line.hide()
 	_set_character_data()
 	pass

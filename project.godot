@@ -38,7 +38,7 @@ movie_writer/movie_file="E:/Proyectos/Godot/pepitoelpescador/movie_clips/movie_o
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ropesim/plugin.cfg")
+enabled=PackedStringArray("res://addons/radial_progress/plugin.cfg", "res://addons/ropesim/plugin.cfg")
 
 [global_group]
 

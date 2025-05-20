@@ -1,17 +1,17 @@
-[gd_scene load_steps=44 format=3 uid="uid://c4e5o2j6nkkkn"]
+[gd_scene load_steps=30 format=3 uid="uid://c4e5o2j6nkkkn"]
 
 [ext_resource type="Script" uid="uid://c5c42qdomv36y" path="res://scenes/ui.gd" id="1_hy13r"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="2_rauqo"]
 [ext_resource type="AudioStream" uid="uid://dy6dnip7c1qfr" path="res://assets/sfx/coins.wav" id="3_r0co5"]
-[ext_resource type="PackedScene" uid="uid://c5oj0pohmtd3v" path="res://objects/player_skin.tscn" id="6_hrmpd"]
+[ext_resource type="PackedScene" uid="uid://b4l7gkq0ibacm" path="res://ui/fisherman_profile.tscn" id="5_os0ka"]
 [ext_resource type="PackedScene" uid="uid://cbxq6hn0dd75u" path="res://scenes/scrim.tscn" id="6_squ3x"]
-[ext_resource type="Texture2D" uid="uid://dbqvpsqgyiace" path="res://assets/sprites/icons/profile_exp.png" id="7_bn0f4"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="9_tdxgr"]
-[ext_resource type="AudioStream" uid="uid://nd8spbnjsn2s" path="res://assets/sfx/level_up.wav" id="10_fhbxk"]
+[ext_resource type="PackedScene" uid="uid://chhnrx8jp3syn" path="res://ui/ability_button.tscn" id="10_diyc5"]
 [ext_resource type="PackedScene" uid="uid://w87u21qrvcd4" path="res://scenes/results_scene.tscn" id="10_hrmpd"]
 [ext_resource type="PackedScene" uid="uid://dsgecvueilt6e" path="res://ui/clock.tscn" id="10_xee24"]
-[ext_resource type="AudioStream" uid="uid://dotoht2cmhs33" path="res://assets/sfx/add_exp.wav" id="11_bxawd"]
+[ext_resource type="Script" uid="uid://ccjuv7sn2xqo0" path="res://objects/ability.gd" id="11_ju45i"]
 [ext_resource type="Texture2D" uid="uid://bup3dkrst1rih" path="res://assets/ui/option_icon.png" id="11_x7jpl"]
+[ext_resource type="Texture2D" uid="uid://ejc2v3gtfytb" path="res://assets/sprites/fishermans/boat.png" id="12_74toj"]
 [ext_resource type="PackedScene" uid="uid://b7o878bg7yltg" path="res://ui/card_selector.tscn" id="13_fklw0"]
 [ext_resource type="PackedScene" uid="uid://ngwgmo67epe2" path="res://ui/options_scene.tscn" id="13_os0ka"]
 
@@ -83,345 +83,6 @@ _data = {
 &"earn": SubResource("Animation_gfs05")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7uijp"]
-bg_color = Color(0.576471, 0.517647, 0.847059, 1)
-corner_radius_top_left = 80
-corner_radius_top_right = 80
-corner_radius_bottom_right = 80
-corner_radius_bottom_left = 80
-expand_margin_left = 4.0
-expand_margin_top = 4.0
-expand_margin_right = 4.0
-expand_margin_bottom = 4.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5256x"]
-bg_color = Color(0.815686, 0.815686, 0.945098, 1)
-border_color = Color(0.619608, 0.509804, 0.866667, 1)
-corner_radius_top_left = 60
-corner_radius_top_right = 60
-corner_radius_bottom_right = 60
-corner_radius_bottom_left = 60
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55y7k"]
-bg_color = Color(0.910714, 0.954716, 0.990176, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.430525, 0.697453, 0.898534, 1)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
-
-[sub_resource type="LabelSettings" id="LabelSettings_xyhyf"]
-font = ExtResource("9_tdxgr")
-font_size = 32
-outline_size = 3
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_r032s"]
-font = ExtResource("9_tdxgr")
-font_size = 32
-font_color = Color(1, 0.788235, 0.211765, 1)
-outline_size = 3
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="Animation" id="Animation_w3tlt"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Experience:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BackgroundOultine/Level/LevelUp:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BackgroundOultine/Level/LevelUp:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-40, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("BackgroundOultine/Level:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("LevelUp:playing")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Exp:playing")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_xikqj"]
-resource_name = "add_exp"
-length = 0.3
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Experience:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(0.5, 0.5, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1.1, 1.1), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Exp:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_qjwn8"]
-resource_name = "level_up"
-length = 0.5
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BackgroundOultine/Level/LevelUp:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3),
-"transitions": PackedFloat32Array(0.5, 2, 1),
-"update": 0,
-"values": [Vector2(-40, 0), Vector2(70, 0), Vector2(60, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BackgroundOultine/Level/LevelUp:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.14, 0.32, 0.49),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("BackgroundOultine/Level:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(0.5, 2, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1, 1)]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../../..")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"set_level_text"
-}]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("LevelUp:playing")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.02),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_7wjaj"]
-_data = {
-&"RESET": SubResource("Animation_w3tlt"),
-&"add_exp": SubResource("Animation_xikqj"),
-&"level_up": SubResource("Animation_qjwn8")
-}
-
-[sub_resource type="Animation" id="Animation_clmrf"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(124, 20)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Control:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_g3oek"]
-resource_name = "add"
-length = 0.4
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(0.5, 2, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.4, 1.4), Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_ahfo7"]
-resource_name = "enter"
-length = 0.3
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.3),
-"transitions": PackedFloat32Array(0.5, 2, 1),
-"update": 0,
-"values": [Vector2(22, 14), Vector2(160, 14), Vector2(120, 14)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.5, 0.5),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_um7qg"]
-_data = {
-&"RESET": SubResource("Animation_clmrf"),
-&"add": SubResource("Animation_g3oek"),
-&"enter": SubResource("Animation_ahfo7")
-}
-
-[sub_resource type="LabelSettings" id="LabelSettings_hu5ey"]
-font = ExtResource("9_tdxgr")
-font_size = 42
-outline_size = 4
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_toieo"]
-font = ExtResource("9_tdxgr")
-font_size = 22
-font_color = Color(1, 0.619608, 0.294118, 1)
-outline_size = 4
-outline_color = Color(0, 0, 0, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x7jpl"]
 bg_color = Color(0.856068, 0.856067, 0.856068, 1)
 border_width_left = 2
@@ -465,12 +126,23 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 8.0
 
+[sub_resource type="Resource" id="Resource_co7pv"]
+script = ExtResource("11_ju45i")
+name = "Pepito"
+description = ""
+texture = ExtResource("12_74toj")
+type = 1
+level_requirement = 0
+modifier = 5.0
+cooldown = 5.0
+metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
+
 [sub_resource type="Animation" id="Animation_db8l5"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("FadeUI:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -482,7 +154,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("..:visible")
+tracks/1/path = NodePath("../../OptionsPanel:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -494,58 +166,34 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ResultsScene:visible")
+tracks/2/path = NodePath("AbilitiesButtons:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("FishermanProfile:modulate")
+tracks/3/path = NodePath("..:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [true]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Clock:modulate")
+tracks/4/path = NodePath("FadeUI/FishermanProfile2:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../../OptionsPanel:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Options:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -558,35 +206,24 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("FadeUI:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.5, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_diyc5"]
 resource_name = "idle"
-length = 0.001
+length = 0.2
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("FadeUI:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -598,26 +235,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("..:visible")
+tracks/1/path = NodePath("../../OptionsPanel:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../OptionsPanel:visible")
+tracks/2/path = NodePath("..:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AbilitiesButtons:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_os0ka"]
@@ -635,9 +284,22 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.001),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_hrmpd"]
 resource_name = "results"
+length = 0.5
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -654,55 +316,55 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("..:visible")
+tracks/1/path = NodePath("FadeUI/Clock:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("FishermanProfile:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FadeUI/Options:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../OptionsPanel:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Clock:modulate")
+tracks/4/path = NodePath("AbilitiesButtons:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Options:modulate")
+tracks/5/path = NodePath("FadeUI/FishermanProfile2:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -726,22 +388,16 @@ font = ExtResource("9_tdxgr")
 font_size = 48
 font_color = Color(0, 1, 0, 1)
 
-[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("coins_label", "coin_anim", "anim", "fishes_catched", "scrimmer", "player_portrait_anim", "experience_bar", "level_label", "combo_label", "combo_anim", "fps_label") groups=["ui"]]
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("coins_label", "coin_anim", "anim", "fishes_catched", "scrimmer", "fps_label") groups=["ui"]]
 script = ExtResource("1_hy13r")
-coins_label = NodePath("MarginContainer/Main/Coins/HBoxContainer/Label")
-coin_anim = NodePath("MarginContainer/Main/Coins/Anim")
+coins_label = NodePath("MarginContainer/Main/FadeUI/Coins/HBoxContainer/Label")
+coin_anim = NodePath("MarginContainer/Main/FadeUI/Coins/Anim")
 anim = NodePath("MarginContainer/Main/Anim")
-fishes_catched = NodePath("MarginContainer/Main/FishesCatched/Fishes")
+fishes_catched = NodePath("MarginContainer/Main/FadeUI/FishesCatched/Fishes")
 scrimmer = NodePath("Scrim")
-player_portrait_anim = NodePath("MarginContainer/Main/FishermanProfile/Anim")
-experience_bar = NodePath("MarginContainer/Main/FishermanProfile/Experience")
-level_label = NodePath("MarginContainer/Main/FishermanProfile/BackgroundOultine/Level/Label")
-combo_label = NodePath("MarginContainer/Main/FishermanProfile/Combos/Control/Label")
-combo_anim = NodePath("MarginContainer/Main/FishermanProfile/Combos/ComboAnim")
 fps_label = NodePath("FPS")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -756,11 +412,20 @@ theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
 [node name="Main" type="Control" parent="MarginContainer"]
-modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Coins" type="Control" parent="MarginContainer/Main"]
+[node name="FadeUI" type="Control" parent="MarginContainer/Main"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Coins" type="Control" parent="MarginContainer/Main/FadeUI"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -771,7 +436,7 @@ grow_horizontal = 0
 pivot_offset = Vector2(312, 28)
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Main/Coins"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Main/FadeUI/Coins"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -783,29 +448,31 @@ size_flags_vertical = 3
 theme_override_constants/separation = 6
 alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/Coins/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/FadeUI/Coins/HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture = ExtResource("2_rauqo")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MarginContainer/Main/Coins/HBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/Main/FadeUI/Coins/HBoxContainer"]
 layout_mode = 2
 text = "9"
 label_settings = SubResource("LabelSettings_3nawq")
 vertical_alignment = 1
 
-[node name="Anim" type="AnimationPlayer" parent="MarginContainer/Main/Coins"]
+[node name="Anim" type="AnimationPlayer" parent="MarginContainer/Main/FadeUI/Coins"]
 libraries = {
 &"": SubResource("AnimationLibrary_inegl")
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MarginContainer/Main/Coins"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MarginContainer/Main/FadeUI/Coins"]
 stream = ExtResource("3_r0co5")
 bus = &"SFx"
 
-[node name="FishesCatched" type="Control" parent="MarginContainer/Main"]
+[node name="FishermanProfile2" parent="MarginContainer/Main/FadeUI" instance=ExtResource("5_os0ka")]
+
+[node name="FishesCatched" type="Control" parent="MarginContainer/Main/FadeUI"]
 custom_minimum_size = Vector2(0, 192)
 layout_mode = 1
 anchors_preset = 14
@@ -818,7 +485,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Fishes" type="HBoxContainer" parent="MarginContainer/Main/FishesCatched"]
+[node name="Fishes" type="HBoxContainer" parent="MarginContainer/Main/FadeUI/FishesCatched"]
 custom_minimum_size = Vector2(0, 192)
 layout_mode = 1
 anchors_preset = 15
@@ -829,168 +496,7 @@ grow_vertical = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="FishermanProfile" type="Control" parent="MarginContainer/Main"]
-layout_mode = 1
-anchors_preset = 0
-offset_right = 103.0
-offset_bottom = 103.0
-
-[node name="Experience" type="TextureProgressBar" parent="MarginContainer/Main/FishermanProfile"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(45, 45)
-max_value = 10.0
-step = 0.01
-fill_mode = 4
-nine_patch_stretch = true
-texture_under = ExtResource("7_bn0f4")
-texture_progress = ExtResource("7_bn0f4")
-tint_progress = Color(0, 0.772549, 0.894118, 1)
-
-[node name="BackgroundOultine" type="Panel" parent="MarginContainer/Main/FishermanProfile"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7uijp")
-
-[node name="Background" type="Panel" parent="MarginContainer/Main/FishermanProfile/BackgroundOultine"]
-clip_children = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5256x")
-
-[node name="Control" type="Control" parent="MarginContainer/Main/FishermanProfile/BackgroundOultine/Background"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Skin" parent="MarginContainer/Main/FishermanProfile/BackgroundOultine/Background/Control" instance=ExtResource("6_hrmpd")]
-position = Vector2(0.5, 23.5)
-scale = Vector2(0.3, 0.3)
-
-[node name="Level" type="Panel" parent="MarginContainer/Main/FishermanProfile/BackgroundOultine"]
-layout_mode = 0
-offset_left = 62.0
-offset_top = 74.0
-offset_right = 112.0
-offset_bottom = 124.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_55y7k")
-
-[node name="Label" type="Label" parent="MarginContainer/Main/FishermanProfile/BackgroundOultine/Level"]
-texture_filter = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "1"
-label_settings = SubResource("LabelSettings_xyhyf")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LevelUp" type="Label" parent="MarginContainer/Main/FishermanProfile/BackgroundOultine/Level"]
-self_modulate = Color(1, 1, 1, 0)
-texture_filter = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_right = 56.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Level UP"
-label_settings = SubResource("LabelSettings_r032s")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Anim" type="AnimationPlayer" parent="MarginContainer/Main/FishermanProfile"]
-libraries = {
-&"": SubResource("AnimationLibrary_7wjaj")
-}
-
-[node name="Combos" type="Control" parent="MarginContainer/Main/FishermanProfile"]
-modulate = Color(1, 1, 1, 0)
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 72.5
-offset_top = -31.5
-offset_right = 156.5
-offset_bottom = 27.5
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(42, 29)
-
-[node name="ComboAnim" type="AnimationPlayer" parent="MarginContainer/Main/FishermanProfile/Combos"]
-libraries = {
-&"": SubResource("AnimationLibrary_um7qg")
-}
-
-[node name="Control" type="Control" parent="MarginContainer/Main/FishermanProfile/Combos"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="MarginContainer/Main/FishermanProfile/Combos/Control"]
-texture_filter = 2
-layout_mode = 2
-offset_top = 5.0
-offset_right = 84.0
-offset_bottom = 38.0
-grow_vertical = 2
-text = "X2"
-label_settings = SubResource("LabelSettings_hu5ey")
-
-[node name="ComboLabel" type="Label" parent="MarginContainer/Main/FishermanProfile/Combos/Control"]
-texture_filter = 2
-layout_mode = 2
-offset_top = 34.0
-offset_right = 84.0
-offset_bottom = 55.0
-grow_vertical = 2
-text = "Combo"
-label_settings = SubResource("LabelSettings_toieo")
-vertical_alignment = 1
-
-[node name="LevelUp" type="AudioStreamPlayer" parent="MarginContainer/Main/FishermanProfile"]
-stream = ExtResource("10_fhbxk")
-bus = &"SFx"
-
-[node name="Exp" type="AudioStreamPlayer" parent="MarginContainer/Main/FishermanProfile"]
-stream = ExtResource("11_bxawd")
-volume_db = -12.0
-bus = &"SFx"
-
-[node name="Clock" parent="MarginContainer/Main" instance=ExtResource("10_xee24")]
+[node name="Clock" parent="MarginContainer/Main/FadeUI" instance=ExtResource("10_xee24")]
 process_mode = 1
 layout_mode = 1
 anchors_preset = 5
@@ -1003,22 +509,19 @@ offset_right = 64.0
 offset_bottom = 49.0
 grow_vertical = 1
 
-[node name="ResultsScene" parent="MarginContainer/Main" instance=ExtResource("10_hrmpd")]
+[node name="Options" type="Button" parent="MarginContainer/Main/FadeUI"]
 layout_mode = 1
-
-[node name="Options" type="Button" parent="MarginContainer/Main"]
-layout_mode = 0
-offset_left = -10.0
-offset_top = 128.0
-offset_right = 48.0
-offset_bottom = 184.0
+offset_left = 3.0
+offset_top = 152.0
+offset_right = 61.0
+offset_bottom = 208.0
 focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxFlat_x7jpl")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_x7jpl")
 theme_override_styles/normal = SubResource("StyleBoxFlat_os0ka")
 icon_alignment = 1
 
-[node name="Panel" type="Panel" parent="MarginContainer/Main/Options"]
+[node name="Panel" type="Panel" parent="MarginContainer/Main/FadeUI/Options"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -1029,7 +532,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_diyc5")
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/Options"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/FadeUI/Options"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 1
 anchors_preset = 8
@@ -1047,6 +550,32 @@ texture = ExtResource("11_x7jpl")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="AbilitiesButtons" type="Control" parent="MarginContainer/Main"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+offset_right = 296.0
+grow_vertical = 0
+
+[node name="Abilities" type="HBoxContainer" parent="MarginContainer/Main/AbilitiesButtons"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Ability1" parent="MarginContainer/Main/AbilitiesButtons/Abilities" instance=ExtResource("10_diyc5")]
+layout_mode = 2
+ability_data = SubResource("Resource_co7pv")
+
+[node name="ResultsScene" parent="MarginContainer/Main" instance=ExtResource("10_hrmpd")]
+layout_mode = 1
+
 [node name="Anim" type="AnimationPlayer" parent="MarginContainer/Main"]
 libraries = {
 &"": SubResource("AnimationLibrary_hykrw")
@@ -1063,7 +592,6 @@ visible = false
 selection_type = 1
 
 [node name="FPS" type="Label" parent="."]
-visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -1076,6 +604,6 @@ text = "FPS"
 label_settings = SubResource("LabelSettings_x7jpl")
 horizontal_alignment = 2
 
-[connection signal="end_day" from="MarginContainer/Main/Clock" to="." method="_on_clock_end_day"]
-[connection signal="button_down" from="MarginContainer/Main/Options" to="." method="_on_options_button_down"]
+[connection signal="end_day" from="MarginContainer/Main/FadeUI/Clock" to="." method="_on_clock_end_day"]
+[connection signal="button_down" from="MarginContainer/Main/FadeUI/Options" to="." method="_on_options_button_down"]
 [connection signal="closed" from="OptionsPanel" to="." method="_on_options_panel_closed"]

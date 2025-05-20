@@ -5,12 +5,8 @@ extends CanvasLayer
 @export var anim : AnimationPlayer
 @export var fishes_catched : HBoxContainer
 @export var scrimmer : Control
-@export var player_portrait_anim : AnimationPlayer
-@export var experience_bar : TextureProgressBar
-@export var level_label : Label
 @export var combo_label : Label
 @export var combo_anim : AnimationPlayer
-@export var book_panel : Control
 @export var fps_label : Label
 
 const fish_catch_info_scene = preload("res://ui/fish_catch_info.tscn")
@@ -23,27 +19,13 @@ signal play_unavailable()
 func _ready() -> void:
 	GameManager.gold_update.connect(on_gold_update)
 	GameManager.fish_collected.connect(on_fish_collected)
-	GameManager.player_level_update.connect(on_player_level_update)
-	GameManager.experience_update.connect(on_experience_update)
 	GameManager.divinity_day.connect(on_divinity_day)
 	play_available.connect(GameManager.on_ui_play_available)
 	play_unavailable.connect(GameManager.on_ui_play_unavailable)
 	coins_label.text = str(GameManager.game_stats.gold)
-	experience_bar.max_value = GameManager.game_stats.player_level * GameManager.experience_increment
-	level_label.text = str(GameManager.game_stats.player_level)
 	pass
 
 func on_divinity_day():
-	pass
-
-func on_player_level_update(lvl):
-	experience_bar.max_value = lvl * GameManager.experience_increment
-	experience_bar.value = 0
-	player_portrait_anim.queue("level_up")
-	pass
-
-func set_level_text():
-	level_label.text = str(GameManager.game_stats.player_level)
 	pass
 
 func on_gold_update(gold):
@@ -63,22 +45,6 @@ func on_fish_collected(fish : Fish):
 	var catch_info = fish_catch_info_scene.instantiate()
 	fishes_catched.add_child(catch_info)
 	catch_info.set_data(fish)
-	pass
-
-func on_experience_update(experience):
-	player_portrait_anim.queue("add_exp")
-	var tween : Tween = create_tween()
-	tween.tween_property(experience_bar, "value", experience, 0.5).set_ease(Tween.EASE_IN)
-	tween.play()
-	pass
-
-func on_items_collected(count : int):
-	if not is_combo_visible:
-		is_combo_visible = true
-		combo_anim.play("enter")
-	else:
-		combo_anim.play("add")
-	combo_label.text = "X" + str(count)
 	pass
 
 func on_not_items_collected():
@@ -104,6 +70,5 @@ func _on_options_button_down() -> void:
 	pass # Replace with function body.
 
 func _on_options_panel_closed() -> void:
-	$OptionsPanel.hide()
-	anim.play_backwards("idle")
+	anim.play("idle")
 	pass # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://bhdtyhdxdivwg"]
+[gd_scene load_steps=31 format=4 uid="uid://bhdtyhdxdivwg"]
 
 [ext_resource type="Script" uid="uid://bmmw8i83dyeou" path="res://scenes/main_scene.gd" id="1_gubc5"]
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="1_pw63i"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="9_6wevv"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="9_e1cbu"]
 [ext_resource type="AudioStream" uid="uid://dy6dnip7c1qfr" path="res://assets/sfx/coins.wav" id="10_e1cbu"]
+[ext_resource type="PackedScene" uid="uid://b4l7gkq0ibacm" path="res://ui/fisherman_profile.tscn" id="12_4w45t"]
 
 [sub_resource type="Animation" id="Animation_e1cbu"]
 length = 0.001
@@ -186,6 +187,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/MarginContainer/Control/FishermanProfile:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_rt2n2"]
 resource_name = "idle"
@@ -213,6 +226,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/MarginContainer/Control/FishermanProfile:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_c1pb6"]
 resource_name = "map"
@@ -228,6 +253,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/MarginContainer/Control/FishermanProfile:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_c16ls"]
 resource_name = "shop"
@@ -242,6 +279,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI/MarginContainer/Control/FishermanProfile:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c1pb6"]
@@ -452,6 +501,9 @@ libraries = {
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="UI/MarginContainer/Control/Coins"]
 stream = ExtResource("10_e1cbu")
 bus = &"SFx"
+
+[node name="FishermanProfile" parent="UI/MarginContainer/Control" instance=ExtResource("12_4w45t")]
+visible = false
 
 [node name="CardSelector" parent="UI" instance=ExtResource("8_18nlu")]
 visible = false

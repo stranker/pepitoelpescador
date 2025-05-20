@@ -1,0 +1,560 @@
+[gd_scene load_steps=21 format=3 uid="uid://b4l7gkq0ibacm"]
+
+[ext_resource type="PackedScene" uid="uid://c5oj0pohmtd3v" path="res://objects/player_skin.tscn" id="2_nk8hg"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="3_6qbg7"]
+[ext_resource type="Script" uid="uid://djuesuhbv7o0w" path="res://addons/radial_progress/RadialProgress.gd" id="4_17fyp"]
+[ext_resource type="AudioStream" uid="uid://nd8spbnjsn2s" path="res://assets/sfx/level_up.wav" id="5_2dwtf"]
+[ext_resource type="AudioStream" uid="uid://dotoht2cmhs33" path="res://assets/sfx/add_exp.wav" id="6_8c06h"]
+
+[sub_resource type="GDScript" id="GDScript_ucs5h"]
+resource_name = "fisherman_profile"
+script/source = "extends Control
+
+@export var progress_bar : RadialProgress
+@export var level_label : Label
+@export var combo_label : Label
+@export var anim : AnimationPlayer
+@export var combo_anim : AnimationPlayer
+
+var is_combo_visible : bool = false
+
+func _ready() -> void:
+	GameManager.player_level_update.connect(on_player_level_update)
+	GameManager.experience_update.connect(on_experience_update)
+	progress_bar.max_value = GameManager.game_stats.player_level * GameManager.experience_increment
+	set_level_text()
+	pass
+
+func on_player_level_update(lvl):
+	progress_bar.max_value = lvl * GameManager.experience_increment
+	progress_bar.value = 0
+	anim.queue(\"level_up\")
+	pass
+
+func on_items_collected(count : int):
+	if not is_combo_visible:
+		is_combo_visible = true
+		combo_anim.play(\"enter\")
+	else:
+		combo_anim.play(\"add\")
+	combo_label.text = \"X\" + str(count)
+	pass
+
+func on_not_items_collected():
+	if is_combo_visible:
+		combo_anim.play_backwards(\"enter\")
+		is_combo_visible = false
+	pass
+
+func set_level_text():
+	level_label.text = str(GameManager.game_stats.player_level)
+	pass
+
+func on_experience_update(experience):
+	anim.queue(\"add_exp\")
+	var tween : Tween = create_tween()
+	tween.tween_property(progress_bar, \"progress\", experience, 0.5).set_ease(Tween.EASE_IN)
+	tween.play()
+	pass
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5256x"]
+bg_color = Color(0.815686, 0.815686, 0.945098, 1)
+border_color = Color(0.619608, 0.447059, 0.933333, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_55y7k"]
+bg_color = Color(0.910714, 0.954716, 0.990176, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.886275, 0.639216, 0.0705882, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_xyhyf"]
+font = ExtResource("3_6qbg7")
+font_size = 32
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_r032s"]
+font = ExtResource("3_6qbg7")
+font_size = 32
+font_color = Color(1, 0.788235, 0.211765, 1)
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_clmrf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(124, 20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Control:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g3oek"]
+resource_name = "add"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.4, 1.4), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ahfo7"]
+resource_name = "enter"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(22, 14), Vector2(160, 14), Vector2(120, 14)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_um7qg"]
+_data = {
+&"RESET": SubResource("Animation_clmrf"),
+&"add": SubResource("Animation_g3oek"),
+&"enter": SubResource("Animation_ahfo7")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_hu5ey"]
+font = ExtResource("3_6qbg7")
+font_size = 42
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_toieo"]
+font = ExtResource("3_6qbg7")
+font_size = 22
+font_color = Color(1, 0.619608, 0.294118, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_w3tlt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelPanel/LevelUp:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelPanel/LevelUp:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-40, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelPanel:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LevelUp:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Exp:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("RadialProgress:radius")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [56.0]
+}
+
+[sub_resource type="Animation" id="Animation_xikqj"]
+resource_name = "add_exp"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Exp:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RadialProgress:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [56.0, 60.0, 56.0]
+}
+
+[sub_resource type="Animation" id="Animation_qjwn8"]
+resource_name = "level_up"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelPanel/LevelUp:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(-40, 0), Vector2(70, 0), Vector2(60, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelPanel/LevelUp:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.32, 0.49),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelPanel:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1, 1)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"set_level_text"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LevelUp:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("RadialProgress:radius")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.4, 0.5),
+"transitions": PackedFloat32Array(0.5, 1, 1, 0.5),
+"update": 0,
+"values": [56.0, 48.0, 48.0, 56.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7wjaj"]
+_data = {
+&"RESET": SubResource("Animation_w3tlt"),
+&"add_exp": SubResource("Animation_xikqj"),
+&"level_up": SubResource("Animation_qjwn8")
+}
+
+[node name="FishermanProfile" type="Control" node_paths=PackedStringArray("progress_bar", "level_label", "combo_label", "anim", "combo_anim") groups=["ui"]]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 112.0
+offset_bottom = 112.0
+script = SubResource("GDScript_ucs5h")
+progress_bar = NodePath("RadialProgress")
+level_label = NodePath("LevelPanel/Level")
+combo_label = NodePath("Combos/Control/ComboLabel")
+anim = NodePath("Anim")
+combo_anim = NodePath("Combos/ComboAnim")
+
+[node name="RadialProgress" type="Control" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_17fyp")
+radius = 56.0
+bg_color = Color(0.982343, 0.982342, 0.982342, 1)
+bar_color = Color(0.397253, 0.80799, 0.980162, 1)
+metadata/_custom_type_script = "uid://djuesuhbv7o0w"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Background" type="Panel" parent="MarginContainer"]
+clip_children = 2
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5256x")
+
+[node name="Control" type="Control" parent="MarginContainer/Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Skin" parent="MarginContainer/Background/Control" instance=ExtResource("2_nk8hg")]
+position = Vector2(0.5, 23.5)
+scale = Vector2(0.3, 0.3)
+
+[node name="LevelPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 74.0
+offset_right = 112.0
+offset_bottom = 124.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_55y7k")
+
+[node name="Level" type="Label" parent="LevelPanel"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+label_settings = SubResource("LabelSettings_xyhyf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelUp" type="Label" parent="LevelPanel"]
+self_modulate = Color(1, 1, 1, 0)
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_right = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Level UP"
+label_settings = SubResource("LabelSettings_r032s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Combos" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 68.0
+offset_top = -36.0
+offset_right = 152.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(42, 29)
+
+[node name="ComboAnim" type="AnimationPlayer" parent="Combos"]
+libraries = {
+&"": SubResource("AnimationLibrary_um7qg")
+}
+
+[node name="Control" type="Control" parent="Combos"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ComboLabel" type="Label" parent="Combos/Control"]
+texture_filter = 2
+layout_mode = 2
+offset_top = 5.0
+offset_right = 84.0
+offset_bottom = 38.0
+grow_vertical = 2
+text = "X2"
+label_settings = SubResource("LabelSettings_hu5ey")
+
+[node name="ComboStringLabel" type="Label" parent="Combos/Control"]
+texture_filter = 2
+layout_mode = 2
+offset_top = 34.0
+offset_right = 84.0
+offset_bottom = 55.0
+grow_vertical = 2
+text = "Combo"
+label_settings = SubResource("LabelSettings_toieo")
+vertical_alignment = 1
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7wjaj")
+}
+
+[node name="LevelUp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_2dwtf")
+bus = &"SFx"
+
+[node name="Exp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_8c06h")
+volume_db = -12.0
+bus = &"SFx"
