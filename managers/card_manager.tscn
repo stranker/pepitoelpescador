@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d0u656wq8p8ft"]
+[gd_scene load_steps=26 format=3 uid="uid://d0u656wq8p8ft"]
 
 [ext_resource type="Script" uid="uid://biw2k543ativ7" path="res://managers/card_manager.gd" id="1_urukv"]
 [ext_resource type="Script" uid="uid://dokbbhkitmfd5" path="res://objects/character_card.gd" id="2_6p2yx"]
@@ -82,12 +82,24 @@ modifier = 0.3
 cooldown = 0.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 
+[sub_resource type="Resource" id="Resource_wfsnr"]
+script = ExtResource("6_qsuk7")
+name = "Cat Eye"
+description = "Gains 30% of accuracy on afternoon"
+texture = ExtResource("4_1jsee")
+type = 0
+level_requirement = 0
+ability_component = ExtResource("7_301xb")
+modifier = 0.3
+cooldown = 0.0
+metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
+
 [sub_resource type="Resource" id="Resource_4yfaj"]
 script = ExtResource("2_6p2yx")
 character_type = 0
 base_power = 1.8
 base_accuracy = 1.0
-abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_stf3t")])
+abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_stf3t"), SubResource("Resource_wfsnr")])
 card_name = "The Hunter"
 card_texture = ExtResource("6_ha00d")
 card_description = "Great accuracy but less power"

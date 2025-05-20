@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://c4e5o2j6nkkkn"]
+[gd_scene load_steps=31 format=3 uid="uid://c4e5o2j6nkkkn"]
 
 [ext_resource type="Script" uid="uid://c5c42qdomv36y" path="res://scenes/ui.gd" id="1_hy13r"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="2_rauqo"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://ccjuv7sn2xqo0" path="res://objects/ability.gd" id="11_ju45i"]
 [ext_resource type="Texture2D" uid="uid://bup3dkrst1rih" path="res://assets/ui/option_icon.png" id="11_x7jpl"]
 [ext_resource type="Texture2D" uid="uid://ejc2v3gtfytb" path="res://assets/sprites/fishermans/boat.png" id="12_74toj"]
+[ext_resource type="PackedScene" uid="uid://cdmo1jhmbrias" path="res://ui/stamina_control.tscn" id="12_diyc5"]
 [ext_resource type="PackedScene" uid="uid://b7o878bg7yltg" path="res://ui/card_selector.tscn" id="13_fklw0"]
 [ext_resource type="PackedScene" uid="uid://ngwgmo67epe2" path="res://ui/options_scene.tscn" id="13_os0ka"]
 
@@ -373,6 +374,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FadeUI:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hykrw"]
 _data = {
@@ -580,6 +593,9 @@ layout_mode = 1
 libraries = {
 &"": SubResource("AnimationLibrary_hykrw")
 }
+
+[node name="StaminaControl" parent="MarginContainer/Main" instance=ExtResource("12_diyc5")]
+layout_mode = 1
 
 [node name="Scrim" parent="." instance=ExtResource("6_squ3x")]
 metadata/_edit_lock_ = true

@@ -101,9 +101,11 @@ func hook_enter():
 	eat_component.set_deferred("monitoring", false)
 	var shockwave = shockwave_scene.instantiate()
 	add_child(shockwave)
+	get_tree().call_group("ui", "on_fish_hook_enter", self)
 	pass
 
 func hook_exit():
+	get_tree().call_group("ui", "on_fish_hook_exit", self)
 	pass
 
 func collect_enter():
@@ -239,6 +241,11 @@ func _on_eat_component_end_eat() -> void:
 	else:
 		set_fish_state.call_deferred(FishState.MOVE)
 	pass # Replace with function body.
+
+func release():
+	reparent(initial_parent)
+	set_fish_state(FishState.MOVE)
+	pass
 
 func _on_eat_component_eat() -> void:
 	if fish_state == FishState.HOOK: return

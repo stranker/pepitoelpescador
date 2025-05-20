@@ -95,6 +95,7 @@ func recover():
 	set_state(HookState.RECOVER)
 	velocity += global_position.direction_to(initial_position) * (1.0 / _get_fishes_weight()) * stats.recover_force
 	final_direct_position += Vector2.UP * 200
+	get_tree().call_group("ui", "on_recover", stats.recover_force)
 	pass
 
 func _get_fishes_weight() -> float:

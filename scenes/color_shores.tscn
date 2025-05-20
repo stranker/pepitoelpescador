@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://7605xw4rige"]
+[gd_scene load_steps=25 format=3 uid="uid://7605xw4rige"]
 
 [ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://data/fishes/fish_data.gd" id="2_nr3by"]
 [ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="3_hhwfa"]
@@ -8,8 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c6expp3ap42af" path="res://objects/player.tscn" id="7_ilols"]
 [ext_resource type="PackedScene" uid="uid://b20k2ikmghh7h" path="res://objects/water.tscn" id="7_r2as4"]
 [ext_resource type="Resource" uid="uid://fwiia0yrsd7l" path="res://data/fishes/lily.tres" id="8_xunq4"]
-[ext_resource type="Texture2D" uid="uid://dqs5ggkr2ueq1" path="res://assets/sprites/particles/clouds.png" id="9_7ljy3"]
-[ext_resource type="Texture2D" uid="uid://coyppbvf7fk5t" path="res://assets/sprites/particles/clouds_1.png" id="10_1cymv"]
+[ext_resource type="Texture2D" uid="uid://cdti06q1c68uq" path="res://assets/sprites/background/clouds.png" id="9_g38md"]
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="13_v73gw"]
 [ext_resource type="PackedScene" uid="uid://c4e5o2j6nkkkn" path="res://ui/ui.tscn" id="14_jw5ub"]
 
@@ -297,10 +296,6 @@ func _physics_process(delta: float) -> void:
 	pass
 "
 
-[sub_resource type="Gradient" id="Gradient_4qobx"]
-offsets = PackedFloat32Array(0, 0.20068, 0.612245, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
-
 [node name="ColorShores" type="Node2D" node_paths=PackedStringArray("cinematic_camera", "boss_fish") groups=["gameplay"]]
 script = SubResource("GDScript_4qobx")
 fishes = Array[ExtResource("2_nr3by")]([SubResource("Resource_6aqbo"), SubResource("Resource_ro0ie"), SubResource("Resource_103ce"), SubResource("Resource_pb36m")])
@@ -369,38 +364,15 @@ script = SubResource("GDScript_4wrgf")
 
 [node name="Clouds" type="Node2D" parent="."]
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Clouds"]
-position = Vector2(1544, -5)
-amount = 4
-texture = ExtResource("9_7ljy3")
-lifetime = 30.0
-preprocess = 2.0
-emission_shape = 1
-emission_sphere_radius = 128.0
-direction = Vector2(-1, 0)
-spread = 2.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 100.0
-scale_amount_min = 0.5
-color_ramp = SubResource("Gradient_4qobx")
+[node name="Parallax2D" type="Parallax2D" parent="Clouds"]
+repeat_size = Vector2(1290, 0)
+autoscroll = Vector2(-5, 0)
+repeat_times = 4
 
-[node name="CPUParticles2D2" type="CPUParticles2D" parent="Clouds"]
-position = Vector2(1544, -5)
-amount = 4
-texture = ExtResource("10_1cymv")
-lifetime = 25.0
-preprocess = 0.5
-randomness = 1.0
-emission_shape = 1
-emission_sphere_radius = 128.0
-direction = Vector2(-1, 0)
-spread = 2.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 100.0
-scale_amount_min = 0.5
-color_ramp = SubResource("Gradient_4qobx")
+[node name="Sprite2D" type="Sprite2D" parent="Clouds/Parallax2D"]
+position = Vector2(0, -184)
+texture = ExtResource("9_g38md")
+centered = false
 
 [node name="Background" type="TextureRect" parent="."]
 z_index = -2

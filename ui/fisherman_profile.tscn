@@ -27,7 +27,7 @@ func _ready() -> void:
 
 func on_player_level_update(lvl):
 	progress_bar.max_value = lvl * GameManager.experience_increment
-	progress_bar.value = 0
+	progress_bar.progress = 0
 	anim.queue(\"level_up\")
 	pass
 
@@ -352,43 +352,43 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1, 1)]
 }
-tracks/3/type = "method"
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../..")
+tracks/3/path = NodePath("LevelUp:playing")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"set_level_text"
-}]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("LevelUp:playing")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0.02),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("RadialProgress:radius")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("RadialProgress:radius")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.4, 0.5),
 "transitions": PackedFloat32Array(0.5, 1, 1, 0.5),
 "update": 0,
 "values": [56.0, 48.0, 48.0, 56.0]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"set_level_text"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7wjaj"]
