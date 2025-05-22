@@ -105,10 +105,10 @@ func hook_enter():
 	pass
 
 func hook_exit():
-	get_tree().call_group("ui", "on_fish_hook_exit", self)
 	pass
 
 func collect_enter():
+	get_tree().call_group("ui", "on_fish_hook_exit", self)
 	pass
 
 func collect_exit():
@@ -121,6 +121,7 @@ func eat_exit():
 	pass
 
 func eated_enter():
+	get_tree().call_group("ui", "on_fish_hook_exit", self)
 	await get_tree().create_timer(3).timeout
 	queue_free()
 	pass
@@ -211,6 +212,7 @@ func collect():
 	pass
 
 func end_collect():
+	get_tree().call_group("ui", "on_fish_hook_exit", self)
 	queue_free()
 	pass
 
@@ -245,6 +247,12 @@ func _on_eat_component_end_eat() -> void:
 func release():
 	reparent(initial_parent)
 	set_fish_state(FishState.MOVE)
+	get_new_position()
+	var tween : Tween = create_tween()
+	tween.tween_property(self,"modulate", Color(1,1,1,0), 0.5).set_ease(Tween.EASE_IN)
+	tween.tween_callback(queue_free)
+	tween.play()
+	get_tree().call_group("ui", "on_fish_hook_exit", self)
 	pass
 
 func _on_eat_component_eat() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cdmo1jhmbrias"]
+[gd_scene load_steps=9 format=3 uid="uid://cdmo1jhmbrias"]
 
 [ext_resource type="Script" uid="uid://uhbeuwioji1a" path="res://ui/stamina_control.gd" id="1_q8qyv"]
 
@@ -14,11 +14,78 @@ expand_margin_right = 6.0
 expand_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8qyv"]
-bg_color = Color(0.697938, 0.999028, 0.683905, 1)
+bg_color = Color(0.427451, 0.8, 0.364706, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="Animation" id="Animation_6pmea"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaminaBar:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(312, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaminaBar:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaminaBar:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fs6nd"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaminaBar:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaminaBar:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(312, -120)]
+}
 
 [sub_resource type="Animation" id="Animation_q8qyv"]
 resource_name = "show"
@@ -49,63 +116,40 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_6pmea"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_0c13m"]
+resource_name = "deplete"
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("StaminaBar:position")
+tracks/0/path = NodePath("StaminaBar:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.6, 1),
+"transitions": PackedFloat32Array(0.5, 2, 0.5, 0.5, 0.5),
 "update": 0,
-"values": [Vector2(312, 0)]
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(0.8, 0.8), Vector2(0.8, 0.8), Vector2(1, 1)]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("StaminaBar:self_modulate")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_fs6nd"]
-resource_name = "idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("StaminaBar:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StaminaBar:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(312, -120)]
+"values": [{
+"args": [3],
+"method": &"set_state"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fs6nd"]
 _data = {
 &"RESET": SubResource("Animation_6pmea"),
+&"deplete": SubResource("Animation_0c13m"),
 &"idle": SubResource("Animation_fs6nd"),
 &"show": SubResource("Animation_q8qyv")
 }
@@ -121,7 +165,11 @@ offset_bottom = 40.0
 grow_horizontal = 2
 script = ExtResource("1_q8qyv")
 stamina_bar = NodePath("StaminaBar")
+stamina_gain = 30.0
 anim = NodePath("Animation")
+normal_color = Color(0.427451, 0.8, 0.364706, 1)
+warning_color = Color(0.831373, 0.67451, 0.313726, 1)
+deplete_color = Color(0.568627, 0.0823529, 0.101961, 1)
 
 [node name="StaminaBar" type="ProgressBar" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -132,9 +180,12 @@ anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -300.0
+offset_top = -120.0
 offset_right = 300.0
+offset_bottom = -120.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(300, 20)
 theme_override_styles/background = SubResource("StyleBoxFlat_puftc")
 theme_override_styles/fill = SubResource("StyleBoxFlat_q8qyv")
 max_value = 300.0

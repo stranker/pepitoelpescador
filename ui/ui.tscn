@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c4e5o2j6nkkkn"]
+[gd_scene load_steps=29 format=3 uid="uid://c4e5o2j6nkkkn"]
 
 [ext_resource type="Script" uid="uid://c5c42qdomv36y" path="res://scenes/ui.gd" id="1_hy13r"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="2_rauqo"]
@@ -9,9 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://chhnrx8jp3syn" path="res://ui/ability_button.tscn" id="10_diyc5"]
 [ext_resource type="PackedScene" uid="uid://w87u21qrvcd4" path="res://scenes/results_scene.tscn" id="10_hrmpd"]
 [ext_resource type="PackedScene" uid="uid://dsgecvueilt6e" path="res://ui/clock.tscn" id="10_xee24"]
-[ext_resource type="Script" uid="uid://ccjuv7sn2xqo0" path="res://objects/ability.gd" id="11_ju45i"]
 [ext_resource type="Texture2D" uid="uid://bup3dkrst1rih" path="res://assets/ui/option_icon.png" id="11_x7jpl"]
-[ext_resource type="Texture2D" uid="uid://ejc2v3gtfytb" path="res://assets/sprites/fishermans/boat.png" id="12_74toj"]
 [ext_resource type="PackedScene" uid="uid://cdmo1jhmbrias" path="res://ui/stamina_control.tscn" id="12_diyc5"]
 [ext_resource type="PackedScene" uid="uid://b7o878bg7yltg" path="res://ui/card_selector.tscn" id="13_fklw0"]
 [ext_resource type="PackedScene" uid="uid://ngwgmo67epe2" path="res://ui/options_scene.tscn" id="13_os0ka"]
@@ -127,16 +125,19 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 8.0
 
-[sub_resource type="Resource" id="Resource_co7pv"]
-script = ExtResource("11_ju45i")
-name = "Pepito"
-description = ""
-texture = ExtResource("12_74toj")
-type = 1
-level_requirement = 0
-modifier = 5.0
-cooldown = 5.0
-metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
+[sub_resource type="GDScript" id="GDScript_diyc5"]
+resource_name = "abilities_buttons"
+script/source = "extends Control
+
+@export var abilities_parent : HBoxContainer
+@export var ability_button_scene : PackedScene
+
+func add_ability_button(ability_component : AbilityComponent):
+	var ability_button : AbilityButton = ability_button_scene.instantiate() as AbilityButton
+	abilities_parent.add_child(ability_button)
+	ability_button.set_data(ability_component)
+	pass
+"
 
 [sub_resource type="Animation" id="Animation_db8l5"]
 length = 0.001
@@ -174,7 +175,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -563,8 +564,7 @@ texture = ExtResource("11_x7jpl")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="AbilitiesButtons" type="Control" parent="MarginContainer/Main"]
-modulate = Color(1, 1, 1, 0)
+[node name="AbilitiesButtons" type="Control" parent="MarginContainer/Main" node_paths=PackedStringArray("abilities_parent") groups=["ui"]]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -572,6 +572,9 @@ anchor_bottom = 1.0
 offset_top = -80.0
 offset_right = 296.0
 grow_vertical = 0
+script = SubResource("GDScript_diyc5")
+ability_button_scene = ExtResource("10_diyc5")
+abilities_parent = NodePath("Abilities")
 
 [node name="Abilities" type="HBoxContainer" parent="MarginContainer/Main/AbilitiesButtons"]
 layout_mode = 1
@@ -581,10 +584,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
-
-[node name="Ability1" parent="MarginContainer/Main/AbilitiesButtons/Abilities" instance=ExtResource("10_diyc5")]
-layout_mode = 2
-ability_data = SubResource("Resource_co7pv")
 
 [node name="ResultsScene" parent="MarginContainer/Main" instance=ExtResource("10_hrmpd")]
 layout_mode = 1

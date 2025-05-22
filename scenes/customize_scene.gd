@@ -3,6 +3,11 @@ extends Control
 @export var anim : AnimationPlayer
 @export var skin_colors : HBoxContainer
 
+@export var hat_slider : HSlider
+@export var hair_slider : HSlider
+@export var face_slider : HSlider
+@export var body_slider : HSlider
+
 @export var player_skin : PlayerSkin
 
 func _ready() -> void:
@@ -10,6 +15,24 @@ func _ready() -> void:
 	var skin_color = skin_colors.get_child(0).get_theme_stylebox("normal").bg_color
 	on_skin_color_changed(skin_color)
 	player_skin.set_skin_color(skin_color)
+	_update_sliders()
+	pass
+
+func _update_sliders():
+	hat_slider.max_value = player_skin.hat.hframes - 1
+	hair_slider.max_value = player_skin.hair.hframes - 1
+	face_slider.max_value = player_skin.face.hframes - 1
+	body_slider.max_value = player_skin.body.hframes - 1
+	
+	hat_slider.tick_count = hat_slider.max_value + 1
+	hair_slider.tick_count = hair_slider.max_value + 1
+	face_slider.tick_count = face_slider.max_value + 1 
+	body_slider.tick_count = body_slider.max_value + 1
+	
+	hat_slider.value = player_skin.hat.frame
+	hair_slider.value = player_skin.hair.frame
+	face_slider.value = player_skin.face.frame
+	body_slider.value = player_skin.body.frame
 	pass
 
 func _bind_skin_buttons():
@@ -24,32 +47,9 @@ func on_skin_color_changed(skin_color : Color):
 	player_skin.set_skin_color(skin_color)
 	pass
 
-func _on_hat_left_button_down() -> void:
-	player_skin.previous_hat()
-	pass
-
-func _on_face_left_button_down() -> void:
-	player_skin.previous_face()
-	pass
-
-func _on_body_left_button_down() -> void:
-	player_skin.previous_body()
-	pass
-
-func _on_hat_right_button_down() -> void:
-	player_skin.next_hat()
-	pass
-
-func _on_face_right_button_down() -> void:
-	player_skin.next_face()
-	pass
-
-func _on_body_right_button_down() -> void:
-	player_skin.next_body()
-	pass
-
 func _on_randomize_button_down() -> void:
-	player_skin.randomize()
+	player_skin.randomize_skin()
+	_update_sliders()
 	var random_button = skin_colors.get_children().pick_random()
 	var skin_color = random_button.get_theme_stylebox("normal").bg_color
 	on_skin_color_changed(skin_color)
@@ -70,11 +70,21 @@ func _on_card_selector_character_card_selected(character: Variant) -> void:
 	pass # Replace with function body.
 
 
-func _on_hair_left_button_down() -> void:
-	player_skin.previous_hair()
+func _on_hat_slider_value_changed(value: float) -> void:
+	player_skin.set_hat(int(value))
 	pass # Replace with function body.
 
 
-func _on_hair_right_button_down() -> void:
-	player_skin.next_hair()
+func _on_hair_slider_value_changed(value: float) -> void:
+	player_skin.set_hair(int(value))
+	pass # Replace with function body.
+
+
+func _on_face_slider_value_changed(value: float) -> void:
+	player_skin.set_face(int(value))
+	pass # Replace with function body.
+
+
+func _on_body_slider_value_changed(value: float) -> void:
+	player_skin.set_body(int(value))
 	pass # Replace with function body.

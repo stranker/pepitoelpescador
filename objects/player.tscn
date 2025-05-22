@@ -325,8 +325,8 @@ script/source = "extends Node
 
 func add_ability(ability : Ability):
 	var ability_component : AbilityComponent = ability.ability_component.instantiate()
-	ability_component.set_data(ability)
 	add_child(ability_component)
+	ability_component.set_data(ability)
 	pass
 "
 

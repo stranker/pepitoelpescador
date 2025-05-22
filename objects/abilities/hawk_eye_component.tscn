@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://btp0e4xcxbowf"]
+
+[sub_resource type="GDScript" id="GDScript_leo0e"]
+resource_name = "hawk_eye_component"
+script/source = "extends AbilityComponent
+
+func on_activate():
+	get_tree().call_group(\"hook\", \"increase_radius\", ability.modifier)
+	await get_tree().create_timer(ability.duration).timeout
+	get_tree().call_group(\"hook\", \"reset_radius\")
+	pass
+"
+
+[node name="HawkEyeComponent" type="Node"]
+script = SubResource("GDScript_leo0e")

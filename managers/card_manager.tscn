@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://d0u656wq8p8ft"]
+[gd_scene load_steps=27 format=3 uid="uid://d0u656wq8p8ft"]
 
 [ext_resource type="Script" uid="uid://biw2k543ativ7" path="res://managers/card_manager.gd" id="1_urukv"]
 [ext_resource type="Script" uid="uid://dokbbhkitmfd5" path="res://objects/character_card.gd" id="2_6p2yx"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dsbkpd4pvndmm" path="res://assets/sprites/fishermans/businessman_skin.png" id="7_2eyr2"]
 [ext_resource type="PackedScene" uid="uid://du67qtxmrjq6m" path="res://objects/abilities/just_business_component.tscn" id="7_16ita"]
 [ext_resource type="PackedScene" uid="uid://dyojf5hrxvjur" path="res://objects/abilities/cat_eye_component.tscn" id="7_301xb"]
+[ext_resource type="PackedScene" uid="uid://btp0e4xcxbowf" path="res://objects/abilities/hawk_eye_component.tscn" id="8_wfsnr"]
 [ext_resource type="Texture2D" uid="uid://j4nwyvbnwcqt" path="res://assets/sprites/fishermans/bodybuilder_skin.png" id="9_0ds10"]
 [ext_resource type="PackedScene" uid="uid://bekqov7qymyio" path="res://objects/abilities/fish_crusher_component.tscn" id="12_stf3t"]
 
@@ -72,26 +73,28 @@ card_background = ExtResource("3_wf3hm")
 
 [sub_resource type="Resource" id="Resource_stf3t"]
 script = ExtResource("6_qsuk7")
-name = "Cat Eye"
-description = "Gains 30% of accuracy on afternoon"
+name = "Cat eye"
+description = "Gain 0.3 accuracy on afternoon"
 texture = ExtResource("4_1jsee")
 type = 0
 level_requirement = 0
 ability_component = ExtResource("7_301xb")
 modifier = 0.3
+duration = 0.0
 cooldown = 0.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 
 [sub_resource type="Resource" id="Resource_wfsnr"]
 script = ExtResource("6_qsuk7")
-name = "Cat Eye"
-description = "Gains 30% of accuracy on afternoon"
+name = "Hawkeye"
+description = "Gains 50% of accuracy for 5 seconds"
 texture = ExtResource("4_1jsee")
-type = 0
-level_requirement = 0
-ability_component = ExtResource("7_301xb")
-modifier = 0.3
-cooldown = 0.0
+type = 1
+level_requirement = 5
+ability_component = ExtResource("8_wfsnr")
+modifier = 1.5
+duration = 5.0
+cooldown = 15.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 
 [sub_resource type="Resource" id="Resource_4yfaj"]
@@ -114,6 +117,7 @@ type = 0
 level_requirement = 0
 ability_component = ExtResource("7_16ita")
 modifier = 0.2
+duration = 0.0
 cooldown = 0.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 
@@ -137,6 +141,7 @@ type = 0
 level_requirement = 0
 ability_component = ExtResource("12_stf3t")
 modifier = 2.0
+duration = 0.0
 cooldown = 0.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 

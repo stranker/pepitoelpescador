@@ -38,53 +38,34 @@ func _ready() -> void:
 		update_skin_data.connect(GameManager.on_update_skin_data)
 	pass
 
-func next_hat():
-	next_frame_sprite(hat)
+func set_hat(idx : int):
+	hat.frame = idx
 	pass
 
-func next_hair():
-	next_frame_sprite(hair)
+func set_hair(idx : int):
+	hair.frame = idx
 	pass
 
-func next_face():
-	next_frame_sprite(face)
+func set_face(idx : int):
+	face.frame = idx
 	pass
 
-func next_body():
-	next_frame_sprite(body)
+func set_body(idx : int):
+	body.frame = idx
 	pass
 
-func previous_hat():
-	previous_frame_sprite(hat)
-	pass
-
-func previous_hair():
-	previous_frame_sprite(hair)
-	pass
-
-func previous_face():
-	previous_frame_sprite(face)
-	pass
-
-func previous_body():
-	previous_frame_sprite(body)
-	pass
-
-func previous_frame_sprite(sprite : Sprite2D):
-	sprite.frame = sprite.hframes - 1 if sprite.frame <= 0 else sprite.frame - 1
-	_update_data()
-	pass
-
-func next_frame_sprite(sprite : Sprite2D):
-	sprite.frame = 0 if sprite.frame >= sprite.hframes - 1 else sprite.frame + 1
-	_update_data()
-	pass
-
-func randomize():
-	hat.frame = randi() % hat.hframes
-	hair.frame = randi() % hair.hframes
-	face.frame = randi() % face.hframes
-	body.frame = randi() % body.hframes
+func randomize_skin():
+	var rng = RandomNumberGenerator.new()
+	hat.frame = rng.randi_range(0, hat.hframes - 1)
+	print_debug(hat.frame)
+	hair.frame = rng.randi_range(0, hair.hframes - 1)
+	print_debug(hair.frame)
+	rng.randomize()
+	face.frame = rng.randi_range(0, face.hframes - 1)
+	print_debug(face.frame)
+	rng.randomize()
+	body.frame = rng.randi_range(0, body.hframes - 1)
+	print_debug(body.frame)
 	_update_data()
 	pass
 

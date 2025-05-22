@@ -22,6 +22,7 @@ func _ready() -> void:
 	GameManager.player_level_update.connect(on_player_level_update)
 	GameManager.experience_update.connect(on_experience_update)
 	progress_bar.max_value = GameManager.game_stats.player_level * GameManager.experience_increment
+	progress_bar.progress = GameManager.game_stats.experience
 	set_level_text()
 	pass
 
@@ -72,7 +73,7 @@ border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.886275, 0.639216, 0.0705882, 1)
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 24
 corner_radius_top_right = 24
 corner_radius_bottom_right = 24
@@ -424,6 +425,24 @@ script = ExtResource("4_17fyp")
 radius = 56.0
 bg_color = Color(0.982343, 0.982342, 0.982342, 1)
 bar_color = Color(0.397253, 0.80799, 0.980162, 1)
+nb_points = 42
+metadata/_custom_type_script = "uid://djuesuhbv7o0w"
+
+[node name="RadialProgress2" type="Control" parent="RadialProgress"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_17fyp")
+max_value = 5.0
+radius = 60.0
+bg_color = Color(0, 0, 0, 1)
+nb_points = 42
 metadata/_custom_type_script = "uid://djuesuhbv7o0w"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -459,10 +478,10 @@ scale = Vector2(0.3, 0.3)
 
 [node name="LevelPanel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 62.0
-offset_top = 74.0
-offset_right = 112.0
-offset_bottom = 124.0
+offset_left = 80.0
+offset_top = 80.0
+offset_right = 130.0
+offset_bottom = 130.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_55y7k")
 
 [node name="Level" type="Label" parent="LevelPanel"]
