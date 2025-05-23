@@ -61,7 +61,7 @@ func _on_confirm_button_down() -> void:
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57mqj"]
-bg_color = Color(0, 0, 0, 0.729412)
+bg_color = Color(0, 0, 0, 0.870588)
 
 [sub_resource type="LabelSettings" id="LabelSettings_xwkdv"]
 font = ExtResource("1_w62fi")
@@ -603,7 +603,7 @@ offset_left = 24.0
 offset_top = 24.0
 offset_right = 112.0
 offset_bottom = 112.0
-focus_mode = 0
+focus_mode = 1
 theme_override_fonts/font = ExtResource("1_w62fi")
 theme_override_font_sizes/font_size = 64
 theme_override_styles/hover = SubResource("StyleBoxFlat_qobcg")

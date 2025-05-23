@@ -7,7 +7,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ot44"]
 bg_color = Color(0.600791, 0.743927, 0.885446, 1)
 border_width_left = 4
-border_width_top = 2
+border_width_top = 4
 border_width_right = 4
 border_width_bottom = 6
 border_color = Color(0.419608, 0.533333, 0.788235, 1)
@@ -20,9 +20,9 @@ shadow_size = 4
 shadow_offset = Vector2(0, 4)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uoat"]
-border_width_left = 2
-border_width_top = 1
-border_width_right = 2
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.374139, 0.374139, 0.374139, 1)
 corner_radius_top_left = 8
@@ -32,19 +32,32 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_0t3dw"]
 font = ExtResource("2_screy")
-font_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+font_color = Color(1, 1, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.733333)
 
 [sub_resource type="LabelSettings" id="LabelSettings_jksk1"]
 font = ExtResource("2_screy")
 font_size = 36
-font_color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+font_color = Color(0.980392, 0.772549, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_screy"]
 font = ExtResource("2_screy")
 font_size = 24
-font_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+font_color = Color(0.980392, 0.772549, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.717647)
 
 [node name="Ability" type="Control" node_paths=PackedStringArray("image", "title", "requirement", "type", "description")]
+texture_filter = 2
 custom_minimum_size = Vector2(560, 120)
 layout_mode = 3
 anchors_preset = 0
@@ -98,19 +111,21 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Type" type="Label" parent="Back/Control"]
+texture_filter = 2
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -33.5
+offset_left = -44.0
 offset_top = -23.0
-offset_right = 33.5
+offset_right = 44.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "passive"
 label_settings = SubResource("LabelSettings_0t3dw")
+horizontal_alignment = 1
 
 [node name="Info" type="Control" parent="Back"]
 layout_mode = 1
@@ -152,6 +167,7 @@ vertical_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Back/Info"]
 texture_filter = 2
+clip_contents = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -160,7 +176,11 @@ offset_top = -56.0
 offset_right = 424.0
 offset_bottom = -8.0
 grow_vertical = 0
-theme_override_colors/default_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 theme_override_fonts/normal_font = ExtResource("2_screy")
 theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
 text = "This is a long description of what the ability does"

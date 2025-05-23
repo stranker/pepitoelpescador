@@ -59,6 +59,36 @@ tracks/2/keys = {
 "values": [Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_0c13m"]
+resource_name = "deplete"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaminaBar:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.6, 1),
+"transitions": PackedFloat32Array(0.5, 2, 0.5, 0.5, 0.5),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(0.8, 0.8), Vector2(0.8, 0.8), Vector2(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [3],
+"method": &"set_state"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_fs6nd"]
 resource_name = "idle"
 length = 0.1
@@ -116,36 +146,6 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_0c13m"]
-resource_name = "deplete"
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("StaminaBar:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3, 0.6, 1),
-"transitions": PackedFloat32Array(0.5, 2, 0.5, 0.5, 0.5),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(0.8, 0.8), Vector2(0.8, 0.8), Vector2(1, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [3],
-"method": &"set_state"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fs6nd"]
 _data = {
 &"RESET": SubResource("Animation_6pmea"),
@@ -163,6 +163,7 @@ offset_left = -612.0
 offset_right = 612.0
 offset_bottom = 40.0
 grow_horizontal = 2
+mouse_filter = 2
 script = ExtResource("1_q8qyv")
 stamina_bar = NodePath("StaminaBar")
 stamina_gain = 30.0
@@ -186,6 +187,7 @@ offset_bottom = -120.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(300, 20)
+mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_puftc")
 theme_override_styles/fill = SubResource("StyleBoxFlat_q8qyv")
 max_value = 300.0

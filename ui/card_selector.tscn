@@ -11,19 +11,18 @@ font = ExtResource("2_k7cl5")
 font_size = 64
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_obsd8"]
-bg_color = Color(0.696556, 0.868724, 0.880695, 1)
+bg_color = Color(0.999042, 0.792481, 0.473115, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btld0"]
-bg_color = Color(0.589117, 0.80419, 0.819439, 1)
 border_width_left = 6
 border_width_top = 6
 border_width_right = 6
 border_width_bottom = 6
-border_color = Color(0.574533, 0.088, 0.8, 1)
+border_color = Color(0.921569, 0.533333, 0.196078, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8

@@ -522,8 +522,9 @@ theme_override_styles/slider = SubResource("StyleBoxFlat_4tpme")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_c4e0f")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_i1pnc")
 max_value = 5.0
+rounded = true
 scrollable = false
-tick_count = 6
+tick_count = 5
 ticks_on_borders = true
 
 [node name="HairSlider" type="Control" parent="Panel/Sliders/VBoxContainer"]
@@ -567,7 +568,9 @@ theme_override_styles/slider = SubResource("StyleBoxFlat_4tpme")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_i1pnc")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_i1pnc")
 max_value = 5.0
+rounded = true
 scrollable = false
+tick_count = 5
 ticks_on_borders = true
 
 [node name="FaceSlider" type="Control" parent="Panel/Sliders/VBoxContainer"]
@@ -611,7 +614,9 @@ theme_override_styles/slider = SubResource("StyleBoxFlat_4tpme")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_ss2tb")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_i1pnc")
 max_value = 5.0
+rounded = true
 scrollable = false
+tick_count = 5
 ticks_on_borders = true
 
 [node name="BodySlider" type="Control" parent="Panel/Sliders/VBoxContainer"]
@@ -655,7 +660,9 @@ theme_override_styles/slider = SubResource("StyleBoxFlat_4tpme")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_58wso")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_i1pnc")
 max_value = 5.0
+rounded = true
 scrollable = false
+tick_count = 5
 ticks_on_borders = true
 
 [node name="Skins" type="Panel" parent="Panel/Sliders"]

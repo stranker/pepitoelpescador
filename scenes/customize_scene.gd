@@ -24,10 +24,10 @@ func _update_sliders():
 	face_slider.max_value = player_skin.face.hframes - 1
 	body_slider.max_value = player_skin.body.hframes - 1
 	
-	hat_slider.tick_count = hat_slider.max_value + 1
-	hair_slider.tick_count = hair_slider.max_value + 1
-	face_slider.tick_count = face_slider.max_value + 1 
-	body_slider.tick_count = body_slider.max_value + 1
+	hat_slider.tick_count = player_skin.hat.hframes
+	hair_slider.tick_count = player_skin.hair.hframes
+	face_slider.tick_count = player_skin.face.hframes 
+	body_slider.tick_count = player_skin.body.hframes
 	
 	hat_slider.value = player_skin.hat.frame
 	hair_slider.value = player_skin.hair.frame
