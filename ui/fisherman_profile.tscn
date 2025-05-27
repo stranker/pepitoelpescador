@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b4l7gkq0ibacm"]
+[gd_scene load_steps=25 format=3 uid="uid://b4l7gkq0ibacm"]
 
 [ext_resource type="PackedScene" uid="uid://c5oj0pohmtd3v" path="res://objects/player_skin.tscn" id="2_nk8hg"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="3_6qbg7"]
@@ -15,6 +15,7 @@ script/source = "extends Control
 @export var combo_label : Label
 @export var anim : AnimationPlayer
 @export var combo_anim : AnimationPlayer
+@export var stamina : ProgressBar
 
 var is_combo_visible : bool = false
 
@@ -57,7 +58,38 @@ func on_experience_update(experience):
 	tween.tween_property(progress_bar, \"progress\", experience, 0.5).set_ease(Tween.EASE_IN)
 	tween.play()
 	pass
+
+func stamina_init(max_value : float):
+	stamina.max_value = max_value
+	pass
+
+func stamina_update(value : float, color : Color):
+	stamina.value = value
+	stamina.get_theme_stylebox(\"fill\").bg_color = color
+	pass
+
+func show_stamina():
+	anim.play(\"in_game\")
+	pass
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucs5h"]
+bg_color = Color(0.0110876, 0.0110876, 0.0110876, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j20k4"]
+bg_color = Color(0.427451, 0.8, 0.364706, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5256x"]
 bg_color = Color(0.815686, 0.815686, 0.945098, 1)
@@ -74,16 +106,18 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="LabelSettings" id="LabelSettings_xyhyf"]
 font = ExtResource("3_6qbg7")
 font_size = 32
-outline_size = 3
+outline_size = 6
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.827451)
 
 [sub_resource type="LabelSettings" id="LabelSettings_r032s"]
 font = ExtResource("3_6qbg7")
@@ -274,7 +308,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("RadialProgress:radius")
+tracks/5/path = NodePath("Experience:radius")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -282,6 +316,18 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [56.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Stamina:size")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 23)]
 }
 
 [sub_resource type="Animation" id="Animation_xikqj"]
@@ -303,7 +349,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("RadialProgress:radius")
+tracks/1/path = NodePath("Experience:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -368,7 +414,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("RadialProgress:radius")
+tracks/4/path = NodePath("Experience:radius")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -392,26 +438,74 @@ tracks/5/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_ucs5h"]
+resource_name = "menu"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Stamina:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 23)]
+}
+
+[sub_resource type="Animation" id="Animation_j20k4"]
+resource_name = "in_game"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Stamina:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 23), Vector2(168, 23)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7wjaj"]
 _data = {
 &"RESET": SubResource("Animation_w3tlt"),
 &"add_exp": SubResource("Animation_xikqj"),
-&"level_up": SubResource("Animation_qjwn8")
+&"in_game": SubResource("Animation_j20k4"),
+&"level_up": SubResource("Animation_qjwn8"),
+&"menu": SubResource("Animation_ucs5h")
 }
 
-[node name="FishermanProfile" type="Control" node_paths=PackedStringArray("progress_bar", "level_label", "combo_label", "anim", "combo_anim") groups=["ui"]]
+[node name="FishermanProfile" type="Control" node_paths=PackedStringArray("progress_bar", "level_label", "combo_label", "anim", "combo_anim", "stamina") groups=["ui"]]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 112.0
 offset_bottom = 112.0
 script = SubResource("GDScript_ucs5h")
-progress_bar = NodePath("RadialProgress")
+progress_bar = NodePath("Experience")
 level_label = NodePath("LevelPanel/Level")
 combo_label = NodePath("Combos/Control/ComboLabel")
 anim = NodePath("Anim")
 combo_anim = NodePath("Combos/ComboAnim")
+stamina = NodePath("Stamina")
 
-[node name="RadialProgress" type="Control" parent="."]
+[node name="Stamina" type="ProgressBar" parent="."]
+show_behind_parent = true
+layout_mode = 1
+offset_left = 56.0
+offset_right = 57.0
+offset_bottom = 23.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ucs5h")
+theme_override_styles/fill = SubResource("StyleBoxFlat_j20k4")
+max_value = 300.0
+value = 300.0
+show_percentage = false
+
+[node name="Experience" type="Control" parent="."]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 8
@@ -427,8 +521,9 @@ bg_color = Color(0.982343, 0.982342, 0.982342, 1)
 bar_color = Color(0.397253, 0.80799, 0.980162, 1)
 nb_points = 42
 metadata/_custom_type_script = "uid://djuesuhbv7o0w"
+metadata/_edit_lock_ = true
 
-[node name="RadialProgress2" type="Control" parent="RadialProgress"]
+[node name="Outline" type="Control" parent="Experience"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 8
@@ -456,6 +551,7 @@ theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
+metadata/_edit_lock_ = true
 
 [node name="Background" type="Panel" parent="MarginContainer"]
 clip_children = 2
@@ -477,11 +573,18 @@ position = Vector2(0.5, 23.5)
 scale = Vector2(0.3, 0.3)
 
 [node name="LevelPanel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 80.0
-offset_top = 80.0
-offset_right = 130.0
-offset_bottom = 130.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -7.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_55y7k")
 
 [node name="Level" type="Label" parent="LevelPanel"]
@@ -568,6 +671,7 @@ vertical_alignment = 1
 libraries = {
 &"": SubResource("AnimationLibrary_7wjaj")
 }
+autoplay = "menu"
 
 [node name="LevelUp" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_2dwtf")

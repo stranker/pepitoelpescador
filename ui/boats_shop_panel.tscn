@@ -251,6 +251,7 @@ theme_override_constants/margin_bottom = 64
 
 [node name="Control" type="Control" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Card" type="TextureRect" parent="MarginContainer/Control"]
 layout_mode = 1
@@ -431,5 +432,6 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lwppx")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="gui_input" from="MarginContainer" to="." method="_on_margin_container_gui_input"]
 [connection signal="button_down" from="MarginContainer/Control/UpgradeButton" to="." method="_on_upgrade_button_button_down"]
 [connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]

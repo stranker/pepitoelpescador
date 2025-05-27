@@ -1,19 +1,77 @@
-[gd_scene load_steps=3 format=3 uid="uid://peujken5bx5u"]
+[gd_scene load_steps=6 format=3 uid="uid://peujken5bx5u"]
 
 [ext_resource type="Script" uid="uid://4avyhc7qun0r" path="res://ui/fishes_panel.gd" id="1_bgne7"]
-[ext_resource type="PackedScene" uid="uid://c0eotynbjia5r" path="res://ui/fish_panel_item.tscn" id="1_diubb"]
+[ext_resource type="PackedScene" uid="uid://b88g72lgv2yax" path="res://ui/non_selectable_card.tscn" id="3_ivu30"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_467gh"]
+bg_color = Color(0.0313726, 0.0313726, 0.0313726, 0.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivu30"]
+bg_color = Color(0.477226, 0.581921, 0.908985, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.305882, 0.309804, 0.796078, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c7ivg"]
+bg_color = Color(0.6, 0.741176, 0.941176, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
 
 [node name="FishesPanel" type="Control" node_paths=PackedStringArray("fishes_grid")]
-custom_minimum_size = Vector2(1023, 0)
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1023.0
-offset_bottom = 500.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_bgne7")
-fishes_grid = NodePath("MarginContainer/GridContainer")
-fish_panel_item_scene = ExtResource("1_diubb")
+fishes_grid = NodePath("MarginContainer/CenterContainer/Panel/MarginContainer/ScrollContainer/Fishes")
+card_scene = ExtResource("3_ivu30")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_467gh")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/CenterContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(1256, 672)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ivu30")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/Panel"]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,10 +83,19 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/CenterContainer/Panel/MarginContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(1148, 636)
 layout_mode = 2
-theme_override_constants/h_separation = 22
-theme_override_constants/v_separation = 22
-columns = 4
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_c7ivg")
+horizontal_scroll_mode = 0
 
-[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[node name="Fishes" type="GridContainer" parent="MarginContainer/CenterContainer/Panel/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 32
+theme_override_constants/v_separation = 32
+columns = 5

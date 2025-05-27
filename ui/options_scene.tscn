@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ngwgmo67epe2"]
+[gd_scene load_steps=30 format=3 uid="uid://ngwgmo67epe2"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_w62fi"]
 [ext_resource type="Texture2D" uid="uid://c2xankc5adpts" path="res://assets/ui/music_icon.png" id="2_6vynn"]
@@ -8,27 +8,14 @@
 resource_name = "sound_options"
 script/source = "extends Control
 
-@export var general_slider : HSlider
-@export var music_slider : HSlider
-@export var sound_slider : HSlider
 @export var anim : AnimationPlayer
+@export var back_to_menu_button : Button
 
 signal closed()
 
 func _ready() -> void:
-	general_slider.value = -16
-	pass # Replace with function body.
-
-func _on_general_value_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(\"Master\"), value)
-	pass # Replace with function body.
-
-func _on_sound_slider_value_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(\"SFx\"), value)
-	pass # Replace with function body.
-
-func _on_music_slider_value_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(\"Music\"), value)
+	if get_tree().current_scene.name == \"MainMenu\" or get_tree().current_scene.name == \"MainScene\":
+		back_to_menu_button.hide()
 	pass # Replace with function body.
 
 func _on_close_button_button_down() -> void:
@@ -58,6 +45,18 @@ func _on_confirm_button_down() -> void:
 	GameManager.clear_saved_data()
 	GameManager.load_scene(\"res://scenes/main_menu.tscn\")
 	pass # Replace with function body.
+
+
+func _on_back_to_menu_button_down() -> void:
+	GameManager.load_scene(\"res://scenes/main_scene.tscn\")
+	pass # Replace with function body.
+
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			closed.emit()
+	pass # Replace with function body.
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57mqj"]
@@ -79,17 +78,9 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[sub_resource type="LabelSettings" id="LabelSettings_qobcg"]
+[sub_resource type="LabelSettings" id="LabelSettings_j02j8"]
 font = ExtResource("1_w62fi")
-font_size = 46
-
-[sub_resource type="LabelSettings" id="LabelSettings_fbdfa"]
-font = ExtResource("1_w62fi")
-font_size = 46
-
-[sub_resource type="LabelSettings" id="LabelSettings_tnhqg"]
-font = ExtResource("1_w62fi")
-font_size = 46
+font_size = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbdfa"]
 bg_color = Color(0.913725, 0.913725, 0.913725, 1)
@@ -140,10 +131,6 @@ expand_margin_left = 6.0
 expand_margin_top = 6.0
 expand_margin_right = 6.0
 expand_margin_bottom = 6.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_j02j8"]
-font = ExtResource("1_w62fi")
-font_size = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qobcg"]
 bg_color = Color(0.980932, 0.346384, 0.308302, 1)
@@ -333,7 +320,7 @@ _data = {
 &"reset_data": SubResource("Animation_n3y2q")
 }
 
-[node name="Options" type="Control" node_paths=PackedStringArray("general_slider", "music_slider", "sound_slider", "anim")]
+[node name="Options" type="Control" node_paths=PackedStringArray("anim", "back_to_menu_button")]
 custom_minimum_size = Vector2(1000, 640)
 layout_mode = 3
 anchors_preset = 15
@@ -342,10 +329,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_308e6")
-general_slider = NodePath("Panel/MarginContainer/VBoxContainer/General/General")
-music_slider = NodePath("Panel/MarginContainer/VBoxContainer/Music/MusicSlider")
-sound_slider = NodePath("Panel/MarginContainer/VBoxContainer/SFx/SoundSlider")
 anim = NodePath("AnimationPlayer")
+back_to_menu_button = NodePath("Panel/MarginContainer/Control/Buttons/Buttons/BackToMenu")
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
@@ -354,6 +339,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_57mqj")
 
 [node name="Title" type="Label" parent="."]
@@ -393,95 +379,44 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
+theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
+theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
-visible = false
-custom_minimum_size = Vector2(512, 400)
-layout_mode = 2
-alignment = 1
-
-[node name="General" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="GeneralLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/General"]
-layout_mode = 2
-text = "GENERAL"
-label_settings = SubResource("LabelSettings_qobcg")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="General" type="HSlider" parent="Panel/MarginContainer/VBoxContainer/General"]
-layout_mode = 2
-min_value = -40.0
-max_value = 0.0
-step = 8.0
-rounded = true
-
-[node name="Music" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="MusicLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/Music"]
-layout_mode = 2
-text = "MUSIC"
-label_settings = SubResource("LabelSettings_fbdfa")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MusicSlider" type="HSlider" parent="Panel/MarginContainer/VBoxContainer/Music"]
-layout_mode = 2
-min_value = -40.0
-max_value = 0.0
-step = 8.0
-rounded = true
-
-[node name="SFx" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="SfxLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/SFx"]
-layout_mode = 2
-text = "SFx"
-label_settings = SubResource("LabelSettings_tnhqg")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="SoundSlider" type="HSlider" parent="Panel/MarginContainer/VBoxContainer/SFx"]
-layout_mode = 2
-min_value = -40.0
-max_value = 0.0
-step = 8.0
-rounded = true
 
 [node name="Control" type="Control" parent="Panel/MarginContainer"]
 layout_mode = 2
 
-[node name="Buttons" type="HBoxContainer" parent="Panel/MarginContainer/Control"]
-custom_minimum_size = Vector2(0, 120)
+[node name="Version" type="Label" parent="Panel/MarginContainer/Control"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -412.5
-offset_top = -128.0
-offset_right = 412.5
-offset_bottom = -8.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -137.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "v 0.1"
+label_settings = SubResource("LabelSettings_j02j8")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="Panel/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="SoundButtons" type="HBoxContainer" parent="Panel/MarginContainer/Control/Buttons"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="Music" type="Button" parent="Panel/MarginContainer/Control/Buttons"]
+[node name="Music" type="Button" parent="Panel/MarginContainer/Control/Buttons/SoundButtons"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 focus_mode = 0
@@ -497,7 +432,7 @@ toggle_mode = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="Panel" type="Panel" parent="Panel/MarginContainer/Control/Buttons/Music"]
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/Control/Buttons/SoundButtons/Music"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -508,7 +443,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tu0xq")
 
-[node name="Sound" type="Button" parent="Panel/MarginContainer/Control/Buttons"]
+[node name="Sound" type="Button" parent="Panel/MarginContainer/Control/Buttons/SoundButtons"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 focus_mode = 0
@@ -524,7 +459,7 @@ toggle_mode = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="Panel" type="Panel" parent="Panel/MarginContainer/Control/Buttons/Sound"]
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/Control/Buttons/SoundButtons/Sound"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -535,36 +470,49 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tu0xq")
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/Control"]
+[node name="Buttons" type="VBoxContainer" parent="Panel/MarginContainer/Control/Buttons"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="BackToMenu" type="Button" parent="Panel/MarginContainer/Control/Buttons/Buttons"]
+custom_minimum_size = Vector2(160, 72)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.169245, 0.169245, 0.169245, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.928848, 0.426323, 0.474297, 1)
+theme_override_colors/icon_hover_color = Color(0.659324, 0.509905, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.857221, 0.297747, 0.372641, 1)
+theme_override_colors/icon_normal_color = Color(0.584314, 0.345098, 1, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_w62fi")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/hover = SubResource("StyleBoxFlat_fbdfa")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xwkdv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tnhqg")
+text = "Back to menu"
+icon_alignment = 1
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/Control/Buttons/Buttons/BackToMenu"]
+show_behind_parent = true
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -137.0
-offset_top = -23.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "v 0.1"
-label_settings = SubResource("LabelSettings_j02j8")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="ResetData" type="Button" parent="Panel/MarginContainer/Control"]
-custom_minimum_size = Vector2(120, 64)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -154.5
-offset_top = -112.0
-offset_right = 155.5
-offset_bottom = -32.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tu0xq")
+
+[node name="ResetData" type="Button" parent="Panel/MarginContainer/Control/Buttons/Buttons"]
+custom_minimum_size = Vector2(160, 72)
+layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0.169245, 0.169245, 0.169245, 1)
@@ -584,7 +532,7 @@ text = "Reset data"
 icon_alignment = 1
 expand_icon = true
 
-[node name="Panel" type="Panel" parent="Panel/MarginContainer/Control/ResetData"]
+[node name="Panel" type="Panel" parent="Panel/MarginContainer/Control/Buttons/Buttons/ResetData"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -702,12 +650,11 @@ libraries = {
 }
 autoplay = "idle"
 
-[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/General/General" to="." method="_on_general_value_changed"]
-[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
-[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/SFx/SoundSlider" to="." method="_on_sound_slider_value_changed"]
-[connection signal="toggled" from="Panel/MarginContainer/Control/Buttons/Music" to="." method="_on_music_toggled"]
-[connection signal="toggled" from="Panel/MarginContainer/Control/Buttons/Sound" to="." method="_on_sound_toggled"]
-[connection signal="button_down" from="Panel/MarginContainer/Control/ResetData" to="." method="_on_reset_data_button_down"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="toggled" from="Panel/MarginContainer/Control/Buttons/SoundButtons/Music" to="." method="_on_music_toggled"]
+[connection signal="toggled" from="Panel/MarginContainer/Control/Buttons/SoundButtons/Sound" to="." method="_on_sound_toggled"]
+[connection signal="button_down" from="Panel/MarginContainer/Control/Buttons/Buttons/BackToMenu" to="." method="_on_back_to_menu_button_down"]
+[connection signal="button_down" from="Panel/MarginContainer/Control/Buttons/Buttons/ResetData" to="." method="_on_reset_data_button_down"]
 [connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]
 [connection signal="button_down" from="PopupConfirmation/Panel/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_cancel_button_down"]
 [connection signal="button_down" from="PopupConfirmation/Panel/VBoxContainer/HBoxContainer/Confirm" to="." method="_on_confirm_button_down"]

@@ -10,12 +10,14 @@ extends Resource
 
 var map_completed_percentage : float
 
-func initilize(fishes_ids : Array):
+func initialize(fishes_data : Dictionary):
 	var fish_count : int = 0
-	for fish_id in fishes_ids:
+	for fish_id in fishes_data.keys():
 		for fish in fishes:
-			if fish.id == int(fish_id):
+			if str(fish.id) == str(fish_id):
 				fish_count += 1
+				var data : Dictionary = fishes_data[str(fish_id)]
+				fish.initialize(data.stars_count, data.max_weight, data.unlock_showed)
 				break
 	map_completed_percentage = fish_count / float(fishes.size())
 	pass

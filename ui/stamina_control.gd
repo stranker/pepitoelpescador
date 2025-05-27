@@ -20,6 +20,7 @@ var is_visible : bool = false
 func _ready() -> void:
 	set_state(State.COMPLETE)
 	GameManager.end_day.connect(on_end_of_day)
+	get_tree().call_group("ui", "stamina_init", stamina_bar.max_value)
 	pass
 
 func on_end_of_day(_fishes):
@@ -37,6 +38,7 @@ func _physics_process(delta: float) -> void:
 		_tween_color(deplete_color)
 	if stamina_bar.value >= stamina_bar.max_value:
 		set_state(State.COMPLETE)
+	get_tree().call_group("ui", "stamina_update", stamina_bar.value, stamina_bar.get_theme_stylebox("fill").bg_color)
 	pass
 
 func _tween_color(color : Color):

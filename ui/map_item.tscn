@@ -59,6 +59,10 @@ corner_radius_bottom_left = 128
 [sub_resource type="LabelSettings" id="LabelSettings_nrgxe"]
 font = ExtResource("1_vqpty")
 font_size = 32
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.780392)
 
 [sub_resource type="Animation" id="Animation_aqb6h"]
 length = 0.001
@@ -196,9 +200,9 @@ stretch_mode = 6
 texture_filter = 2
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
-offset_left = -48.0
+offset_left = -112.0
 offset_top = -56.0
-offset_right = 256.0
+offset_right = 320.0
 offset_bottom = -14.0
 text = "Color Shores"
 label_settings = SubResource("LabelSettings_nrgxe")

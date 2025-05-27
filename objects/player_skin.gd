@@ -57,15 +57,9 @@ func set_body(idx : int):
 func randomize_skin():
 	var rng = RandomNumberGenerator.new()
 	hat.frame = rng.randi_range(0, hat.hframes - 1)
-	print_debug(hat.frame)
 	hair.frame = rng.randi_range(0, hair.hframes - 1)
-	print_debug(hair.frame)
-	rng.randomize()
 	face.frame = rng.randi_range(0, face.hframes - 1)
-	print_debug(face.frame)
-	rng.randomize()
 	body.frame = rng.randi_range(0, body.hframes - 1)
-	print_debug(body.frame)
 	_update_data()
 	pass
 

@@ -6,7 +6,6 @@ extends Control
 @export var card_description : RichTextLabel
 @export var anim : AnimationPlayer
 @export var description_anim : AnimationPlayer
-@export var background : NinePatchRect
 @export var star_list : HBoxContainer
 @export var attributes : VBoxContainer
 
@@ -42,7 +41,6 @@ func init(card_data : Card):
 		card_image.texture = AtlasTexture.new()
 		card_image.texture.region = Rect2(12, 0, 42, 42)
 		card_image.texture.atlas = card_data.card_texture
-		description_anim.play("character")
 		power_progress.set_data({"current_value":card.base_power})
 		accuracy_progress.set_data({"current_value":card.base_accuracy})
 	else:
@@ -51,9 +49,7 @@ func init(card_data : Card):
 			star_list.get_child(i).self_modulate = Color.DARK_ORANGE
 		_animate_upgrade_star(star_list.get_child(card.upgrade_level - 1))
 		card_image.texture = card_data.card_texture
-		description_anim.play("upgrade")
 	card_description.text = card_data.get_description()
-	background.texture = card_data.card_background
 	data = card_data
 	anim.play("appear")
 	pass

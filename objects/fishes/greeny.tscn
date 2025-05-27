@@ -30,12 +30,12 @@ debug_color = Color(0.802381, 0.00950101, 1, 0.42)
 offset_right = 652.0
 offset_bottom = 314.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
-rotation = 1.57079
-shape = SubResource("CapsuleShape2D_5msjq")
-
 [node name="EatIcon" parent="IconPivot" index="0"]
 position = Vector2(-4.04442, -44.8986)
 
 [node name="AlertIcon" parent="IconPivot" index="1"]
 position = Vector2(-5.17985, -34.8955)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="8"]
+rotation = 1.57079
+shape = SubResource("CapsuleShape2D_5msjq")

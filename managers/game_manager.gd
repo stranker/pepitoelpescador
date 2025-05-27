@@ -7,7 +7,7 @@ class GameStats:
 	var days_passed : int = 0
 	var day_duration : float = 40
 	var total_fishes_catched : int = 0
-	var total_fishes_ids : Array = []
+	var total_fishes_data : Dictionary = {}
 	
 	func reset():
 		gold = 0
@@ -16,7 +16,7 @@ class GameStats:
 		days_passed =  0
 		day_duration = 0
 		total_fishes_catched = 0
-		total_fishes_ids.clear()
+		total_fishes_data.clear()
 		pass
 
 var game_stats : GameStats = GameStats.new()
@@ -78,8 +78,7 @@ func _load_game_data():
 		game_stats.player_level = data.player_level
 		game_stats.days_passed = data.days_passed
 		game_stats.total_fishes_catched = data.total_fishes_catched
-		for id in data.total_fishes_ids:
-			game_stats.total_fishes_ids.append(int(id))
+		game_stats.total_fishes_data = data.total_fishes_data
 		_update_maps_data()
 		ItemManager.set_loaded_items(data.items)
 		ItemManager.set_loaded_boat(data.boat_tier)
@@ -95,7 +94,7 @@ func save_game_data():
 		"experience" = game_stats.experience,
 		"player_level" = game_stats.player_level,
 		"days_passed" = game_stats.days_passed,
-		"total_fishes_ids" = game_stats.total_fishes_ids,
+		"total_fishes_data" = game_stats.total_fishes_data,
 		"total_fishes_catched" = game_stats.total_fishes_catched,
 		"items" = ItemManager.get_items_for_save(),
 		"boat_tier" = ItemManager.get_boat_data(),
@@ -108,7 +107,7 @@ func save_game_data():
 
 func _update_maps_data():
 	for map in maps:
-		map.initilize(game_stats.total_fishes_ids)
+		map.initialize(game_stats.total_fishes_data)
 	pass
 
 func save_to_file(content : Dictionary):
@@ -152,6 +151,8 @@ func spend_coins(gold : int):
 	pass
 
 func start_level():
+	game_stats.days_passed += 1
+	gold_increment = 0
 	fishes_catched.clear()
 	load_scene(map_selected.scene.resource_path)
 	pass
@@ -172,8 +173,14 @@ func collect_fish(fish : Fish):
 	fish_collected.emit(fish)
 	add_experience(fish.fish_data.fish_experience + combo_counter)
 	game_stats.total_fishes_catched += 1
-	if not game_stats.total_fishes_ids.has(fish.fish_data.id):
-		game_stats.total_fishes_ids.append(fish.fish_data.id)
+	if not game_stats.total_fishes_data.keys().has(fish.fish_data.id):
+		game_stats.total_fishes_data[str(fish.fish_data.id)] = { "stars_count" : fish.fish_stars, "max_weight" : fish.fish_size, "unlock_showed" : false }
+	else:
+		var data : Dictionary = game_stats.total_fishes_data[str(fish.fish_data.id)]
+		if fish.fish_stars > data.stars_count:
+			data.fish_stars = fish.fish_stars
+		if fish.fish_size > data.max_weight:
+			data.max_weight = fish.fish_size
 	fishes_catched.append(fish)
 	on_update_game_stats()
 	pass

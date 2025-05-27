@@ -45,6 +45,7 @@ var target : Fish = null
 @export var fish_scales : Array = [0.9, 0.95, 1.0, 1.05, 1.1]
 var fish_stars : int = 1
 var fish_size : float = 1
+var is_enabled : bool = true
 
 signal collected(fish)
 
@@ -108,6 +109,7 @@ func hook_exit():
 	pass
 
 func collect_enter():
+	is_enabled = false
 	get_tree().call_group("ui", "on_fish_hook_exit", self)
 	pass
 
@@ -197,6 +199,7 @@ func set_fish_state(new_state : FishState):
 	pass
 
 func hook(fish_parent : Node2D):
+	if not is_enabled: return
 	if fish_state == FishState.HOOK: return
 	if fish_state == FishState.COLLECT: return
 	if fish_state == FishState.EAT:
@@ -209,6 +212,7 @@ func hook(fish_parent : Node2D):
 func collect():
 	collected.emit(self)
 	set_fish_state.call_deferred(FishState.COLLECT)
+	is_enabled = false
 	pass
 
 func end_collect():
@@ -245,6 +249,7 @@ func _on_eat_component_end_eat() -> void:
 	pass # Replace with function body.
 
 func release():
+	is_enabled = false
 	reparent(initial_parent)
 	set_fish_state(FishState.MOVE)
 	get_new_position()

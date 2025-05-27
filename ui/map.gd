@@ -4,7 +4,7 @@ extends Control
 @export var anim : AnimationPlayer
 @export var map_info : Control
 
-enum State { IDLE, MAP_SELECTED }
+enum State { IDLE, MAP_SELECTED, MAP_FISHES }
 
 signal map_close
 signal level_selected(map)
@@ -54,10 +54,24 @@ func _check_close():
 		State.MAP_SELECTED:
 			anim.play("idle")
 			current_state = State.IDLE
+		State.MAP_FISHES:
+			anim.play_backwards("fishes")
+			current_state = State.MAP_SELECTED
 	pass
 
 func _on_map_info_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			_check_close()
+	pass # Replace with function body.
+
+
+func _on_fishes_button_down() -> void:
+	anim.play("fishes")
+	current_state = State.MAP_FISHES
+	pass # Replace with function body.
+
+
+func _on_fishes_panel_closed() -> void:
+	anim.play_backwards("fishes")
 	pass # Replace with function body.

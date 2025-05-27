@@ -1,0 +1,632 @@
+[gd_scene load_steps=20 format=3 uid="uid://b88g72lgv2yax"]
+
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_s6khs"]
+[ext_resource type="Texture2D" uid="uid://mkr2ayquatc4" path="res://assets/ui/fish_icon.png" id="2_6uvqy"]
+[ext_resource type="Texture2D" uid="uid://clny6aa75jcq1" path="res://assets/sprites/icons/Star.png" id="3_gvvq1"]
+
+[sub_resource type="GDScript" id="GDScript_s6khs"]
+resource_name = "non_selectable_card"
+script/source = "extends Control
+
+@export var title : Label
+@export var description : RichTextLabel
+@export var image : TextureRect
+@export var stars : HBoxContainer
+
+@export var anim : AnimationPlayer
+
+var raw_data : FishData
+
+func set_fish_data(data : FishData):
+	raw_data = data
+	title.text = data.fish_name
+	description.text = data.fish_description
+	pass
+
+func show_data():
+	if raw_data.unlocked:
+		if raw_data.unlock_showed:
+			anim.play(\"unlock_showed\")
+			raw_data.unlock_showed = true
+		else:
+			anim.play(\"unlock\")
+		image.texture = raw_data.fish_texture
+		for i in range(raw_data.fish_stars):
+			stars.get_child(i).modulate = Color.GOLD
+	pass
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdbvi"]
+resource_local_to_scene = true
+bg_color = Color(0.830335, 0.830335, 0.830335, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grjs2"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.772549, 0.992157, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_ocdhs"]
+font = ExtResource("1_s6khs")
+font_size = 22
+font_color = Color(0.212305, 0.212305, 0.212305, 1)
+
+[sub_resource type="Animation" id="Animation_grjs2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StarDescription:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_hgvi8"]
+resource_name = "fish"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StarDescription:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_1li85"]
+resource_name = "hover"
+loop_mode = 1
+step = 0.1
+
+[sub_resource type="Animation" id="Animation_3yjkb"]
+resource_name = "upgrade"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StarDescription:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3yjkb"]
+_data = {
+&"RESET": SubResource("Animation_grjs2"),
+&"fish": SubResource("Animation_hgvi8"),
+&"hover": SubResource("Animation_1li85"),
+&"upgrade": SubResource("Animation_3yjkb")
+}
+
+[sub_resource type="Animation" id="Animation_gvvq1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/MarginContainer/VBoxContainer/Description:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background/MarginContainer/VBoxContainer/Image/Panel:theme_override_styles/panel:bg_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.819608, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel:theme_override_styles/panel:bg_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.6, 0.772549, 0.992157, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Background:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Center/CPUParticles2D:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_6uvqy"]
+resource_name = "unlock_showed"
+step = 0.1
+
+[sub_resource type="Animation" id="Animation_c3lbf"]
+resource_name = "unlock"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/MarginContainer/VBoxContainer/Description:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel:theme_override_styles/panel:bg_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.6, 0.772549, 0.992157, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.5, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Background:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(0.5, -0.5, -0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -32), Vector2(0, -32), Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Center/CPUParticles2D:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_s6khs"]
+resource_name = "lock"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/MarginContainer/VBoxContainer/Description:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background/MarginContainer/VBoxContainer/Image/Panel:theme_override_styles/panel:bg_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.153289, 0.514432, 0.770165, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3d41w"]
+_data = {
+&"RESET": SubResource("Animation_gvvq1"),
+&"lock": SubResource("Animation_s6khs"),
+&"unlock": SubResource("Animation_c3lbf"),
+&"unlock_showed": SubResource("Animation_6uvqy")
+}
+
+[sub_resource type="Curve" id="Curve_6uvqy"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 105.544, 0, 0, Vector2(0.745968, 100), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_s6khs"]
+offsets = PackedFloat32Array(0, 0.256757, 0.400901, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="NonSelectableCard" type="Control" node_paths=PackedStringArray("title", "description", "image", "stars", "anim")]
+custom_minimum_size = Vector2(204, 302)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 204.0
+offset_bottom = 320.0
+pivot_offset = Vector2(102, 144)
+script = SubResource("GDScript_s6khs")
+title = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel/Title")
+description = NodePath("Background/MarginContainer/VBoxContainer/Description/StarDescription/Description")
+image = NodePath("Background/MarginContainer/VBoxContainer/Image/MarginContainer/Control/Control/Image")
+stars = NodePath("Background/MarginContainer/VBoxContainer/Description/StarDescription/Stars/List")
+anim = NodePath("AnimationPlayer")
+
+[node name="Background" type="Panel" parent="."]
+self_modulate = Color(0, 0.560784, 0.980392, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gdbvi")
+
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(102, 136)
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitlePanel" type="Panel" parent="Background/MarginContainer/VBoxContainer"]
+visible = false
+show_behind_parent = true
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_grjs2")
+
+[node name="Title" type="Label" parent="Background/MarginContainer/VBoxContainer/TitlePanel"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 21.0
+grow_horizontal = 2
+text = "CARD NAME"
+label_settings = SubResource("LabelSettings_ocdhs")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Image" type="Control" parent="Background/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 168)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Background/MarginContainer/VBoxContainer/Image"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_grjs2")
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/VBoxContainer/Image"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Control" type="Control" parent="Background/MarginContainer/VBoxContainer/Image/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="Background/MarginContainer/VBoxContainer/Image/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Image" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/Image/MarginContainer/Control/Control"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = -67.0
+offset_right = 94.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.523599
+pivot_offset = Vector2(94, 67)
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.4
+mouse_filter = 2
+texture = ExtResource("2_6uvqy")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Description" type="Control" parent="Background/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Background/MarginContainer/VBoxContainer/Description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_grjs2")
+
+[node name="StarDescription" type="Control" parent="Background/MarginContainer/VBoxContainer/Description"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Description" type="RichTextLabel" parent="Background/MarginContainer/VBoxContainer/Description/StarDescription"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_right = -5.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 6
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.211765, 0.211765, 0.211765, 1)
+theme_override_fonts/normal_font = ExtResource("1_s6khs")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Card text"
+fit_content = true
+scroll_active = false
+
+[node name="Stars" type="Control" parent="Background/MarginContainer/VBoxContainer/Description/StarDescription"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="List" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer/Description/StarDescription/Stars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Star" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/Description/StarDescription/Stars/List"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_gvvq1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star2" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/Description/StarDescription/Stars/List"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_gvvq1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star3" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/Description/StarDescription/Stars/List"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_gvvq1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star4" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/Description/StarDescription/Stars/List"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_gvvq1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Star5" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/Description/StarDescription/Stars/List"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_gvvq1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Description" type="AnimationPlayer" parent="Background/MarginContainer/VBoxContainer/Description"]
+libraries = {
+&"": SubResource("AnimationLibrary_3yjkb")
+}
+autoplay = "fish"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3d41w")
+}
+autoplay = "lock"
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Center"]
+position = Vector2(0, -24)
+emitting = false
+amount = 16
+texture = ExtResource("3_gvvq1")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 400.0
+initial_velocity_max = 500.0
+angular_velocity_min = -720.0
+angular_velocity_max = 720.0
+damping_min = 10.0
+damping_max = 30.0
+damping_curve = SubResource("Curve_6uvqy")
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_max = 2.0
+color = Color(1, 0.901961, 0, 1)
+color_ramp = SubResource("Gradient_s6khs")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

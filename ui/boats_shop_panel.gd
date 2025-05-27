@@ -48,3 +48,10 @@ func _on_upgrade_button_button_down() -> void:
 	ItemManager.upgrade_boat()
 	_refresh_ui()
 	pass # Replace with function body.
+
+
+func _on_margin_container_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			close()
+	pass # Replace with function body.

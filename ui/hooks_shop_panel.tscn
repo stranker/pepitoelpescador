@@ -638,7 +638,6 @@ theme_override_constants/margin_left = 64
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 32
-metadata/_edit_lock_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -647,6 +646,7 @@ alignment = 1
 [node name="Left" type="Control" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="LeftButton" type="TextureButton" parent="MarginContainer/HBoxContainer/Left"]
 custom_minimum_size = Vector2(128, 0)
@@ -986,6 +986,7 @@ libraries = {
 [node name="Right" type="Control" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="RightButton" type="TextureButton" parent="MarginContainer/HBoxContainer/Right"]
 custom_minimum_size = Vector2(128, 0)
@@ -1032,6 +1033,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_senh1")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="gui_input" from="MarginContainer" to="." method="_on_margin_container_gui_input"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/Left/LeftButton" to="." method="_on_left_button_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/Info/Buttons/BuyButton" to="." method="_on_buy_button_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/EquipButton" to="." method="_on_equip_button_button_down"]

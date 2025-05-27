@@ -7,6 +7,7 @@
 script = ExtResource("2_rvqyx")
 fish_name = "Lily"
 fish_texture = ExtResource("1_5v1rg")
+fish_description = "LILY!"
 fish_gold = 200
 fish_experience = 1.0
 fish_color = Color(0.8, 0.6, 1, 1)

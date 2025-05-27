@@ -220,15 +220,12 @@ point_count = 2
 [node name="FishCatchInfo" type="Control" node_paths=PackedStringArray("name_label", "fish_texture", "coin_label", "exp_label", "combo_exp_label", "stars_container", "anim")]
 custom_minimum_size = Vector2(192, 192)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -960.0
-offset_bottom = -456.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 192.0
+offset_bottom = 192.0
 pivot_offset = Vector2(96, 96)
 size_flags_horizontal = 4
+mouse_filter = 2
 script = SubResource("GDScript_bl4si")
 name_label = NodePath("Panel/MarginContainer/VBoxContainer/Label")
 fish_texture = NodePath("Panel/MarginContainer/VBoxContainer/Texture/TextureRect")
@@ -246,6 +243,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(96, 96)
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sqxyx")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
@@ -274,6 +272,7 @@ vertical_alignment = 1
 [node name="Texture" type="Control" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/Texture"]
 layout_mode = 1
@@ -296,6 +295,7 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.52
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Coins"]
 layout_mode = 1
@@ -327,6 +327,7 @@ anchor_bottom = 1.0
 offset_right = 192.0
 offset_bottom = 32.0
 grow_vertical = 0
+mouse_filter = 2
 
 [node name="VBoxContainer" type="HBoxContainer" parent="Panel/Exp"]
 layout_mode = 1
@@ -374,6 +375,7 @@ offset_top = -32.0
 offset_right = 72.0
 offset_bottom = -8.0
 grow_horizontal = 2
+mouse_filter = 2
 
 [node name="HBC" type="HBoxContainer" parent="Panel/Stars"]
 modulate = Color(1, 0.803922, 0, 1)
@@ -453,7 +455,7 @@ autoplay = true
 bus = &"SFx"
 
 [node name="PopParticles" type="CPUParticles2D" parent="."]
-position = Vector2(72, 72)
+position = Vector2(96, 96)
 emitting = false
 amount = 20
 lifetime = 0.5
@@ -475,7 +477,7 @@ scale_amount_max = 18.0
 scale_amount_curve = SubResource("Curve_7v0jy")
 
 [node name="DestroyParticles" type="CPUParticles2D" parent="."]
-position = Vector2(72, 72)
+position = Vector2(99, 96)
 emitting = false
 amount = 20
 texture = ExtResource("5_5t2ka")

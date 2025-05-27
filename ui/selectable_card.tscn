@@ -1,7 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://cleqatf1rk0lp"]
 
 [ext_resource type="Script" uid="uid://biq8qynv83bry" path="res://ui/selectable_card.gd" id="1_8jx8r"]
-[ext_resource type="Texture2D" uid="uid://dedu1aqgaewfb" path="res://assets/sprites/cards/character_card.png" id="2_0td3g"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_hdkuc"]
 [ext_resource type="Texture2D" uid="uid://bg5273i0auuvv" path="res://assets/sprites/fishermans/fisherman_skin.png" id="5_ayki5"]
 [ext_resource type="PackedScene" uid="uid://dsqhlrsvjyk21" path="res://ui/stat_progress_bar.tscn" id="5_gdbvi"]
@@ -9,10 +8,29 @@
 [ext_resource type="AudioStream" uid="uid://dyyo8ihi3g7mh" path="res://assets/sfx/cart_draw.wav" id="6_ckvk6"]
 [ext_resource type="AudioStream" uid="uid://8iod62g25tel" path="res://assets/sfx/playcard.wav" id="7_2dxv0"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gdbvi"]
+bg_color = Color(0.830335, 0.830335, 0.830335, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [sub_resource type="LabelSettings" id="LabelSettings_ocdhs"]
 font = ExtResource("2_hdkuc")
 font_size = 22
 font_color = Color(0.212305, 0.212305, 0.212305, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grjs2"]
+bg_color = Color(0.819608, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r3p3l"]
 atlas = ExtResource("5_ayki5")
@@ -20,74 +38,16 @@ region = Rect2(12, 0, 42, 42)
 
 [sub_resource type="Animation" id="Animation_grjs2"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterDescription:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("UpgradeDescription:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_gdbvi"]
-resource_name = "character"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterDescription:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="Animation" id="Animation_1li85"]
 resource_name = "hover"
 loop_mode = 1
 step = 0.1
 
-[sub_resource type="Animation" id="Animation_3yjkb"]
-resource_name = "upgrade"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("UpgradeDescription:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3yjkb"]
 _data = {
 &"RESET": SubResource("Animation_grjs2"),
-&"character": SubResource("Animation_gdbvi"),
-&"hover": SubResource("Animation_1li85"),
-&"upgrade": SubResource("Animation_3yjkb")
+&"hover": SubResource("Animation_1li85")
 }
 
 [sub_resource type="Animation" id="Animation_16ct4"]
@@ -151,6 +111,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:size")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, 400)]
 }
 
 [sub_resource type="Animation" id="Animation_j84q7"]
@@ -238,6 +210,21 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_wnpjn"]
+resource_name = "fish"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, 400)]
 }
 
 [sub_resource type="Animation" id="Animation_iy80d"]
@@ -341,37 +328,39 @@ _data = {
 &"RESET": SubResource("Animation_16ct4"),
 &"appear": SubResource("Animation_j84q7"),
 &"destroy": SubResource("Animation_0lbga"),
+&"fish": SubResource("Animation_wnpjn"),
 &"hover": SubResource("Animation_iy80d"),
 &"selected": SubResource("Animation_ix1vg")
 }
 
-[node name="SelectableCard" type="Control" node_paths=PackedStringArray("card_title", "card_image", "card_description", "anim", "description_anim", "background", "star_list", "attributes", "power_progress", "accuracy_progress")]
+[node name="SelectableCard" type="Control" node_paths=PackedStringArray("card_title", "card_image", "card_description", "anim", "description_anim", "star_list", "attributes", "power_progress", "accuracy_progress")]
 custom_minimum_size = Vector2(256, 400)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 256.0
 offset_bottom = 400.0
-pivot_offset = Vector2(116, 160)
+pivot_offset = Vector2(128, 200)
 script = ExtResource("1_8jx8r")
 card_title = NodePath("Background/MarginContainer/Control/Title")
 card_image = NodePath("Background/MarginContainer/Control/Image/MarginContainer/Control/Image")
 card_description = NodePath("Background/MarginContainer/Control/Description/UpgradeDescription/Description")
 anim = NodePath("Anim")
 description_anim = NodePath("Background/MarginContainer/Control/Description/Description")
-background = NodePath("Background")
 star_list = NodePath("Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List")
 attributes = NodePath("Background/MarginContainer/Control/Description/CharacterDescription/MarginContainer/Attributes")
 power_progress = NodePath("Background/MarginContainer/Control/Description/CharacterDescription/MarginContainer/Attributes/Power")
 accuracy_progress = NodePath("Background/MarginContainer/Control/Description/CharacterDescription/MarginContainer/Attributes/Accuracy")
 
-[node name="Background" type="NinePatchRect" parent="."]
+[node name="Background" type="Panel" parent="."]
+self_modulate = Color(0, 0.560784, 0.980392, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_0td3g")
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gdbvi")
 
 [node name="MarginContainer" type="MarginContainer" parent="Background"]
 layout_mode = 1
@@ -381,10 +370,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="Control" type="Control" parent="Background/MarginContainer"]
 layout_mode = 2
@@ -405,6 +394,16 @@ label_settings = SubResource("LabelSettings_ocdhs")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Panel" type="Panel" parent="Background/MarginContainer/Control/Title"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_grjs2")
+
 [node name="Image" type="Control" parent="Background/MarginContainer/Control"]
 custom_minimum_size = Vector2(0, 168)
 layout_mode = 1
@@ -414,13 +413,22 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -122.0
-offset_top = -162.0
+offset_top = -153.0
 offset_right = 122.0
-offset_bottom = 54.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Background/MarginContainer/Control/Image"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_grjs2")
 
 [node name="MarginContainer" type="MarginContainer" parent="Background/MarginContainer/Control/Image"]
 layout_mode = 1
@@ -460,13 +468,23 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -122.0
-offset_top = -130.0
+offset_top = -122.0
 offset_right = 122.0
-offset_bottom = -10.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 3
 mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Background/MarginContainer/Control/Description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_grjs2")
 
 [node name="UpgradeDescription" type="Control" parent="Background/MarginContainer/Control/Description"]
 visible = false
@@ -487,6 +505,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 6.0
 offset_right = -5.0
+offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 6
@@ -560,6 +579,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Star6" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
+visible = false
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -568,6 +588,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Star7" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
+visible = false
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -576,6 +597,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Star8" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
+visible = false
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -584,6 +606,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Star9" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
+visible = false
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -592,6 +615,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="Star10" type="TextureRect" parent="Background/MarginContainer/Control/Description/UpgradeDescription/Stars/List"]
+visible = false
 self_modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -600,7 +624,6 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="CharacterDescription" type="Control" parent="Background/MarginContainer/Control/Description"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
