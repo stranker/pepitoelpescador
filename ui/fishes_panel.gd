@@ -13,7 +13,6 @@ func set_fishes(fishes : Array[FishData]):
 		fish_card.set_fish_data(fish)
 	pass
 
-
 func show_fishes():
 	for fish_card in fishes_grid.get_children():
 		fish_card.show_data()

@@ -1,9 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://w87u21qrvcd4"]
+[gd_scene load_steps=16 format=3 uid="uid://w87u21qrvcd4"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_2fneg"]
 [ext_resource type="Script" uid="uid://bgrko37lln7rw" path="res://scenes/results_scene.gd" id="1_d1605"]
 [ext_resource type="PackedScene" uid="uid://b2u66j70a1vay" path="res://ui/result_item.tscn" id="2_eswdi"]
-[ext_resource type="Texture2D" uid="uid://mkr2ayquatc4" path="res://assets/ui/fish_icon.png" id="3_eswdi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eswdi"]
 bg_color = Color(0, 0, 0, 0.443137)
@@ -271,61 +270,6 @@ tracks/4/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_6m812"]
-resource_name = "show_no_fishes"
-length = 0.5
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/Label:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/Panel:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.5),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"end_presentation"
-}]
-}
-
 [sub_resource type="Animation" id="Animation_ef1tc"]
 resource_name = "show_fishes"
 length = 0.5
@@ -381,6 +325,61 @@ tracks/3/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_6m812"]
+resource_name = "show_no_fishes"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/Label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/Panel:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_presentation"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6m812"]
 _data = {
 &"RESET": SubResource("Animation_eswdi"),
@@ -391,7 +390,7 @@ _data = {
 &"show_no_fishes": SubResource("Animation_6m812")
 }
 
-[node name="ResultsScene" type="Control" node_paths=PackedStringArray("results", "anim", "total_result", "no_fish_label")]
+[node name="ResultsScene" type="Control" node_paths=PackedStringArray("results_parent", "anim", "total_result", "no_fish_label")]
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
@@ -401,7 +400,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d1605")
-results = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/Results")
+results_parent = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/Results")
 anim = NodePath("AnimationPlayer")
 total_result = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem")
 no_fish_label = NodePath("CenterContainer/Control/Panel/MarginContainer/Control/Label")
@@ -445,7 +444,7 @@ grow_vertical = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_bottom = 14
 
 [node name="Control" type="Control" parent="CenterContainer/Control/Panel/MarginContainer"]
 layout_mode = 2
@@ -474,24 +473,7 @@ self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(544, 64)
 layout_mode = 2
 mouse_filter = 2
-
-[node name="TextureRect" parent="CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem/MarginContainer/HBoxContainer/Panel" index="0"]
-modulate = Color(0.266575, 0.266575, 0.266575, 1)
-offset_left = 64.0
-offset_top = 39.0
-offset_right = 63.0
-offset_bottom = 38.0
-rotation = 2.61799
-texture = ExtResource("3_eswdi")
-
-[node name="Count" parent="CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem/MarginContainer/HBoxContainer" index="1"]
-text = "x0"
-
-[node name="Size" parent="CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem/MarginContainer/HBoxContainer" index="2"]
-text = "0.0 cm"
-
-[node name="Coin" parent="CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem/MarginContainer/HBoxContainer/Control/HBoxContainer" index="1"]
-text = "0"
+is_total = true
 
 [node name="Label" type="Label" parent="CenterContainer/Control/Panel/MarginContainer/Control"]
 self_modulate = Color(1, 1, 1, 0)
@@ -551,5 +533,3 @@ libraries = {
 }
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
-
-[editable path="CenterContainer/Control/Panel/MarginContainer/Control/VBoxContainer/ResultItem"]

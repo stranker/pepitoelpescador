@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://rq2085qndg83"]
+[gd_scene load_steps=6 format=3 uid="uid://rq2085qndg83"]
 
 [ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_u4pvq"]
-[ext_resource type="Resource" uid="uid://4acdc8fk8dj1" path="res://data/fishes/bluey.tres" id="2_51xew"]
 [ext_resource type="Texture2D" uid="uid://dm5wpq8crknfw" path="res://assets/sprites/fishes/bluey.png" id="2_vcyut"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7nlwj"]
@@ -17,7 +16,7 @@ height = 166.0
 [node name="Bluey" instance=ExtResource("1_u4pvq")]
 speed = 110.0
 level = 1
-fish_data = ExtResource("2_51xew")
+fish_id = 2
 
 [node name="Sprite2D" parent="Visual" index="0"]
 texture = ExtResource("2_vcyut")
@@ -28,7 +27,7 @@ position = Vector2(67, -7)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseComponent" index="0"]
 shape = SubResource("CircleShape2D_7nlwj")
 
-[node name="EatComponent" parent="." index="5"]
+[node name="EatComponent" parent="." index="4"]
 position = Vector2(72, -1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EatComponent" index="1"]
@@ -42,7 +41,7 @@ offset_bottom = 431.0
 rotation = 1.57079
 shape = SubResource("CapsuleShape2D_hiaqd")
 
-[node name="IconPivot" parent="." index="9"]
+[node name="IconPivot" parent="." index="8"]
 position = Vector2(63, 0)
 
 [node name="EatIcon" parent="IconPivot" index="0"]

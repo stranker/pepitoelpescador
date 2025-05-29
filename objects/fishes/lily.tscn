@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ucqva3ypywfg"]
+[gd_scene load_steps=6 format=3 uid="uid://ucqva3ypywfg"]
 
 [ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_5en4v"]
 [ext_resource type="Texture2D" uid="uid://db8lfvo2el27n" path="res://assets/sprites/fishes/lily.png" id="2_e5js6"]
-[ext_resource type="Resource" uid="uid://fwiia0yrsd7l" path="res://data/fishes/lily.tres" id="2_m65ed"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uwufu"]
 radius = 240.533
@@ -18,7 +17,7 @@ height = 352.0
 speed = 300.0
 fish_mass = 200.0
 level = 10
-fish_data = ExtResource("2_m65ed")
+fish_id = 3
 
 [node name="Sprite2D" parent="Visual" index="0"]
 scale = Vector2(5.84443, 5.84443)

@@ -1,13 +1,16 @@
 extends Node
 
 class GameStats:
+	
+	signal fishes_updated()
+	
 	var gold : int = 0
 	var experience : float = 0
 	var player_level : int = 1
 	var days_passed : int = 0
 	var day_duration : float = 40
 	var total_fishes_catched : int = 0
-	var total_fishes_data : Dictionary = {}
+	var fishes_data : Dictionary = {}
 	
 	func reset():
 		gold = 0
@@ -16,7 +19,28 @@ class GameStats:
 		days_passed =  0
 		day_duration = 0
 		total_fishes_catched = 0
-		total_fishes_data.clear()
+		fishes_data.clear()
+		pass
+	
+	func update_fish(fish : Fish):
+		total_fishes_catched += 1
+		fish.fish_data.update(fish)
+		fishes_updated.emit()
+		fishes_data[str(fish.fish_id)] = {
+			"count": fish.fish_data.count,
+			"unlocked": fish.fish_data.unlocked,
+			"unlock_showed": fish.fish_data.unlock_showed,
+			"max_weight": fish.fish_data.max_weight
+		}
+		pass
+	
+	func update_fish_data(fish_data : FishData):
+		fishes_data[str(fish_data.id)] = {
+			"count": fish_data.count,
+			"unlocked": fish_data.unlocked,
+			"unlock_showed": fish_data.unlock_showed,
+			"max_weight": fish_data.max_weight
+		}
 		pass
 
 var game_stats : GameStats = GameStats.new()
@@ -33,10 +57,9 @@ var skin_data : PlayerSkin.SkinData = null
 var gold_increment : float = 0
 
 var map_selected : MapData
-
 var fishes_catched : Array[Fish]
 
-@export var maps : Array[MapData]
+var maps : Array[MapData]
 
 signal gold_update(gold)
 signal experience_update(exp)
@@ -56,6 +79,10 @@ func _ready() -> void:
 	_load_game_data()
 	await get_tree().process_frame
 	_create_music()
+	game_stats.fishes_updated.connect(on_fishes_updated)
+	pass
+
+func on_fishes_updated():
 	pass
 
 func load_scene(scene_path : String):
@@ -78,8 +105,8 @@ func _load_game_data():
 		game_stats.player_level = data.player_level
 		game_stats.days_passed = data.days_passed
 		game_stats.total_fishes_catched = data.total_fishes_catched
-		game_stats.total_fishes_data = data.total_fishes_data
-		_update_maps_data()
+		game_stats.fishes_data = data.fishes_data
+		_update_data_manager()
 		ItemManager.set_loaded_items(data.items)
 		ItemManager.set_loaded_boat(data.boat_tier)
 		CardManager.set_character(data.player_card_type)
@@ -94,20 +121,19 @@ func save_game_data():
 		"experience" = game_stats.experience,
 		"player_level" = game_stats.player_level,
 		"days_passed" = game_stats.days_passed,
-		"total_fishes_data" = game_stats.total_fishes_data,
+		"fishes_data" = game_stats.fishes_data,
 		"total_fishes_catched" = game_stats.total_fishes_catched,
 		"items" = ItemManager.get_items_for_save(),
 		"boat_tier" = ItemManager.get_boat_data(),
 		"player_card_type" = CardManager.get_character_card_for_save(),
 		"player_skin" = skin_data.raw_data
 	}
-	_update_maps_data()
+	_update_data_manager()
 	save_to_file(game_data)
 	pass
 
-func _update_maps_data():
-	for map in maps:
-		map.initialize(game_stats.total_fishes_data)
+func _update_data_manager():
+	DataManager.update_fishes_data(game_stats.fishes_data)
 	pass
 
 func save_to_file(content : Dictionary):
@@ -170,18 +196,10 @@ func add_experience(new_exp : float):
 	pass
 
 func collect_fish(fish : Fish):
-	fish_collected.emit(fish)
 	add_experience(fish.fish_data.fish_experience + combo_counter)
-	game_stats.total_fishes_catched += 1
-	if not game_stats.total_fishes_data.keys().has(fish.fish_data.id):
-		game_stats.total_fishes_data[str(fish.fish_data.id)] = { "stars_count" : fish.fish_stars, "max_weight" : fish.fish_size, "unlock_showed" : false }
-	else:
-		var data : Dictionary = game_stats.total_fishes_data[str(fish.fish_data.id)]
-		if fish.fish_stars > data.stars_count:
-			data.fish_stars = fish.fish_stars
-		if fish.fish_size > data.max_weight:
-			data.max_weight = fish.fish_size
+	game_stats.update_fish(fish)
 	fishes_catched.append(fish)
+	fish_collected.emit(fish)
 	on_update_game_stats()
 	pass
 
@@ -234,4 +252,15 @@ func clear_saved_data():
 
 func on_update_skin_data(data : PlayerSkin.SkinData):
 	skin_data = data
+	pass
+
+func stop_frames(count : int):
+	Engine.time_scale = 0
+	for i in range(count):
+		await get_tree().process_frame
+	Engine.time_scale = 1
+	pass
+
+func update_fish_data(fish_data : FishData):
+	game_stats.update_fish_data(fish_data)
 	pass

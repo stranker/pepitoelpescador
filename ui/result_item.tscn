@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://b2u66j70a1vay"]
+[gd_scene load_steps=9 format=3 uid="uid://b2u66j70a1vay"]
 
 [ext_resource type="Texture2D" uid="uid://mkr2ayquatc4" path="res://assets/ui/fish_icon.png" id="1_bv7uk"]
-[ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="2_bv7uk"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="3_era6r"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="4_meqma"]
 
@@ -19,20 +18,20 @@ script/source = "extends Control
 
 @export var default_texture : Texture
 
-var fish_name : String
-
 func _ready() -> void:
 	increment_label.hide()
 
-func set_data(data : Dictionary):
-	fish_name = data.name if data.has(\"name\") else \"total\"
-	image.texture = data.texture if data.has(\"texture\") else default_texture
+func set_data(data : Utils.ResultItemData):
+	image.texture = data.texture if not is_total else default_texture
 	count_label.text = \"x \" + str(data.count)
-	size_label.text = str(data.size).pad_decimals(2) + \" cm\"
+	size_label.text = str(data.weight).pad_decimals(2) + \" cm\"
 	coins_label.text = str(data.gold)
-	if data.has(\"increment\") and data.increment != 0:
-		increment_label.text = \"+\" + str(ceil(data.increment))
-		increment_label.show()
+	if not is_total:
+		if data.increment != 0:
+			increment_label.text = \"+\" + str(int(ceil(data.increment)))
+			increment_label.show()
+	else:
+		coins_label.text = str(data.gold + int(ceil(data.increment)))
 	pass
 "
 
@@ -98,14 +97,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -29.0
-offset_top = 17.0
-offset_right = -11.0
-offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = -0.523599
-texture = ExtResource("2_bv7uk")
+pivot_offset = Vector2(28, 28)
+texture = ExtResource("1_bv7uk")
 expand_mode = 1
 stretch_mode = 5
 

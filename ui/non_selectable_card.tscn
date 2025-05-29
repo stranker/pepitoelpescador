@@ -21,18 +21,23 @@ func set_fish_data(data : FishData):
 	raw_data = data
 	title.text = data.fish_name
 	description.text = data.fish_description
+	for i in range(raw_data.fish_stars):
+		stars.get_child(i).modulate = Color.GOLD
+	if raw_data.unlocked:
+		image.texture = raw_data.fish_texture
+		if raw_data.unlock_showed:
+			anim.play(\"unlock_showed\")
+	else:
+		anim.play(\"lock\")
+	print_debug(data)
 	pass
 
 func show_data():
 	if raw_data.unlocked:
-		if raw_data.unlock_showed:
-			anim.play(\"unlock_showed\")
+		if not raw_data.unlock_showed:
 			raw_data.unlock_showed = true
-		else:
 			anim.play(\"unlock\")
-		image.texture = raw_data.fish_texture
-		for i in range(raw_data.fish_stars):
-			stars.get_child(i).modulate = Color.GOLD
+			GameManager.update_fish_data(raw_data)
 	pass
 "
 
@@ -51,7 +56,7 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grjs2"]
 resource_local_to_scene = true
-bg_color = Color(0.6, 0.772549, 0.992157, 1)
+bg_color = Color(0.152941, 0.513726, 0.768627, 1)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
@@ -121,6 +126,15 @@ _data = {
 &"upgrade": SubResource("Animation_3yjkb")
 }
 
+[sub_resource type="Curve" id="Curve_6uvqy"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 105.544, 0, 0, Vector2(0.745968, 100), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_s6khs"]
+offsets = PackedFloat32Array(0, 0.256757, 0.400901, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
 [sub_resource type="Animation" id="Animation_gvvq1"]
 length = 0.001
 tracks/0/type = "value"
@@ -169,7 +183,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.6, 0.772549, 0.992157, 1)]
+"values": [Color(0.152941, 0.513726, 0.768627, 1)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -208,90 +222,9 @@ tracks/6/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_6uvqy"]
-resource_name = "unlock_showed"
-step = 0.1
-
-[sub_resource type="Animation" id="Animation_c3lbf"]
-resource_name = "unlock"
-length = 0.4
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Background/MarginContainer/VBoxContainer/Description:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel:theme_override_styles/panel:bg_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.6, 0.772549, 0.992157, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(0.5, 0.5, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0, 1), Vector2(1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Background:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(0.5, -0.5, -0.5, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -32), Vector2(0, -32), Vector2(0, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Center/CPUParticles2D:emitting")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0.4),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="Animation" id="Animation_s6khs"]
 resource_name = "lock"
-length = 0.1
+length = 0.001
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -330,6 +263,124 @@ tracks/2/keys = {
 "values": [Color(0.153289, 0.514432, 0.770165, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_c3lbf"]
+resource_name = "unlock"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/MarginContainer/VBoxContainer/Description:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel:theme_override_styles/panel:bg_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.152941, 0.513726, 0.768627, 1), Color(0.6, 0.772549, 0.992157, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.5, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1), Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Background:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(0.5, -0.5, -0.5, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -32), Vector2(0, -32), Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Center/CPUParticles2D:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_6uvqy"]
+resource_name = "unlock_showed"
+length = 0.001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background/MarginContainer/VBoxContainer/Description:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Background/MarginContainer/VBoxContainer/TitlePanel:theme_override_styles/panel:bg_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.6, 0.772549, 0.992157, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3d41w"]
 _data = {
 &"RESET": SubResource("Animation_gvvq1"),
@@ -337,15 +388,6 @@ _data = {
 &"unlock": SubResource("Animation_c3lbf"),
 &"unlock_showed": SubResource("Animation_6uvqy")
 }
-
-[sub_resource type="Curve" id="Curve_6uvqy"]
-_limits = [0.0, 100.0, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 105.544, 0, 0, Vector2(0.745968, 100), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_s6khs"]
-offsets = PackedFloat32Array(0, 0.256757, 0.400901, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="NonSelectableCard" type="Control" node_paths=PackedStringArray("title", "description", "image", "stars", "anim")]
 custom_minimum_size = Vector2(204, 302)
@@ -587,12 +629,6 @@ libraries = {
 }
 autoplay = "fish"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_3d41w")
-}
-autoplay = "lock"
-
 [node name="Center" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -626,6 +662,11 @@ angle_max = 720.0
 scale_amount_max = 2.0
 color = Color(1, 0.901961, 0, 1)
 color_ramp = SubResource("Gradient_s6khs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_3d41w")
+}
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

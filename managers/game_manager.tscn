@@ -1,47 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://cd7poisxv1bbh"]
+[gd_scene load_steps=2 format=3 uid="uid://cd7poisxv1bbh"]
 
 [ext_resource type="Script" uid="uid://betju8k51pr0j" path="res://managers/game_manager.gd" id="1_atyjh"]
-[ext_resource type="Script" uid="uid://b3b878xav353d" path="res://data/map_data.gd" id="2_b25so"]
-[ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://data/fishes/fish_data.gd" id="3_bf4bw"]
-[ext_resource type="Texture2D" uid="uid://b7jfe2lk2w7ek" path="res://assets/sprites/background/color_shores.jpg" id="4_canjx"]
-[ext_resource type="Resource" uid="uid://dxjl6e1vqjbgt" path="res://data/fishes/greeny.tres" id="4_sw07o"]
-[ext_resource type="Resource" uid="uid://m37s2us8moyq" path="res://data/fishes/rusty.tres" id="5_k6dga"]
-[ext_resource type="PackedScene" uid="uid://7605xw4rige" path="res://scenes/color_shores.tscn" id="5_nmuf6"]
-[ext_resource type="Resource" uid="uid://4acdc8fk8dj1" path="res://data/fishes/bluey.tres" id="6_6sepk"]
-[ext_resource type="PackedScene" uid="uid://buqew5foqk3au" path="res://scenes/aurora_coast.tscn" id="6_sw07o"]
-[ext_resource type="Texture2D" uid="uid://cmjghx3ti5vml" path="res://assets/sprites/background/mystic_river.jpg" id="7_k6dga"]
-[ext_resource type="Resource" uid="uid://fwiia0yrsd7l" path="res://data/fishes/lily.tres" id="7_ndjgn"]
-
-[sub_resource type="Resource" id="Resource_6sepk"]
-script = ExtResource("2_b25so")
-name = "Color Shores"
-description = "This is the description of Color Shores"
-locked = false
-image = ExtResource("4_canjx")
-scene = ExtResource("5_nmuf6")
-fishes = Array[ExtResource("3_bf4bw")]([ExtResource("4_sw07o"), ExtResource("5_k6dga"), ExtResource("6_6sepk"), ExtResource("7_ndjgn")])
-metadata/_custom_type_script = "uid://b3b878xav353d"
-
-[sub_resource type="Resource" id="Resource_ndjgn"]
-script = ExtResource("2_b25so")
-name = "Aurora Coast"
-description = "This is the description of Aurora Coast"
-locked = true
-image = ExtResource("4_canjx")
-scene = ExtResource("6_sw07o")
-fishes = Array[ExtResource("3_bf4bw")]([])
-metadata/_custom_type_script = "uid://b3b878xav353d"
-
-[sub_resource type="Resource" id="Resource_avg36"]
-script = ExtResource("2_b25so")
-name = "Mystic River"
-description = "This is the description of Mystic River"
-locked = true
-image = ExtResource("7_k6dga")
-scene = ExtResource("6_sw07o")
-fishes = Array[ExtResource("3_bf4bw")]([])
-metadata/_custom_type_script = "uid://b3b878xav353d"
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_atyjh")
-maps = Array[ExtResource("2_b25so")]([SubResource("Resource_6sepk"), SubResource("Resource_ndjgn"), SubResource("Resource_avg36")])

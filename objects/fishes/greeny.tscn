@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://wy6iqyp1pmr1"]
+[gd_scene load_steps=5 format=3 uid="uid://wy6iqyp1pmr1"]
 
 [ext_resource type="PackedScene" uid="uid://m3pn8jhjp016" path="res://objects/fishes/fish.tscn" id="1_e8jxn"]
-[ext_resource type="Resource" uid="uid://dxjl6e1vqjbgt" path="res://data/fishes/greeny.tres" id="2_8lsfx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xli5b"]
 radius = 300.0
@@ -16,7 +15,7 @@ height = 124.0
 [node name="Greeny" instance=ExtResource("1_e8jxn")]
 speed = 200.0
 fish_mass = 6.0
-fish_data = ExtResource("2_8lsfx")
+fish_id = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseComponent" index="0"]
 shape = SubResource("CircleShape2D_xli5b")

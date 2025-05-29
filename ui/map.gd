@@ -12,8 +12,8 @@ signal level_selected(map)
 var current_state : State = State.IDLE
 
 func _ready() -> void:
-	for i in range(GameManager.maps.size()):
-		var map_data : MapData = GameManager.maps[i]
+	for i in range(DataManager.maps.size()):
+		var map_data : MapData = DataManager.maps[i]
 		var map_item = maps_container.get_child(i)
 		map_item.select.connect(on_map_selected)
 		map_item.set_data(map_data)
@@ -55,7 +55,7 @@ func _check_close():
 			anim.play("idle")
 			current_state = State.IDLE
 		State.MAP_FISHES:
-			anim.play_backwards("fishes")
+			anim.play("hide_fishes")
 			current_state = State.MAP_SELECTED
 	pass
 
@@ -67,11 +67,6 @@ func _on_map_info_gui_input(event: InputEvent) -> void:
 
 
 func _on_fishes_button_down() -> void:
-	anim.play("fishes")
+	anim.play("show_fishes")
 	current_state = State.MAP_FISHES
-	pass # Replace with function body.
-
-
-func _on_fishes_panel_closed() -> void:
-	anim.play_backwards("fishes")
 	pass # Replace with function body.

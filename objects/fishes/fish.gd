@@ -1,23 +1,25 @@
 class_name Fish
 extends Area2D
 
-enum FishState { MOVE, CHASE, HOOK, COLLECT, EAT, EATED, BEIGN_EATED }
+enum FishState { IDLE, MOVE, CHASE, HOOK, COLLECT, EAT, EATED, BEIGN_EATED }
 
 var states : Array = [
-	{ "enter" : move_enter, "exit" : move_exit, "update" : move_update, "anim": "move" }, #MOVE
-	{ "enter" : chase_enter, "exit" : chase_exit, "update" : chase_update, "anim": "chase" }, #CHASE
-	{ "enter" : hook_enter, "exit" : hook_exit, "anim": "hook" }, #HOOK
-	{ "enter" : collect_enter, "exit" : collect_exit, "anim": "collect"}, #COLLECT
-	{ "enter" : eat_enter, "exit" : eat_exit, "update" : eat_update , "anim": "eat"}, #EAT
+	{ "anim": "idle" }, #IDLE
+	{ "enter" : move_enter, "update" : move_update, "anim": "move" }, #MOVE
+	{ "update" : chase_update, "anim": "chase" }, #CHASE
+	{ "enter" : hook_enter, "anim": "hook" }, #HOOK
+	{ "anim": "collect"}, #COLLECT
+	{ "update" : eat_update , "anim": "eat"}, #EAT
 	{ "enter" : eated_enter, "exit" : eated_exit, "anim": "eated"}, #EATED
 	{ "enter" : being_eated_enter, "exit" : being_eated_exit, "anim": "start_eated"} #BEING_EATED
 ]
 
 @export var speed : float = 500
-@export var fish_state : FishState
+@export var fish_state : FishState = FishState.IDLE
 @export var fish_mass : float = 10.0
 @export var level : int = 0
-@export var fish_data : FishData
+@export var fish_id : int = -1
+var fish_data : FishData
 
 const shockwave_scene = preload("res://sfx/shockwave.tscn")
 
@@ -28,7 +30,7 @@ const shockwave_scene = preload("res://sfx/shockwave.tscn")
 @onready var debug_state: Label = $Debug/State
 
 @onready var sprite_2d: Sprite2D = $Visual/Sprite2D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@export var anim: AnimationPlayer
 @onready var eated_particles : CPUParticles2D = $Visual/Eated
 @onready var eat_icon: AnimatedSprite2D = $IconPivot/EatIcon
 @onready var alert_icon: Sprite2D = $IconPivot/AlertIcon
@@ -42,15 +44,16 @@ var movement_pos : Vector2
 var velocity : Vector2
 var initial_parent : Node2D
 var target : Fish = null
-@export var fish_scales : Array = [0.9, 0.95, 1.0, 1.05, 1.1]
+var fish_scales : Array = [0.9, 0.95, 1.0, 1.05, 1.1]
 var fish_stars : int = 1
-var fish_size : float = 1
+var weight : float = 1
 var is_enabled : bool = true
 
 signal collected(fish)
 
 func _ready() -> void:
 	await get_tree().process_frame
+	fish_data = DataManager.get_fish(fish_id)
 	initial_pos = global_position
 	if get_parent() is not Control:
 		initial_parent = get_parent()
@@ -60,7 +63,7 @@ func _ready() -> void:
 	collected.connect(GameManager.collect_fish)
 	fish_stars = (randi() % 5) + 1 if not fish_data.is_boss else 5
 	scale = Vector2.ONE * fish_scales[fish_stars - 1]
-	fish_size = fish_data.base_size * fish_scales[fish_stars - 1] + randf_range(0.0, 1.2)
+	weight = fish_data.base_size * fish_scales[fish_stars - 1] + randf_range(0.0, 1.2)
 	if fish_data:
 		eated_particles.modulate = fish_data.fish_color
 	pass
@@ -71,9 +74,6 @@ func move_enter():
 	eat_component.set_deferred("monitoring", true)
 	pass
 
-func move_exit():
-	pass
-
 func move_update(delta):
 	velocity = follow_target(movement_pos, speed)
 	if global_position.distance_to(movement_pos) < 100:
@@ -81,12 +81,6 @@ func move_update(delta):
 	debug_ui.rotation = -rotation
 	movement_rect.global_position = initial_pos - movement_rect.size * 0.5
 	queue_redraw()
-	pass
-
-func chase_enter():
-	pass
-
-func chase_exit():
 	pass
 
 func chase_update(delta):
@@ -102,24 +96,8 @@ func hook_enter():
 	eat_component.set_deferred("monitoring", false)
 	var shockwave = shockwave_scene.instantiate()
 	add_child(shockwave)
+	GameManager.stop_frames(20)
 	get_tree().call_group("ui", "on_fish_hook_enter", self)
-	pass
-
-func hook_exit():
-	pass
-
-func collect_enter():
-	is_enabled = false
-	get_tree().call_group("ui", "on_fish_hook_exit", self)
-	pass
-
-func collect_exit():
-	pass
-
-func eat_enter():
-	pass
-
-func eat_exit():
 	pass
 
 func eated_enter():
@@ -137,7 +115,7 @@ func start_eated():
 	pass
 
 func stop_eated():
-	animation_player.play("RESET")
+	anim.play("RESET")
 	fish_state = FishState.HOOK
 	pass
 
@@ -145,7 +123,7 @@ func being_eated_enter():
 	pass
 
 func being_eated_exit():
-	animation_player.play("RESET")
+	anim.play("RESET")
 	pass
 
 func eat_update(delta : float):
@@ -185,17 +163,16 @@ func get_new_position():
 
 func set_fish_state(new_state : FishState):
 	if new_state == fish_state: return
-	#print_debug("fish:", name, " - set_fish_state:", FishState.keys()[new_state])
+	#print("fish:", name, " - set_fish_state:", FishState.keys()[new_state])
 	debug_state.text = "State:" + FishState.keys()[new_state]
 	if states[fish_state].has("exit"):
-		#print_debug("EXIT:",name, "-", FishState.keys()[fish_state])
 		Callable(states[fish_state].exit).call()
 	fish_state = new_state
 	if states[fish_state].has("enter"):
 		Callable(states[fish_state].enter).call()
-	animation_player.play("RESET")
+	anim.play("RESET")
 	if states[fish_state].has("anim"):
-		animation_player.queue(states[fish_state].anim)
+		anim.queue.call_deferred(states[fish_state].anim)
 	pass
 
 func hook(fish_parent : Node2D):
@@ -204,18 +181,14 @@ func hook(fish_parent : Node2D):
 	if fish_state == FishState.COLLECT: return
 	if fish_state == FishState.EAT:
 		target.stop_eated()
+	set_fish_state.call_deferred(FishState.HOOK)
 	reparent.call_deferred(fish_parent)
-	set_fish_state(FishState.HOOK)
 	set_deferred("position", Vector2.ZERO)
 	pass
 
 func collect():
 	collected.emit(self)
-	set_fish_state.call_deferred(FishState.COLLECT)
 	is_enabled = false
-	pass
-
-func end_collect():
 	get_tree().call_group("ui", "on_fish_hook_exit", self)
 	queue_free()
 	pass
