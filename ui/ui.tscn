@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://c4e5o2j6nkkkn"]
+[gd_scene load_steps=33 format=3 uid="uid://c4e5o2j6nkkkn"]
 
 [ext_resource type="Script" uid="uid://c5c42qdomv36y" path="res://scenes/ui.gd" id="1_hy13r"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="2_rauqo"]
@@ -84,48 +84,37 @@ _data = {
 &"earn": SubResource("Animation_gfs05")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x7jpl"]
-bg_color = Color(0.856068, 0.856067, 0.856068, 1)
-border_width_left = 2
-border_width_top = 1
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.98, 0.922833, 0.49, 1)
-corner_radius_top_left = 28
-corner_radius_top_right = 28
-corner_radius_bottom_right = 28
-corner_radius_bottom_left = 28
-expand_margin_bottom = 4.0
-shadow_color = Color(0, 0, 0, 0.105882)
-shadow_size = 1
-shadow_offset = Vector2(0, 2)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_os0ka"]
-bg_color = Color(0.947199, 0.947199, 0.947199, 1)
-border_width_left = 2
-border_width_top = 1
-border_width_right = 2
-border_width_bottom = 6
-border_color = Color(0.98, 0.922833, 0.49, 1)
-corner_radius_top_left = 28
-corner_radius_top_right = 28
-corner_radius_bottom_right = 28
-corner_radius_bottom_left = 28
-expand_margin_bottom = 4.0
-shadow_color = Color(0, 0, 0, 0.105882)
-shadow_size = 1
-shadow_offset = Vector2(0, 2)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_diyc5"]
-bg_color = Color(0.98, 0.865667, 0, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 8.0
+bg_color = Color(0.972549, 0.831373, 0.494118, 1)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.980392, 0.85098, 0.188235, 1)
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 28
+expand_margin_bottom = 4.0
+shadow_color = Color(0, 0, 0, 0.105882)
+shadow_size = 1
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mf2ns"]
+bg_color = Color(0.978006, 0.979824, 0.861949, 1)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 4
+border_color = Color(0.980392, 0.85098, 0.188235, 1)
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 28
+expand_margin_bottom = 4.0
+shadow_color = Color(0, 0, 0, 0.105882)
+shadow_size = 1
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="GDScript" id="GDScript_diyc5"]
 resource_name = "abilities_buttons"
@@ -241,6 +230,54 @@ tracks/6/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("LevelInfo/TextureRect:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FadeUI/Options:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("FadeUI/Options:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("StaminaControl:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_1thc4"]
 resource_name = "fade_out"
@@ -322,6 +359,30 @@ tracks/4/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FadeUI/Options:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FadeUI/Options:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_mf2ns"]
 resource_name = "level_presentation"
@@ -338,6 +399,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(0.5, 1, 2, 0.5),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LevelInfo/TextureRect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 1), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_os0ka"]
@@ -439,7 +512,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_hrmpd"]
 resource_name = "results"
-length = 0.5
+length = 0.2
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -468,62 +541,74 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("FadeUI/Options:modulate")
+tracks/2/path = NodePath("../../OptionsPanel:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../../OptionsPanel:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AbilitiesButtons:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("AbilitiesButtons:modulate")
+tracks/4/path = NodePath("FadeUI/FishermanProfile:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("FadeUI/FishermanProfile:modulate")
+tracks/5/path = NodePath("FadeUI:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FadeUI/Options:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("FadeUI:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("StaminaControl:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hykrw"]
@@ -661,26 +746,16 @@ offset_bottom = 49.0
 grow_vertical = 1
 
 [node name="Options" type="Button" parent="MarginContainer/Main/FadeUI"]
-layout_mode = 1
-offset_top = 136.0
-offset_right = 58.0
-offset_bottom = 192.0
+layout_mode = 0
+offset_left = -4.0
+offset_top = 147.0
+offset_right = 54.0
+offset_bottom = 203.0
 focus_mode = 1
-theme_override_styles/hover = SubResource("StyleBoxFlat_x7jpl")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_x7jpl")
-theme_override_styles/normal = SubResource("StyleBoxFlat_os0ka")
+theme_override_styles/hover = SubResource("StyleBoxFlat_diyc5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_diyc5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_mf2ns")
 icon_alignment = 1
-
-[node name="Panel" type="Panel" parent="MarginContainer/Main/FadeUI/Options"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_diyc5")
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/Main/FadeUI/Options"]
 custom_minimum_size = Vector2(24, 24)
@@ -702,12 +777,15 @@ stretch_mode = 5
 
 [node name="AbilitiesButtons" type="Control" parent="MarginContainer/Main" node_paths=PackedStringArray("abilities_parent") groups=["ui"]]
 modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -80.0
-offset_right = 296.0
+offset_left = 40.0
+offset_top = -152.0
+offset_right = 464.0
+offset_bottom = -32.0
 grow_vertical = 0
 script = SubResource("GDScript_diyc5")
 abilities_parent = NodePath("Abilities")
@@ -746,6 +824,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(756, 64)
 texture = ExtResource("11_diyc5")
 expand_mode = 1
 stretch_mode = 5

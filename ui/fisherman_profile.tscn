@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b4l7gkq0ibacm"]
+[gd_scene load_steps=26 format=3 uid="uid://b4l7gkq0ibacm"]
 
 [ext_resource type="PackedScene" uid="uid://c5oj0pohmtd3v" path="res://objects/player_skin.tscn" id="2_nk8hg"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="3_6qbg7"]
@@ -39,7 +39,7 @@ func on_items_collected(count : int):
 		combo_anim.play(\"enter\")
 	else:
 		combo_anim.play(\"add\")
-	combo_label.text = \"X\" + str(count)
+	combo_label.text = str(count)
 	pass
 
 func on_not_items_collected():
@@ -208,7 +208,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3),
 "transitions": PackedFloat32Array(0.5, 2, 1),
 "update": 0,
-"values": [Vector2(22, 14), Vector2(160, 14), Vector2(120, 14)]
+"values": [Vector2(22, 56), Vector2(160, 56), Vector2(128, 56)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -230,16 +230,22 @@ _data = {
 &"enter": SubResource("Animation_ahfo7")
 }
 
-[sub_resource type="LabelSettings" id="LabelSettings_hu5ey"]
+[sub_resource type="LabelSettings" id="LabelSettings_ucs5h"]
 font = ExtResource("3_6qbg7")
 font_size = 42
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hu5ey"]
+font = ExtResource("3_6qbg7")
+font_size = 56
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_toieo"]
 font = ExtResource("3_6qbg7")
 font_size = 22
-font_color = Color(1, 0.619608, 0.294118, 1)
+font_color = Color(1, 0.8, 0.294118, 1)
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
@@ -353,10 +359,27 @@ tracks/1/path = NodePath("Experience:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.2, 0.3, 0.5),
-"transitions": PackedFloat32Array(0.5, 2, 1),
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5),
+"transitions": PackedFloat32Array(0.5, 2, 2, 1),
 "update": 0,
-"values": [56.0, 60.0, 56.0]
+"values": [56.0, 62.0, 62.0, 56.0]
+}
+
+[sub_resource type="Animation" id="Animation_j20k4"]
+resource_name = "in_game"
+length = 0.3
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Stamina:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 23), Vector2(168, 23)]
 }
 
 [sub_resource type="Animation" id="Animation_qjwn8"]
@@ -454,23 +477,6 @@ tracks/0/keys = {
 "values": [Vector2(1, 23)]
 }
 
-[sub_resource type="Animation" id="Animation_j20k4"]
-resource_name = "in_game"
-length = 0.3
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Stamina:size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Vector2(1, 23), Vector2(168, 23)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7wjaj"]
 _data = {
 &"RESET": SubResource("Animation_w3tlt"),
@@ -485,10 +491,11 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 112.0
 offset_bottom = 112.0
+mouse_filter = 2
 script = SubResource("GDScript_ucs5h")
 progress_bar = NodePath("Experience")
 level_label = NodePath("LevelPanel/Level")
-combo_label = NodePath("Combos/Control/ComboLabel")
+combo_label = NodePath("Combos/Control/HBoxContainer/ComboLabel")
 anim = NodePath("Anim")
 combo_anim = NodePath("Combos/ComboAnim")
 stamina = NodePath("Stamina")
@@ -631,7 +638,6 @@ offset_right = 152.0
 offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(42, 29)
 
 [node name="ComboAnim" type="AnimationPlayer" parent="Combos"]
 libraries = {
@@ -646,22 +652,41 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ComboLabel" type="Label" parent="Combos/Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Combos/Control"]
+layout_mode = 0
+offset_right = 67.0
+offset_bottom = 51.0
+
+[node name="Control" type="Control" parent="Combos/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="x" type="Label" parent="Combos/Control/HBoxContainer/Control"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "x"
+label_settings = SubResource("LabelSettings_ucs5h")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="ComboLabel" type="Label" parent="Combos/Control/HBoxContainer"]
 texture_filter = 2
 layout_mode = 2
-offset_top = 5.0
-offset_right = 84.0
-offset_bottom = 38.0
-grow_vertical = 2
-text = "X2"
+text = "2"
 label_settings = SubResource("LabelSettings_hu5ey")
 
 [node name="ComboStringLabel" type="Label" parent="Combos/Control"]
 texture_filter = 2
 layout_mode = 2
-offset_top = 34.0
+offset_top = 43.0
 offset_right = 84.0
-offset_bottom = 55.0
+offset_bottom = 64.0
 grow_vertical = 2
 text = "Combo"
 label_settings = SubResource("LabelSettings_toieo")

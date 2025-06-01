@@ -78,10 +78,10 @@ _data = {
 }
 
 [node name="Speed" type="VBoxContainer" node_paths=PackedStringArray("stat_label", "current_progress", "next_progress", "anim")]
-custom_minimum_size = Vector2(0, 28)
+custom_minimum_size = Vector2(0, 36)
 offset_right = 192.0
-offset_bottom = 32.0
-theme_override_constants/separation = 0
+offset_bottom = 40.0
+theme_override_constants/separation = 4
 script = ExtResource("1_x68mg")
 stat_label = NodePath("Stat")
 current_progress = NodePath("NextProgress/CurrentProgress")
@@ -94,9 +94,8 @@ text = "Stat"
 label_settings = SubResource("LabelSettings_i5mka")
 
 [node name="NextProgress" type="ProgressBar" parent="."]
-custom_minimum_size = Vector2(0, 14)
+custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
-size_flags_vertical = 2
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_67uj7")
 theme_override_styles/fill = SubResource("StyleBoxFlat_qxnrq")

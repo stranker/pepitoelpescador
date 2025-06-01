@@ -96,7 +96,7 @@ func hook_enter():
 	eat_component.set_deferred("monitoring", false)
 	var shockwave = shockwave_scene.instantiate()
 	add_child(shockwave)
-	GameManager.stop_frames(20)
+	GameManager.stop_frames(12)
 	get_tree().call_group("ui", "on_fish_hook_enter", self)
 	pass
 
@@ -115,7 +115,7 @@ func start_eated():
 	pass
 
 func stop_eated():
-	anim.play("RESET")
+	anim.call_deferred("play","RESET")
 	fish_state = FishState.HOOK
 	pass
 

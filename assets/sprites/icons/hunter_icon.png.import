@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpjpcvecgladw"
-path="res://.godot/imported/shop_card.png-86d0b299133a739a3c564cd4e10af1ca.ctex"
+uid="uid://bx5ni6o312ov0"
+path="res://.godot/imported/hunter_icon.png-f56a2fe058866cbcd553c297101d055f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/cards/shop_card.png"
-dest_files=["res://.godot/imported/shop_card.png-86d0b299133a739a3c564cd4e10af1ca.ctex"]
+source_file="res://assets/sprites/icons/hunter_icon.png"
+dest_files=["res://.godot/imported/hunter_icon.png-f56a2fe058866cbcd553c297101d055f.ctex"]
 
 [params]
 

@@ -9,11 +9,15 @@ extends Node
 
 func update_fishes_data(fishes_data : Dictionary):
 	for id in fishes_data.keys():
-		for fish in fishes:
-			if fish.get_string_id() == str(id):
-				fish.initialize(fishes_data[str(id)])
-				break
+		var fish_data : FishData = get_fish(int(id))
+		fish_data.initialize(fishes_data[id])
 	_update_maps()
+	pass
+
+func update_quests(quests_data : Dictionary):
+	for id in quests_data.keys():
+		var quest_data : QuestData = get_quest(int(id))
+		quest_data.load_save_data(quests_data[id])
 	pass
 
 func _update_maps():
@@ -21,13 +25,13 @@ func _update_maps():
 		map.update()
 	pass
 
-func get_fish(id : int):
+func get_fish(id : int) -> FishData:
 	return get_element_by_id(id, fishes)
 
-func get_quest(id : int):
+func get_quest(id : int) -> QuestData:
 	return get_element_by_id(id, quests)
 
-func get_map(id : int):
+func get_map(id : int) -> MapData:
 	return get_element_by_id(id, maps)
 
 func get_element_by_id(id : int, array : Array):
@@ -35,3 +39,17 @@ func get_element_by_id(id : int, array : Array):
 		if element.id == id:
 			return element
 	return null
+
+func get_quest_for_save() -> Dictionary:
+	var save_data : Dictionary
+	for quest in quests:
+		save_data[str(quest.id)] = quest.get_save_data()
+	return save_data
+
+func reset():
+	for fish in fishes:
+		fish.reset()
+	QuestManager.reset()
+	for map in maps:
+		map.reset()
+	pass

@@ -1,8 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://cleqatf1rk0lp"]
+[gd_scene load_steps=21 format=3 uid="uid://cleqatf1rk0lp"]
 
 [ext_resource type="Script" uid="uid://biq8qynv83bry" path="res://ui/selectable_card.gd" id="1_8jx8r"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_hdkuc"]
-[ext_resource type="Texture2D" uid="uid://bg5273i0auuvv" path="res://assets/sprites/fishermans/fisherman_skin.png" id="5_ayki5"]
+[ext_resource type="Texture2D" uid="uid://bx5ni6o312ov0" path="res://assets/sprites/icons/hunter_icon.png" id="3_gdbvi"]
 [ext_resource type="PackedScene" uid="uid://dsqhlrsvjyk21" path="res://ui/stat_progress_bar.tscn" id="5_gdbvi"]
 [ext_resource type="Texture2D" uid="uid://clny6aa75jcq1" path="res://assets/sprites/icons/Star.png" id="5_grjs2"]
 [ext_resource type="AudioStream" uid="uid://dyyo8ihi3g7mh" path="res://assets/sfx/cart_draw.wav" id="6_ckvk6"]
@@ -14,11 +14,13 @@ border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
-border_color = Color(0, 0, 0, 1)
+border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.290196)
+shadow_size = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_ocdhs"]
 font = ExtResource("2_hdkuc")
@@ -31,10 +33,6 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r3p3l"]
-atlas = ExtResource("5_ayki5")
-region = Rect2(12, 0, 42, 42)
 
 [sub_resource type="Animation" id="Animation_grjs2"]
 length = 0.001
@@ -456,7 +454,7 @@ grow_vertical = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 1.4
 mouse_filter = 2
-texture = SubResource("AtlasTexture_r3p3l")
+texture = ExtResource("3_gdbvi")
 expand_mode = 1
 stretch_mode = 5
 

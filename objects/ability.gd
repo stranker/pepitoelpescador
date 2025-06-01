@@ -15,3 +15,7 @@ enum AbilityType { PASSIVE, ACTIVE }
 
 func get_type_string():
 	return "PASSIVE" if type == AbilityType.PASSIVE else "ACTIVE"
+
+func is_enabled():
+	if type == AbilityType.PASSIVE: return true
+	return GameManager.game_stats.player_level >= level_requirement

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dganq5uwt8uy6"]
+[gd_scene load_steps=20 format=3 uid="uid://dganq5uwt8uy6"]
 
 [ext_resource type="Script" uid="uid://l724hp5rrdyc" path="res://managers/data_manager.gd" id="1_aeg7h"]
 [ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://data/fishes/fish_data.gd" id="2_f7n4c"]
@@ -8,7 +8,9 @@
 [ext_resource type="Resource" uid="uid://fwiia0yrsd7l" path="res://data/fishes/lily.tres" id="6_yri2c"]
 [ext_resource type="Script" uid="uid://bmvba6dff2gmi" path="res://data/quest_data.gd" id="7_witl7"]
 [ext_resource type="Script" uid="uid://b3b878xav353d" path="res://data/map_data.gd" id="8_nmli6"]
+[ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="8_unp2j"]
 [ext_resource type="Texture2D" uid="uid://b7jfe2lk2w7ek" path="res://assets/sprites/background/color_shores.jpg" id="9_3hglm"]
+[ext_resource type="Texture2D" uid="uid://cpalo30arsxsr" path="res://assets/sprites/cards/upgrades/accuracy_icon.png" id="9_yri2c"]
 [ext_resource type="PackedScene" uid="uid://7605xw4rige" path="res://scenes/color_shores.tscn" id="10_0feo0"]
 [ext_resource type="PackedScene" uid="uid://buqew5foqk3au" path="res://scenes/aurora_coast.tscn" id="11_4tdo5"]
 [ext_resource type="Texture2D" uid="uid://cmjghx3ti5vml" path="res://assets/sprites/background/mystic_river.jpg" id="12_wtjt5"]
@@ -16,34 +18,42 @@
 [sub_resource type="Resource" id="Resource_ci4a3"]
 script = ExtResource("7_witl7")
 id = 0
-name = "First Quest!"
+name = "Capture {0} Greeny"
 description = "This is the first quest"
 type = 0
-capture_count = 2
+capture_count = 4
 capture_ids = Array[int]([0])
 reward_type = 0
-reward_data = 200
-repetible = false
+reward_data = 60
+state = 0
+progress = 0
+texture = ExtResource("8_unp2j")
+repetible = true
+repetible_increment = 4
 metadata/_custom_type_script = "uid://bmvba6dff2gmi"
 
 [sub_resource type="Resource" id="Resource_f15pg"]
 script = ExtResource("7_witl7")
 id = 1
-name = "Second Quest!"
+name = "Capture {0} fishes"
 description = "This is the second quest"
 type = 1
-capture_count = 5
-capture_ids = Array[int]([0, 1])
+capture_count = 10
+capture_ids = Array[int]([])
 reward_type = 0
-reward_data = 200
+reward_data = 120
+state = 0
+progress = 0
+texture = ExtResource("9_yri2c")
 repetible = false
+repetible_increment = 0
 metadata/_custom_type_script = "uid://bmvba6dff2gmi"
 
 [sub_resource type="Resource" id="Resource_grynd"]
 script = ExtResource("8_nmli6")
 id = 0
 name = "Color Shores"
-description = "This is the description of Color Shores"
+description = "A beautiful place filled by the color of the fishes"
 locked = false
 image = ExtResource("9_3hglm")
 scene = ExtResource("10_0feo0")

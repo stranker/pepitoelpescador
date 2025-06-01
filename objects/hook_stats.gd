@@ -70,7 +70,7 @@ func get_next_recover():
 func reset():
 	level = 0
 	purchased = initial_hook
-	equiped = false
+	equiped = initial_hook
 	pass
 
 func upgrade():
@@ -93,3 +93,19 @@ func unequip():
 func equip():
 	equiped = true
 	pass
+
+func load_save_data(data : Dictionary):
+	id = int(data.id)
+	purchased = data.purchased
+	equiped = data.equiped
+	level = data.level
+	pass
+
+func get_save_data():
+	var data : Dictionary = {
+		"id":str(id),
+		"purchased":purchased,
+		"equiped":equiped,
+		"level":level,
+	}
+	return data

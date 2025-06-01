@@ -36,6 +36,7 @@ func upgrade_boat():
 	pass
 
 func set_loaded_items(item_dic : Dictionary):
+	load_items_from_save(item_dic)
 	pass
 
 func set_loaded_boat(boat_tier : int):
@@ -45,12 +46,16 @@ func set_loaded_boat(boat_tier : int):
 func get_items_for_save():
 	var data : Dictionary = {}
 	for hook in hooks:
-		data[hook.id] = {
-			"level": hook.level,
-			"purchased": hook.purchased,
-			"equiped": hook.equiped,
-		}
+		data[str(hook.id)] = hook.get_save_data()
 	return data
+
+func load_items_from_save(data : Dictionary):
+	for hook in hooks:
+		var hook_data : Dictionary = data[str(hook.id)]
+		hook.load_save_data(hook_data)
+		if hook_data.equiped:
+			equip_hook(hook)
+	pass
 
 func get_boat_data():
 	return boat.current_tier

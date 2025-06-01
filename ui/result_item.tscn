@@ -63,6 +63,7 @@ font_color = Color(0, 1, 0.116667, 1)
 custom_minimum_size = Vector2(560, 64)
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 2
 script = SubResource("GDScript_8k32s")
 image = NodePath("MarginContainer/HBoxContainer/Panel/TextureRect")
 count_label = NodePath("MarginContainer/HBoxContainer/Count")
@@ -90,6 +91,7 @@ layout_mode = 2
 clip_children = 2
 custom_minimum_size = Vector2(56, 56)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8k32s")
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/Panel"]
@@ -121,6 +123,7 @@ label_settings = SubResource("LabelSettings_bv7uk")
 [node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Control"]
 layout_mode = 1

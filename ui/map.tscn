@@ -1,89 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://ctg1fx7elwl1p"]
+[gd_scene load_steps=12 format=3 uid="uid://ctg1fx7elwl1p"]
 
 [ext_resource type="Script" uid="uid://bsi8phqfsjwdg" path="res://ui/map.gd" id="1_xf5ci"]
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="2_hdjpg"]
 [ext_resource type="Texture2D" uid="uid://c7gt1b3jrbt51" path="res://assets/sprites/background/map_background.png" id="3_dc1eh"]
 [ext_resource type="PackedScene" uid="uid://buwicco4ujh2" path="res://ui/map_item.tscn" id="3_gu6eb"]
 [ext_resource type="Texture2D" uid="uid://bahvh7ngpuph2" path="res://assets/ui/cut_line.png" id="4_cjqc2"]
-[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="9_dc1eh"]
-[ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="10_0p7vj"]
-[ext_resource type="Texture2D" uid="uid://by8erumq8j2sx" path="res://assets/ui/map.jpg" id="10_cjqc2"]
-[ext_resource type="Texture2D" uid="uid://dbqvpsqgyiace" path="res://assets/sprites/icons/profile_exp.png" id="10_em20l"]
-[ext_resource type="PackedScene" uid="uid://peujken5bx5u" path="res://ui/fishes_panel.tscn" id="11_0p7vj"]
-[ext_resource type="StyleBox" uid="uid://mcffbo0v1gfd" path="res://ui/test.tres" id="11_uy36j"]
+[ext_resource type="PackedScene" uid="uid://bdesjipwmw1tx" path="res://ui/map_info.tscn" id="6_m8udb"]
 [ext_resource type="PackedScene" uid="uid://cov7yosi3fuhj" path="res://ui/close_button.tscn" id="12_em20l"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t7fc1"]
-bg_color = Color(0.0352941, 0.0352941, 0.0352941, 0.85098)
-
-[sub_resource type="GDScript" id="GDScript_em20l"]
-resource_name = "map_info"
-script/source = "extends Panel
-
-@export var map_name : Label
-@export var map_description : Label
-@export var map_texture : TextureRect
-@export var progress : TextureProgressBar
-@export var fishes_panel : Control
-
-func set_data(data : MapData):
-	map_name.text = data.name
-	map_description.text = data.description
-	map_texture.texture = data.image
-	progress.value = data.map_completed_percentage * 100
-	fishes_panel.set_fishes(data.fishes)
-	pass
-"
-
-[sub_resource type="LabelSettings" id="LabelSettings_dc1eh"]
-font = ExtResource("9_dc1eh")
-font_size = 32
-outline_size = 2
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 4
-shadow_color = Color(0, 0, 0, 0.780392)
-
-[sub_resource type="LabelSettings" id="LabelSettings_0p7vj"]
-font = ExtResource("9_dc1eh")
-font_size = 32
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmri6"]
-bg_color = Color(0.23987, 0.373256, 0.656482, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eguev"]
-bg_color = Color(0.483395, 0.614946, 0.878368, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjqc2"]
-bg_color = Color(0.462745, 0.298039, 0.784314, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 8
-border_color = Color(0.341176, 0.192157, 0.552941, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0p7vj"]
-bg_color = Color(0.396078, 0.235294, 0.713726, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 8
-border_color = Color(0.396078, 0.235294, 0.713726, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
 
 [sub_resource type="Animation" id="Animation_uy36j"]
 length = 0.001
@@ -95,130 +18,6 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MapInfo/Panel/MarginContainer/Control/Continue:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("MapInfo/MapInfo/MapName:self_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("MapInfo/MapInfo/Map/MapCompletition:self_modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("MapInfo/MapInfo/Map/World:self_modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("MapInfo/MapInfo/MapDescription:self_modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("MapInfo/Panel/MarginContainer/Control/Continue:self_modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("MapInfo/FishesPanel:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("MapInfo/FishesPanel:modulate")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_eguev"]
-resource_name = "hide_fishes"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MapInfo/FishesPanel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MapInfo/FishesPanel:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
@@ -242,7 +41,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_osy78"]
 resource_name = "map_selected"
-length = 0.7
+length = 0.1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -256,141 +55,26 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MapInfo/Panel/MarginContainer/Control/Continue:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.4, 0.5, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0.2, 0.2), Vector2(1.2, 1.2), Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("MapInfo/MapInfo/MapName:self_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("MapInfo/MapInfo/Map/MapCompletition:self_modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("MapInfo/MapInfo/Map/World:self_modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
-"transitions": PackedFloat32Array(1, 0.5, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("MapInfo/MapInfo/MapDescription:self_modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("MapInfo/Panel/MarginContainer/Control/Continue:self_modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("MapInfo/FishesPanel:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_rmri6"]
-resource_name = "show_fishes"
-length = 0.2
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MapInfo/FishesPanel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MapInfo/FishesPanel:visible")
+tracks/1/path = NodePath("MapInfo")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("MapInfo/FishesPanel")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"show_fishes"
+"method": &"show_map_info"
 }]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t7fc1"]
 _data = {
 &"RESET": SubResource("Animation_uy36j"),
-&"hide_fishes": SubResource("Animation_eguev"),
 &"idle": SubResource("Animation_em20l"),
-&"map_selected": SubResource("Animation_osy78"),
-&"show_fishes": SubResource("Animation_rmri6")
+&"map_selected": SubResource("Animation_osy78")
 }
 
 [node name="Map" type="Control" node_paths=PackedStringArray("maps_container", "anim", "map_info")]
@@ -414,9 +98,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="TextureRect" parent="Main"]
-layout_mode = 2
-offset_right = 1560.0
-offset_bottom = 720.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_hdjpg")
 expand_mode = 1
 stretch_mode = 6
@@ -435,7 +122,7 @@ stretch_mode = 5
 [node name="Line2D" type="Line2D" parent="Main"]
 texture_filter = 1
 texture_repeat = 2
-position = Vector2(424, 368)
+position = Vector2(464, 362)
 points = PackedVector2Array(-112, -8, 32, 64, 160, 104, 296, 112, 408, 80, 488, 48, 632, -48, 752, -72, 832, -64, 864, -48)
 width = 20.0
 default_color = Color(1, 0, 0.270588, 1)
@@ -455,10 +142,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -644.0
-offset_top = -168.0
-offset_right = -436.0
-offset_bottom = 40.0
+offset_left = -604.0
+offset_top = -174.0
+offset_right = -396.0
+offset_bottom = 34.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -469,10 +156,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -156.0
-offset_top = 10.0
-offset_right = 52.0
-offset_bottom = 218.0
+offset_left = -116.0
+offset_top = 4.0
+offset_right = 92.0
+offset_bottom = 212.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -483,235 +170,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 380.0
-offset_top = -176.0
-offset_right = 588.0
-offset_bottom = 32.0
+offset_left = 420.0
+offset_top = -182.0
+offset_right = 628.0
+offset_bottom = 26.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="MapInfo" type="Panel" parent="." node_paths=PackedStringArray("map_name", "map_description", "map_texture", "progress", "fishes_panel")]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_t7fc1")
-script = SubResource("GDScript_em20l")
-map_name = NodePath("MapInfo/MapName")
-map_description = NodePath("MapInfo/MapDescription")
-map_texture = NodePath("MapInfo/Map/World/TextureRect")
-progress = NodePath("MapInfo/Map/MapCompletition")
-fishes_panel = NodePath("FishesPanel")
-metadata/_edit_lock_ = true
-
-[node name="MapInfo" type="Control" parent="MapInfo"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 192.0
-offset_top = -296.0
-offset_right = 896.0
-offset_bottom = 280.0
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="MapName" type="Label" parent="MapInfo/MapInfo"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 40.0
-offset_bottom = 69.0
-grow_horizontal = 2
-text = "Color Shores"
-label_settings = SubResource("LabelSettings_dc1eh")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MapDescription" type="Label" parent="MapInfo/MapInfo"]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -352.0
-offset_top = -196.0
-offset_right = 352.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "This is a long description of the map"
-label_settings = SubResource("LabelSettings_0p7vj")
-horizontal_alignment = 1
-
-[node name="Map" type="Control" parent="MapInfo/MapInfo"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -152.0
-offset_right = 104.0
-offset_bottom = 48.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MapCompletition" type="TextureProgressBar" parent="MapInfo/MapInfo/Map"]
-custom_minimum_size = Vector2(208, 208)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -114.0
-offset_top = -114.0
-offset_right = 114.0
-offset_bottom = 114.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-value = 5.0
-fill_mode = 4
-nine_patch_stretch = true
-texture_under = ExtResource("10_em20l")
-texture_progress = ExtResource("10_em20l")
-tint_under = Color(0, 0, 0, 0.827451)
-
-[node name="World" type="Panel" parent="MapInfo/MapInfo/Map"]
-clip_children = 2
-custom_minimum_size = Vector2(208, 208)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -104.0
-offset_right = 104.0
-offset_bottom = 104.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(104, 104)
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("11_uy36j")
-
-[node name="TextureRect" type="TextureRect" parent="MapInfo/MapInfo/Map/World"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-texture = ExtResource("10_cjqc2")
-expand_mode = 1
-stretch_mode = 6
-
-[node name="Panel" type="Panel" parent="MapInfo"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -600.0
-offset_top = -296.0
-offset_right = -152.0
-offset_bottom = 278.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_rmri6")
-
-[node name="MarginContainer" type="MarginContainer" parent="MapInfo/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="Control" type="Control" parent="MapInfo/Panel/MarginContainer"]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="MapInfo/Panel/MarginContainer/Control"]
-layout_mode = 2
-offset_right = 432.0
-offset_bottom = 104.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_eguev")
-
-[node name="Continue" type="Button" parent="MapInfo/Panel/MarginContainer/Control"]
-texture_filter = 2
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -94.0
-offset_right = 184.0
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 0
-pivot_offset = Vector2(164, 43)
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("9_dc1eh")
-theme_override_font_sizes/font_size = 48
-theme_override_styles/disabled = SubResource("StyleBoxFlat_cjqc2")
-theme_override_styles/hover = SubResource("StyleBoxFlat_0p7vj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_0p7vj")
-theme_override_styles/normal = SubResource("StyleBoxFlat_cjqc2")
-text = "Continue"
-icon_alignment = 2
-
-[node name="Fishes" type="Button" parent="MapInfo/Panel/MarginContainer/Control"]
-texture_filter = 2
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -94.0
-offset_right = 96.0
-offset_bottom = -6.0
-grow_vertical = 0
-pivot_offset = Vector2(84, 52)
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("9_dc1eh")
-theme_override_font_sizes/font_size = 48
-theme_override_icons/icon = ExtResource("10_0p7vj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_cjqc2")
-theme_override_styles/hover = SubResource("StyleBoxFlat_0p7vj")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_0p7vj")
-theme_override_styles/normal = SubResource("StyleBoxFlat_cjqc2")
-icon_alignment = 1
-expand_icon = true
-
-[node name="FishesPanel" parent="MapInfo" instance=ExtResource("11_0p7vj")]
-visible = false
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
 
 [node name="CloseButton" parent="." instance=ExtResource("12_em20l")]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 32.0
-offset_right = 120.0
-offset_bottom = 120.0
+layout_mode = 1
+
+[node name="MapInfo" parent="." instance=ExtResource("6_m8udb")]
+visible = false
+layout_mode = 1
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 libraries = {
@@ -719,7 +190,5 @@ libraries = {
 }
 autoplay = "idle"
 
-[connection signal="gui_input" from="MapInfo" to="." method="_on_map_info_gui_input"]
-[connection signal="button_down" from="MapInfo/Panel/MarginContainer/Control/Continue" to="." method="_on_continue_button_down"]
-[connection signal="button_down" from="MapInfo/Panel/MarginContainer/Control/Fishes" to="." method="_on_fishes_button_down"]
 [connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]
+[connection signal="closed" from="MapInfo" to="." method="_on_map_info_closed"]

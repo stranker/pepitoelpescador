@@ -313,14 +313,9 @@ _data = {
 }
 
 [node name="Button" type="Button" node_paths=PackedStringArray("ability_icon", "count_label", "anim")]
-custom_minimum_size = Vector2(80, 80)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1480.0
-offset_bottom = -640.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(120, 120)
+offset_right = 120.0
+offset_bottom = 120.0
 pivot_offset = Vector2(40, 40)
 focus_mode = 0
 theme_override_styles/disabled = SubResource("StyleBoxFlat_e7yqb")

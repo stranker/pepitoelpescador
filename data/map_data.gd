@@ -19,3 +19,7 @@ func update():
 			fished_count += 1
 	map_completed_percentage = fished_count / float(fishes.size())
 	pass
+
+func reset():
+	map_completed_percentage = 0
+	pass

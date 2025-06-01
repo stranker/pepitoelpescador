@@ -2,7 +2,7 @@ class_name CharacterCard
 extends Card
 
 enum CharacterType {
-	HUNTRESS,
+	HUNTER,
 	BUSINESS,
 	POWER_BUILDER
 }

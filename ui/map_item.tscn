@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://buwicco4ujh2"]
+[gd_scene load_steps=12 format=3 uid="uid://buwicco4ujh2"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_vqpty"]
 [ext_resource type="Texture2D" uid="uid://by8erumq8j2sx" path="res://assets/ui/map.jpg" id="2_qm837"]
@@ -58,7 +58,7 @@ corner_radius_bottom_left = 128
 
 [sub_resource type="LabelSettings" id="LabelSettings_nrgxe"]
 font = ExtResource("1_vqpty")
-font_size = 32
+font_size = 42
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 4
@@ -90,6 +90,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Soon:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_vqpty"]
 resource_name = "idle"
@@ -106,6 +118,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soon:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_4od7s"]
 resource_name = "lock"
@@ -121,6 +145,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0.259294, 0.259294, 0.259294, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Soon:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_qm837"]
@@ -161,6 +197,14 @@ _data = {
 &"lock": SubResource("Animation_4od7s"),
 &"selected": SubResource("Animation_qm837")
 }
+
+[sub_resource type="LabelSettings" id="LabelSettings_vqpty"]
+font = ExtResource("1_vqpty")
+font_size = 84
+font_color = Color(1, 0.054902, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.670588)
+shadow_offset = Vector2(1, 2)
 
 [node name="MapItem" type="Control" node_paths=PackedStringArray("anim", "name_label", "image_rect")]
 custom_minimum_size = Vector2(208, 208)
@@ -222,5 +266,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Soon" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 72.0
+offset_right = 242.0
+offset_bottom = 148.0
+rotation = -0.261799
+text = "SOON"
+label_settings = SubResource("LabelSettings_vqpty")
 
 [connection signal="gui_input" from="ClickArea" to="." method="_on_click_area_gui_input"]

@@ -24,10 +24,6 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-expand_margin_left = 8.0
-expand_margin_top = 8.0
-expand_margin_right = 8.0
-expand_margin_bottom = 8.0
 
 [node name="FishesPanel" type="Control" node_paths=PackedStringArray("fishes_grid")]
 layout_mode = 3
@@ -37,7 +33,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bgne7")
-fishes_grid = NodePath("MarginContainer/CenterContainer/Panel/MarginContainer/ScrollContainer/Fishes")
+fishes_grid = NodePath("MarginContainer/CenterContainer/Panel/MarginContainer/Panel/MarginContainer/ScrollContainer/Fishes")
 card_scene = ExtResource("3_ivu30")
 
 [node name="Panel" type="Panel" parent="."]
@@ -71,7 +67,6 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ivu30")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/Panel"]
-clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,19 +78,39 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/CenterContainer/Panel/MarginContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer/CenterContainer/Panel/MarginContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(1148, 636)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c7ivg")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/Panel/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/CenterContainer/Panel/MarginContainer/Panel/MarginContainer"]
 clip_contents = false
 custom_minimum_size = Vector2(1148, 636)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_c7ivg")
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
-[node name="Fishes" type="GridContainer" parent="MarginContainer/CenterContainer/Panel/MarginContainer/ScrollContainer"]
+[node name="Fishes" type="GridContainer" parent="MarginContainer/CenterContainer/Panel/MarginContainer/Panel/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/h_separation = 32
+theme_override_constants/h_separation = 56
 theme_override_constants/v_separation = 32
-columns = 5
+columns = 4

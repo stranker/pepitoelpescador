@@ -1,10 +1,11 @@
-[gd_scene load_steps=33 format=3 uid="uid://dj3urhrrnjbd4"]
+[gd_scene load_steps=36 format=3 uid="uid://dj3urhrrnjbd4"]
 
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="1_8ln24"]
 [ext_resource type="PackedScene" uid="uid://cbxq6hn0dd75u" path="res://scenes/scrim.tscn" id="1_bfmak"]
 [ext_resource type="PackedScene" uid="uid://wy6iqyp1pmr1" path="res://objects/fishes/greeny.tscn" id="2_rtw2f"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_wu84c"]
 [ext_resource type="Texture2D" uid="uid://c0uy6y2kg7m1d" path="res://assets/sprites/bubbles.png" id="3_cjgqh"]
+[ext_resource type="Shader" uid="uid://dunlitn3tsxb6" path="res://objects/fishes/color_tilt.gdshader" id="3_tbmy8"]
 [ext_resource type="PackedScene" uid="uid://ngwgmo67epe2" path="res://ui/options_scene.tscn" id="6_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://do61r7ruayjdk" path="res://ui/credits_scene.tscn" id="7_oa1go"]
 
@@ -24,14 +25,17 @@ func _check_init_state():
 	pass
 
 func _on_options_button_down() -> void:
+	AudioManager.play_button_sound()
 	anim.play(\"options\")
 	pass # Replace with function body.
 
 func _on_sound_options_closed() -> void:
+	AudioManager.play_button_sound()
 	anim.play_backwards(\"options\")
 	pass # Replace with function body.
 
 func _on_new_game_button_down() -> void:
+	AudioManager.play_button_sound()
 	if GameManager.player_selected:
 		anim.play(\"new_game_with_save\")
 	else:
@@ -45,28 +49,43 @@ func on_game_scene_loaded(path):
 	pass
 
 func _on_continue_button_down() -> void:
+	AudioManager.play_button_sound()
 	GameManager.load_scene(\"res://scenes/main_scene.tscn\")
 	pass # Replace with function body.
 
 func _on_credits_button_down() -> void:
+	AudioManager.play_button_sound()
 	anim.play(\"credits\")
 	pass # Replace with function body.
 
 func _on_credits_scene_closed() -> void:
+	AudioManager.play_button_sound()
 	_check_init_state()
 	pass # Replace with function body.
 
 
 func _on_cancel_button_down() -> void:
+	AudioManager.play_button_sound()
 	_check_init_state()
 	pass # Replace with function body.
 
 
 func _on_confirm_button_down() -> void:
+	AudioManager.play_button_sound()
 	GameManager.clear_saved_data()
 	GameManager.load_scene(\"res://scenes/customize_scene.tscn\")
 	pass # Replace with function body.
 "
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jk1qb"]
+resource_local_to_scene = true
+shader = ExtResource("3_tbmy8")
+shader_parameter/tint = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5dd4i"]
+resource_local_to_scene = true
+shader = ExtResource("3_tbmy8")
+shader_parameter/tint = 1.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_8ln24"]
 font = ExtResource("2_wu84c")
@@ -643,6 +662,9 @@ texture = ExtResource("1_8ln24")
 [node name="Greeny" parent="." instance=ExtResource("2_rtw2f")]
 position = Vector2(320, 360)
 
+[node name="Sprite2D" parent="Greeny/Visual" index="0"]
+material = SubResource("ShaderMaterial_jk1qb")
+
 [node name="MovementRect" parent="Greeny/Debug" index="0"]
 offset_left = -600.0
 offset_top = -200.0
@@ -652,6 +674,9 @@ pivot_offset = Vector2(600, 200)
 
 [node name="Greeny2" parent="." instance=ExtResource("2_rtw2f")]
 position = Vector2(1312, 464)
+
+[node name="Sprite2D" parent="Greeny2/Visual" index="0"]
+material = SubResource("ShaderMaterial_5dd4i")
 
 [node name="MovementRect" parent="Greeny2/Debug" index="0"]
 offset_left = -600.0
@@ -688,10 +713,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -228.0
+offset_left = -192.0
 offset_top = -336.0
-offset_right = 212.0
-offset_bottom = -40.0
+offset_right = 192.0
+offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 16

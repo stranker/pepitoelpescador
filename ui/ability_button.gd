@@ -9,6 +9,8 @@ var ability_component : AbilityComponent
 var ability_data : Ability
 var available : bool = false
 
+var enabled : bool = false
+
 var cooldown : int = 0 :
 	set(new_cooldown):
 		cooldown = new_cooldown
@@ -20,6 +22,8 @@ func set_data(new_ability_component : AbilityComponent):
 	ability_icon.texture = ability_data.texture
 	cooldown = ability_data.cooldown
 	available = true
+	enabled = ability_data.is_enabled()
+	visible = enabled
 	pass
 
 func _on_button_down() -> void:

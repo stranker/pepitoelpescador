@@ -37,3 +37,11 @@ func get_string_id():
 
 func _to_string() -> String:
 	return "Fish(Name:{0},MaxWeight:{1},FishStars:{2},Unlocked:{3}, UnlockedShowed:{4})".format([fish_name, max_weight, fish_stars, unlocked, unlock_showed])
+
+func reset():
+	max_weight = -1
+	fish_stars = 1
+	unlocked = false
+	unlock_showed = false
+	count = 0
+	pass

@@ -15,13 +15,14 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="OneMoreFish"
-run/main_scene="uid://dj3urhrrnjbd4"
+run/main_scene="uid://dx0cjdriy3hr0"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Utils="*res://managers/utils.tscn"
+AudioManager="*res://managers/audio_manager.tscn"
 DataManager="*res://managers/data_manager.tscn"
 ItemManager="*res://managers/item_manager.tscn"
 CardManager="*res://managers/card_manager.tscn"
@@ -30,7 +31,7 @@ QuestManager="*res://managers/quest_manager.tscn"
 
 [display]
 
-window/size/viewport_width=1560
+window/size/viewport_width=1600
 window/size/viewport_height=720
 window/size/always_on_top=true
 window/stretch/mode="viewport"

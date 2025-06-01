@@ -27,13 +27,17 @@ func _ready() -> void:
 
 func fade_in():
 	anim.play_backwards("fade_out")
+	pass
 
 func fade_out():
 	anim.play("fade_out")
+	pass
 
 func on_gold_update(gold):
 	coins_label.text = str(gold)
-	coin_anim.queue("earn")
+	if coin_anim.is_playing():
+		coin_anim.stop()
+	coin_anim.play("earn")
 	pass
 
 func on_fish_collected(fish : Fish):

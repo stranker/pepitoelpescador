@@ -1,21 +1,38 @@
-[gd_scene load_steps=22 format=3 uid="uid://dktou66amwa86"]
+[gd_scene load_steps=19 format=3 uid="uid://dktou66amwa86"]
 
 [ext_resource type="Script" uid="uid://keuk1n3uxt3s" path="res://ui/boats_shop_panel.gd" id="1_87epm"]
-[ext_resource type="Texture2D" uid="uid://ejc2v3gtfytb" path="res://assets/sprites/fishermans/boat.png" id="1_177vb"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_87epm"]
-[ext_resource type="Texture2D" uid="uid://cpjpcvecgladw" path="res://assets/sprites/cards/shop_card.png" id="2_iyhep"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="4_whe5k"]
+[ext_resource type="Texture2D" uid="uid://co7vpun17o75d" path="res://assets/ui/upgrade_icon.png" id="5_iyhep"]
 [ext_resource type="PackedScene" uid="uid://dsqhlrsvjyk21" path="res://ui/stat_progress_bar.tscn" id="5_s1lg0"]
+[ext_resource type="PackedScene" uid="uid://cov7yosi3fuhj" path="res://ui/close_button.tscn" id="7_6n3ib"]
+[ext_resource type="PackedScene" uid="uid://b88g72lgv2yax" path="res://ui/non_selectable_card.tscn" id="7_s1lg0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyvbe"]
 bg_color = Color(0, 0, 0, 0.745098)
 
-[sub_resource type="LabelSettings" id="LabelSettings_6c2nj"]
-font = ExtResource("2_87epm")
-font_size = 26
-font_color = Color(1, 0.823529, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ny0j"]
+resource_local_to_scene = true
+bg_color = Color(0.851769, 0.851769, 0.851769, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tdjdk"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpuqh"]
+resource_local_to_scene = true
+bg_color = Color(0.152941, 0.513726, 0.768627, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7e136"]
 bg_color = Color(0.462745, 0.45098, 0.784314, 1)
 border_width_left = 2
 border_width_top = 2
@@ -27,7 +44,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_whe5k"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jfsc8"]
 bg_color = Color(0.396078, 0.235294, 0.713726, 1)
 border_width_left = 2
 border_width_top = 2
@@ -39,13 +56,14 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="LabelSettings" id="LabelSettings_iyhep"]
+[sub_resource type="LabelSettings" id="LabelSettings_af3qd"]
 font = ExtResource("2_87epm")
-font_size = 38
-
-[sub_resource type="LabelSettings" id="LabelSettings_s1lg0"]
-font = ExtResource("2_87epm")
-font_size = 32
+font_size = 56
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.819608)
+shadow_offset = Vector2(1, 2)
 
 [sub_resource type="Animation" id="Animation_iyhep"]
 length = 0.001
@@ -64,14 +82,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer:modulate")
+tracks/1/path = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.470588)]
+"values": [Color(1, 1, 1, 0.592157)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -103,14 +121,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer:modulate")
+tracks/1/path = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.470588)]
+"values": [Color(1, 1, 1, 0.592157)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Control/UpgradeButton:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_bpuqh"]
@@ -118,10 +148,22 @@ resource_name = "hide"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MarginContainer/Control/UpgradeButton:visible")
+tracks/0/path = NodePath("MarginContainer/Control/UpgradeButton:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Control/UpgradeButton:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -133,26 +175,38 @@ resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MarginContainer/Control/UpgradeButton:disabled")
+tracks/0/path = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer:modulate")
+tracks/1/path = NodePath("MarginContainer/Control/UpgradeButton:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MarginContainer/Control/UpgradeButton:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6n3ib"]
@@ -163,57 +217,7 @@ _data = {
 &"idle": SubResource("Animation_whe5k")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyhep"]
-bg_color = Color(0.980932, 0.346384, 0.308302, 1)
-border_width_left = 2
-border_width_right = 2
-border_width_bottom = 6
-border_color = Color(0.64, 0.1088, 0.29472, 1)
-corner_radius_top_left = 42
-corner_radius_top_right = 42
-corner_radius_bottom_right = 42
-corner_radius_bottom_left = 42
-shadow_color = Color(0, 0, 0, 0.0980392)
-shadow_size = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1lg0"]
-bg_color = Color(0.7, 0.112, 0.2786, 1)
-border_width_left = 2
-border_width_right = 2
-border_width_bottom = 6
-border_color = Color(0.64, 0.1088, 0.29472, 1)
-corner_radius_top_left = 42
-corner_radius_top_right = 42
-corner_radius_bottom_right = 42
-corner_radius_bottom_left = 42
-shadow_color = Color(0, 0, 0, 0.0980392)
-shadow_size = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6n3ib"]
-bg_color = Color(0.921569, 0.160784, 0.164706, 1)
-border_width_left = 2
-border_width_right = 2
-border_width_bottom = 6
-border_color = Color(0.64, 0.1088, 0.29472, 1)
-corner_radius_top_left = 42
-corner_radius_top_right = 42
-corner_radius_bottom_right = 42
-corner_radius_bottom_left = 42
-shadow_color = Color(0, 0, 0, 0.0980392)
-shadow_size = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lwppx"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 48
-corner_radius_top_right = 48
-corner_radius_bottom_right = 48
-corner_radius_bottom_left = 48
-expand_margin_left = 6.0
-expand_margin_top = 6.0
-expand_margin_right = 6.0
-expand_margin_bottom = 6.0
-
-[node name="BoatsPanel" type="Control" node_paths=PackedStringArray("boat_texture", "boat_price", "button_anim", "day_time", "unlock_label")]
+[node name="BoatsPanel" type="Control" node_paths=PackedStringArray("boat_price", "button_anim", "day_time", "card")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -222,11 +226,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_87epm")
-boat_texture = NodePath("MarginContainer/Control/Card/Boat")
 boat_price = NodePath("MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer/Control/HBoxContainer/Label")
 button_anim = NodePath("Anim")
-day_time = NodePath("MarginContainer/Control/Card/Stats/Stats/DayTime")
-unlock_label = NodePath("MarginContainer/Control/Card/Stats/Stats/Unlocks")
+day_time = NodePath("MarginContainer/Control/NonSelectableCard/Background/MarginContainer/VBoxContainer/Description/Panel/MarginContainer/VBoxContainer/DayTime")
+card = NodePath("MarginContainer/Control/NonSelectableCard")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -253,20 +256,7 @@ theme_override_constants/margin_bottom = 64
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Card" type="TextureRect" parent="MarginContainer/Control"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -200.0
-offset_right = 200.0
-offset_bottom = 496.0
-grow_horizontal = 2
-texture = ExtResource("2_iyhep")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Boat" type="TextureRect" parent="MarginContainer/Control/Card"]
+[node name="NonSelectableCard" parent="MarginContainer/Control" instance=ExtResource("7_s1lg0")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -274,75 +264,84 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -156.0
-offset_top = -192.0
+offset_top = -288.0
 offset_right = 156.0
-offset_bottom = 56.0
+offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_177vb")
-expand_mode = 1
-stretch_mode = 5
 
-[node name="Stats" type="Control" parent="MarginContainer/Control/Card"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -164.0
-offset_top = -168.0
-offset_right = 192.0
-offset_bottom = -16.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="Background" parent="MarginContainer/Control/NonSelectableCard" index="0"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_4ny0j")
 
-[node name="Stats" type="VBoxContainer" parent="MarginContainer/Control/Card/Stats"]
+[node name="TitlePanel" parent="MarginContainer/Control/NonSelectableCard/Background/MarginContainer/VBoxContainer" index="0"]
+custom_minimum_size = Vector2(0, 38)
+theme_override_styles/panel = SubResource("StyleBoxFlat_bpuqh")
+
+[node name="Image" parent="MarginContainer/Control/NonSelectableCard/Background/MarginContainer/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(0, 224)
+
+[node name="Panel" parent="MarginContainer/Control/NonSelectableCard/Background/MarginContainer/VBoxContainer/Image" index="0"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_bpuqh")
+
+[node name="Image" parent="MarginContainer/Control/NonSelectableCard/Background/MarginContainer/VBoxContainer/Image/MarginContainer/Control/Control" index="0"]
+offset_left = -131.5
+offset_top = -93.5
+offset_right = 131.5
+offset_bottom = 93.5
+rotation = 0.0
+pivot_offset = Vector2(132, 97)
+
+[node name="Panel" parent="MarginContainer/Control/NonSelectableCard/Background/MarginContainer/VBoxContainer/Description" index="0"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_bpuqh")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/NonSelectableCard/Background/MarginContainer/VBoxContainer/Description/Panel" index="0"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_right = -36.0
-offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
-[node name="Unlocks" type="Label" parent="MarginContainer/Control/Card/Stats/Stats"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/NonSelectableCard/Background/MarginContainer/VBoxContainer/Description/Panel/MarginContainer"]
 layout_mode = 2
-text = "Unlocks: Color Shores"
-label_settings = SubResource("LabelSettings_6c2nj")
 
-[node name="DayTime" parent="MarginContainer/Control/Card/Stats/Stats" instance=ExtResource("5_s1lg0")]
+[node name="DayTime" parent="MarginContainer/Control/NonSelectableCard/Background/MarginContainer/VBoxContainer/Description/Panel/MarginContainer/VBoxContainer" instance=ExtResource("5_s1lg0")]
 layout_mode = 2
 stat_name = "Day Time"
 min_value = 1.0
 max_value = 120.0
 
 [node name="UpgradeButton" type="Button" parent="MarginContainer/Control"]
+custom_minimum_size = Vector2(220, 83)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -108.0
-offset_top = -96.0
-offset_right = 108.0
+offset_left = -110.0
+offset_top = -83.0
+offset_right = 110.0
 grow_horizontal = 2
 grow_vertical = 0
-focus_mode = 1
+size_flags_horizontal = 3
+focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_87epm")
 theme_override_font_sizes/font_size = 48
-theme_override_styles/disabled = SubResource("StyleBoxFlat_tdjdk")
-theme_override_styles/hover = SubResource("StyleBoxFlat_whe5k")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_whe5k")
-theme_override_styles/normal = SubResource("StyleBoxFlat_tdjdk")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_7e136")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jfsc8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jfsc8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7e136")
 disabled = true
 icon_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/UpgradeButton"]
+modulate = Color(1, 1, 1, 0.592157)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -356,22 +355,27 @@ theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 6
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/UpgradeButton/MarginContainer"]
-modulate = Color(1, 1, 1, 0.470588)
 layout_mode = 2
 mouse_filter = 2
-
-[node name="Label" type="Label" parent="MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer"]
-texture_filter = 2
-layout_mode = 2
-text = "UPGRADE"
-label_settings = SubResource("LabelSettings_iyhep")
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_constants/separation = 0
 
 [node name="Control" type="Control" parent="MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
+
+[node name="UpgradeIcon" type="TextureRect" parent="MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer/Control"]
+self_modulate = Color(0.254902, 0.839216, 0.0235294, 1)
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 1
+offset_left = -10.5
+offset_top = -31.0
+offset_right = 39.5
+offset_bottom = 19.0
+texture = ExtResource("5_iyhep")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer/Control"]
 layout_mode = 1
@@ -385,8 +389,10 @@ theme_override_constants/separation = 10
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer/Control/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("4_whe5k")
 expand_mode = 1
 stretch_mode = 5
@@ -394,9 +400,8 @@ stretch_mode = 5
 [node name="Label" type="Label" parent="MarginContainer/Control/UpgradeButton/MarginContainer/VBoxContainer/Control/HBoxContainer"]
 texture_filter = 2
 layout_mode = 2
-text = "100"
-label_settings = SubResource("LabelSettings_s1lg0")
-horizontal_alignment = 1
+text = "9999"
+label_settings = SubResource("LabelSettings_af3qd")
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 libraries = {
@@ -404,34 +409,11 @@ libraries = {
 }
 autoplay = "disabled"
 
-[node name="CloseButton" type="Button" parent="."]
-texture_filter = 2
-custom_minimum_size = Vector2(88, 88)
-layout_mode = 0
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 112.0
-offset_bottom = 112.0
-focus_mode = 1
-theme_override_fonts/font = ExtResource("2_87epm")
-theme_override_font_sizes/font_size = 64
-theme_override_styles/hover = SubResource("StyleBoxFlat_iyhep")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_s1lg0")
-theme_override_styles/normal = SubResource("StyleBoxFlat_6n3ib")
-text = "X"
-
-[node name="Panel" type="Panel" parent="CloseButton"]
-show_behind_parent = true
+[node name="CloseButton" parent="." instance=ExtResource("7_6n3ib")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_lwppx")
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="gui_input" from="MarginContainer" to="." method="_on_margin_container_gui_input"]
-[connection signal="button_down" from="MarginContainer/Control/UpgradeButton" to="." method="_on_upgrade_button_button_down"]
 [connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]
+
+[editable path="MarginContainer/Control/NonSelectableCard"]

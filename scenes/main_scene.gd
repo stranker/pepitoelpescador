@@ -33,18 +33,6 @@ func _on_map_map_close() -> void:
 	anim.play("idle")
 	pass # Replace with function body.
 
-func _on_shop_gui_input(event: InputEvent) -> void:
-	if not enabled_input: return
-	if event is InputEventScreenTouch:
-		anim.play("shop")
-	pass # Replace with function body.
-
-func _on_boat_gui_input(event: InputEvent) -> void:
-	if not enabled_input: return
-	if event is InputEventScreenTouch:
-		anim.play("map")
-	pass
-
 func _on_options_button_down() -> void:
 	anim.play("options")
 	pass # Replace with function body.
@@ -56,3 +44,16 @@ func _on_options_panel_closed() -> void:
 func enable_inputs():
 	enabled_input = true
 	pass
+
+func _on_house_gui_input(event: InputEvent) -> void:
+	if not enabled_input: return
+	if event is InputEventScreenTouch:
+		anim.play("shop")
+	pass # Replace with function body.
+
+
+func _on_boat_gui_input(event: InputEvent) -> void:
+	if not enabled_input: return
+	if event is InputEventScreenTouch:
+		anim.play("map")
+	pass # Replace with function body.

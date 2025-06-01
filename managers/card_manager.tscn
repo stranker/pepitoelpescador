@@ -1,18 +1,16 @@
-[gd_scene load_steps=27 format=3 uid="uid://d0u656wq8p8ft"]
+[gd_scene load_steps=25 format=3 uid="uid://d0u656wq8p8ft"]
 
 [ext_resource type="Script" uid="uid://biw2k543ativ7" path="res://managers/card_manager.gd" id="1_urukv"]
 [ext_resource type="Script" uid="uid://dokbbhkitmfd5" path="res://objects/character_card.gd" id="2_6p2yx"]
 [ext_resource type="Script" uid="uid://cl1o6nm4ucn4l" path="res://objects/upgrade_card.gd" id="3_3wi76"]
-[ext_resource type="Texture2D" uid="uid://bucxh0pfjd2tw" path="res://assets/sprites/cards/upgrade_card.png" id="3_wf3hm"]
 [ext_resource type="Texture2D" uid="uid://cpalo30arsxsr" path="res://assets/sprites/cards/upgrades/accuracy_icon.png" id="4_1jsee"]
-[ext_resource type="Texture2D" uid="uid://dedu1aqgaewfb" path="res://assets/sprites/cards/character_card.png" id="5_nvbsy"]
-[ext_resource type="Texture2D" uid="uid://dbrnrpoi6vpym" path="res://assets/sprites/fishermans/hunter_skin.png" id="6_ha00d"]
 [ext_resource type="Script" uid="uid://ccjuv7sn2xqo0" path="res://objects/ability.gd" id="6_qsuk7"]
-[ext_resource type="Texture2D" uid="uid://dsbkpd4pvndmm" path="res://assets/sprites/fishermans/businessman_skin.png" id="7_2eyr2"]
 [ext_resource type="PackedScene" uid="uid://du67qtxmrjq6m" path="res://objects/abilities/just_business_component.tscn" id="7_16ita"]
 [ext_resource type="PackedScene" uid="uid://dyojf5hrxvjur" path="res://objects/abilities/cat_eye_component.tscn" id="7_301xb"]
+[ext_resource type="Texture2D" uid="uid://bx5ni6o312ov0" path="res://assets/sprites/icons/hunter_icon.png" id="8_301xb"]
 [ext_resource type="PackedScene" uid="uid://btp0e4xcxbowf" path="res://objects/abilities/hawk_eye_component.tscn" id="8_wfsnr"]
-[ext_resource type="Texture2D" uid="uid://j4nwyvbnwcqt" path="res://assets/sprites/fishermans/bodybuilder_skin.png" id="9_0ds10"]
+[ext_resource type="Texture2D" uid="uid://bk3bdg5hlncnr" path="res://assets/sprites/icons/broker_icon.png" id="10_301xb"]
+[ext_resource type="Texture2D" uid="uid://cjcs1hq262dw5" path="res://assets/sprites/icons/colossus_icon.png" id="12_301xb"]
 [ext_resource type="PackedScene" uid="uid://bekqov7qymyio" path="res://objects/abilities/fish_crusher_component.tscn" id="12_stf3t"]
 
 [sub_resource type="Resource" id="Resource_t1ebg"]
@@ -24,7 +22,6 @@ upgrade_base_value = 10.0
 upgrade_color = Color(0.972549, 0, 0.164706, 1)
 card_name = "Upgrade Power"
 card_description = "Upgrades power by"
-card_background = ExtResource("3_wf3hm")
 
 [sub_resource type="Resource" id="Resource_os6gr"]
 script = ExtResource("3_3wi76")
@@ -36,7 +33,6 @@ upgrade_color = Color(0, 0.411765, 0.886275, 1)
 card_name = "Upgrade Accuracy"
 card_texture = ExtResource("4_1jsee")
 card_description = "Upgrades accuracy by"
-card_background = ExtResource("3_wf3hm")
 
 [sub_resource type="Resource" id="Resource_pdx5o"]
 script = ExtResource("3_3wi76")
@@ -47,7 +43,6 @@ upgrade_base_value = 5.0
 upgrade_color = Color(0.301961, 0.827451, 0.227451, 1)
 card_name = "Upgrade Recover"
 card_description = "Upgrades recovery force by"
-card_background = ExtResource("3_wf3hm")
 
 [sub_resource type="Resource" id="Resource_qr071"]
 script = ExtResource("3_3wi76")
@@ -58,7 +53,6 @@ upgrade_base_value = 0.0
 upgrade_color = Color(0.403922, 0.266667, 1, 1)
 card_name = "Length"
 card_description = "Increases the hook length"
-card_background = ExtResource("3_wf3hm")
 
 [sub_resource type="Resource" id="Resource_0fynk"]
 script = ExtResource("3_3wi76")
@@ -69,7 +63,6 @@ upgrade_base_value = 100.0
 upgrade_color = Color(0.623529, 0.133333, 0, 1)
 card_name = "Hook length"
 card_description = "Increases the hook length by"
-card_background = ExtResource("3_wf3hm")
 
 [sub_resource type="Resource" id="Resource_stf3t"]
 script = ExtResource("6_qsuk7")
@@ -104,9 +97,8 @@ base_power = 1.8
 base_accuracy = 1.0
 abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_stf3t"), SubResource("Resource_wfsnr")])
 card_name = "The Hunter"
-card_texture = ExtResource("6_ha00d")
+card_texture = ExtResource("8_301xb")
 card_description = "Great accuracy but less power"
-card_background = ExtResource("5_nvbsy")
 
 [sub_resource type="Resource" id="Resource_16ita"]
 script = ExtResource("6_qsuk7")
@@ -128,9 +120,8 @@ base_power = 1.0
 base_accuracy = 0.1
 abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_16ita")])
 card_name = "The Broker"
-card_texture = ExtResource("7_2eyr2")
+card_texture = ExtResource("10_301xb")
 card_description = "Its the best to sell things"
-card_background = ExtResource("5_nvbsy")
 
 [sub_resource type="Resource" id="Resource_301xb"]
 script = ExtResource("6_qsuk7")
@@ -152,9 +143,8 @@ base_power = 4.0
 base_accuracy = 0.0
 abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_301xb")])
 card_name = "The Colossus"
-card_texture = ExtResource("9_0ds10")
+card_texture = ExtResource("12_301xb")
 card_description = "Powerfull but inaccurate"
-card_background = ExtResource("5_nvbsy")
 
 [node name="CardManager" type="Node"]
 script = ExtResource("1_urukv")

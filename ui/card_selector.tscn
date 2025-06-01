@@ -1,14 +1,17 @@
 [gd_scene load_steps=21 format=3 uid="uid://b7o878bg7yltg"]
 
 [ext_resource type="Script" uid="uid://rgl2eq0uxma0" path="res://ui/card_selector.gd" id="1_7ukqc"]
+[ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="2_dqylm"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_k7cl5"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r33km"]
-bg_color = Color(0, 0, 0, 0.941176)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ca4vc"]
 font = ExtResource("2_k7cl5")
-font_size = 64
+font_size = 72
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.807843)
+shadow_offset = Vector2(1, 4)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_obsd8"]
 bg_color = Color(0.999042, 0.792481, 0.473115, 1)
@@ -231,6 +234,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_7ukqc")
 cards = NodePath("Cards")
 title = NodePath("Title")
@@ -239,15 +243,14 @@ selected_card_pos = NodePath("SelectedCardPos")
 anim = NodePath("AnimationPlayer")
 abilities = NodePath("SelectedCardInfo/Control/Control/Abilities")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_r33km")
+texture = ExtResource("2_dqylm")
 
 [node name="Cards" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 320)
@@ -270,9 +273,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -576.0
-offset_top = 72.0
+offset_top = 56.0
 offset_right = 576.0
-offset_bottom = 130.0
+offset_bottom = 121.0
 grow_horizontal = 2
 text = "SELECT YOUR CLASS"
 label_settings = SubResource("LabelSettings_ca4vc")

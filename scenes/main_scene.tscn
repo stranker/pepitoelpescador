@@ -8,52 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://c5oj0pohmtd3v" path="res://objects/player_skin.tscn" id="5_mngbo"]
 [ext_resource type="PackedScene" uid="uid://bwqm7jufoed7b" path="res://ui/shop.tscn" id="6_rt2n2"]
 [ext_resource type="PackedScene" uid="uid://ctg1fx7elwl1p" path="res://ui/map.tscn" id="7_c16ls"]
-[ext_resource type="PackedScene" uid="uid://b7o878bg7yltg" path="res://ui/card_selector.tscn" id="8_18nlu"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="9_6wevv"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="9_e1cbu"]
 [ext_resource type="AudioStream" uid="uid://dy6dnip7c1qfr" path="res://assets/sfx/coins.wav" id="10_e1cbu"]
 [ext_resource type="PackedScene" uid="uid://b4l7gkq0ibacm" path="res://ui/fisherman_profile.tscn" id="12_4w45t"]
 [ext_resource type="Texture2D" uid="uid://bup3dkrst1rih" path="res://assets/ui/option_icon.png" id="13_si52b"]
 [ext_resource type="PackedScene" uid="uid://ngwgmo67epe2" path="res://ui/options_scene.tscn" id="15_01n6w"]
-
-[sub_resource type="Animation" id="Animation_e1cbu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_6wevv"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 8)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mngbo"]
-_data = {
-&"RESET": SubResource("Animation_e1cbu"),
-&"idle": SubResource("Animation_6wevv")
-}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pu3yx"]
 texture = ExtResource("2_7ykc4")
@@ -79,11 +39,55 @@ sources/2 = SubResource("TileSetAtlasSource_gubc5")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c16ls"]
 bg_color = Color(0.262525, 0.585186, 0.799414, 0.207843)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r6p65"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_si52b"]
+
+[sub_resource type="Animation" id="Animation_bcnxi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6u1mn"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7nt27"]
+_data = {
+&"RESET": SubResource("Animation_bcnxi"),
+&"idle": SubResource("Animation_6u1mn")
+}
+
 [sub_resource type="GDScript" id="GDScript_6wevv"]
 resource_name = "main_menu_ui"
 script/source = "extends CanvasLayer
 
 @export var coins_label : Label
+@export var coin_anim : AnimationPlayer
 
 func _ready() -> void:
 	coins_label.text = str(GameManager.game_stats.gold)
@@ -92,6 +96,9 @@ func _ready() -> void:
 
 func on_gold_update(coins):
 	coins_label.text = str(coins)
+	if coin_anim.is_playing():
+		coin_anim.stop()
+	coin_anim.play(\"earn\")
 	pass
 "
 
@@ -163,13 +170,13 @@ _data = {
 &"earn": SubResource("Animation_gfs05")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u1mn"]
-bg_color = Color(0.856068, 0.856067, 0.856068, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_si52b"]
+bg_color = Color(0.972549, 0.831373, 0.494118, 1)
 border_width_left = 2
 border_width_top = 1
 border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.98, 0.922833, 0.49, 1)
+border_width_bottom = 4
+border_color = Color(0.980392, 0.85098, 0.188235, 1)
 corner_radius_top_left = 28
 corner_radius_top_right = 28
 corner_radius_bottom_right = 28
@@ -180,12 +187,12 @@ shadow_size = 1
 shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bcnxi"]
-bg_color = Color(0.947199, 0.947199, 0.947199, 1)
+bg_color = Color(0.978006, 0.979824, 0.861949, 1)
 border_width_left = 2
 border_width_top = 1
 border_width_right = 2
-border_width_bottom = 6
-border_color = Color(0.98, 0.922833, 0.49, 1)
+border_width_bottom = 4
+border_color = Color(0.980392, 0.85098, 0.188235, 1)
 corner_radius_top_left = 28
 corner_radius_top_right = 28
 corner_radius_bottom_right = 28
@@ -194,17 +201,6 @@ expand_margin_bottom = 4.0
 shadow_color = Color(0, 0, 0, 0.105882)
 shadow_size = 1
 shadow_offset = Vector2(0, 2)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7nt27"]
-bg_color = Color(0.98, 0.865667, 0, 1)
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 8.0
 
 [sub_resource type="Animation" id="Animation_18nlu"]
 length = 0.001
@@ -458,7 +454,7 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = true
+tracks/3/enabled = false
 tracks/3/path = NodePath("UI/MarginContainer/Control/Coins:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
@@ -720,76 +716,6 @@ mouse_filter = 2
 texture = ExtResource("1_pw63i")
 expand_mode = 1
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Shop" type="Control" parent="Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -460.0
-offset_top = -184.0
-offset_right = 154.0
-offset_bottom = 310.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control/Shop"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_6wevv")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Boat" type="Control" parent="Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 148.0
-offset_top = 24.0
-offset_right = 526.0
-offset_bottom = 224.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control/Boat"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_7ykc4")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Skin" parent="Control/Boat/TextureRect" instance=ExtResource("5_mngbo")]
-show_behind_parent = true
-position = Vector2(192, 31)
-scale = Vector2(0.3, 0.3)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Boat"]
-libraries = {
-&"": SubResource("AnimationLibrary_mngbo")
-}
-autoplay = "idle"
-
 [node name="Water" type="Node2D" parent="."]
 position = Vector2(272, 518)
 metadata/_edit_lock_ = true
@@ -826,24 +752,66 @@ z_index = 1
 [node name="Pivot" type="Node2D" parent="."]
 position = Vector2(640, 360)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(640, -832)
+[node name="House" type="Sprite2D" parent="Pivot"]
+scale = Vector2(4, 4)
+texture = ExtResource("3_6wevv")
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("coins_label")]
+[node name="House" type="Panel" parent="Pivot/House"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.0
+offset_top = -131.5
+offset_right = -69.0
+offset_bottom = -56.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_r6p65")
+
+[node name="Boat" type="Node2D" parent="Pivot"]
+position = Vector2(616, 112)
+
+[node name="Boat" type="Sprite2D" parent="Pivot/Boat"]
+scale = Vector2(3, 3)
+texture = ExtResource("3_7ykc4")
+
+[node name="Skin" parent="Pivot/Boat/Boat" instance=ExtResource("5_mngbo")]
+show_behind_parent = true
+position = Vector2(-8, -24)
+scale = Vector2(0.1, 0.1)
+
+[node name="Boat" type="Panel" parent="Pivot/Boat/Boat"]
+offset_left = -62.0
+offset_top = -25.0
+offset_right = 64.0
+offset_bottom = 15.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_si52b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pivot/Boat"]
+root_node = NodePath("../Boat")
+libraries = {
+&"": SubResource("AnimationLibrary_7nt27")
+}
+autoplay = "idle"
+
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("coins_label", "coin_anim")]
+layer = 2
 script = SubResource("GDScript_6wevv")
 coins_label = NodePath("MarginContainer/Control/Coins/HBoxContainer/Label")
+coin_anim = NodePath("MarginContainer/Control/Coins/Anim")
 
 [node name="Shop" parent="UI" instance=ExtResource("6_rt2n2")]
 visible = false
 
-[node name="CardSelector" parent="UI" instance=ExtResource("8_18nlu")]
-visible = false
-
 [node name="OptionsPanel" parent="UI" instance=ExtResource("15_01n6w")]
 visible = false
+mouse_filter = 2
 
 [node name="Map" parent="UI" instance=ExtResource("7_c16ls")]
 visible = false
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 visible = false
@@ -873,6 +841,7 @@ anchor_right = 1.0
 offset_left = -392.0
 offset_bottom = 48.0
 grow_horizontal = 0
+pivot_offset = Vector2(392, 0)
 mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/Control/Coins"]
@@ -880,8 +849,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -1.5
+offset_bottom = 1.5
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(392, 0.5)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 6
@@ -916,25 +888,15 @@ modulate = Color(1, 1, 1, 0)
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_top = 136.0
-offset_right = 58.0
-offset_bottom = 192.0
+offset_left = -4.0
+offset_top = 147.0
+offset_right = 54.0
+offset_bottom = 203.0
 focus_mode = 1
-theme_override_styles/hover = SubResource("StyleBoxFlat_6u1mn")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_6u1mn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_si52b")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_si52b")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bcnxi")
 icon_alignment = 1
-
-[node name="Panel" type="Panel" parent="UI/MarginContainer/Control/Options"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7nt27")
 
 [node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/Control/Options"]
 custom_minimum_size = Vector2(24, 24)
@@ -954,13 +916,16 @@ texture = ExtResource("13_si52b")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(800, -840)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_c1pb6")
 }
 
-[connection signal="gui_input" from="Control/Shop" to="." method="_on_shop_gui_input"]
-[connection signal="gui_input" from="Control/Boat" to="." method="_on_boat_gui_input"]
+[connection signal="gui_input" from="Pivot/House/House" to="." method="_on_house_gui_input"]
+[connection signal="gui_input" from="Pivot/Boat/Boat/Boat" to="." method="_on_boat_gui_input"]
 [connection signal="shop_close" from="UI/Shop" to="." method="_on_shop_shop_close"]
 [connection signal="closed" from="UI/OptionsPanel" to="." method="_on_options_panel_closed"]
 [connection signal="map_close" from="UI/Map" to="." method="_on_map_map_close"]

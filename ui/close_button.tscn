@@ -54,11 +54,11 @@ expand_margin_bottom = 6.0
 
 [node name="CloseButton" type="Button"]
 texture_filter = 2
-custom_minimum_size = Vector2(88, 88)
+custom_minimum_size = Vector2(72, 72)
 offset_left = 24.0
 offset_top = 24.0
-offset_right = 112.0
-offset_bottom = 112.0
+offset_right = 96.0
+offset_bottom = 96.0
 focus_mode = 1
 theme_override_fonts/font = ExtResource("1_030l3")
 theme_override_font_sizes/font_size = 64

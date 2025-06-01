@@ -1,11 +1,15 @@
 class_name BoatData
 extends Resource
 
+@export var names : Array[String]
 @export var price_list : Array[int]
 @export var day_time_values : Array[float]
 @export var textures : Array[Texture]
 @export var current_tier : int = 0
 @export var unlocks : Array[String]
+
+func get_boat_name():
+	return names[current_tier]
 
 func get_day_time():
 	return day_time_values[current_tier]
@@ -32,6 +36,7 @@ func get_unlock():
 	return unlocks[current_tier]
 
 func get_next_unlock():
+	return -1
 	var next_tier = current_tier + 1
 	if next_tier < unlocks.size():
 		return unlocks[next_tier]

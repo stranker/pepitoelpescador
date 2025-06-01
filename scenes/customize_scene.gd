@@ -48,6 +48,7 @@ func on_skin_color_changed(skin_color : Color):
 	pass
 
 func _on_randomize_button_down() -> void:
+	AudioManager.play_button_sound()
 	player_skin.randomize_skin()
 	_update_sliders()
 	var random_button = skin_colors.get_children().pick_random()
@@ -57,6 +58,7 @@ func _on_randomize_button_down() -> void:
 	pass
 
 func _on_confirm_button_down() -> void:
+	AudioManager.play_button_sound()
 	player_skin.save()
 	anim.play("confirm_customize")
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://7605xw4rige"]
+[gd_scene load_steps=24 format=3 uid="uid://7605xw4rige"]
 
 [ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://data/fishes/fish_data.gd" id="2_nr3by"]
 [ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="3_hhwfa"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://db8lfvo2el27n" path="res://assets/sprites/fishes/lily.png" id="6_glqjm"]
 [ext_resource type="PackedScene" uid="uid://c6expp3ap42af" path="res://objects/player.tscn" id="7_ilols"]
 [ext_resource type="PackedScene" uid="uid://b20k2ikmghh7h" path="res://objects/water.tscn" id="7_r2as4"]
-[ext_resource type="Resource" uid="uid://fwiia0yrsd7l" path="res://data/fishes/lily.tres" id="8_xunq4"]
 [ext_resource type="Texture2D" uid="uid://cdti06q1c68uq" path="res://assets/sprites/background/clouds.png" id="9_g38md"]
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="13_v73gw"]
 [ext_resource type="PackedScene" uid="uid://c4e5o2j6nkkkn" path="res://ui/ui.tscn" id="14_jw5ub"]
@@ -20,10 +19,10 @@ script/source = "extends Level
 script = ExtResource("2_nr3by")
 fish_name = "Greeny"
 fish_texture = ExtResource("3_hhwfa")
+fish_description = ""
 fish_gold = 0
 fish_experience = 1.0
 fish_color = Color(0, 0, 0, 1)
-fish_stars = 1
 base_size = 0.0
 id = -1
 is_boss = false
@@ -33,10 +32,10 @@ metadata/_custom_type_script = "uid://b6y452mskqd7s"
 script = ExtResource("2_nr3by")
 fish_name = "Rusty"
 fish_texture = ExtResource("4_stv77")
+fish_description = ""
 fish_gold = 0
 fish_experience = 1.0
 fish_color = Color(0, 0, 0, 1)
-fish_stars = 1
 base_size = 0.0
 id = -1
 is_boss = false
@@ -46,10 +45,10 @@ metadata/_custom_type_script = "uid://b6y452mskqd7s"
 script = ExtResource("2_nr3by")
 fish_name = "Bluey"
 fish_texture = ExtResource("5_b131q")
+fish_description = ""
 fish_gold = 0
 fish_experience = 1.0
 fish_color = Color(0, 0, 0, 1)
-fish_stars = 1
 base_size = 0.0
 id = -1
 is_boss = false
@@ -59,10 +58,10 @@ metadata/_custom_type_script = "uid://b6y452mskqd7s"
 script = ExtResource("2_nr3by")
 fish_name = "Lily"
 fish_texture = ExtResource("6_glqjm")
+fish_description = ""
 fish_gold = 0
 fish_experience = 1.0
 fish_color = Color(0, 0, 0, 1)
-fish_stars = 1
 base_size = 0.0
 id = -1
 is_boss = false
@@ -348,9 +347,6 @@ position = Vector2(579, 496)
 [node name="Water" parent="." instance=ExtResource("7_r2as4")]
 position = Vector2(93, 518)
 
-[node name="Lily" parent="Water/Fishes" index="0"]
-fish_data = ExtResource("8_xunq4")
-
 [node name="CinematicCamera" type="Camera2D" parent="." node_paths=PackedStringArray("final_target") groups=["cinematic_camera"]]
 position = Vector2(584, 1944)
 enabled = false
@@ -365,12 +361,37 @@ script = SubResource("GDScript_4wrgf")
 [node name="Clouds" type="Node2D" parent="."]
 
 [node name="Parallax2D" type="Parallax2D" parent="Clouds"]
-repeat_size = Vector2(1290, 0)
-autoscroll = Vector2(-5, 0)
+repeat_size = Vector2(1152, 0)
+autoscroll = Vector2(-16, 0)
 repeat_times = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="Clouds/Parallax2D"]
-position = Vector2(0, -184)
+position = Vector2(0, -520)
+scale = Vector2(1, 1.1358)
+texture = ExtResource("9_g38md")
+centered = false
+
+[node name="Parallax2D2" type="Parallax2D" parent="Clouds"]
+scroll_offset = Vector2(420, -280)
+repeat_size = Vector2(1152, 0)
+autoscroll = Vector2(-16, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Clouds/Parallax2D2"]
+position = Vector2(0, -520)
+scale = Vector2(1, 1.1358)
+texture = ExtResource("9_g38md")
+centered = false
+
+[node name="Parallax2D3" type="Parallax2D" parent="Clouds"]
+scroll_offset = Vector2(600, -560)
+repeat_size = Vector2(1152, 0)
+autoscroll = Vector2(-16, 0)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Clouds/Parallax2D3"]
+position = Vector2(0, -520)
+scale = Vector2(1, 1.1358)
 texture = ExtResource("9_g38md")
 centered = false
 

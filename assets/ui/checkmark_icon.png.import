@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bucxh0pfjd2tw"
-path="res://.godot/imported/upgrade_card.png-9738af865269f4b967a449e9315f0100.ctex"
+uid="uid://d34gsvass7ub4"
+path="res://.godot/imported/checkmark_icon.png-025b9d5bad1821a96e717635af0117d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/cards/upgrade_card.png"
-dest_files=["res://.godot/imported/upgrade_card.png-9738af865269f4b967a449e9315f0100.ctex"]
+source_file="res://assets/ui/checkmark_icon.png"
+dest_files=["res://.godot/imported/checkmark_icon.png-025b9d5bad1821a96e717635af0117d2.ctex"]
 
 [params]
 

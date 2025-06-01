@@ -1,0 +1,646 @@
+[gd_scene load_steps=24 format=3 uid="uid://bdesjipwmw1tx"]
+
+[ext_resource type="PackedScene" uid="uid://cd48ujcswfw50" path="res://ui/quest_item.tscn" id="1_jsmpg"]
+[ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_kb1sl"]
+[ext_resource type="Texture2D" uid="uid://dbqvpsqgyiace" path="res://assets/sprites/icons/profile_exp.png" id="3_cvb1e"]
+[ext_resource type="Script" uid="uid://djuesuhbv7o0w" path="res://addons/radial_progress/RadialProgress.gd" id="3_dlyel"]
+[ext_resource type="StyleBox" uid="uid://mcffbo0v1gfd" path="res://ui/test.tres" id="4_dlyel"]
+[ext_resource type="Texture2D" uid="uid://by8erumq8j2sx" path="res://assets/ui/map.jpg" id="5_7s3jg"]
+[ext_resource type="Texture2D" uid="uid://mkr2ayquatc4" path="res://assets/ui/fish_icon.png" id="7_cvb1e"]
+[ext_resource type="PackedScene" uid="uid://peujken5bx5u" path="res://ui/fishes_panel.tscn" id="7_lppvo"]
+[ext_resource type="PackedScene" uid="uid://cov7yosi3fuhj" path="res://ui/close_button.tscn" id="8_kb1sl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t7fc1"]
+bg_color = Color(0.0352941, 0.0352941, 0.0352941, 0.933333)
+
+[sub_resource type="GDScript" id="GDScript_em20l"]
+resource_name = "map_info"
+script/source = "extends Panel
+
+enum State { IDLE, FISHES }
+
+@export var map_name : Label
+@export var map_description : Label
+@export var map_texture : TextureRect
+@export var map_progress : RadialProgress
+@export var fishes_panel : Control
+@export var quest_item_scene : PackedScene
+@export var quests_parent : VBoxContainer
+@export var anim : AnimationPlayer
+
+var state : State = State.IDLE
+
+signal closed()
+
+func set_data(data : MapData):
+	map_name.text = data.name
+	map_description.text = data.description
+	map_texture.texture = data.image
+	map_progress.progress = data.map_completed_percentage * 100
+	fishes_panel.set_fishes(data.fishes)
+	_add_quests(data)
+	pass
+
+func _add_quests(data : MapData):
+	for quest in quests_parent.get_children():
+		quest.queue_free()
+	for quest in data.quests:
+		var quest_item : QuestItem = quest_item_scene.instantiate() as QuestItem
+		quests_parent.add_child(quest_item)
+		quest_item.set_data(quest)
+	pass
+
+func _on_continue_button_down() -> void:
+	GameManager.start_level()
+	pass # Replace with function body.
+
+func show_map_info():
+	state = State.IDLE
+	anim.play(\"initial\")
+	pass
+
+func _on_fishes_button_down() -> void:
+	anim.play(\"show_fishes\")
+	state = State.FISHES
+	pass # Replace with function body.
+
+func _on_close_button_button_down() -> void:
+	_check_close()
+	pass # Replace with function body.
+
+func _check_close():
+	match state:
+		State.IDLE:
+			closed.emit()
+		State.FISHES:
+			show_map_info()
+	pass
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_cvb1e"]
+font = ExtResource("2_kb1sl")
+font_size = 56
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.780392)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0p7vj"]
+font = ExtResource("2_kb1sl")
+font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rmri6"]
+bg_color = Color(0.23987, 0.373256, 0.656482, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eguev"]
+bg_color = Color(0.292288, 0.435631, 0.736019, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvb1e"]
+bg_color = Color(0.392157, 0.592157, 0.831373, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_dlyel"]
+font = ExtResource("2_kb1sl")
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.701961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjqc2"]
+bg_color = Color(0.462745, 0.298039, 0.784314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.341176, 0.192157, 0.552941, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.27451)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0p7vj"]
+bg_color = Color(0.458824, 0.219608, 0.803922, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.396078, 0.235294, 0.713726, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Animation" id="Animation_kb1sl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FishesPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FishesPanel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MapInfo/MapName:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MapInfo/MapDescription:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MapInfo/Map:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("InfoPanel:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(936, 96)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("InfoPanel/MarginContainer/Control/Buttons:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jsmpg"]
+resource_name = "initial"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FishesPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FishesPanel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MapInfo/MapName:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MapInfo/MapDescription:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MapInfo/Map:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("InfoPanel:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(1800, 96), Vector2(900, 96), Vector2(936, 96)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("InfoPanel/MarginContainer/Control/Buttons:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cvb1e"]
+resource_name = "show_fishes"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FishesPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FishesPanel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FishesPanel")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show_fishes"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dlyel"]
+_data = {
+&"RESET": SubResource("Animation_kb1sl"),
+&"initial": SubResource("Animation_jsmpg"),
+&"show_fishes": SubResource("Animation_cvb1e")
+}
+
+[node name="MapInfo" type="Panel" node_paths=PackedStringArray("map_name", "map_description", "map_texture", "map_progress", "fishes_panel", "quests_parent", "anim")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_t7fc1")
+script = SubResource("GDScript_em20l")
+map_name = NodePath("MapInfo/MapName")
+map_description = NodePath("MapInfo/MapDescription")
+map_texture = NodePath("MapInfo/Map/World/TextureRect")
+map_progress = NodePath("MapInfo/Map/RadialProgress")
+fishes_panel = NodePath("FishesPanel")
+quest_item_scene = ExtResource("1_jsmpg")
+quests_parent = NodePath("InfoPanel/MarginContainer/Control/Panel/MarginContainer/VBoxContainer/QuestsParent")
+anim = NodePath("Anim")
+metadata/_edit_lock_ = true
+
+[node name="MapInfo" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 192.0
+offset_top = -296.0
+offset_right = 896.0
+offset_bottom = 280.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MapName" type="Label" parent="MapInfo"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 40.0
+offset_bottom = 69.0
+grow_horizontal = 2
+text = "Color Shores"
+label_settings = SubResource("LabelSettings_cvb1e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Map" type="Control" parent="MapInfo"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -152.0
+offset_right = 104.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RadialProgress" type="Control" parent="MapInfo/Map"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_dlyel")
+radius = 116.0
+progress = 6.38
+bg_color = Color(0.321728, 0.321728, 0.321728, 0.729412)
+bar_color = Color(1, 1, 1, 1)
+metadata/_custom_type_script = "uid://djuesuhbv7o0w"
+
+[node name="MapCompletition" type="TextureProgressBar" parent="MapInfo/Map"]
+visible = false
+custom_minimum_size = Vector2(208, 208)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -114.0
+offset_top = -114.0
+offset_right = 114.0
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+value = 5.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("3_cvb1e")
+texture_progress = ExtResource("3_cvb1e")
+tint_under = Color(0, 0, 0, 0.827451)
+
+[node name="World" type="Panel" parent="MapInfo/Map"]
+clip_children = 2
+custom_minimum_size = Vector2(208, 208)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -104.0
+offset_right = 104.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(104, 104)
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("4_dlyel")
+
+[node name="TextureRect" type="TextureRect" parent="MapInfo/Map/World"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+texture = ExtResource("5_7s3jg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MapDescription" type="Label" parent="MapInfo"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -287.0
+offset_top = -196.0
+offset_right = 288.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "This is a long description of the map"
+label_settings = SubResource("LabelSettings_0p7vj")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="InfoPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -664.0
+offset_top = -264.0
+offset_right = -176.0
+offset_bottom = 310.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rmri6")
+
+[node name="MarginContainer" type="MarginContainer" parent="InfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Control" type="Control" parent="InfoPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="InfoPanel/MarginContainer/Control"]
+custom_minimum_size = Vector2(0, 448)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eguev")
+
+[node name="MarginContainer" type="MarginContainer" parent="InfoPanel/MarginContainer/Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InfoPanel/MarginContainer/Control/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="InfoPanel/MarginContainer/Control/Panel/MarginContainer/VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_cvb1e")
+text = "QUESTS"
+label_settings = SubResource("LabelSettings_dlyel")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QuestsParent" type="VBoxContainer" parent="InfoPanel/MarginContainer/Control/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="Buttons" type="HBoxContainer" parent="InfoPanel/MarginContainer/Control"]
+custom_minimum_size = Vector2(0, 102)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Fishes" type="Button" parent="InfoPanel/MarginContainer/Control/Buttons"]
+texture_filter = 1
+custom_minimum_size = Vector2(102, 102)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kb1sl")
+theme_override_font_sizes/font_size = 48
+theme_override_icons/icon = ExtResource("7_cvb1e")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cjqc2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0p7vj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0p7vj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cjqc2")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Continue" type="Button" parent="InfoPanel/MarginContainer/Control/Buttons"]
+texture_filter = 2
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_kb1sl")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/disabled = SubResource("StyleBoxFlat_cjqc2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0p7vj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0p7vj")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cjqc2")
+text = "Continue"
+icon_alignment = 2
+
+[node name="FishesPanel" parent="." instance=ExtResource("7_lppvo")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+
+[node name="CloseButton" parent="." instance=ExtResource("8_kb1sl")]
+layout_mode = 1
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dlyel")
+}
+
+[connection signal="button_down" from="InfoPanel/MarginContainer/Control/Buttons/Fishes" to="." method="_on_fishes_button_down"]
+[connection signal="button_down" from="InfoPanel/MarginContainer/Control/Buttons/Continue" to="." method="_on_continue_button_down"]
+[connection signal="button_down" from="CloseButton" to="." method="_on_close_button_button_down"]

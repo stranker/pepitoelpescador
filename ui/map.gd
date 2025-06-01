@@ -37,15 +37,9 @@ func _update_map_info(map_data : MapData):
 	map_info.set_data(map_data)
 	pass
 
-func _on_continue_button_down() -> void:
-	GameManager.start_level()
-	pass # Replace with function body.
-
-
 func _on_close_button_button_down() -> void:
 	_check_close()
 	pass # Replace with function body.
-
 
 func _check_close():
 	match current_state:
@@ -54,9 +48,6 @@ func _check_close():
 		State.MAP_SELECTED:
 			anim.play("idle")
 			current_state = State.IDLE
-		State.MAP_FISHES:
-			anim.play("hide_fishes")
-			current_state = State.MAP_SELECTED
 	pass
 
 func _on_map_info_gui_input(event: InputEvent) -> void:
@@ -65,8 +56,7 @@ func _on_map_info_gui_input(event: InputEvent) -> void:
 			_check_close()
 	pass # Replace with function body.
 
-
-func _on_fishes_button_down() -> void:
-	anim.play("show_fishes")
-	current_state = State.MAP_FISHES
+func _on_map_info_closed() -> void:
+	anim.play("idle")
+	current_state = State.IDLE
 	pass # Replace with function body.

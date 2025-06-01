@@ -38,9 +38,7 @@ func init(card_data : Card):
 	card_title.text = card_data.card_name
 	if card_data.card_type == Card.CardType.CHARACTER:
 		var card = card_data as CharacterCard
-		card_image.texture = AtlasTexture.new()
-		card_image.texture.region = Rect2(12, 0, 42, 42)
-		card_image.texture.atlas = card_data.card_texture
+		card_image.texture = card_data.card_texture
 		power_progress.set_data({"current_value":card.base_power})
 		accuracy_progress.set_data({"current_value":card.base_accuracy})
 	else:

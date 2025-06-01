@@ -106,7 +106,7 @@ func _load_game_data():
 		game_stats.days_passed = data.days_passed
 		game_stats.total_fishes_catched = data.total_fishes_catched
 		game_stats.fishes_data = data.fishes_data
-		_update_data_manager()
+		_update_data_manager(data)
 		ItemManager.set_loaded_items(data.items)
 		ItemManager.set_loaded_boat(data.boat_tier)
 		CardManager.set_character(data.player_card_type)
@@ -126,13 +126,16 @@ func save_game_data():
 		"items" = ItemManager.get_items_for_save(),
 		"boat_tier" = ItemManager.get_boat_data(),
 		"player_card_type" = CardManager.get_character_card_for_save(),
-		"player_skin" = skin_data.raw_data
+		"player_skin" = skin_data.raw_data,
+		"quests_data" = QuestManager.get_quest_for_save()
 	}
 	_update_data_manager()
 	save_to_file(game_data)
 	pass
 
-func _update_data_manager():
+func _update_data_manager(data : Dictionary = {}):
+	if not data.is_empty():
+		DataManager.update_quests(data.quests_data)
 	DataManager.update_fishes_data(game_stats.fishes_data)
 	pass
 
@@ -167,8 +170,16 @@ func _start_game():
 	pass
 
 func add_gold(new_gold : int):
+	var tween : Tween = create_tween()
+	tween.tween_method(_on_coin_tween, game_stats.gold, game_stats.gold + new_gold, 1)
+	tween.play()
+	await tween.finished
 	game_stats.gold += new_gold
-	gold_update.emit(game_stats.gold)
+	save_game_data()
+	pass
+
+func _on_coin_tween(gold):
+	gold_update.emit(gold)
 	pass
 
 func spend_coins(gold : int):
@@ -246,6 +257,7 @@ func clear_saved_data():
 	game_stats.reset()
 	player_selected = false
 	skin_data = null
+	DataManager.reset()
 	ItemManager.reset()
 	CardManager.reset()
 	pass
@@ -263,4 +275,11 @@ func stop_frames(count : int):
 
 func update_fish_data(fish_data : FishData):
 	game_stats.update_fish_data(fish_data)
+	pass
+
+func on_quest_claimed(quest_data : QuestData):
+	#COINS, EXP, ITEM 
+	match quest_data.reward_type:
+		QuestData.RewardType.COINS:
+			add_gold(quest_data.reward_data)
 	pass

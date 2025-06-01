@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dedu1aqgaewfb"
-path="res://.godot/imported/character_card.png-9a09e2812428bf62b6cfd7d0852680fa.ctex"
+uid="uid://c2lg04x37wcd2"
+path="res://.godot/imported/wooden_hook.png-43ab1f98232bd8e2442530c26a9e8481.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/cards/character_card.png"
-dest_files=["res://.godot/imported/character_card.png-9a09e2812428bf62b6cfd7d0852680fa.ctex"]
+source_file="res://assets/sprites/hooks/wooden_hook.png"
+dest_files=["res://.godot/imported/wooden_hook.png-43ab1f98232bd8e2442530c26a9e8481.ctex"]
 
 [params]
 

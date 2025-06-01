@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://d0xbi6t0b2vbd"]
+[gd_scene load_steps=41 format=3 uid="uid://d0xbi6t0b2vbd"]
 
 [ext_resource type="Script" uid="uid://cqxlmo30gty7l" path="res://scenes/customize_scene.gd" id="1_j84h7"]
 [ext_resource type="Texture2D" uid="uid://bym74op5wjxx1" path="res://assets/sprites/background/background.png" id="2_u4dpd"]
@@ -37,12 +37,24 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mm4d"]
-bg_color = Color(0.414638, 0.250967, 0.742126, 1)
+bg_color = Color(0.462745, 0.254902, 0.807843, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 8
 border_color = Color(0.396078, 0.235294, 0.713726, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xcjyi"]
+bg_color = Color(0.387524, 0.126821, 0.692835, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 8
+border_color = Color(0.319693, 0.0422419, 0.584294, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -87,6 +99,11 @@ corner_radius_bottom_left = 8
 [sub_resource type="LabelSettings" id="LabelSettings_u4dpd"]
 font = ExtResource("6_5ayll")
 font_size = 36
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.741176)
+shadow_offset = Vector2(1, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xjfl5"]
 bg_color = Color(0, 0, 0, 0.388235)
@@ -390,12 +407,12 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_j84h7")
 anim = NodePath("AnimationPlayer")
-skin_colors = NodePath("Panel/Sliders/Skins/SkinColors")
-hat_slider = NodePath("Panel/Sliders/VBoxContainer/HatSlider/VBoxContainer/Panel/HatSlider")
-hair_slider = NodePath("Panel/Sliders/VBoxContainer/HairSlider/VBoxContainer/Panel/HairSlider")
-face_slider = NodePath("Panel/Sliders/VBoxContainer/FaceSlider/VBoxContainer/Panel/FaceSlider")
-body_slider = NodePath("Panel/Sliders/VBoxContainer/BodySlider/VBoxContainer/Panel/BodySlider")
-player_skin = NodePath("Panel/Character/Pivot/Skin")
+skin_colors = NodePath("Panel/HBoxContainer/Sliders/Skins/SkinColors")
+hat_slider = NodePath("Panel/HBoxContainer/Sliders/VBoxContainer/HatSlider/VBoxContainer/Panel/HatSlider")
+hair_slider = NodePath("Panel/HBoxContainer/Sliders/VBoxContainer/HairSlider/VBoxContainer/Panel/HairSlider")
+face_slider = NodePath("Panel/HBoxContainer/Sliders/VBoxContainer/FaceSlider/VBoxContainer/Panel/FaceSlider")
+body_slider = NodePath("Panel/HBoxContainer/Sliders/VBoxContainer/BodySlider/VBoxContainer/Panel/BodySlider")
+player_skin = NodePath("Panel/HBoxContainer/Character/Pivot/Skin")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -423,7 +440,7 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -286.0
-offset_top = -96.0
+offset_top = -112.0
 offset_right = 286.0
 offset_bottom = -16.0
 grow_horizontal = 2
@@ -442,7 +459,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_jdcre")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_jdcre")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_bg1i5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_3mm4d")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_bg1i5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xcjyi")
 theme_override_styles/normal = SubResource("StyleBoxFlat_jdcre")
 text = "Randomize"
 icon_alignment = 2
@@ -462,30 +479,41 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_0y7et")
 theme_override_styles/normal = SubResource("StyleBoxFlat_k6abr")
 text = "CONFIRM"
 
-[node name="Sliders" type="Control" parent="Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(1200, 480)
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 272.0
-offset_top = -264.0
-offset_right = 728.0
-offset_bottom = 200.0
+offset_left = -600.0
+offset_top = -283.0
+offset_right = 600.0
+offset_bottom = 197.0
+grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Sliders"]
+[node name="Sliders" type="Control" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Sliders"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 64.0
+offset_right = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HatSlider" type="Control" parent="Panel/Sliders/VBoxContainer"]
+[node name="HatSlider" type="Control" parent="Panel/HBoxContainer/Sliders/VBoxContainer"]
 custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Sliders/VBoxContainer/HatSlider"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Sliders/VBoxContainer/HatSlider"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -493,19 +521,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SliderName" type="Label" parent="Panel/Sliders/VBoxContainer/HatSlider/VBoxContainer"]
+[node name="SliderName" type="Label" parent="Panel/HBoxContainer/Sliders/VBoxContainer/HatSlider/VBoxContainer"]
 texture_filter = 2
 layout_mode = 2
 text = "Hat"
 label_settings = SubResource("LabelSettings_u4dpd")
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="Panel/Sliders/VBoxContainer/HatSlider/VBoxContainer"]
+[node name="Panel" type="Panel" parent="Panel/HBoxContainer/Sliders/VBoxContainer/HatSlider/VBoxContainer"]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xjfl5")
 
-[node name="HatSlider" type="HSlider" parent="Panel/Sliders/VBoxContainer/HatSlider/VBoxContainer/Panel"]
+[node name="HatSlider" type="HSlider" parent="Panel/HBoxContainer/Sliders/VBoxContainer/HatSlider/VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -527,11 +555,11 @@ scrollable = false
 tick_count = 5
 ticks_on_borders = true
 
-[node name="HairSlider" type="Control" parent="Panel/Sliders/VBoxContainer"]
+[node name="HairSlider" type="Control" parent="Panel/HBoxContainer/Sliders/VBoxContainer"]
 custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Sliders/VBoxContainer/HairSlider"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Sliders/VBoxContainer/HairSlider"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -539,19 +567,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SliderName" type="Label" parent="Panel/Sliders/VBoxContainer/HairSlider/VBoxContainer"]
+[node name="SliderName" type="Label" parent="Panel/HBoxContainer/Sliders/VBoxContainer/HairSlider/VBoxContainer"]
 texture_filter = 2
 layout_mode = 2
 text = "Hair"
 label_settings = SubResource("LabelSettings_u4dpd")
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="Panel/Sliders/VBoxContainer/HairSlider/VBoxContainer"]
+[node name="Panel" type="Panel" parent="Panel/HBoxContainer/Sliders/VBoxContainer/HairSlider/VBoxContainer"]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xjfl5")
 
-[node name="HairSlider" type="HSlider" parent="Panel/Sliders/VBoxContainer/HairSlider/VBoxContainer/Panel"]
+[node name="HairSlider" type="HSlider" parent="Panel/HBoxContainer/Sliders/VBoxContainer/HairSlider/VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -573,11 +601,11 @@ scrollable = false
 tick_count = 5
 ticks_on_borders = true
 
-[node name="FaceSlider" type="Control" parent="Panel/Sliders/VBoxContainer"]
+[node name="FaceSlider" type="Control" parent="Panel/HBoxContainer/Sliders/VBoxContainer"]
 custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Sliders/VBoxContainer/FaceSlider"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Sliders/VBoxContainer/FaceSlider"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -585,19 +613,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SliderName" type="Label" parent="Panel/Sliders/VBoxContainer/FaceSlider/VBoxContainer"]
+[node name="SliderName" type="Label" parent="Panel/HBoxContainer/Sliders/VBoxContainer/FaceSlider/VBoxContainer"]
 texture_filter = 2
 layout_mode = 2
 text = "Face"
 label_settings = SubResource("LabelSettings_u4dpd")
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="Panel/Sliders/VBoxContainer/FaceSlider/VBoxContainer"]
+[node name="Panel" type="Panel" parent="Panel/HBoxContainer/Sliders/VBoxContainer/FaceSlider/VBoxContainer"]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xjfl5")
 
-[node name="FaceSlider" type="HSlider" parent="Panel/Sliders/VBoxContainer/FaceSlider/VBoxContainer/Panel"]
+[node name="FaceSlider" type="HSlider" parent="Panel/HBoxContainer/Sliders/VBoxContainer/FaceSlider/VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -619,11 +647,11 @@ scrollable = false
 tick_count = 5
 ticks_on_borders = true
 
-[node name="BodySlider" type="Control" parent="Panel/Sliders/VBoxContainer"]
+[node name="BodySlider" type="Control" parent="Panel/HBoxContainer/Sliders/VBoxContainer"]
 custom_minimum_size = Vector2(0, 88)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Sliders/VBoxContainer/BodySlider"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/Sliders/VBoxContainer/BodySlider"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -631,19 +659,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SliderName" type="Label" parent="Panel/Sliders/VBoxContainer/BodySlider/VBoxContainer"]
+[node name="SliderName" type="Label" parent="Panel/HBoxContainer/Sliders/VBoxContainer/BodySlider/VBoxContainer"]
 texture_filter = 2
 layout_mode = 2
 text = "Body"
 label_settings = SubResource("LabelSettings_u4dpd")
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="Panel/Sliders/VBoxContainer/BodySlider/VBoxContainer"]
+[node name="Panel" type="Panel" parent="Panel/HBoxContainer/Sliders/VBoxContainer/BodySlider/VBoxContainer"]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xjfl5")
 
-[node name="BodySlider" type="HSlider" parent="Panel/Sliders/VBoxContainer/BodySlider/VBoxContainer/Panel"]
+[node name="BodySlider" type="HSlider" parent="Panel/HBoxContainer/Sliders/VBoxContainer/BodySlider/VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -665,21 +693,21 @@ scrollable = false
 tick_count = 5
 ticks_on_borders = true
 
-[node name="Skins" type="Panel" parent="Panel/Sliders"]
+[node name="Skins" type="Panel" parent="Panel/HBoxContainer/Sliders"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -260.0
+offset_left = -196.0
 offset_top = -80.0
-offset_right = 260.0
+offset_right = 324.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_u4dpd")
 
-[node name="SkinColors" type="HBoxContainer" parent="Panel/Sliders/Skins"]
+[node name="SkinColors" type="HBoxContainer" parent="Panel/HBoxContainer/Sliders/Skins"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -696,7 +724,7 @@ mouse_filter = 2
 theme_override_constants/separation = 24
 alignment = 1
 
-[node name="SkinColor1" type="Button" parent="Panel/Sliders/Skins/SkinColors"]
+[node name="SkinColor1" type="Button" parent="Panel/HBoxContainer/Sliders/Skins/SkinColors"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 focus_mode = 0
@@ -707,7 +735,7 @@ toggle_mode = true
 button_pressed = true
 button_group = ExtResource("13_asrir")
 
-[node name="SkinColor2" type="Button" parent="Panel/Sliders/Skins/SkinColors"]
+[node name="SkinColor2" type="Button" parent="Panel/HBoxContainer/Sliders/Skins/SkinColors"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 focus_mode = 0
@@ -718,7 +746,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_u0yx8")
 toggle_mode = true
 button_group = ExtResource("13_asrir")
 
-[node name="SkinColor3" type="Button" parent="Panel/Sliders/Skins/SkinColors"]
+[node name="SkinColor3" type="Button" parent="Panel/HBoxContainer/Sliders/Skins/SkinColors"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 focus_mode = 0
@@ -728,7 +756,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_3x72u")
 toggle_mode = true
 button_group = ExtResource("13_asrir")
 
-[node name="SkinColor4" type="Button" parent="Panel/Sliders/Skins/SkinColors"]
+[node name="SkinColor4" type="Button" parent="Panel/HBoxContainer/Sliders/Skins/SkinColors"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 focus_mode = 0
@@ -738,7 +766,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_3kghn")
 toggle_mode = true
 button_group = ExtResource("13_asrir")
 
-[node name="SkinColor5" type="Button" parent="Panel/Sliders/Skins/SkinColors"]
+[node name="SkinColor5" type="Button" parent="Panel/HBoxContainer/Sliders/Skins/SkinColors"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 focus_mode = 0
@@ -748,7 +776,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_nqo2w")
 toggle_mode = true
 button_group = ExtResource("13_asrir")
 
-[node name="SkinColor6" type="Button" parent="Panel/Sliders/Skins/SkinColors"]
+[node name="SkinColor6" type="Button" parent="Panel/HBoxContainer/Sliders/Skins/SkinColors"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 focus_mode = 0
@@ -758,37 +786,27 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lt5ut")
 toggle_mode = true
 button_group = ExtResource("13_asrir")
 
-[node name="Character" type="Control" parent="Panel"]
+[node name="Character" type="Control" parent="Panel/HBoxContainer"]
 custom_minimum_size = Vector2(420, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 92.0
-offset_top = -264.0
-offset_right = 512.0
-offset_bottom = 264.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="Pivot" type="Control" parent="Panel/Character"]
+[node name="Pivot" type="Control" parent="Panel/HBoxContainer/Character"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -40.0
-offset_right = -4.0
-offset_bottom = -40.0
+offset_left = 66.0
+offset_top = 3.0
+offset_right = 66.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Skin" parent="Panel/Character/Pivot" instance=ExtResource("3_e6uhi")]
+[node name="Skin" parent="Panel/HBoxContainer/Character/Pivot" instance=ExtResource("3_e6uhi")]
 
 [node name="CardSelector" parent="." instance=ExtResource("10_4tpme")]
 visible = false
@@ -802,9 +820,9 @@ autoplay = "idle"
 
 [connection signal="button_down" from="Panel/Buttons/Randomize" to="." method="_on_randomize_button_down"]
 [connection signal="button_down" from="Panel/Buttons/Confirm" to="." method="_on_confirm_button_down"]
-[connection signal="value_changed" from="Panel/Sliders/VBoxContainer/HatSlider/VBoxContainer/Panel/HatSlider" to="." method="_on_hat_slider_value_changed"]
-[connection signal="value_changed" from="Panel/Sliders/VBoxContainer/HairSlider/VBoxContainer/Panel/HairSlider" to="." method="_on_hair_slider_value_changed"]
-[connection signal="value_changed" from="Panel/Sliders/VBoxContainer/FaceSlider/VBoxContainer/Panel/FaceSlider" to="." method="_on_face_slider_value_changed"]
-[connection signal="value_changed" from="Panel/Sliders/VBoxContainer/BodySlider/VBoxContainer/Panel/BodySlider" to="." method="_on_body_slider_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Sliders/VBoxContainer/HatSlider/VBoxContainer/Panel/HatSlider" to="." method="_on_hat_slider_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Sliders/VBoxContainer/HairSlider/VBoxContainer/Panel/HairSlider" to="." method="_on_hair_slider_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Sliders/VBoxContainer/FaceSlider/VBoxContainer/Panel/FaceSlider" to="." method="_on_face_slider_value_changed"]
+[connection signal="value_changed" from="Panel/HBoxContainer/Sliders/VBoxContainer/BodySlider/VBoxContainer/Panel/BodySlider" to="." method="_on_body_slider_value_changed"]
 [connection signal="back" from="CardSelector" to="." method="_on_card_selector_back"]
 [connection signal="character_card_selected" from="CardSelector" to="." method="_on_card_selector_character_card_selected"]
