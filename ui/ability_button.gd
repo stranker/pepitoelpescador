@@ -39,7 +39,7 @@ func on_activate():
 	tween.tween_property(self, "cooldown", 0, ability_data.cooldown)
 	tween.play()
 	await tween.finished
-	anim.play("idle")
+	anim.play("cooldown_completed")
 	available = true
 	cooldown = ability_data.cooldown
 	pass

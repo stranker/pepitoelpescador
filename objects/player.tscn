@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c6expp3ap42af"]
+[gd_scene load_steps=20 format=3 uid="uid://c6expp3ap42af"]
 
 [ext_resource type="Script" uid="uid://6humfo0d4sts" path="res://objects/player.gd" id="1_l4p8p"]
 [ext_resource type="PackedScene" uid="uid://ddgcwp74rtv0o" path="res://objects/hook.tscn" id="2_d1o6y"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://1xluodkpnre3" path="res://addons/ropesim/RopeHandle.gd" id="5_3rfka"]
 [ext_resource type="Script" uid="uid://b2shq2gjd4fvt" path="res://addons/ropesim/Rope.gd" id="6_i825w"]
 [ext_resource type="Script" uid="uid://dfppmnngy2wx4" path="res://addons/ropesim/RopeRendererLine2D.gd" id="7_3rfka"]
+[ext_resource type="PackedScene" uid="uid://b3jq5mosw47ix" path="res://objects/force_line.tscn" id="10_4vq5b"]
 
 [sub_resource type="Curve" id="Curve_4vq5b"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.96815, 0.0, 0, 0]
@@ -180,145 +181,6 @@ func _on_hook_stats_updated(stats : Hook.Stats) -> void:
 	pass
 "
 
-[sub_resource type="Curve" id="Curve_ev7ot"]
-_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_4u8jq"]
-offsets = PackedFloat32Array(0, 0.188192, 0.564576, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 0.870588, 0, 1, 1, 0.517647, 0, 1, 1, 0.188235, 0, 1)
-
-[sub_resource type="GDScript" id="GDScript_a2m6o"]
-resource_name = "rope"
-script/source = "extends Line2D
-
-
-@export var ropeLength = 30
-@export var constrain = 1	# distance between points
-@export var gravity = Vector2(0,9.8)
-@export var dampening = 0.9
-@export var startPin = true
-@export var endPin = true
-@export var start : Node2D
-@export var target : Node2D
-
-var pos: PackedVector2Array
-var posPrev: PackedVector2Array
-var pointCount: int
-
-func _ready()->void:
-	pointCount = get_pointCount(ropeLength)
-	resize_arrays()
-	init_position()
-	if start:
-		set_start(start.global_position - global_position)
-	pass
-
-func get_pointCount(distance: float)->int:
-	return int(ceil(distance / constrain))
-
-func resize_arrays():
-	pos.resize(pointCount)
-	posPrev.resize(pointCount)
-
-func init_position()->void:
-	for i in range(pointCount):
-		pos[i] = position + Vector2(constrain *i, 0)
-		posPrev[i] = position + Vector2(constrain *i, 0)
-	position = Vector2.ZERO
-
-func _physics_process(delta: float) -> void:
-	if target:
-		set_last(target.global_position - global_position)
-	update_points(delta)
-	update_constrain()
-	points = pos
-	pass
-
-func set_start(p:Vector2)->void:
-	pos[0] = p
-	posPrev[0] = p
-	pass
-
-func set_last(p:Vector2)->void:
-	pos[pointCount-1] = p
-	posPrev[pointCount-1] = p
-	pass
-
-func update_points(delta)->void:
-	for i in range (pointCount):
-		# not first and last || first if not pinned || last if not pinned
-		if (i!=0 && i!=pointCount-1) || (i==0 && !startPin) || (i==pointCount-1 && !endPin):
-			var velocity = (pos[i] -posPrev[i]) * dampening
-			posPrev[i] = pos[i]
-			pos[i] += velocity + (gravity * delta)
-
-func update_constrain()->void:
-	for i in range(pointCount):
-		if i == pointCount-1:
-			return
-		var distance = pos[i].distance_to(pos[i+1])
-		var difference = constrain - distance
-		var percent = difference / distance
-		var vec2 = pos[i+1] - pos[i]
-		
-		# if first point
-		if i == 0:
-			if startPin:
-				pos[i+1] += vec2 * percent
-			else:
-				pos[i] -= vec2 * (percent/2)
-				pos[i+1] += vec2 * (percent/2)
-		# if last point, skip because no more points after it
-		elif i == pointCount-1:
-			pass
-		# all the rest
-		else:
-			if i+1 == pointCount-1 && endPin:
-				pos[i] -= vec2 * percent
-			else:
-				pos[i] -= vec2 * (percent/2)
-				pos[i+1] += vec2 * (percent/2)
-"
-
-[sub_resource type="Animation" id="Animation_x1iy7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_4poni"]
-resource_name = "fade"
-length = 0.2
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.5, 0.5),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dihgw"]
-_data = {
-&"RESET": SubResource("Animation_x1iy7"),
-&"fade": SubResource("Animation_4poni")
-}
-
 [sub_resource type="GDScript" id="GDScript_i8sra"]
 resource_name = "player_abilities"
 script/source = "extends Node
@@ -330,9 +192,8 @@ func add_ability(ability : Ability):
 	pass
 "
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("force_line_anim", "force_line", "boat_anim", "abilities_parent")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("force_line", "boat_anim", "abilities_parent")]
 script = ExtResource("1_l4p8p")
-force_line_anim = NodePath("ForceLine/AnimationPlayer")
 force_line = NodePath("ForceLine")
 boat_anim = NodePath("Anim")
 abilities_parent = NodePath("Abilities")
@@ -395,7 +256,6 @@ metadata/_custom_type_script = "uid://dfppmnngy2wx4"
 z_index = 3
 position = Vector2(133, -67)
 rotation = -0.231931
-scale = Vector2(1, 1)
 
 [node name="RopeHandle" type="Marker2D" parent="Boat/Hook"]
 position = Vector2(-51.1896, -0.787392)
@@ -451,25 +311,8 @@ text = "Length:"
 layout_mode = 2
 text = "Recover:"
 
-[node name="ForceLine" type="Line2D" parent="."]
+[node name="ForceLine" parent="." instance=ExtResource("10_4vq5b")]
 z_index = 5
-texture_filter = 1
-texture_repeat = 2
-position = Vector2(10, -14)
-scale = Vector2(0.999999, 0.999999)
-width = 40.0
-width_curve = SubResource("Curve_ev7ot")
-gradient = SubResource("Gradient_4u8jq")
-end_cap_mode = 2
-script = SubResource("GDScript_a2m6o")
-ropeLength = 6
-gravity = Vector2(0, 0)
-dampening = 1.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ForceLine"]
-libraries = {
-&"": SubResource("AnimationLibrary_dihgw")
-}
 
 [node name="Abilities" type="Node" parent="."]
 script = SubResource("GDScript_i8sra")

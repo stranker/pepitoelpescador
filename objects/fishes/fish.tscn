@@ -415,7 +415,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Fish" type="Area2D" node_paths=PackedStringArray("anim")]
+[node name="Fish" type="Area2D" node_paths=PackedStringArray("anim") groups=["fish"]]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_vollg")

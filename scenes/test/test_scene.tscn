@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqu3ko6phe45w"]
+
+[ext_resource type="PackedScene" uid="uid://b3jq5mosw47ix" path="res://objects/force_line.tscn" id="1_wvq6k"]
+
+[node name="TestScene" type="Node2D"]
+
+[node name="ForceLine" parent="." instance=ExtResource("1_wvq6k")]

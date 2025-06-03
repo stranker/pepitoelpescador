@@ -13,11 +13,15 @@ resource_name = "hook_visible"
 script/source = "extends Node2D
 
 func increase_radius(multiplier : float):
-	scale = scale * multiplier
+	var tween : Tween = create_tween()
+	tween.tween_property(self, \"scale\", scale * multiplier, 0.2).set_ease(Tween.EASE_IN)
+	tween.play()
 	pass
 
 func reset_radius():
-	scale = Vector2.ONE
+	var tween : Tween = create_tween()
+	tween.tween_property(self, \"scale\",Vector2.ONE, 0.2).set_ease(Tween.EASE_IN)
+	tween.play()
 	pass
 "
 

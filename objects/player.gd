@@ -9,13 +9,13 @@ enum InteractionState { UNAVAILABLE, IDLE, THROW, RECOVER }
 var interaction_state : InteractionState = InteractionState.UNAVAILABLE
 var can_play : bool = true
 var can_drag : bool = false
+var dragging : bool = false
 
 var character_data : CharacterCard
 
 @onready var hook: Hook = $Boat/Hook
 @onready var skin: PlayerSkin = $Boat/Skin
-@export var force_line_anim : AnimationPlayer
-@export var force_line : Node2D
+@export var force_line : ForceLine
 @export var boat_anim : AnimationPlayer
 @export var abilities_parent : Node
 
@@ -24,7 +24,6 @@ func _ready() -> void:
 	GameManager.play_unavailable.connect(on_play_unavailable)
 	GameManager.end_day.connect(on_end_day)
 	can_play = true
-	force_line.hide()
 	_set_character_data()
 	pass
 
@@ -66,9 +65,8 @@ func _handle_throw(event : InputEvent):
 	if throw_state == ThrowState.END: return
 	if Input.is_action_just_pressed("throw"):
 		set_state(ThrowState.START)
-	if event is InputEventMouseMotion and can_drag:
-		if event.button_mask == MOUSE_BUTTON_LEFT:
-			set_state(ThrowState.DRAG)
+	if Input.is_action_pressed("throw"):
+		set_state(ThrowState.DRAG)
 	if event.is_action_released("throw") and throw_state == ThrowState.DRAG:
 		set_state(ThrowState.END)
 	pass
@@ -88,22 +86,21 @@ func set_state(new_state : ThrowState):
 			get_tree().call_group("ui", "fade_in")
 		ThrowState.START:
 			throw_initial_pos = get_global_mouse_position()
-			force_line.set_start(get_local_mouse_position())
-			force_line.set_last(get_local_mouse_position())
-			force_line.show()
-			force_line_anim.play("RESET")
+			force_line.init_throw()
 			can_drag = true
+			dragging = false
 		ThrowState.END:
-			hook.throw(throw_direction)
-			force_line_anim.play("fade")
+			if dragging:
+				hook.throw(throw_direction)
+			force_line.end_throw()
 		ThrowState.DRAG:
 			throw_direction = throw_initial_pos.direction_to(get_global_mouse_position()) * -1
 			hook.aim(throw_direction)
-			force_line.set_last(get_local_mouse_position())
+			force_line.drag_throw()
+			dragging = true
 		ThrowState.DISABLED:
 			can_play = false
 			hook.reset()
-			force_line.hide()
 	pass
 
 func set_interaction_state(new_state : InteractionState):

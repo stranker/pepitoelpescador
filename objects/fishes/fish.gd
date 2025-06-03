@@ -48,6 +48,7 @@ var fish_scales : Array = [0.9, 0.95, 1.0, 1.05, 1.1]
 var fish_stars : int = 1
 var weight : float = 1
 var is_enabled : bool = true
+var fish_gold : int = 0
 
 signal collected(fish)
 
@@ -62,6 +63,7 @@ func _ready() -> void:
 	debug_ui.visible = GameManager.debug_enabled
 	collected.connect(GameManager.collect_fish)
 	fish_stars = (randi() % 5) + 1 if not fish_data.is_boss else 5
+	reset_gold()
 	scale = Vector2.ONE * fish_scales[fish_stars - 1]
 	weight = fish_data.base_size * fish_scales[fish_stars - 1] + randf_range(0.0, 1.2)
 	if fish_data:
@@ -243,3 +245,11 @@ func _on_eat_component_eat() -> void:
 	set_deferred("target", null)
 	set_fish_state.call_deferred(FishState.MOVE)
 	pass # Replace with function body.
+
+func increase_gold(value : float):
+	fish_gold *= value
+	pass
+
+func reset_gold():
+	fish_gold = fish_data.fish_gold + fish_stars
+	pass

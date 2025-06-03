@@ -29,7 +29,7 @@ func set_data(fish : Fish):
 	var fish_data = fish.fish_data
 	name_label.text = fish_data.fish_name
 	fish_texture.texture = fish_data.fish_texture
-	fish_gold = fish_data.fish_gold
+	fish_gold = fish.fish_gold
 	coin_label.text = str(fish_gold)
 	exp_label.text = str(fish_data.fish_experience) + \" xp\"
 	if GameManager.combo_counter > 1:

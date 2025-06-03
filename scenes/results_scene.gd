@@ -60,7 +60,7 @@ func _get_result_item_data(fish : Fish):
 func end_presentation():
 	if input_enabled: return
 	input_enabled = true
-	GameManager.add_gold(total_result_data.gold + total_result_data.increment)
+	GameManager.add_gold(total_result_data.gold + ceil(total_result_data.increment))
 	GameManager.save_game_data()
 	pass
 

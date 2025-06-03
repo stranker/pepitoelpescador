@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0f07pdjg4nrt"]
+[gd_scene load_steps=10 format=3 uid="uid://d0f07pdjg4nrt"]
 
-[ext_resource type="Texture2D" uid="uid://cpalo30arsxsr" path="res://assets/sprites/cards/upgrades/accuracy_icon.png" id="1_bybqi"]
 [ext_resource type="Script" uid="uid://drfoxmode8o1o" path="res://ui/ability_info.gd" id="1_screy"]
+[ext_resource type="Texture2D" uid="uid://b7o8v0cgnoxat" path="res://assets/sprites/abilities/cat_eye.png" id="2_0t3dw"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_screy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ot44"]
@@ -24,19 +24,27 @@ border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
-border_color = Color(0.374139, 0.374139, 0.374139, 1)
+border_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8uhmg"]
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="LabelSettings" id="LabelSettings_0t3dw"]
 font = ExtResource("2_screy")
-font_color = Color(1, 1, 0, 1)
+font_size = 18
+font_color = Color(0.568627, 0.462745, 1, 1)
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
-shadow_size = 2
+shadow_size = 4
 shadow_color = Color(0, 0, 0, 0.733333)
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_jksk1"]
 font = ExtResource("2_screy")
@@ -44,17 +52,19 @@ font_size = 36
 font_color = Color(0.980392, 0.772549, 0, 1)
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
-shadow_size = 2
+shadow_size = 4
 shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_screy"]
 font = ExtResource("2_screy")
 font_size = 24
-font_color = Color(0.980392, 0.772549, 0, 1)
-outline_size = 2
+font_color = Color(0.568627, 0.462745, 1, 1)
+outline_size = 4
 outline_color = Color(0, 0, 0, 1)
-shadow_size = 2
+shadow_size = 4
 shadow_color = Color(0, 0, 0, 0.717647)
+shadow_offset = Vector2(0, 2)
 
 [node name="Ability" type="Control" node_paths=PackedStringArray("image", "title", "requirement", "type", "description")]
 texture_filter = 2
@@ -62,7 +72,7 @@ custom_minimum_size = Vector2(560, 120)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_screy")
-image = NodePath("Back/Control/ImagePanel/Image")
+image = NodePath("Back/Control/ImagePanel/MarginContainer/PanelContainer/Image")
 title = NodePath("Back/Info/Title")
 requirement = NodePath("Back/Info/Requirement")
 type = NodePath("Back/Control/Type")
@@ -99,28 +109,38 @@ offset_bottom = 36.0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5uoat")
 
-[node name="Image" type="TextureRect" parent="Back/Control/ImagePanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Back/Control/ImagePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_bybqi")
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="Back/Control/ImagePanel/MarginContainer"]
+clip_children = 1
+clip_contents = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8uhmg")
+
+[node name="Image" type="TextureRect" parent="Back/Control/ImagePanel/MarginContainer/PanelContainer"]
+layout_mode = 2
+texture = ExtResource("2_0t3dw")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Type" type="Label" parent="Back/Control"]
 texture_filter = 2
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 12
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -44.0
-offset_top = -23.0
-offset_right = 44.0
+offset_top = -26.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "passive"
@@ -144,7 +164,7 @@ grow_vertical = 2
 [node name="Title" type="Label" parent="Back/Info"]
 texture_filter = 2
 layout_mode = 1
-offset_right = 103.0
+offset_right = 392.0
 offset_bottom = 33.0
 text = "TITLE"
 label_settings = SubResource("LabelSettings_jksk1")
@@ -152,14 +172,15 @@ label_settings = SubResource("LabelSettings_jksk1")
 [node name="Requirement" type="Label" parent="Back/Info"]
 texture_filter = 2
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-offset_left = -56.0
-offset_top = 4.0
-offset_right = 1.0
-offset_bottom = 28.0
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = -24.0
 grow_horizontal = 0
+grow_vertical = 0
 text = "Lvl 1"
 label_settings = SubResource("LabelSettings_screy")
 horizontal_alignment = 2
@@ -179,7 +200,8 @@ grow_vertical = 0
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_offset_y = 2
 theme_override_fonts/normal_font = ExtResource("2_screy")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true

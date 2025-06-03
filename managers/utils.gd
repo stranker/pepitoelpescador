@@ -13,13 +13,13 @@ class ResultItemData:
 		texture = fish.fish_data.fish_texture
 		weight = fish.fish_data.max_weight
 		count = 1
-		gold = fish.fish_data.fish_gold
+		gold = fish.fish_gold
 		increment = gold * GameManager.gold_increment
 		pass
 	
 	func update(fish : Fish):
 		count += 1
-		gold += fish.fish_data.fish_gold
+		gold += fish.fish_gold
 		increment = gold * GameManager.gold_increment
 		if weight < fish.fish_data.max_weight:
 			weight = fish.fish_data.max_weight

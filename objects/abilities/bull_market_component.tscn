@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx5sretkao5vu"]
+
+[sub_resource type="GDScript" id="GDScript_kfa8h"]
+resource_name = "bull_market_component"
+script/source = "extends AbilityComponent
+
+func on_activate():
+	get_tree().call_group(\"fish\", \"increase_gold\", ability.modifier)
+	await wait_for_cooldown()
+	get_tree().call_group(\"fish\", \"reset_gold\")
+	pass
+"
+
+[node name="BullMarketComponent" type="Node"]
+script = SubResource("GDScript_kfa8h")

@@ -6,7 +6,7 @@ script/source = "extends AbilityComponent
 
 func on_activate():
 	get_tree().call_group(\"hook\", \"increase_radius\", ability.modifier)
-	await get_tree().create_timer(ability.duration).timeout
+	await wait_for_cooldown()
 	get_tree().call_group(\"hook\", \"reset_radius\")
 	pass
 "

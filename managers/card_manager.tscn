@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d0u656wq8p8ft"]
+[gd_scene load_steps=32 format=3 uid="uid://d0u656wq8p8ft"]
 
 [ext_resource type="Script" uid="uid://biw2k543ativ7" path="res://managers/card_manager.gd" id="1_urukv"]
 [ext_resource type="Script" uid="uid://dokbbhkitmfd5" path="res://objects/character_card.gd" id="2_6p2yx"]
@@ -7,11 +7,16 @@
 [ext_resource type="Script" uid="uid://ccjuv7sn2xqo0" path="res://objects/ability.gd" id="6_qsuk7"]
 [ext_resource type="PackedScene" uid="uid://du67qtxmrjq6m" path="res://objects/abilities/just_business_component.tscn" id="7_16ita"]
 [ext_resource type="PackedScene" uid="uid://dyojf5hrxvjur" path="res://objects/abilities/cat_eye_component.tscn" id="7_301xb"]
+[ext_resource type="Texture2D" uid="uid://b7o8v0cgnoxat" path="res://assets/sprites/abilities/cat_eye.png" id="7_kula4"]
 [ext_resource type="Texture2D" uid="uid://bx5ni6o312ov0" path="res://assets/sprites/icons/hunter_icon.png" id="8_301xb"]
+[ext_resource type="PackedScene" uid="uid://dycy0secld2bn" path="res://objects/abilities/concentrated_shot_component.tscn" id="8_stf3t"]
 [ext_resource type="PackedScene" uid="uid://btp0e4xcxbowf" path="res://objects/abilities/hawk_eye_component.tscn" id="8_wfsnr"]
+[ext_resource type="Texture2D" uid="uid://btpd5yohaifyg" path="res://assets/sprites/abilities/enlarge.png" id="9_dt47n"]
 [ext_resource type="Texture2D" uid="uid://bk3bdg5hlncnr" path="res://assets/sprites/icons/broker_icon.png" id="10_301xb"]
+[ext_resource type="Texture2D" uid="uid://dsi6xeovj5v38" path="res://assets/sprites/abilities/concentrated_shot.png" id="11_dt47n"]
 [ext_resource type="Texture2D" uid="uid://cjcs1hq262dw5" path="res://assets/sprites/icons/colossus_icon.png" id="12_301xb"]
 [ext_resource type="PackedScene" uid="uid://bekqov7qymyio" path="res://objects/abilities/fish_crusher_component.tscn" id="12_stf3t"]
+[ext_resource type="PackedScene" uid="uid://dx5sretkao5vu" path="res://objects/abilities/bull_market_component.tscn" id="14_d6o4e"]
 
 [sub_resource type="Resource" id="Resource_t1ebg"]
 script = ExtResource("3_3wi76")
@@ -67,26 +72,42 @@ card_description = "Increases the hook length by"
 [sub_resource type="Resource" id="Resource_stf3t"]
 script = ExtResource("6_qsuk7")
 name = "Cat eye"
-description = "Gain 0.3 accuracy on afternoon"
-texture = ExtResource("4_1jsee")
+description = "Gain %{0} accuracy on afternoon"
+texture = ExtResource("7_kula4")
 type = 0
 level_requirement = 0
 ability_component = ExtResource("7_301xb")
 modifier = 0.3
+is_modifier_percentage = true
 duration = 0.0
 cooldown = 0.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 
 [sub_resource type="Resource" id="Resource_wfsnr"]
 script = ExtResource("6_qsuk7")
-name = "Hawkeye"
-description = "Gains 50% of accuracy for 5 seconds"
-texture = ExtResource("4_1jsee")
+name = "Enlarger"
+description = "Increase the harpoon size by %{0} for {1}"
+texture = ExtResource("9_dt47n")
 type = 1
-level_requirement = 5
+level_requirement = 0
 ability_component = ExtResource("8_wfsnr")
 modifier = 1.5
+is_modifier_percentage = true
 duration = 5.0
+cooldown = 15.0
+metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
+
+[sub_resource type="Resource" id="Resource_kula4"]
+script = ExtResource("6_qsuk7")
+name = "Concentrated Shot"
+description = "Increments the velocity of the harpoon by {0}"
+texture = ExtResource("11_dt47n")
+type = 1
+level_requirement = 0
+ability_component = ExtResource("8_stf3t")
+modifier = 5.0
+is_modifier_percentage = false
+duration = 0.0
 cooldown = 15.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 
@@ -95,7 +116,7 @@ script = ExtResource("2_6p2yx")
 character_type = 0
 base_power = 1.8
 base_accuracy = 1.0
-abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_stf3t"), SubResource("Resource_wfsnr")])
+abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_stf3t"), SubResource("Resource_wfsnr"), SubResource("Resource_kula4")])
 card_name = "The Hunter"
 card_texture = ExtResource("8_301xb")
 card_description = "Great accuracy but less power"
@@ -109,8 +130,23 @@ type = 0
 level_requirement = 0
 ability_component = ExtResource("7_16ita")
 modifier = 0.2
+is_modifier_percentage = false
 duration = 0.0
 cooldown = 0.0
+metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
+
+[sub_resource type="Resource" id="Resource_br6io"]
+script = ExtResource("6_qsuk7")
+name = "Bull Market"
+description = ""
+texture = ExtResource("10_301xb")
+type = 1
+level_requirement = 0
+ability_component = ExtResource("14_d6o4e")
+modifier = 2.0
+is_modifier_percentage = false
+duration = 6.0
+cooldown = 20.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 
 [sub_resource type="Resource" id="Resource_htk0b"]
@@ -118,7 +154,7 @@ script = ExtResource("2_6p2yx")
 character_type = 1
 base_power = 1.0
 base_accuracy = 0.1
-abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_16ita")])
+abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_16ita"), SubResource("Resource_br6io")])
 card_name = "The Broker"
 card_texture = ExtResource("10_301xb")
 card_description = "Its the best to sell things"
@@ -132,6 +168,7 @@ type = 0
 level_requirement = 0
 ability_component = ExtResource("12_stf3t")
 modifier = 2.0
+is_modifier_percentage = false
 duration = 0.0
 cooldown = 0.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"

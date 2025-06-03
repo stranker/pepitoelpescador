@@ -11,6 +11,6 @@ func set_data(ability : Ability):
 	type.text = ability.get_type_string()
 	image.texture = ability.texture
 	title.text = ability.name
-	description.text = ability.description
+	description.text = ability.get_description()
 	requirement.text = "Lvl " + str(ability.level_requirement)
 	pass

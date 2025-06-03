@@ -248,3 +248,7 @@ func reset():
 	for fish in fishes.get_children():
 		fish.queue_free()
 	pass
+
+func stab(modifier : float):
+	velocity = velocity * modifier
+	pass

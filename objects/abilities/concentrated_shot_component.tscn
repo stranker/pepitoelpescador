@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dycy0secld2bn"]
+
+[sub_resource type="GDScript" id="GDScript_qn34f"]
+resource_name = "concentrated_shot_component"
+script/source = "extends AbilityComponent
+
+func on_activate():
+	get_tree().call_group(\"hook\", \"stab\", ability.modifier)
+	pass
+"
+
+[node name="ConcentratedShotComponent" type="Node"]
+script = SubResource("GDScript_qn34f")

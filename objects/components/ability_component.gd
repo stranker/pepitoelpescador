@@ -17,3 +17,6 @@ func activate():
 
 func on_activate():
 	pass
+
+func wait_for_cooldown():
+	await get_tree().create_timer(ability.duration).timeout
