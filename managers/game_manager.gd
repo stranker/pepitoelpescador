@@ -30,7 +30,8 @@ class GameStats:
 			"count": fish.fish_data.count,
 			"unlocked": fish.fish_data.unlocked,
 			"unlock_showed": fish.fish_data.unlock_showed,
-			"max_weight": fish.fish_data.max_weight
+			"max_weight": fish.fish_data.max_weight,
+			"fish_stars": fish.fish_stars
 		}
 		pass
 	
@@ -39,7 +40,8 @@ class GameStats:
 			"count": fish_data.count,
 			"unlocked": fish_data.unlocked,
 			"unlock_showed": fish_data.unlock_showed,
-			"max_weight": fish_data.max_weight
+			"max_weight": fish_data.max_weight,
+			"fish_stars": fish_data.fish_stars
 		}
 		pass
 
@@ -136,6 +138,7 @@ func save_game_data():
 func _update_data_manager(data : Dictionary = {}):
 	if not data.is_empty():
 		DataManager.update_quests(data.quests_data)
+	print_debug(game_stats.fishes_data)
 	DataManager.update_fishes_data(game_stats.fishes_data)
 	pass
 
@@ -279,7 +282,8 @@ func update_fish_data(fish_data : FishData):
 
 func on_quest_claimed(quest_data : QuestData):
 	#COINS, EXP, ITEM 
-	match quest_data.reward_type:
-		QuestData.RewardType.COINS:
-			add_gold(quest_data.reward_data)
+	var quest_reward : QuestReward = quest_data.get_current_reward()
+	match quest_reward.type:
+		QuestReward.RewardType.COINS:
+			add_gold(quest_reward.data)
 	pass

@@ -30,6 +30,7 @@ func initialize(load_fish_data : Dictionary):
 	count = load_fish_data.count
 	unlock_showed = load_fish_data.unlock_showed
 	max_weight = load_fish_data.max_weight
+	fish_stars = load_fish_data.fish_stars
 	pass
 
 func get_string_id():

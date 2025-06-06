@@ -1,7 +1,7 @@
 class_name Fish
 extends Area2D
 
-enum FishState { IDLE, MOVE, CHASE, HOOK, COLLECT, EAT, EATED, BEIGN_EATED }
+enum FishState { IDLE, MOVE, CHASE, HOOK, COLLECT, EAT, EATED, BEIGN_EATED, STUNED }
 
 var states : Array = [
 	{ "anim": "idle" }, #IDLE
@@ -11,7 +11,8 @@ var states : Array = [
 	{ "anim": "collect"}, #COLLECT
 	{ "update" : eat_update , "anim": "eat"}, #EAT
 	{ "enter" : eated_enter, "exit" : eated_exit, "anim": "eated"}, #EATED
-	{ "enter" : being_eated_enter, "exit" : being_eated_exit, "anim": "start_eated"} #BEING_EATED
+	{ "exit" : being_eated_exit, "anim": "start_eated"}, #BEING_EATED
+	{ "enter" : stun_enter, "anim": "stuned"} #STUNED
 ]
 
 @export var speed : float = 500
@@ -121,11 +122,12 @@ func stop_eated():
 	fish_state = FishState.HOOK
 	pass
 
-func being_eated_enter():
-	pass
-
 func being_eated_exit():
 	anim.play("RESET")
+	pass
+
+func stun_enter():
+	velocity = Vector2.ZERO
 	pass
 
 func eat_update(delta : float):
@@ -252,4 +254,11 @@ func increase_gold(value : float):
 
 func reset_gold():
 	fish_gold = fish_data.fish_gold + fish_stars
+	pass
+
+func stun(time : float):
+	if fish_state == FishState.HOOK: return
+	set_fish_state(FishState.STUNED)
+	await get_tree().create_timer(time).timeout
+	set_fish_state(FishState.MOVE)
 	pass

@@ -1,6 +1,6 @@
 extends Node
 
-@export var hooks : Array[HookStats]
+var hooks : Array[HookStats]
 @export var boat : BoatData
 
 var equipped_hook : HookStats = null
@@ -9,6 +9,7 @@ var equipped_boat : BoatData = null
 signal boat_upgraded(boat)
 
 func _ready() -> void:
+	hooks = DataManager.hooks
 	equipped_hook = hooks.front()
 	equipped_boat = boat
 	pass
@@ -65,4 +66,7 @@ func reset():
 		hook.reset()
 	boat.reset()
 	equipped_hook = hooks.front()
+	pass
+
+func get_item_texture(item_id : int):
 	pass

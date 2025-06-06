@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhtetih6em7ey"]
+
+[sub_resource type="GDScript" id="GDScript_373mt"]
+resource_name = "black_friday_component"
+script/source = "extends AbilityComponent
+
+func on_activate():
+	for hook in ItemManager.hooks:
+		hook.set_price_discount(ability.modifier)
+	pass
+"
+
+[node name="BlackFridayComponent" type="Node"]
+script = SubResource("GDScript_373mt")

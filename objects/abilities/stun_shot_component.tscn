@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmyrrrqw0dqu4"]
+
+[sub_resource type="GDScript" id="GDScript_bqggl"]
+resource_name = "stun_shot_component"
+script/source = "extends AbilityComponent
+
+func on_activate():
+	get_tree().call_group(\"hook_abilities\", \"stun\", ability.modifier)
+	pass
+"
+
+[node name="StunShotComponent" type="Node"]
+script = SubResource("GDScript_bqggl")

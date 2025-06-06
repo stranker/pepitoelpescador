@@ -1,100 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://dgh54f34uljkg"]
+[gd_scene load_steps=6 format=3 uid="uid://dgh54f34uljkg"]
 
 [ext_resource type="Script" uid="uid://tlxaa68vj303" path="res://managers/item_manager.gd" id="1_i730m"]
-[ext_resource type="Script" uid="uid://c8sxawxrjqy4a" path="res://objects/hook_stats.gd" id="2_13vnu"]
-[ext_resource type="Texture2D" uid="uid://c2lg04x37wcd2" path="res://assets/sprites/hooks/wooden_hook.png" id="3_8252n"]
-[ext_resource type="Texture2D" uid="uid://bn1wenq67648g" path="res://assets/sprites/hooks/stone_hook.png" id="4_rv1bi"]
-[ext_resource type="Texture2D" uid="uid://b4umkb1rpb3f3" path="res://assets/sprites/hooks/iron_hook.png" id="5_3gc6n"]
 [ext_resource type="Script" uid="uid://ckm0fmy0scpjh" path="res://objects/boat_data.gd" id="5_84b6b"]
-[ext_resource type="Texture2D" uid="uid://lqgbf14cklpa" path="res://assets/sprites/hooks/emerald_hook.png" id="6_ak83l"]
 [ext_resource type="Texture2D" uid="uid://ejc2v3gtfytb" path="res://assets/sprites/fishermans/boat.png" id="6_x1b0d"]
 [ext_resource type="Texture2D" uid="uid://diew3w44ia36g" path="res://assets/sprites/fishermans/boat_outlined.png" id="7_84b6b"]
-[ext_resource type="Texture2D" uid="uid://dfhdlraqd72lh" path="res://assets/sprites/hooks/crimson_hook.png" id="7_esag8"]
-
-[sub_resource type="Resource" id="Resource_2oa53"]
-script = ExtResource("2_13vnu")
-name = "Wooden Hook"
-id = 0
-purchased = true
-equiped = true
-texture = ExtResource("3_8252n")
-level = 0
-initial_hook = true
-penetration = 1
-price_array = Array[int]([0, 20, 40, 60, 80])
-force_array = Array[float]([0.5, 0.6, 0.7, 0.8, 0.9])
-accuracy_array = Array[float]([0.1, 0.12, 0.14, 0.16, 0.2])
-length_array = Array[float]([8.0, 8.2, 8.6, 9.0, 10.0])
-recover_array = Array[float]([1.0, 1.2, 1.4, 1.6, 1.85])
-metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
-
-[sub_resource type="Resource" id="Resource_sv32w"]
-script = ExtResource("2_13vnu")
-name = "Stone Hook"
-id = 1
-purchased = false
-equiped = false
-texture = ExtResource("4_rv1bi")
-level = 0
-initial_hook = false
-penetration = 1
-price_array = Array[int]([60, 100, 120, 150, 180])
-force_array = Array[float]([0.8, 0.9, 1.0, 1.1, 1.3])
-accuracy_array = Array[float]([0.18, 0.2, 0.21, 0.22, 0.24])
-length_array = Array[float]([10.0, 10.5, 11.0, 11.5, 12.0])
-recover_array = Array[float]([1.0, 1.2, 1.4, 1.6, 1.85])
-metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
-
-[sub_resource type="Resource" id="Resource_6jqk5"]
-script = ExtResource("2_13vnu")
-name = "Iron Hook"
-id = 2
-purchased = false
-equiped = false
-texture = ExtResource("5_3gc6n")
-level = 0
-initial_hook = false
-penetration = 1
-price_array = Array[int]([170, 190, 210, 230, 250])
-force_array = Array[float]([1.5, 1.6, 1.7, 1.8, 2.0])
-accuracy_array = Array[float]([0.2, 0.25, 0.3, 0.35, 0.4])
-length_array = Array[float]([11.0, 11.5, 12.0, 12.5, 13.0])
-recover_array = Array[float]([2.0, 2.05, 2.1, 2.15, 2.2])
-metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
-
-[sub_resource type="Resource" id="Resource_jqw5w"]
-script = ExtResource("2_13vnu")
-name = "Emerald Hook"
-id = 3
-purchased = false
-equiped = false
-texture = ExtResource("6_ak83l")
-level = 0
-initial_hook = false
-penetration = 1
-price_array = Array[int]([200, 250, 300, 350, 400])
-force_array = Array[float]([2.0, 2.2, 2.4, 2.6, 2.8])
-accuracy_array = Array[float]([0.3, 0.4, 0.45, 0.5, 0.55])
-length_array = Array[float]([12.0, 12.5, 13.0, 13.5, 14.0])
-recover_array = Array[float]([2.2, 2.4, 2.6, 2.8, 3.0])
-metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
-
-[sub_resource type="Resource" id="Resource_av0cc"]
-script = ExtResource("2_13vnu")
-name = "Crimson Hook"
-id = 4
-purchased = false
-equiped = false
-texture = ExtResource("7_esag8")
-level = 0
-initial_hook = false
-penetration = 1
-price_array = Array[int]([350, 400, 450, 500, 600])
-force_array = Array[float]([2.5, 3.0, 3.2, 3.6, 4.0])
-accuracy_array = Array[float]([0.5, 0.55, 0.6, 0.65, 0.7])
-length_array = Array[float]([14.0, 15.0, 16.0, 17.0, 18.0])
-recover_array = Array[float]([2.8, 3.0, 3.2, 3.4, 3.6])
-metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
 
 [sub_resource type="Resource" id="Resource_ipr50"]
 script = ExtResource("5_84b6b")
@@ -108,5 +17,4 @@ metadata/_custom_type_script = "uid://ckm0fmy0scpjh"
 
 [node name="ItemManager" type="Node"]
 script = ExtResource("1_i730m")
-hooks = Array[ExtResource("2_13vnu")]([SubResource("Resource_2oa53"), SubResource("Resource_sv32w"), SubResource("Resource_6jqk5"), SubResource("Resource_jqw5w"), SubResource("Resource_av0cc")])
 boat = SubResource("Resource_ipr50")

@@ -37,12 +37,10 @@ func _refresh_ui():
 			button_anim.play("disabled")
 	pass
 
-
 func _on_visibility_changed() -> void:
 	if not visible: return
 	_refresh_ui()
 	pass # Replace with function body.
-
 
 func _on_upgrade_button_button_down() -> void:
 	ItemManager.upgrade_boat()

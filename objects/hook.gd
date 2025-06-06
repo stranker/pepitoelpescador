@@ -31,7 +31,7 @@ class Stats:
 @onready var camera: Camera2D = $Camera
 @onready var water_splash: CPUParticles2D = $WaterSplash
 
-var speed_decrease : float = 0
+var speed_decrease : float = 0.2
 
 const LENGTH_MULTIPLIER : float = 100
 const LENGTH_LIMIT_MULTIPLIER : float = 1.5
@@ -57,6 +57,7 @@ signal hook_state_changed(hook_state)
 signal stats_updated(stats)
 signal items_collected(count)
 signal no_items_collected()
+signal fish_hit()
 
 func _ready() -> void:
 	set_physics_process(false)
@@ -225,6 +226,7 @@ func _on_fish_detector_area_entered(area: Area2D) -> void:
 	if hook_state == HookState.RECOVER: return
 	if fishes.get_child_count() >= hook_stats.penetration: return
 	if velocity.length() < hook_force_threshold: return
+	fish_hit.emit()
 	var fish : Fish = area as Fish
 	fish.hook(fishes)
 	velocity *= speed_decrease
@@ -251,4 +253,8 @@ func reset():
 
 func stab(modifier : float):
 	velocity = velocity * modifier
+	pass
+
+func set_decrease_speed(modifier : float):
+	speed_decrease = modifier
 	pass

@@ -7,6 +7,7 @@ extends Control
 @export var label_reward : Label
 @export var progress_label : Label
 @export var anim : AnimationPlayer
+@export var repetible_texture : TextureRect
 
 signal quest_claimed(quest)
 
@@ -26,8 +27,10 @@ func _refresh_ui(quest : QuestData):
 	quest_ref = quest
 	title.text = quest.get_quest_name()
 	target_icon.texture = quest.get_texture()
-	label_reward.text = str(quest.reward_data)
+	label_reward.text = str(quest.get_current_reward().data)
+	texture_reward.texture = quest.get_current_reward().get_texture()
 	progress_label.text = quest.get_progress_label()
+	repetible_texture.visible = quest.get_is_repetible()
 	match quest.state:
 		QuestData.State.CLAIMED:
 			anim.play("claimed")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl35is0jklxie"]
+
+[ext_resource type="Script" uid="uid://c5s1ryet8nr5v" path="res://objects/components/stun_ability.gd" id="1_tohf8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7t52y"]
+radius = 200.0
+
+[node name="StunAbility" type="Area2D"]
+collision_layer = 128
+collision_mask = 4
+monitoring = false
+script = ExtResource("1_tohf8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7t52y")
+debug_color = Color(0.966561, 0, 0.479763, 0.42)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

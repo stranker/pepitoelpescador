@@ -126,7 +126,7 @@ script/source = "extends Control
 func add_ability_button(ability_component : AbilityComponent):
 	var ability_button : AbilityButton = ability_button_scene.instantiate() as AbilityButton
 	abilities_parent.add_child(ability_button)
-	ability_button.set_data(ability_component)
+	ability_button.set_data(ability_component, abilities_parent.get_child_count())
 	pass
 "
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://cd48ujcswfw50"]
+[gd_scene load_steps=23 format=3 uid="uid://cd48ujcswfw50"]
 
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="1_esi1q"]
 [ext_resource type="Script" uid="uid://b1u73n8p5kdg2" path="res://ui/quest_item.gd" id="1_veyrl"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="4_78b36"]
 [ext_resource type="Texture2D" uid="uid://d34gsvass7ub4" path="res://assets/ui/checkmark_icon.png" id="5_of4vv"]
 [ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="5_wieq2"]
+[ext_resource type="Texture2D" uid="uid://ctfa6j7cwvevg" path="res://assets/ui/repetible_icon.png" id="6_of4vv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esi1q"]
 resource_local_to_scene = true
@@ -388,7 +389,7 @@ _data = {
 &"incomplete": SubResource("Animation_of4vv")
 }
 
-[node name="QuestItem" type="Control" node_paths=PackedStringArray("title", "target_icon", "texture_reward", "label_reward", "progress_label", "anim")]
+[node name="QuestItem" type="Control" node_paths=PackedStringArray("title", "target_icon", "texture_reward", "label_reward", "progress_label", "anim", "repetible_texture")]
 custom_minimum_size = Vector2(448, 128)
 layout_mode = 3
 anchors_preset = 0
@@ -401,6 +402,7 @@ texture_reward = NodePath("Panel/Reward/TextureRect")
 label_reward = NodePath("Panel/Reward/Label")
 progress_label = NodePath("Panel/Target/MarginContainer/Panel/Panel/Progress")
 anim = NodePath("AnimationPlayer")
+repetible_texture = NodePath("Panel/Repetible")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -532,17 +534,17 @@ autowrap_mode = 2
 
 [node name="Checkmark" type="TextureRect" parent="Panel"]
 layout_mode = 1
-anchors_preset = 6
+anchors_preset = 3
 anchor_left = 1.0
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -24.0
-offset_right = -16.0
-offset_bottom = 24.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -56.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 0
-grow_vertical = 2
+grow_vertical = 0
 size_flags_horizontal = 6
 size_flags_vertical = 4
 texture = SubResource("AtlasTexture_bvob8")
@@ -575,6 +577,20 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_72qqh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_23i65")
 theme_override_styles/normal = SubResource("StyleBoxFlat_esd5s")
 text = "CLAIM"
+
+[node name="Repetible" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 8.0
+offset_right = -16.0
+offset_bottom = 40.0
+grow_horizontal = 0
+texture = ExtResource("6_of4vv")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -1,10 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://g1lnxers4xc4"]
+[gd_scene load_steps=31 format=3 uid="uid://g1lnxers4xc4"]
 
 [ext_resource type="Script" uid="uid://0bwau1wibnsc" path="res://ui/hooks_shop_panel.gd" id="1_kqfp7"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="2_kqfp7"]
 [ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="5_glwro"]
 [ext_resource type="Texture2D" uid="uid://74frmjaqi1ns" path="res://assets/ui/right_arrow.png" id="6_i6ehd"]
 [ext_resource type="PackedScene" uid="uid://dsqhlrsvjyk21" path="res://ui/stat_progress_bar.tscn" id="6_ud7yv"]
+[ext_resource type="Texture2D" uid="uid://bsviwon5qvh3x" path="res://assets/ui/discount_icon.png" id="7_22x31"]
 [ext_resource type="Texture2D" uid="uid://co7vpun17o75d" path="res://assets/ui/upgrade_icon.png" id="7_g528f"]
 [ext_resource type="PackedScene" uid="uid://b88g72lgv2yax" path="res://ui/non_selectable_card.tscn" id="8_i6ehd"]
 [ext_resource type="PackedScene" uid="uid://cov7yosi3fuhj" path="res://ui/close_button.tscn" id="8_ud7yv"]
@@ -57,18 +58,22 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="LabelSettings" id="LabelSettings_ud7yv"]
-font = ExtResource("2_kqfp7")
-font_size = 36
-
 [sub_resource type="LabelSettings" id="LabelSettings_22x31"]
 font = ExtResource("2_kqfp7")
-font_size = 56
+font_size = 52
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 4
 shadow_color = Color(0, 0, 0, 0.819608)
 shadow_offset = Vector2(1, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kpf1h"]
+font = ExtResource("2_kqfp7")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_6b4v5"]
+font = ExtResource("2_kqfp7")
+font_size = 28
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glwro"]
 bg_color = Color(0.270588, 0.74902, 0.0156863, 1)
@@ -183,19 +188,19 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("PurchasedButtons/UpgradeButton/MarginContainer/VBoxContainer:modulate")
+tracks/5/path = NodePath("PurchasedButtons/UpgradeButton:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.470588)]
+"update": 1,
+"values": [true]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("PurchasedButtons/UpgradeButton:disabled")
+tracks/6/path = NodePath("PurchasedButtons/UpgradeButton:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -207,26 +212,26 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("PurchasedButtons/UpgradeButton:visible")
+tracks/7/path = NodePath("BuyButton/MarginContainer:modulate")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("BuyButton/MarginContainer/VBoxContainer:modulate")
+tracks/8/path = NodePath("PurchasedButtons/UpgradeButton/MarginContainer:modulate")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.470588)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_22x31"]
@@ -283,14 +288,14 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("BuyButton/MarginContainer/VBoxContainer:modulate")
+tracks/4/path = NodePath("BuyButton/MarginContainer:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.470588)]
+"values": [Color(1, 1, 1, 0.486275)]
 }
 
 [sub_resource type="Animation" id="Animation_kqfp7"]
@@ -383,18 +388,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("BuyButton/MarginContainer/VBoxContainer:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_6b4v5"]
@@ -495,26 +488,26 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PurchasedButtons/UpgradeButton/MarginContainer/VBoxContainer:modulate")
+tracks/0/path = NodePath("PurchasedButtons/UpgradeButton:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.470588)]
+"update": 1,
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PurchasedButtons/UpgradeButton:disabled")
+tracks/1/path = NodePath("PurchasedButtons/UpgradeButton/MarginContainer:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Color(1, 1, 1, 0.486275)]
 }
 
 [sub_resource type="Animation" id="Animation_glwro"]
@@ -523,38 +516,38 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PurchasedButtons/UpgradeButton/MarginContainer/VBoxContainer:modulate")
+tracks/0/path = NodePath("PurchasedButtons/UpgradeButton:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PurchasedButtons/UpgradeButton:disabled")
+tracks/1/path = NodePath("PurchasedButtons/UpgradeButton:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PurchasedButtons/UpgradeButton:visible")
+tracks/2/path = NodePath("PurchasedButtons/UpgradeButton/MarginContainer:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kpf1h"]
@@ -569,7 +562,7 @@ _data = {
 &"upgrade_enabled": SubResource("Animation_glwro")
 }
 
-[node name="HooksPanel" type="Control" node_paths=PackedStringArray("speed_stat", "length_stat", "accuracy_stat", "recover_stat", "buttons_anim", "upgrade_label", "buy_label", "right_button", "left_button", "upgrade_button", "card")]
+[node name="HooksPanel" type="Control" node_paths=PackedStringArray("speed_stat", "length_stat", "accuracy_stat", "recover_stat", "buttons_anim", "upgrade_label", "buy_label", "right_button", "left_button", "upgrade_button", "buy_offer", "buy_offer_label", "upgade_offer", "upgrade_offer_label", "card")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -582,11 +575,15 @@ length_stat = NodePath("MarginContainer/HBoxContainer/Info/NonSelectableCard/Bac
 accuracy_stat = NodePath("MarginContainer/HBoxContainer/Info/NonSelectableCard/Background/MarginContainer/VBoxContainer/Description/Panel/MarginContainer/Stats/Accuracy")
 recover_stat = NodePath("MarginContainer/HBoxContainer/Info/NonSelectableCard/Background/MarginContainer/VBoxContainer/Description/Panel/MarginContainer/Stats/Recover")
 buttons_anim = NodePath("MarginContainer/HBoxContainer/Info/Buttons/ButtonAnimation")
-upgrade_label = NodePath("MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/VBoxContainer/Control/HBoxContainer/Label")
-buy_label = NodePath("MarginContainer/HBoxContainer/Info/Buttons/BuyButton/MarginContainer/VBoxContainer/Control/HBoxContainer/Label")
+upgrade_label = NodePath("MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/Control/HBoxContainer/Label")
+buy_label = NodePath("MarginContainer/HBoxContainer/Info/Buttons/BuyButton/MarginContainer/HBoxContainer/Price")
 right_button = NodePath("MarginContainer/HBoxContainer/Right/RightButton")
 left_button = NodePath("MarginContainer/HBoxContainer/Left/LeftButton")
 upgrade_button = NodePath("MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton")
+buy_offer = NodePath("MarginContainer/HBoxContainer/Info/Buttons/BuyButton/Offer")
+buy_offer_label = NodePath("MarginContainer/HBoxContainer/Info/Buttons/BuyButton/Offer/Discount")
+upgade_offer = NodePath("MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/Offer")
+upgrade_offer_label = NodePath("MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/Offer/Discount")
 card = NodePath("MarginContainer/HBoxContainer/Info/NonSelectableCard")
 
 [node name="Panel" type="Panel" parent="."]
@@ -765,49 +762,74 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton/MarginContainer"]
-modulate = Color(1, 1, 1, 0.470588)
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton/MarginContainer"]
 layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 0
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton/MarginContainer/VBoxContainer"]
-visible = false
-texture_filter = 2
-layout_mode = 2
-text = "BUY"
-label_settings = SubResource("LabelSettings_ud7yv")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton/MarginContainer/VBoxContainer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton/MarginContainer/VBoxContainer/Control/HBoxContainer"]
+[node name="Coin" type="TextureRect" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 texture = ExtResource("5_glwro")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton/MarginContainer/VBoxContainer/Control/HBoxContainer"]
+[node name="Price" type="Label" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton/MarginContainer/HBoxContainer"]
 texture_filter = 2
 layout_mode = 2
+size_flags_horizontal = 4
 text = "9999"
 label_settings = SubResource("LabelSettings_22x31")
+
+[node name="Offer" type="TextureRect" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton"]
+self_modulate = Color(1, 0.305882, 0.2, 1)
+layout_mode = 0
+offset_left = 161.5
+offset_top = -61.0
+offset_right = 315.5
+offset_bottom = 46.0
+rotation = -0.261799
+pivot_offset = Vector2(77.0002, 56.0001)
+texture = ExtResource("7_22x31")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Discount" type="Label" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton/Offer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.7803
+offset_top = -28.7428
+offset_right = 57.2197
+offset_bottom = 10.2572
+grow_horizontal = 2
+grow_vertical = 2
+text = "20%"
+label_settings = SubResource("LabelSettings_kpf1h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Off" type="Label" parent="MarginContainer/HBoxContainer/Info/Buttons/BuyButton/Offer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = 2.5
+offset_right = 77.0
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "OFF"
+label_settings = SubResource("LabelSettings_6b4v5")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PurchasedButtons" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Info/Buttons"]
 visible = false
@@ -870,28 +892,13 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer"]
-modulate = Color(1, 1, 1, 0.470588)
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 0
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/VBoxContainer"]
-visible = false
-texture_filter = 2
-layout_mode = 2
-text = "UPGRADE"
-label_settings = SubResource("LabelSettings_ud7yv")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer"]
 custom_minimum_size = Vector2(0, 42)
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="UpgradeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/VBoxContainer/Control"]
+[node name="UpgradeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/Control"]
 self_modulate = Color(0.254902, 0.839216, 0.0235294, 1)
 custom_minimum_size = Vector2(44, 44)
 layout_mode = 1
@@ -903,7 +910,7 @@ texture = ExtResource("7_g528f")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/VBoxContainer/Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -914,7 +921,7 @@ mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/VBoxContainer/Control/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/Control/HBoxContainer"]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -923,11 +930,60 @@ texture = ExtResource("5_glwro")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/VBoxContainer/Control/HBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/MarginContainer/Control/HBoxContainer"]
 texture_filter = 2
 layout_mode = 2
 text = "9999"
 label_settings = SubResource("LabelSettings_22x31")
+
+[node name="Offer" type="TextureRect" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton"]
+self_modulate = Color(1, 0.305882, 0.2, 1)
+layout_mode = 0
+offset_left = 163.5
+offset_top = -59.0
+offset_right = 317.5
+offset_bottom = 48.0
+rotation = -0.261799
+pivot_offset = Vector2(77.0002, 56.0001)
+texture = ExtResource("7_22x31")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Discount" type="Label" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/Offer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = -29.5
+offset_right = 77.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "20%"
+label_settings = SubResource("LabelSettings_kpf1h")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Off" type="Label" parent="MarginContainer/HBoxContainer/Info/Buttons/PurchasedButtons/UpgradeButton/Offer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = 2.5
+offset_right = 77.0
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "OFF"
+label_settings = SubResource("LabelSettings_6b4v5")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ButtonAnimation" type="AnimationPlayer" parent="MarginContainer/HBoxContainer/Info/Buttons"]
 libraries = {

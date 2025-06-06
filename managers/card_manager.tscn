@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d0u656wq8p8ft"]
+[gd_scene load_steps=44 format=3 uid="uid://d0u656wq8p8ft"]
 
 [ext_resource type="Script" uid="uid://biw2k543ativ7" path="res://managers/card_manager.gd" id="1_urukv"]
 [ext_resource type="Script" uid="uid://dokbbhkitmfd5" path="res://objects/character_card.gd" id="2_6p2yx"]
@@ -16,7 +16,16 @@
 [ext_resource type="Texture2D" uid="uid://dsi6xeovj5v38" path="res://assets/sprites/abilities/concentrated_shot.png" id="11_dt47n"]
 [ext_resource type="Texture2D" uid="uid://cjcs1hq262dw5" path="res://assets/sprites/icons/colossus_icon.png" id="12_301xb"]
 [ext_resource type="PackedScene" uid="uid://bekqov7qymyio" path="res://objects/abilities/fish_crusher_component.tscn" id="12_stf3t"]
+[ext_resource type="Texture2D" uid="uid://b4l3ubvbkrm3p" path="res://assets/sprites/abilities/just_businness.png" id="14_a00jk"]
 [ext_resource type="PackedScene" uid="uid://dx5sretkao5vu" path="res://objects/abilities/bull_market_component.tscn" id="14_d6o4e"]
+[ext_resource type="PackedScene" uid="uid://dhtetih6em7ey" path="res://objects/abilities/black_friday_component.tscn" id="16_br6io"]
+[ext_resource type="Texture2D" uid="uid://ba34waggkd27d" path="res://assets/sprites/abilities/bull_market.png" id="16_t7dnv"]
+[ext_resource type="Texture2D" uid="uid://dwhmj5n7s3lhv" path="res://assets/sprites/abilities/black_friday.png" id="18_cjy4o"]
+[ext_resource type="Texture2D" uid="uid://bn834ld834pco" path="res://assets/sprites/abilities/fish_crusher.png" id="21_2tddw"]
+[ext_resource type="PackedScene" uid="uid://ccv3wuig72sqw" path="res://objects/abilities/unstopable_component.tscn" id="21_cjy4o"]
+[ext_resource type="PackedScene" uid="uid://bmyrrrqw0dqu4" path="res://objects/abilities/stun_shot_component.tscn" id="21_t7dnv"]
+[ext_resource type="Texture2D" uid="uid://ckcbp6aogtk7n" path="res://assets/sprites/abilities/unstopable.png" id="23_4mit4"]
+[ext_resource type="Texture2D" uid="uid://y8k26kioc2ww" path="res://assets/sprites/abilities/stun.png" id="25_rit06"]
 
 [sub_resource type="Resource" id="Resource_t1ebg"]
 script = ExtResource("3_3wi76")
@@ -72,7 +81,7 @@ card_description = "Increases the hook length by"
 [sub_resource type="Resource" id="Resource_stf3t"]
 script = ExtResource("6_qsuk7")
 name = "Cat eye"
-description = "Gain %{0} accuracy on afternoon"
+description = "Gain [color=\"gold\"]%{0}[/color] accuracy on afternoon"
 texture = ExtResource("7_kula4")
 type = 0
 level_requirement = 0
@@ -86,10 +95,10 @@ metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 [sub_resource type="Resource" id="Resource_wfsnr"]
 script = ExtResource("6_qsuk7")
 name = "Enlarger"
-description = "Increase the harpoon size by %{0} for {1}"
+description = "Increase the harpoon size by [color=\"gold\"]%{0}[/color] for [color=\"gold\"]{1}[/color]"
 texture = ExtResource("9_dt47n")
 type = 1
-level_requirement = 0
+level_requirement = 2
 ability_component = ExtResource("8_wfsnr")
 modifier = 1.5
 is_modifier_percentage = true
@@ -100,12 +109,12 @@ metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 [sub_resource type="Resource" id="Resource_kula4"]
 script = ExtResource("6_qsuk7")
 name = "Concentrated Shot"
-description = "Increments the velocity of the harpoon by {0}"
+description = "Increments the velocity of the harpoon by [color=\"gold\"]{0}[/color]"
 texture = ExtResource("11_dt47n")
 type = 1
-level_requirement = 0
+level_requirement = 4
 ability_component = ExtResource("8_stf3t")
-modifier = 5.0
+modifier = 10.0
 is_modifier_percentage = false
 duration = 0.0
 cooldown = 15.0
@@ -124,13 +133,13 @@ card_description = "Great accuracy but less power"
 [sub_resource type="Resource" id="Resource_16ita"]
 script = ExtResource("6_qsuk7")
 name = "Just Business"
-description = "Gains 20% of gold from each capture"
-texture = ExtResource("4_1jsee")
+description = "Gains [color=\"gold\"]{0}%[/color] of gold from each capture"
+texture = ExtResource("14_a00jk")
 type = 0
 level_requirement = 0
 ability_component = ExtResource("7_16ita")
 modifier = 0.2
-is_modifier_percentage = false
+is_modifier_percentage = true
 duration = 0.0
 cooldown = 0.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
@@ -138,10 +147,10 @@ metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 [sub_resource type="Resource" id="Resource_br6io"]
 script = ExtResource("6_qsuk7")
 name = "Bull Market"
-description = ""
-texture = ExtResource("10_301xb")
+description = "The gold of each fish increase by [color=\"gold\"]{0}[/color] for [color=\"gold\"]{1}s[/color]"
+texture = ExtResource("16_t7dnv")
 type = 1
-level_requirement = 0
+level_requirement = 2
 ability_component = ExtResource("14_d6o4e")
 modifier = 2.0
 is_modifier_percentage = false
@@ -149,12 +158,26 @@ duration = 6.0
 cooldown = 20.0
 metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
 
+[sub_resource type="Resource" id="Resource_d6o4e"]
+script = ExtResource("6_qsuk7")
+name = "Black Friday"
+description = "You have [color=\"gold\"]{0}%[/color] discount in the Shop"
+texture = ExtResource("18_cjy4o")
+type = 0
+level_requirement = 4
+ability_component = ExtResource("16_br6io")
+modifier = 0.2
+is_modifier_percentage = true
+duration = 0.0
+cooldown = 0.0
+metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
+
 [sub_resource type="Resource" id="Resource_htk0b"]
 script = ExtResource("2_6p2yx")
 character_type = 1
 base_power = 1.0
 base_accuracy = 0.1
-abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_16ita"), SubResource("Resource_br6io")])
+abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_16ita"), SubResource("Resource_br6io"), SubResource("Resource_d6o4e")])
 card_name = "The Broker"
 card_texture = ExtResource("10_301xb")
 card_description = "Its the best to sell things"
@@ -163,11 +186,39 @@ card_description = "Its the best to sell things"
 script = ExtResource("6_qsuk7")
 name = "Fish Crusher"
 description = "Can capture more than one fish with the hook"
-texture = ExtResource("4_1jsee")
+texture = ExtResource("21_2tddw")
 type = 0
 level_requirement = 0
 ability_component = ExtResource("12_stf3t")
 modifier = 2.0
+is_modifier_percentage = false
+duration = 0.0
+cooldown = 0.0
+metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
+
+[sub_resource type="Resource" id="Resource_a00jk"]
+script = ExtResource("6_qsuk7")
+name = "Unstopable"
+description = "Decrease the speed reduction by [color=\"gold\"]{0}%[/color] after hook a fish"
+texture = ExtResource("23_4mit4")
+type = 0
+level_requirement = 2
+ability_component = ExtResource("21_cjy4o")
+modifier = 0.8
+is_modifier_percentage = true
+duration = 0.0
+cooldown = 0.0
+metadata/_custom_type_script = "uid://ccjuv7sn2xqo0"
+
+[sub_resource type="Resource" id="Resource_t7dnv"]
+script = ExtResource("6_qsuk7")
+name = "Stun Shot"
+description = "Stuns the fishes for [color=\"gold\"]{0}s[/color]"
+texture = ExtResource("25_rit06")
+type = 1
+level_requirement = 4
+ability_component = ExtResource("21_t7dnv")
+modifier = 6.0
 is_modifier_percentage = false
 duration = 0.0
 cooldown = 0.0
@@ -178,7 +229,7 @@ script = ExtResource("2_6p2yx")
 character_type = 3
 base_power = 4.0
 base_accuracy = 0.0
-abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_301xb")])
+abilities = Array[ExtResource("6_qsuk7")]([SubResource("Resource_301xb"), SubResource("Resource_a00jk"), SubResource("Resource_t7dnv")])
 card_name = "The Colossus"
 card_texture = ExtResource("12_301xb")
 card_description = "Powerfull but inaccurate"

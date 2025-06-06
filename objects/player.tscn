@@ -185,11 +185,21 @@ func _on_hook_stats_updated(stats : Hook.Stats) -> void:
 resource_name = "player_abilities"
 script/source = "extends Node
 
+func _ready() -> void:
+	for ability in CardManager.character_card.abilities:
+		if is_unlocked(ability):
+			add_ability(ability)
+	pass
+
 func add_ability(ability : Ability):
 	var ability_component : AbilityComponent = ability.ability_component.instantiate()
 	add_child(ability_component)
 	ability_component.set_data(ability)
 	pass
+
+func is_unlocked(ability : Ability):
+	return GameManager.game_stats.player_level >= ability.level_requirement
+	
 "
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("force_line", "boat_anim", "abilities_parent")]

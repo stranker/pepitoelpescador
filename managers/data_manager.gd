@@ -6,6 +6,8 @@ extends Node
 @export var quests : Array[QuestData]
 @export_category("Maps")
 @export var maps : Array[MapData]
+@export_category("Hooks")
+@export var hooks : Array[HookStats]
 
 func update_fishes_data(fishes_data : Dictionary):
 	for id in fishes_data.keys():

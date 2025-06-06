@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccv3wuig72sqw"]
+
+[ext_resource type="Script" uid="uid://c4xyk7ehfy62p" path="res://objects/abilities/unstopable_component.gd" id="1_qum5p"]
+
+[node name="UnstopableComponent" type="Node"]
+script = ExtResource("1_qum5p")

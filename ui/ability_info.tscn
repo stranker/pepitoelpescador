@@ -9,7 +9,7 @@ bg_color = Color(0.600791, 0.743927, 0.885446, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
-border_width_bottom = 6
+border_width_bottom = 4
 border_color = Color(0.419608, 0.533333, 0.788235, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -39,7 +39,7 @@ corner_radius_bottom_left = 4
 [sub_resource type="LabelSettings" id="LabelSettings_0t3dw"]
 font = ExtResource("2_screy")
 font_size = 18
-font_color = Color(0.568627, 0.462745, 1, 1)
+font_color = Color(0.435294, 0.905882, 0.470588, 1)
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 4
@@ -59,7 +59,7 @@ shadow_offset = Vector2(0, 2)
 [sub_resource type="LabelSettings" id="LabelSettings_screy"]
 font = ExtResource("2_screy")
 font_size = 24
-font_color = Color(0.568627, 0.462745, 1, 1)
+font_color = Color(0.435294, 0.905882, 0.470588, 1)
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 4
@@ -76,7 +76,7 @@ image = NodePath("Back/Control/ImagePanel/MarginContainer/PanelContainer/Image")
 title = NodePath("Back/Info/Title")
 requirement = NodePath("Back/Info/Requirement")
 type = NodePath("Back/Control/Type")
-description = NodePath("Back/Info/RichTextLabel")
+description = NodePath("Back/Info/Description")
 
 [node name="Back" type="Panel" parent="."]
 layout_mode = 1
@@ -186,7 +186,7 @@ label_settings = SubResource("LabelSettings_screy")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Back/Info"]
+[node name="Description" type="RichTextLabel" parent="Back/Info"]
 texture_filter = 2
 clip_contents = false
 layout_mode = 1
@@ -206,3 +206,4 @@ theme_override_fonts/normal_font = ExtResource("2_screy")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "This is a long description of what the ability does"
+fit_content = true

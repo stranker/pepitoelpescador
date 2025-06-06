@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dganq5uwt8uy6"]
+[gd_scene load_steps=39 format=3 uid="uid://dganq5uwt8uy6"]
 
 [ext_resource type="Script" uid="uid://l724hp5rrdyc" path="res://managers/data_manager.gd" id="1_aeg7h"]
 [ext_resource type="Script" uid="uid://b6y452mskqd7s" path="res://data/fishes/fish_data.gd" id="2_f7n4c"]
@@ -9,44 +9,84 @@
 [ext_resource type="Script" uid="uid://bmvba6dff2gmi" path="res://data/quest_data.gd" id="7_witl7"]
 [ext_resource type="Script" uid="uid://b3b878xav353d" path="res://data/map_data.gd" id="8_nmli6"]
 [ext_resource type="Texture2D" uid="uid://dghqa181cy5q1" path="res://assets/sprites/fishes/greeny.png" id="8_unp2j"]
+[ext_resource type="Script" uid="uid://c4lll2dbecgoa" path="res://data/quest_reward.gd" id="8_yri2c"]
 [ext_resource type="Texture2D" uid="uid://b7jfe2lk2w7ek" path="res://assets/sprites/background/color_shores.jpg" id="9_3hglm"]
+[ext_resource type="Texture2D" uid="uid://fi07qup1wacg" path="res://assets/sprites/icons/coin.png" id="9_witl7"]
 [ext_resource type="Texture2D" uid="uid://cpalo30arsxsr" path="res://assets/sprites/cards/upgrades/accuracy_icon.png" id="9_yri2c"]
 [ext_resource type="PackedScene" uid="uid://7605xw4rige" path="res://scenes/color_shores.tscn" id="10_0feo0"]
 [ext_resource type="PackedScene" uid="uid://buqew5foqk3au" path="res://scenes/aurora_coast.tscn" id="11_4tdo5"]
 [ext_resource type="Texture2D" uid="uid://cmjghx3ti5vml" path="res://assets/sprites/background/mystic_river.jpg" id="12_wtjt5"]
+[ext_resource type="Script" uid="uid://c8sxawxrjqy4a" path="res://objects/hook_stats.gd" id="17_grynd"]
+[ext_resource type="Texture2D" uid="uid://c2lg04x37wcd2" path="res://assets/sprites/hooks/wooden_hook.png" id="18_11rb7"]
+[ext_resource type="Texture2D" uid="uid://bn1wenq67648g" path="res://assets/sprites/hooks/stone_hook.png" id="19_gl28v"]
+[ext_resource type="Texture2D" uid="uid://b4umkb1rpb3f3" path="res://assets/sprites/hooks/iron_hook.png" id="20_4nb5c"]
+[ext_resource type="Texture2D" uid="uid://lqgbf14cklpa" path="res://assets/sprites/hooks/emerald_hook.png" id="21_qay8d"]
+[ext_resource type="Texture2D" uid="uid://dfhdlraqd72lh" path="res://assets/sprites/hooks/crimson_hook.png" id="22_edak2"]
+
+[sub_resource type="Resource" id="Resource_yri2c"]
+script = ExtResource("8_yri2c")
+type = 0
+texture = ExtResource("9_witl7")
+data = 20
+metadata/_custom_type_script = "uid://c4lll2dbecgoa"
+
+[sub_resource type="Resource" id="Resource_witl7"]
+script = ExtResource("8_yri2c")
+type = 0
+texture = ExtResource("9_witl7")
+data = 40
+metadata/_custom_type_script = "uid://c4lll2dbecgoa"
+
+[sub_resource type="Resource" id="Resource_nmli6"]
+script = ExtResource("8_yri2c")
+type = 0
+texture = ExtResource("9_witl7")
+data = 80
+metadata/_custom_type_script = "uid://c4lll2dbecgoa"
+
+[sub_resource type="Resource" id="Resource_4tdo5"]
+script = ExtResource("8_yri2c")
+type = 0
+texture = ExtResource("9_witl7")
+data = 120
+metadata/_custom_type_script = "uid://c4lll2dbecgoa"
+
+[sub_resource type="Resource" id="Resource_3hglm"]
+script = ExtResource("8_yri2c")
+type = 0
+texture = ExtResource("9_witl7")
+data = 160
+metadata/_custom_type_script = "uid://c4lll2dbecgoa"
 
 [sub_resource type="Resource" id="Resource_ci4a3"]
 script = ExtResource("7_witl7")
 id = 0
 name = "Capture {0} Greeny"
 description = "This is the first quest"
-type = 0
-capture_count = 4
-capture_ids = Array[int]([0])
-reward_type = 0
-reward_data = 60
-state = 0
-progress = 0
 texture = ExtResource("8_unp2j")
-repetible = true
-repetible_increment = 4
+type = 0
+capture_ammount = Array[int]([4, 8, 12, 16, 20])
+rewards = Array[ExtResource("8_yri2c")]([SubResource("Resource_yri2c"), SubResource("Resource_witl7"), SubResource("Resource_nmli6"), SubResource("Resource_4tdo5"), SubResource("Resource_3hglm")])
+capture_ids = Array[int]([0])
 metadata/_custom_type_script = "uid://bmvba6dff2gmi"
+
+[sub_resource type="Resource" id="Resource_0feo0"]
+script = ExtResource("8_yri2c")
+type = 0
+texture = ExtResource("9_witl7")
+data = 150
+metadata/_custom_type_script = "uid://c4lll2dbecgoa"
 
 [sub_resource type="Resource" id="Resource_f15pg"]
 script = ExtResource("7_witl7")
 id = 1
 name = "Capture {0} fishes"
 description = "This is the second quest"
-type = 1
-capture_count = 10
-capture_ids = Array[int]([])
-reward_type = 0
-reward_data = 120
-state = 0
-progress = 0
 texture = ExtResource("9_yri2c")
-repetible = false
-repetible_increment = 0
+type = 1
+capture_ammount = Array[int]([25])
+rewards = Array[ExtResource("8_yri2c")]([SubResource("Resource_0feo0")])
+capture_ids = Array[int]([])
 metadata/_custom_type_script = "uid://bmvba6dff2gmi"
 
 [sub_resource type="Resource" id="Resource_grynd"]
@@ -85,8 +125,94 @@ fishes = Array[ExtResource("2_f7n4c")]([ExtResource("3_ci4a3"), ExtResource("4_f
 quests = Array[ExtResource("7_witl7")]([])
 metadata/_custom_type_script = "uid://b3b878xav353d"
 
+[sub_resource type="Resource" id="Resource_m7p6s"]
+script = ExtResource("17_grynd")
+name = "Wooden Hook"
+id = 0
+purchased = true
+equiped = true
+texture = ExtResource("18_11rb7")
+level = 0
+initial_hook = true
+penetration = 1
+price_array = Array[int]([0, 20, 40, 60, 80])
+force_array = Array[float]([0.5, 0.6, 0.7, 0.8, 0.9])
+accuracy_array = Array[float]([0.1, 0.12, 0.14, 0.16, 0.2])
+length_array = Array[float]([8.0, 8.2, 8.6, 9.0, 10.0])
+recover_array = Array[float]([1.0, 1.2, 1.4, 1.6, 1.85])
+metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
+
+[sub_resource type="Resource" id="Resource_cx1fx"]
+script = ExtResource("17_grynd")
+name = "Stone Hook"
+id = 1
+purchased = false
+equiped = false
+texture = ExtResource("19_gl28v")
+level = 0
+initial_hook = false
+penetration = 1
+price_array = Array[int]([60, 100, 120, 150, 180])
+force_array = Array[float]([0.8, 0.9, 1.0, 1.1, 1.3])
+accuracy_array = Array[float]([0.18, 0.2, 0.21, 0.22, 0.24])
+length_array = Array[float]([10.0, 10.5, 11.0, 11.5, 12.0])
+recover_array = Array[float]([1.0, 1.2, 1.4, 1.6, 1.85])
+metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
+
+[sub_resource type="Resource" id="Resource_tqcct"]
+script = ExtResource("17_grynd")
+name = "Iron Hook"
+id = 2
+purchased = false
+equiped = false
+texture = ExtResource("20_4nb5c")
+level = 0
+initial_hook = false
+penetration = 1
+price_array = Array[int]([170, 190, 210, 230, 250])
+force_array = Array[float]([1.5, 1.6, 1.7, 1.8, 2.0])
+accuracy_array = Array[float]([0.2, 0.25, 0.3, 0.35, 0.4])
+length_array = Array[float]([11.0, 11.5, 12.0, 12.5, 13.0])
+recover_array = Array[float]([2.0, 2.05, 2.1, 2.15, 2.2])
+metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
+
+[sub_resource type="Resource" id="Resource_ks851"]
+script = ExtResource("17_grynd")
+name = "Emerald Hook"
+id = 3
+purchased = false
+equiped = false
+texture = ExtResource("21_qay8d")
+level = 0
+initial_hook = false
+penetration = 1
+price_array = Array[int]([200, 250, 300, 350, 400])
+force_array = Array[float]([2.0, 2.2, 2.4, 2.6, 2.8])
+accuracy_array = Array[float]([0.3, 0.4, 0.45, 0.5, 0.55])
+length_array = Array[float]([12.0, 12.5, 13.0, 13.5, 14.0])
+recover_array = Array[float]([2.2, 2.4, 2.6, 2.8, 3.0])
+metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
+
+[sub_resource type="Resource" id="Resource_14p1l"]
+script = ExtResource("17_grynd")
+name = "Crimson Hook"
+id = 4
+purchased = false
+equiped = false
+texture = ExtResource("22_edak2")
+level = 0
+initial_hook = false
+penetration = 1
+price_array = Array[int]([350, 400, 450, 500, 600])
+force_array = Array[float]([2.5, 3.0, 3.2, 3.6, 4.0])
+accuracy_array = Array[float]([0.5, 0.55, 0.6, 0.65, 0.7])
+length_array = Array[float]([14.0, 15.0, 16.0, 17.0, 18.0])
+recover_array = Array[float]([2.8, 3.0, 3.2, 3.4, 3.6])
+metadata/_custom_type_script = "uid://c8sxawxrjqy4a"
+
 [node name="DataManager" type="Node"]
 script = ExtResource("1_aeg7h")
 fishes = Array[ExtResource("2_f7n4c")]([ExtResource("3_ci4a3"), ExtResource("4_f15pg"), ExtResource("5_unp2j"), ExtResource("6_yri2c")])
 quests = Array[ExtResource("7_witl7")]([SubResource("Resource_ci4a3"), SubResource("Resource_f15pg")])
 maps = Array[ExtResource("8_nmli6")]([SubResource("Resource_grynd"), SubResource("Resource_11rb7"), SubResource("Resource_gl28v")])
+hooks = Array[ExtResource("17_grynd")]([SubResource("Resource_m7p6s"), SubResource("Resource_cx1fx"), SubResource("Resource_tqcct"), SubResource("Resource_ks851"), SubResource("Resource_14p1l")])

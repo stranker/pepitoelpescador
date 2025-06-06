@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ddgcwp74rtv0o"]
+[gd_scene load_steps=21 format=3 uid="uid://ddgcwp74rtv0o"]
 
 [ext_resource type="Script" uid="uid://d1gmq48v1iuth" path="res://objects/hook.gd" id="1_u38fj"]
 [ext_resource type="Texture2D" uid="uid://cb6xdxcj7gp0" path="res://assets/sprites/hooks/default.png" id="2_7327f"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://sg65gjnmf13v" path="res://assets/sprites/particles/hook_wind.png" id="4_d1hv7"]
 [ext_resource type="Script" uid="uid://cuue7n3c55b7y" path="res://objects/combo_detector.gd" id="5_a1qhw"]
 [ext_resource type="AudioStream" uid="uid://d1om2h7aexgdg" path="res://assets/sfx/sfx_throw.wav" id="7_25xtu"]
+[ext_resource type="PackedScene" uid="uid://bl35is0jklxie" path="res://objects/components/stun_ability.tscn" id="7_h8oud"]
 
 [sub_resource type="GDScript" id="GDScript_7gc16"]
 resource_name = "hook_visible"
@@ -109,6 +110,20 @@ script/source = "extends CPUParticles2D
 
 func play():
 	animation_player.play(\"show\")
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_b3svi"]
+resource_name = "hook_abilities"
+script/source = "extends Node2D
+
+@export var stun_scene : PackedScene
+
+func stun(time : float):
+	await get_parent().fish_hit
+	var stun_ability = stun_scene.instantiate()
+	add_child.call_deferred(stun_ability)
+	stun_ability.init(time)
 	pass
 "
 
@@ -219,12 +234,17 @@ script = SubResource("GDScript_h8oud")
 [node name="ComboDetector" type="Node" parent="."]
 script = ExtResource("5_a1qhw")
 
+[node name="Abilities" type="Node2D" parent="." groups=["hook_abilities"]]
+script = SubResource("GDScript_b3svi")
+stun_scene = ExtResource("7_h8oud")
+
 [node name="Throw" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_iamd1")
 volume_db = 4.0
 pitch_scale = 1.5
 bus = &"SFx"
 
+[connection signal="fish_hit" from="." to="Abilities" method="_on_hook_fish_hit"]
 [connection signal="items_collected" from="." to="ComboDetector" method="_on_hook_items_collected"]
 [connection signal="no_items_collected" from="." to="ComboDetector" method="_on_hook_no_items_collected"]
 [connection signal="area_entered" from="WaterDetection" to="." method="_on_water_detection_area_entered"]

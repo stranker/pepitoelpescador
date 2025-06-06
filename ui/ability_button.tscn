@@ -1,26 +1,46 @@
-[gd_scene load_steps=13 format=3 uid="uid://chhnrx8jp3syn"]
+[gd_scene load_steps=17 format=3 uid="uid://chhnrx8jp3syn"]
 
 [ext_resource type="Script" uid="uid://bfsr5e86kcx0h" path="res://ui/ability_button.gd" id="1_e7yqb"]
-[ext_resource type="Texture2D" uid="uid://cpalo30arsxsr" path="res://assets/sprites/cards/upgrades/accuracy_icon.png" id="2_1cvru"]
+[ext_resource type="Texture2D" uid="uid://dsi6xeovj5v38" path="res://assets/sprites/abilities/concentrated_shot.png" id="2_1cvru"]
 [ext_resource type="FontFile" uid="uid://clsxpqfmryyob" path="res://assets/fonts/upheaval/upheavtt.ttf" id="3_1cvru"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7yqb"]
-bg_color = Color(0.783523, 0.783523, 0.783523, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cvru"]
+bg_color = Color(0.535399, 0.215301, 0.898503, 1)
 border_width_left = 2
 border_width_top = 1
 border_width_right = 2
 border_width_bottom = 2
+border_color = Color(0.464163, 0.266262, 0.82181, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4luq8"]
+bg_color = Color(0.535399, 0.215301, 0.898503, 1)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 6
+border_color = Color(0.464163, 0.266262, 0.82181, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mf2ns"]
-bg_color = Color(0.93845, 0.93845, 0.93845, 1)
+bg_color = Color(0.552941, 0.462745, 0.917647, 1)
 border_width_left = 2
 border_width_top = 1
 border_width_right = 2
 border_width_bottom = 6
+border_color = Color(0.464163, 0.266262, 0.82181, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubbow"]
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -30,75 +50,82 @@ corner_radius_bottom_left = 8
 font = ExtResource("3_1cvru")
 font_size = 64
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27yua"]
+bg_color = Color(0.201527, 0.201527, 0.201526, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.000113828, 0.000113828, 0.000113828, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_vwfn4"]
+line_spacing = 0.0
+font = ExtResource("3_1cvru")
+font_size = 36
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="Animation" id="Animation_rioxy"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_styles/normal:bg_color")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.93845, 0.93845, 0.93845, 1)]
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:scale")
+tracks/1/path = NodePath("MarginContainer/PanelContainer/Icon/Count:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MarginContainer/Icon/Count:visible")
+tracks/2/path = NodePath("MarginContainer/PanelContainer/Icon:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [false]
+"values": [Color(0.439049, 0.439049, 0.439049, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("MarginContainer/Icon:self_modulate")
+tracks/3/path = NodePath("MarginContainer/PanelContainer/Icon/Count:self_modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("MarginContainer/Icon/Count:self_modulate")
+tracks/4/path = NodePath(".:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -124,58 +151,46 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_styles/normal:bg_color")
+tracks/1/path = NodePath("MarginContainer/PanelContainer/Icon/Count:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.197937, 0.197937, 0.197937, 1)]
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MarginContainer/Icon/Count:visible")
+tracks/2/path = NodePath("MarginContainer/PanelContainer/Icon:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [true]
+"values": [Color(1, 1, 1, 1), Color(0.140447, 0.140447, 0.140447, 0.113725)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("MarginContainer/Icon:self_modulate")
+tracks/3/path = NodePath("MarginContainer/PanelContainer/Icon/Count:self_modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.113725)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("MarginContainer/Icon/Count:self_modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -201,7 +216,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MarginContainer/Icon/Count:self_modulate")
+tracks/1/path = NodePath("MarginContainer/PanelContainer/Icon/Count:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -222,6 +237,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer/PanelContainer/Icon:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_4luq8"]
 resource_name = "idle"
@@ -229,70 +256,58 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_styles/normal:bg_color")
+tracks/0/path = NodePath("MarginContainer/PanelContainer/Icon/Count:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.93845, 0.93845, 0.93845, 1)]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MarginContainer/Icon/Count:visible")
+tracks/1/path = NodePath("MarginContainer/PanelContainer/Icon:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [false]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("MarginContainer/Icon:self_modulate")
+tracks/2/path = NodePath("MarginContainer/PanelContainer/Icon/Count:self_modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("MarginContainer/Icon/Count:self_modulate")
+tracks/3/path = NodePath(".:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(1, 1)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath(".:scale")
+tracks/4/path = NodePath(".:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -318,7 +333,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MarginContainer/Icon/Count:visible")
+tracks/1/path = NodePath("MarginContainer/PanelContainer/Icon/Count:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -354,22 +369,25 @@ _data = {
 &"selected": SubResource("Animation_27yua")
 }
 
-[node name="Button" type="Button" node_paths=PackedStringArray("ability_icon", "count_label", "anim")]
+[node name="Button" type="Button" node_paths=PackedStringArray("ability_icon", "count_label", "anim", "key_button", "key_button_label")]
 custom_minimum_size = Vector2(120, 120)
 offset_right = 120.0
 offset_bottom = 120.0
 pivot_offset = Vector2(60, 60)
 focus_mode = 0
-theme_override_styles/disabled = SubResource("StyleBoxFlat_e7yqb")
-theme_override_styles/hover = SubResource("StyleBoxFlat_e7yqb")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_e7yqb")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_1cvru")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4luq8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4luq8")
 theme_override_styles/normal = SubResource("StyleBoxFlat_mf2ns")
 script = ExtResource("1_e7yqb")
-ability_icon = NodePath("MarginContainer/Icon")
-count_label = NodePath("MarginContainer/Icon/Count")
+ability_icon = NodePath("MarginContainer/PanelContainer/Icon")
+count_label = NodePath("MarginContainer/PanelContainer/Icon/Count")
 anim = NodePath("Anim")
+key_button = NodePath("KeyButton")
+key_button_label = NodePath("KeyButton/Label")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+self_modulate = Color(0.977937, 0.977937, 0.977937, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -377,17 +395,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 1
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 6
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 10
 
-[node name="Icon" type="TextureRect" parent="MarginContainer"]
-self_modulate = Color(0, 0, 0, 1)
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+clip_children = 2
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ubbow")
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/PanelContainer"]
+self_modulate = Color(0.439049, 0.439049, 0.439049, 1)
 layout_mode = 2
 texture = ExtResource("2_1cvru")
 
-[node name="Count" type="Label" parent="MarginContainer/Icon"]
+[node name="Count" type="Label" parent="MarginContainer/PanelContainer/Icon"]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -398,6 +421,35 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "10"
 label_settings = SubResource("LabelSettings_ubbow")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyButton" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_27yua")
+
+[node name="Label" type="Label" parent="KeyButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -2.0
+offset_right = 1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Q"
+label_settings = SubResource("LabelSettings_vwfn4")
 horizontal_alignment = 1
 vertical_alignment = 1
 

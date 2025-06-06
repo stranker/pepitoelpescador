@@ -13,6 +13,12 @@ extends Control
 @export var left_button : TextureButton
 @export var upgrade_button : Button
 
+@export var buy_offer : TextureRect
+@export var buy_offer_label : Label
+
+@export var upgade_offer : TextureRect
+@export var upgrade_offer_label : Label
+
 @export var card : Control
 
 signal closed
@@ -46,6 +52,8 @@ func set_data(hook_data : HookStats):
 	
 	upgrade_label.text = str(hook_data.get_next_price())
 	buy_label.text = str(hook_data.get_price())
+	buy_offer.visible = hook_data.price_discount != 0
+	buy_offer_label.text = "{0}%".format([int(hook_data.price_discount * 100)])
 	if hook_data.purchased:
 		if hook_data.equiped:
 			buttons_anim.play("equiped")
@@ -63,13 +71,18 @@ func _check_upgrade_button():
 		upgrade_button.visible = false
 		buttons_anim.queue("no_upgrade")
 	else:
-		if _can_buy():
+		if _can_upgrade():
 			buttons_anim.queue("upgrade_enabled")
 		else:
 			buttons_anim.queue("upgrade_disabled")
+		upgade_offer.visible = data.price_discount != 0
+		upgrade_offer_label.text = "{0}%".format([int(data.price_discount * 100)])
 	pass
 
 func _can_buy():
+	return data.get_price() <= GameManager.game_stats.gold
+
+func _can_upgrade():
 	return data.get_next_price() <= GameManager.game_stats.gold
 
 func _on_left_button_button_down() -> void:

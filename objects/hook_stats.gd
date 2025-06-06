@@ -16,20 +16,26 @@ extends Resource
 @export var length_array : Array[float]
 @export var recover_array : Array[float]
 
+var price_discount : float = 0
+
 const MAX_ACCURACY = 5
 
 func set_max_penetration(value : int):
 	penetration = value
 	pass
 
-func get_next_price():
+func get_next_price() -> int:
 	if level < get_max_level() - 1:
-		return price_array[level + 1]
+		return price_array[level + 1] * (1 - price_discount)
 	else:
 		return -1
 
-func get_price():
-	return price_array[level]
+func get_price() -> int:
+	return price_array[level] * (1 - price_discount)
+
+func set_price_discount(discount : float):
+	price_discount = discount
+	pass
 
 func purchase():
 	purchased = true
